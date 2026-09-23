@@ -1,0 +1,1325 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Tabakstop Chat Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --bg: #E9EEF3;
+  --surface: #FFFFFF;
+  --sunken: #F4F7FA;
+  --ink: #16293D;
+  --muted: #5A6E82;
+  --faint: #8A9BAC;
+  --line: #DCE4EC;
+  --brand: #2B6490;
+  --brand-dark: #1F4E73;
+  --brand-soft: #E4EEF7;
+  --sun: #FDB913;
+  --sun-soft: #FFF3D1;
+  --sun-ink: #6E5000;
+  --ok: #2E9E5B;
+  --ok-soft: #E3F4EA;
+  --bad: #B4462B;
+  --bad-soft: #FBE9E4;
+  --fr: #7A3D74;
+  --fr-soft: #F4E7F2;
+  --shadow-lg: 0 2px 6px rgba(22, 41, 61, .08), 0 18px 48px rgba(22, 41, 61, .18);
+  --shadow: 0 1px 2px rgba(22, 41, 61, .06), 0 6px 18px rgba(22, 41, 61, .08);
+  --display: "Outfit", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { background: var(--bg); }
+body {
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 0 16px;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.2; text-wrap: balance; }
+p { margin: 0; }
+
+.shell { max-width: 1320px; margin: 0 auto; padding-block: 20px 40px; display: flex; flex-direction: column; gap: 16px; }
+
+/* Top bar */
+.topbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.proto-label { display: flex; flex-direction: column; gap: 2px; margin-right: auto; }
+.proto-label h1 { font-size: 20px; font-weight: 700; }
+.proto-label span { font-size: 13px; color: var(--muted); }
+.tabs { display: inline-flex; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 3px; gap: 2px; flex-wrap: wrap; }
+.tabs button {
+  border: 0; background: transparent; padding: 8px 14px; border-radius: 7px;
+  font-weight: 600; color: var(--muted);
+}
+.tabs button[aria-selected="true"] { background: var(--brand); color: #FFFFFF; }
+.tabs button:not([aria-selected="true"]):hover { background: var(--sunken); color: var(--ink); }
+
+/* Visitor controls */
+.controls {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  padding: 10px 14px;
+}
+.controls .grp { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.controls .lbl { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex-wrap: wrap; }
+.seg button { border: 0; background: var(--surface); padding: 6px 11px; font-size: 13px; font-weight: 500; color: var(--muted); border-left: 1px solid var(--line); }
+.seg button:first-child { border-left: 0; }
+.seg button[aria-pressed="true"] { background: var(--brand-soft); color: var(--brand-dark); font-weight: 600; }
+.controls .hint { font-size: 13px; color: var(--muted); margin-left: auto; }
+
+/* Browser frame */
+.browser { background: var(--surface); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; border: 1px solid var(--line); }
+.bar { display: flex; align-items: center; gap: 12px; padding: 9px 14px; background: #F1F4F7; border-bottom: 1px solid var(--line); }
+.bar .dots { display: flex; gap: 6px; flex: none; }
+.bar .dots i { width: 10px; height: 10px; border-radius: 50%; background: #CFD8E1; display: block; }
+.bar .url { flex: 1; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Faux site */
+.site { position: relative; height: 660px; overflow: hidden; background: #FFFFFF; }
+.site-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 32px; }
+.wordmark { font-family: var(--display); font-weight: 700; font-size: 20px; color: #1D3A5A; letter-spacing: -.01em; }
+.wordmark span { color: #2B6490; font-weight: 500; }
+.site-nav nav { display: flex; gap: 22px; font-size: 14px; color: #2B6490; font-weight: 500; }
+.site-hero { padding: 26px 32px 0; max-width: 620px; display: flex; flex-direction: column; gap: 14px; }
+.site-hero h2 { font-size: 38px; font-weight: 700; color: #1D3A5A; letter-spacing: -.01em; }
+.site-hero p { font-size: 17px; color: #4B6076; line-height: 1.6; }
+.site-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 30px 32px; max-width: 900px; }
+.site-card { border-radius: 14px; padding: 18px; min-height: 150px; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; color: #FFFFFF; }
+.site-card b { font-family: var(--display); font-size: 17px; font-weight: 600; }
+.site-card span { font-size: 13px; opacity: .9; }
+.site-card.c1 { background: #AB58A2; }
+.site-card.c2 { background: #2B6490; }
+.site-card.c3 { background: #E8A20C; }
+.skel { padding: 0 32px; display: flex; flex-direction: column; gap: 10px; max-width: 700px; }
+.skel i { display: block; height: 10px; border-radius: 5px; background: #EDF1F5; }
+
+/* Launcher + widget panel */
+.launcher {
+  position: absolute; right: 22px; bottom: 22px; z-index: 3;
+  display: flex; align-items: center; gap: 10px;
+  border: 0; border-radius: 999px; padding: 12px 18px 12px 14px;
+  background: var(--brand); color: #FFFFFF; font-weight: 600; font-size: 15px;
+  box-shadow: var(--shadow-lg);
+}
+.launcher:hover { background: var(--brand-dark); }
+.launcher svg { width: 22px; height: 22px; flex: none; }
+.launcher.round { padding: 14px; }
+.launcher .unread { position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: var(--sun); color: #3A2A00; font-size: 12px; font-weight: 700; display: grid; place-items: center; }
+.panel {
+  position: absolute; right: 22px; bottom: 92px; z-index: 4;
+  width: 370px; height: calc(100% - 116px); max-height: 560px;
+  background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-lg);
+  overflow: hidden; display: flex;
+  transform-origin: bottom right;
+  animation: pop .18s ease-out;
+}
+@keyframes pop { from { opacity: .4; transform: scale(.96) translateY(6px); } to { opacity: 1; transform: none; } }
+@media (max-width: 620px) {
+  .site-nav nav { display: none; }
+  .site-hero h2 { font-size: 28px; }
+  .site-cards { grid-template-columns: 1fr; }
+  .site-card { min-height: 90px; }
+  .panel { left: 8px; right: 8px; width: auto; bottom: 84px; height: calc(100% - 96px); }
+}
+
+/* Chat component */
+.chat { display: flex; flex-direction: column; width: 100%; height: 100%; position: relative; background: var(--surface); }
+.c-head { background: var(--brand); color: #FFFFFF; padding: 14px 16px; display: flex; align-items: center; gap: 11px; flex: none; }
+.c-head .who { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.c-head .who b { font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 1.2; }
+.c-head .who span { font-size: 12.5px; opacity: .88; display: flex; align-items: center; gap: 6px; }
+.c-head .who span i { width: 7px; height: 7px; border-radius: 50%; background: #7BE09B; display: inline-block; }
+.c-head .who span i.off { background: #C9D3DC; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-family: var(--display); font-weight: 600; font-size: 15px; flex: none; background: #FFFFFF; color: var(--brand); }
+.c-head .hbtn { border: 1px solid rgba(255, 255, 255, .45); background: transparent; color: #FFFFFF; border-radius: 8px; padding: 5px 10px; font-size: 12.5px; font-weight: 600; flex: none; }
+.c-head .hbtn:hover { background: rgba(255, 255, 255, .14); }
+.c-head .icon-btn { border: 0; background: transparent; color: #FFFFFF; width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; flex: none; }
+.c-head .icon-btn:hover { background: rgba(255, 255, 255, .14); }
+.c-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: var(--surface); }
+.c-foot { border-top: 1px solid var(--line); padding: 10px 12px; display: flex; gap: 8px; align-items: flex-end; flex: none; background: var(--surface); }
+.c-foot textarea { flex: 1; resize: none; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; min-height: 40px; max-height: 110px; background: var(--sunken); }
+.c-foot textarea:focus { background: var(--surface); }
+.send { border: 0; background: var(--brand); color: #FFFFFF; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; flex: none; }
+.send:hover { background: var(--brand-dark); }
+.send svg { width: 18px; height: 18px; }
+.intro { color: var(--muted); font-size: 13.5px; }
+.f { display: flex; flex-direction: column; gap: 5px; }
+.f label { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.f input, .f select, .f textarea { border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px; background: var(--sunken); width: 100%; }
+.f input:focus, .f select:focus, .f textarea:focus { background: var(--surface); }
+.check { display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; color: var(--muted); }
+.check input { margin-top: 3px; accent-color: var(--brand); }
+.err { color: var(--bad); font-size: 12.5px; font-weight: 600; }
+.btn { border: 0; border-radius: 10px; padding: 11px 14px; font-weight: 600; background: var(--brand); color: #FFFFFF; }
+.btn:hover { background: var(--brand-dark); }
+.btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+.btn.ghost:hover { background: var(--sunken); color: var(--ink); }
+.btn.small { padding: 7px 11px; font-size: 13px; border-radius: 8px; }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.spacer { flex: 1; }
+.msg { max-width: 84%; padding: 9px 12px; border-radius: 14px; font-size: 14px; line-height: 1.45; white-space: pre-wrap; word-wrap: break-word; }
+.msg.them { background: #EEF3F8; color: var(--ink); border-bottom-left-radius: 4px; align-self: flex-start; }
+.msg.me { background: var(--brand); color: #FFFFFF; border-bottom-right-radius: 4px; align-self: flex-end; }
+.msg small { display: block; font-size: 11px; opacity: .7; margin-bottom: 2px; font-weight: 600; }
+.sys { align-self: center; font-size: 12px; color: var(--faint); text-align: center; }
+.typing { align-self: flex-start; display: flex; gap: 4px; padding: 11px 13px; background: #EEF3F8; border-radius: 14px; border-bottom-left-radius: 4px; }
+.typing i { width: 6px; height: 6px; border-radius: 50%; background: #8A9BAC; display: block; animation: blink 1.2s infinite ease-in-out; }
+.typing i:nth-child(2) { animation-delay: .15s; }
+.typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes blink { 0%, 60%, 100% { opacity: .3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-2px); } }
+.overlay { position: absolute; inset: 0; background: rgba(22, 41, 61, .45); display: grid; place-items: center; padding: 20px; z-index: 2; }
+.dialog { background: var(--surface); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 300px; box-shadow: var(--shadow-lg); }
+.dialog b { font-family: var(--display); font-size: 16px; font-weight: 600; }
+.rate-q { font-family: var(--display); font-size: 18px; font-weight: 600; line-height: 1.3; }
+.scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.scale button { aspect-ratio: 1; max-width: 100%; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--muted); }
+.scale button:hover { border-color: var(--sun); color: var(--sun-ink); }
+.scale button[aria-pressed="true"] { background: var(--sun); border-color: var(--sun); color: #3A2A00; }
+.scale-ends { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: -4px; }
+.done { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; margin: auto 0; padding: 12px; }
+.done .ring { width: 56px; height: 56px; border-radius: 50%; background: var(--ok-soft); color: var(--ok); display: grid; place-items: center; }
+.done .ring svg { width: 28px; height: 28px; }
+.done b { font-family: var(--display); font-size: 18px; font-weight: 600; }
+.done p { color: var(--muted); font-size: 13.5px; max-width: 30ch; }
+.offline-note { background: var(--sunken); border-radius: 10px; padding: 11px 12px; font-size: 13px; color: var(--muted); }
+.offline-note b { color: var(--ink); display: block; margin-bottom: 2px; }
+
+/* Embed page */
+.page-wrap { padding: 30px 32px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 32px; align-items: start; max-width: 1100px; }
+.page-copy { display: flex; flex-direction: column; gap: 16px; padding-top: 6px; }
+.page-copy .crumb { font-size: 13px; color: #6A8199; }
+.page-copy h2 { font-size: 32px; font-weight: 700; color: #1D3A5A; letter-spacing: -.01em; }
+.page-copy p { font-size: 15.5px; color: #4B6076; line-height: 1.6; }
+.hours { border-top: 1px solid var(--line); }
+.hours div { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.hours div span:last-child { font-variant-numeric: tabular-nums; color: var(--muted); }
+.hours div.today { font-weight: 600; }
+.hours div.today span:last-child { color: var(--ok); }
+.embed-card { height: 580px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); display: flex; }
+.embed-site { height: auto; min-height: 660px; }
+@media (max-width: 860px) {
+  .page-wrap { grid-template-columns: 1fr; padding: 22px 18px; }
+  .embed-card { height: 540px; }
+}
+
+/* Admin */
+.admin { display: grid; grid-template-columns: 216px minmax(0, 1fr); height: 760px; background: var(--sunken); position: relative; }
+.side { background: #16293D; color: #D6E1EB; display: flex; flex-direction: column; padding: 16px 12px; gap: 18px; min-height: 0; }
+.side .brandrow { display: flex; align-items: center; gap: 9px; padding: 2px 6px; }
+.side .brandrow b { font-family: var(--display); font-weight: 700; font-size: 16px; color: #FFFFFF; }
+.side .brandrow span { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #8FA6BC; }
+.side nav { display: flex; flex-direction: column; gap: 2px; }
+.side nav button { display: flex; align-items: center; gap: 10px; border: 0; background: transparent; color: #C3D1DE; padding: 9px 10px; border-radius: 8px; text-align: left; font-weight: 500; }
+.side nav button svg { width: 18px; height: 18px; flex: none; opacity: .85; }
+.side nav button:hover { background: rgba(255, 255, 255, .06); color: #FFFFFF; }
+.side nav button[aria-current="page"] { background: rgba(255, 255, 255, .1); color: #FFFFFF; font-weight: 600; }
+.side nav .badge { margin-left: auto; background: var(--sun); color: #3A2A00; font-size: 11.5px; font-weight: 700; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; display: grid; place-items: center; }
+.side .team { display: flex; flex-direction: column; gap: 8px; padding: 0 8px; }
+.side .team .lbl { font-size: 11px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: #7F97AE; }
+.side .team div { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: none; background: var(--ok); }
+.dot.away { background: #E2A13B; }
+.dot.off { background: #6E8297; }
+.side .me { margin-top: auto; background: rgba(255, 255, 255, .06); border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+.side .me .row { display: flex; align-items: center; gap: 9px; }
+.side .me .avatar { width: 32px; height: 32px; font-size: 13px; background: #2B6490; color: #FFFFFF; }
+.side .me b { color: #FFFFFF; font-weight: 600; font-size: 13.5px; display: block; line-height: 1.2; }
+.side .me small { font-size: 12px; color: #9FB3C6; }
+.status-toggle { display: grid; grid-template-columns: 1fr 1fr; background: rgba(0, 0, 0, .2); border-radius: 8px; padding: 3px; gap: 3px; }
+.status-toggle button { border: 0; border-radius: 6px; background: transparent; color: #AFC1D2; padding: 5px 4px; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.status-toggle button[aria-pressed="true"] { background: #FFFFFF; color: #16293D; }
+.sound { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; color: #AFC1D2; }
+.switch { width: 34px; height: 20px; border-radius: 10px; border: 0; background: #4A6076; position: relative; padding: 0; }
+.switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: #FFFFFF; transition: left .15s; }
+.switch[aria-checked="true"] { background: var(--ok); }
+.switch[aria-checked="true"]::after { left: 17px; }
+.main { min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+
+.inbox { display: grid; grid-template-columns: 280px minmax(0, 1fr) 260px; grid-template-areas: "list conv details"; flex: 1; min-height: 0; }
+.list { grid-area: list; background: var(--surface); border-right: 1px solid var(--line); overflow-y: auto; min-height: 0; }
+.list h3 { font-family: var(--body); font-size: 11.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--faint); padding: 16px 16px 8px; display: flex; justify-content: space-between; }
+.item { display: flex; flex-direction: column; gap: 3px; width: 100%; text-align: left; border: 0; border-left: 3px solid transparent; background: transparent; padding: 10px 14px 10px 13px; border-bottom: 1px solid #EEF2F6; }
+.item:hover { background: var(--sunken); }
+.item[aria-current="true"] { background: var(--brand-soft); border-left-color: var(--brand); }
+.item .r1 { display: flex; align-items: center; gap: 8px; }
+.item .r1 b { font-weight: 600; font-size: 14px; }
+.item .r1 .t { margin-left: auto; font-size: 12px; color: var(--faint); font-variant-numeric: tabular-nums; }
+.item .r2 { font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.item.waiting .r1 .t { color: var(--sun-ink); font-weight: 700; background: var(--sun-soft); padding: 1px 7px; border-radius: 6px; }
+.item.theirs { opacity: .72; }
+.chip { font-size: 10.5px; font-weight: 700; letter-spacing: .04em; padding: 2px 6px; border-radius: 5px; background: var(--brand-soft); color: var(--brand-dark); flex: none; }
+.chip.fr { background: var(--fr-soft); color: var(--fr); }
+.empty-list { padding: 4px 16px 12px; font-size: 13px; color: var(--faint); }
+
+.conv { grid-area: conv; display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--surface); }
+.conv-head { display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.conv-head .who { display: flex; flex-direction: column; margin-right: auto; min-width: 0; }
+.conv-head .who b { font-family: var(--display); font-weight: 600; font-size: 17px; display: flex; align-items: center; gap: 8px; }
+.conv-head .who span { font-size: 13px; color: var(--muted); }
+.conv-actions { display: flex; gap: 8px; position: relative; }
+.menu { position: absolute; top: calc(100% + 6px); right: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow-lg); padding: 6px; z-index: 5; min-width: 200px; display: flex; flex-direction: column; }
+.menu .lbl { font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); padding: 6px 8px; }
+.menu button { border: 0; background: transparent; text-align: left; padding: 8px; border-radius: 6px; display: flex; align-items: center; gap: 8px; }
+.menu button:hover { background: var(--sunken); }
+.menu button:disabled { color: var(--faint); cursor: not-allowed; }
+.menu button:disabled:hover { background: transparent; }
+.conv-body { flex: 1; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 10px; min-height: 0; background: #FAFBFD; }
+.conv-body .msg.them { background: #FFFFFF; border: 1px solid var(--line); }
+.conv-body .typing { background: #FFFFFF; border: 1px solid var(--line); }
+.take { margin: auto; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; padding: 20px; max-width: 360px; }
+.take .wait { font-family: var(--display); font-size: 30px; font-weight: 700; color: var(--sun-ink); font-variant-numeric: tabular-nums; }
+.take p { color: var(--muted); }
+.take .first { background: #FFFFFF; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; font-size: 14px; text-align: left; }
+.composer { border-top: 1px solid var(--line); padding: 12px 14px; display: flex; gap: 10px; align-items: flex-end; }
+.composer textarea { flex: 1; resize: none; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-height: 44px; max-height: 140px; background: var(--sunken); }
+.composer textarea:focus { background: var(--surface); }
+.composer .hint { font-size: 11.5px; color: var(--faint); }
+.readonly { border-top: 1px solid var(--line); padding: 12px 16px; font-size: 13px; color: var(--muted); background: var(--sunken); }
+
+.details { grid-area: details; background: var(--surface); border-left: 1px solid var(--line); overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 18px; min-height: 0; }
+.details h4 { margin: 0; font-size: 11.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--faint); }
+.kv { display: flex; flex-direction: column; gap: 9px; }
+.kv div { display: flex; flex-direction: column; gap: 1px; }
+.kv dt { font-size: 12px; color: var(--muted); }
+.kv dd { margin: 0; font-size: 13.5px; font-weight: 500; word-break: break-word; }
+.kv dd.none { color: var(--faint); font-weight: 400; }
+.details dl { margin: 0; }
+.note-area { width: 100%; resize: vertical; min-height: 70px; border: 1px solid var(--line); border-radius: 9px; padding: 8px 10px; background: var(--sunken); font-size: 13px; }
+
+.pane { flex: 1; overflow-y: auto; padding: 22px 24px; display: flex; flex-direction: column; gap: 18px; min-height: 0; }
+.pane-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.pane-head h2 { font-size: 22px; font-weight: 700; margin-right: auto; }
+.sample { font-size: 12px; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); padding: 3px 8px; border-radius: 6px; }
+.search { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 9px; padding: 0 10px; min-width: 0; flex: 1 1 240px; max-width: 360px; }
+.search svg { width: 16px; height: 16px; color: var(--faint); flex: none; }
+.search input { border: 0; background: transparent; padding: 8px 0; width: 100%; min-width: 0; }
+.search input:focus { outline: none; }
+.search:focus-within { outline: 2px solid var(--brand); outline-offset: 1px; }
+
+.archive-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 18px; min-height: 0; align-items: start; }
+.table-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th { text-align: left; font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); padding: 11px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; background: var(--surface); }
+td { padding: 10px 12px; border-bottom: 1px solid #EEF2F6; white-space: nowrap; font-variant-numeric: tabular-nums; }
+td.wrap { white-space: normal; min-width: 180px; color: var(--muted); }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--sunken); }
+tbody tr[aria-selected="true"] { background: var(--brand-soft); }
+tbody tr:last-child td { border-bottom: 0; }
+.score { display: inline-flex; align-items: center; gap: 5px; font-weight: 600; }
+.score i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.pill { font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 6px; }
+.pill.miss { background: var(--bad-soft); color: var(--bad); }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.transcript { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; display: flex; flex-direction: column; max-height: 600px; }
+.transcript .th { padding: 14px 16px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
+.transcript .th b { font-family: var(--display); font-weight: 600; font-size: 16px; }
+.transcript .th span { font-size: 12.5px; color: var(--muted); }
+.transcript .tb { padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; }
+.transcript .tb .msg { font-size: 13px; max-width: 92%; }
+.transcript .fb { border-top: 1px solid var(--line); padding: 12px 16px; font-size: 13px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
+.transcript .fb b { color: var(--ink); }
+.no-results { padding: 24px; text-align: center; color: var(--muted); }
+
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.kpi .k { font-size: 12.5px; color: var(--muted); font-weight: 500; }
+.kpi .v { font-family: var(--display); font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.kpi .v small { font-size: 15px; font-weight: 600; color: var(--muted); }
+.kpi .s { font-size: 12.5px; color: var(--muted); }
+.kpi.warn .v { color: var(--bad); }
+.charts { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.card h3 { font-size: 15px; font-weight: 600; }
+.card .sub { font-size: 12.5px; color: var(--muted); margin-top: -6px; }
+.chart svg { width: 100%; height: auto; display: block; }
+.legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.dist { display: flex; flex-direction: column; gap: 8px; }
+.dist .row { display: grid; grid-template-columns: 22px 1fr 34px; align-items: center; gap: 8px; font-size: 13px; font-variant-numeric: tabular-nums; }
+.dist .row b { font-family: var(--display); font-weight: 600; text-align: center; }
+.dist .track { height: 12px; border-radius: 6px; background: #EEF2F6; overflow: hidden; }
+.dist .fill { height: 100%; border-radius: 6px; }
+.dist .row span:last-child { text-align: right; color: var(--muted); }
+.avg { display: flex; align-items: baseline; gap: 8px; }
+.avg b { font-family: var(--display); font-size: 30px; font-weight: 700; }
+.avg span { color: var(--muted); font-size: 13px; }
+.ops td { cursor: default; }
+.ops tbody tr { cursor: default; }
+.ops tbody tr:hover { background: transparent; }
+
+.toast { position: absolute; top: 14px; right: 14px; z-index: 10; background: #16293D; color: #FFFFFF; border-radius: 12px; padding: 12px 14px; display: flex; gap: 12px; align-items: center; box-shadow: var(--shadow-lg); max-width: 340px; animation: pop .2s ease-out; }
+.toast svg { width: 22px; height: 22px; color: var(--sun); flex: none; }
+.toast b { display: block; font-weight: 600; }
+.toast span { font-size: 12.5px; color: #B9C8D6; }
+.toast button { margin-left: 4px; border: 0; background: var(--sun); color: #3A2A00; border-radius: 8px; padding: 6px 10px; font-weight: 700; font-size: 12.5px; flex: none; }
+
+@media (max-width: 1180px) {
+  .inbox { grid-template-columns: 250px minmax(0, 1fr); grid-template-areas: "list conv" "list details"; grid-template-rows: minmax(0, 1fr) auto; }
+  .details { border-left: 0; border-top: 1px solid var(--line); flex-direction: row; flex-wrap: wrap; gap: 14px 28px; max-height: 190px; }
+  .details section { flex: 1 1 180px; }
+  .archive-grid { grid-template-columns: 1fr; }
+  .transcript { max-height: none; }
+}
+@media (max-width: 900px) {
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .charts { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .admin { grid-template-columns: 1fr; height: auto; }
+  .side { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .side nav { flex-direction: row; flex-wrap: wrap; }
+  .side .team { display: none; }
+  .side .me { margin-top: 0; flex: 1 1 100%; }
+  .inbox { grid-template-columns: 1fr; grid-template-areas: "list" "conv" "details"; grid-template-rows: auto; }
+  .list { max-height: 280px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .conv { height: 520px; }
+  .details { max-height: none; }
+  .pane { padding: 16px; }
+  .controls .hint { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+<style>
+html, body { margin: 0; }
+[hidden] { display: none !important; }
+.back { font-size: 13px; font-weight: 600; color: var(--brand); text-decoration: none; margin-bottom: 4px; }
+.back:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <div class="proto-label">
+      <a class="back" href="./">&larr; Terug naar het voorstel</a>
+      <h1>Livechat voor Tabakstop</h1>
+      <span>Klikbaar prototype · alle gesprekken en cijfers zijn voorbeelden</span>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Onderdeel">
+      <button role="tab" id="tab-embed" aria-selected="true" data-view="embed">Ingesloten op een pagina</button>
+      <button role="tab" id="tab-widget" aria-selected="false" data-view="widget">Chatknop op de site</button>
+      <button role="tab" id="tab-beheer" aria-selected="false" data-view="beheer">Beheer voor medewerkers</button>
+    </div>
+  </div>
+
+  <div class="controls" id="visitor-controls">
+    <div class="grp">
+      <span class="lbl">Stap</span>
+      <div class="seg" id="state-seg">
+        <button data-state="form" aria-pressed="true">Formulier</button>
+        <button data-state="chat" aria-pressed="false">Gesprek</button>
+        <button data-state="rate" aria-pressed="false">Tevredenheid</button>
+        <button data-state="offline" aria-pressed="false">Niemand beschikbaar</button>
+      </div>
+    </div>
+    <div class="grp">
+      <span class="lbl">Taal</span>
+      <div class="seg" id="lang-seg">
+        <button data-lang="nl" aria-pressed="true">NL</button>
+        <button data-lang="fr" aria-pressed="false">FR</button>
+      </div>
+    </div>
+    <span class="hint" id="controls-hint">Vul het formulier in en start een gesprek. De medewerker antwoordt automatisch.</span>
+  </div>
+
+  <section id="view-embed" role="tabpanel" aria-labelledby="tab-embed">
+    <div class="browser">
+      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">tabakstop.be/pagina/chat</div></div>
+      <div class="site embed-site">
+        <div class="site-nav">
+          <div class="wordmark">Tabakstop <span>· stoppen is mogelijk</span></div>
+          <nav><span>Ik wil stoppen</span><span>Ik ben gestopt</span><span>Ik help iemand</span><span>Info</span></nav>
+        </div>
+        <div class="page-wrap">
+          <div class="page-copy">
+            <span class="crumb">Home › Contact › Chat</span>
+            <h2>Chat met een tabakoloog</h2>
+            <p>Stel je vraag over stoppen met roken rechtstreeks aan een tabakoloog. Je hoeft je naam niet te geven: een voornaam of bijnaam volstaat.</p>
+            <div class="hours" aria-label="Openingsuren van de chat">
+              <div class="today"><span>Vandaag</span><span>9:00 – 17:00 · nu open</span></div>
+              <div><span>Maandag – vrijdag</span><span>9:00 – 17:00</span></div>
+              <div><span>Zaterdag en zondag</span><span>gesloten</span></div>
+            </div>
+            <p>Buiten de openingsuren kun je een bericht achterlaten. We antwoorden per e-mail.</p>
+          </div>
+          <div class="embed-card" id="embed-mount"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-widget" role="tabpanel" aria-labelledby="tab-widget" hidden>
+    <div class="browser">
+      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">tabakstop.be/pagina/stoppen-met-roken</div></div>
+      <div class="site" id="site-widget">
+        <div class="site-nav">
+          <div class="wordmark">Tabakstop <span>· stoppen is mogelijk</span></div>
+          <nav><span>Ik wil stoppen</span><span>Ik ben gestopt</span><span>Ik help iemand</span><span>Info</span></nav>
+        </div>
+        <div class="site-hero">
+          <h2>Stoppen met roken, je hoeft het niet alleen te doen</h2>
+          <p>Een tabakoloog helpt je een plan te maken dat bij jou past. Heb je een vraag? Start rechtsonder een gesprek.</p>
+        </div>
+        <div class="site-cards">
+          <div class="site-card c1"><b>Ik wil stoppen</b><span>Zo begin je eraan</span></div>
+          <div class="site-card c2"><b>Hulp bij stoppen</b><span>Begeleiding door een tabakoloog</span></div>
+          <div class="site-card c3"><b>Brochures</b><span>Downloaden of bestellen</span></div>
+        </div>
+        <div class="skel"><i style="width:92%"></i><i style="width:78%"></i><i style="width:85%"></i><i style="width:60%"></i></div>
+        <div id="widget-mount"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-beheer" role="tabpanel" aria-labelledby="tab-beheer" hidden>
+    <div class="browser">
+      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">chat.tabakstop.be</div></div>
+      <div class="admin" id="admin"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var ICON = {
+    chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12Z"/></svg>',
+    close: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+    minus: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 12h12"/></svg>',
+    send: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>',
+    check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+    inbox: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12Z"/></svg>',
+    archive: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1.5"/><path d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M10 13h4"/></svg>',
+    stats: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+    search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+    bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 1 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>'
+  };
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  /* ---------- Visitor strings ---------- */
+  var T = {
+    nl: {
+      launcher: 'Chat met ons',
+      title: 'Chat met een tabakoloog',
+      online: 'Een tabakoloog is beschikbaar',
+      offline: 'Nu niet bemand',
+      role: 'Tabakoloog',
+      intro: 'Stel je vraag anoniem. Een tabakoloog antwoordt meestal binnen een paar minuten.',
+      name: 'Voornaam of bijnaam',
+      topic: 'Waarover wil je praten?',
+      topics: ['Ik wil stoppen met roken', 'Ik ben gestopt en heb het moeilijk', 'Ik wil iemand helpen stoppen', 'Iets anders'],
+      email: 'E-mailadres (optioneel)',
+      emailPh: 'naam@voorbeeld.be',
+      consent: 'Ik ga akkoord met de privacyverklaring.',
+      start: 'Start gesprek',
+      required: 'Vul een voornaam of bijnaam in.',
+      consentReq: 'Vink de privacyverklaring aan om verder te gaan.',
+      placeholder: 'Typ je bericht…',
+      end: 'Beëindigen',
+      endQ: 'Wil je het gesprek beëindigen?',
+      endBody: 'Je kunt daarna altijd een nieuw gesprek starten.',
+      yes: 'Ja, beëindigen',
+      no: 'Verder chatten',
+      joined: function (n) { return n + ' neemt deel aan het gesprek'; },
+      rateQ: 'Hoe tevreden ben je over dit gesprek?',
+      rateLo: 'Helemaal niet',
+      rateHi: 'Heel tevreden',
+      comment: 'Wil je nog iets kwijt? (optioneel)',
+      commentPh: 'Je opmerking…',
+      submit: 'Versturen',
+      skip: 'Overslaan',
+      rateReq: 'Kies een score van 1 tot 5.',
+      thanks: 'Bedankt voor je gesprek',
+      thanksBody: 'Veel succes. Je kunt altijd opnieuw een gesprek starten.',
+      again: 'Nieuw gesprek',
+      offTitle: 'Momenteel is niemand beschikbaar',
+      offBody: 'De chat is bemand op werkdagen van 9 tot 17 uur. Laat een bericht achter, dan antwoorden we per e-mail.',
+      emailReq: 'E-mailadres',
+      message: 'Je bericht',
+      sendMsg: 'Bericht versturen',
+      offErr: 'Vul je e-mailadres en je bericht in.',
+      sentTitle: 'Bericht ontvangen',
+      sentBody: 'We antwoorden binnen twee werkdagen per e-mail.',
+      operator: 'Lies',
+      greet: function (n) { return 'Hallo ' + n + ', ik ben Lies, tabakoloog bij Tabakstop. Fijn dat je contact opneemt. Waarmee kan ik je helpen?'; },
+      replies: [
+        'Dat begrijp ik goed. Hoe lang rook je al, en ongeveer hoeveel per dag?',
+        'Dank je om dat te delen. Veel mensen hebben meer dan één poging nodig, dat is heel normaal.',
+        'Een tabakoloog kan je stap voor stap begeleiden. Zal ik uitleggen hoe dat werkt?'
+      ],
+      sample: [
+        { from: 'op', text: 'Hallo Sarah, ik ben Lies, tabakoloog bij Tabakstop. Waarmee kan ik je helpen?' },
+        { from: 'me', text: 'Ik wil stoppen, maar ik weet niet goed waar ik moet beginnen.' },
+        { from: 'op', text: 'Goed dat je de stap zet. Rook je al lang?' }
+      ],
+      hints: {
+        form: 'Vul het formulier in en start een gesprek. De medewerker antwoordt automatisch.',
+        chat: 'Stuur een bericht, of klik op Beëindigen om het gesprek zelf af te sluiten.',
+        rate: 'Dit ziet de bezoeker meteen na het gesprek.',
+        offline: 'Buiten de chaturen wordt de chat een berichtformulier dat per e-mail binnenkomt.'
+      }
+    },
+    fr: {
+      launcher: 'Chattez avec nous',
+      title: 'Chattez avec un tabacologue',
+      online: 'Un tabacologue est disponible',
+      offline: 'Hors ligne',
+      role: 'Tabacologue',
+      intro: 'Posez votre question de façon anonyme. Un tabacologue répond généralement en quelques minutes.',
+      name: 'Prénom ou pseudo',
+      topic: 'De quoi voulez-vous parler ?',
+      topics: ['Je veux arrêter de fumer', "J'ai arrêté et c'est difficile", "Je veux aider quelqu'un à arrêter", 'Autre chose'],
+      email: 'Adresse e-mail (facultatif)',
+      emailPh: 'nom@exemple.be',
+      consent: "J'accepte la déclaration de confidentialité.",
+      start: 'Commencer la conversation',
+      required: 'Indiquez un prénom ou un pseudo.',
+      consentReq: 'Cochez la déclaration de confidentialité pour continuer.',
+      placeholder: 'Écrivez votre message…',
+      end: 'Terminer',
+      endQ: 'Voulez-vous terminer la conversation ?',
+      endBody: 'Vous pourrez toujours en démarrer une nouvelle.',
+      yes: 'Oui, terminer',
+      no: 'Continuer',
+      joined: function (n) { return n + ' a rejoint la conversation'; },
+      rateQ: 'Êtes-vous satisfait(e) de cette conversation ?',
+      rateLo: 'Pas du tout',
+      rateHi: 'Très satisfait(e)',
+      comment: 'Un commentaire ? (facultatif)',
+      commentPh: 'Votre commentaire…',
+      submit: 'Envoyer',
+      skip: 'Passer',
+      rateReq: 'Choisissez une note de 1 à 5.',
+      thanks: 'Merci pour cette conversation',
+      thanksBody: 'Bonne chance. Vous pouvez toujours démarrer une nouvelle conversation.',
+      again: 'Nouvelle conversation',
+      offTitle: "Personne n'est disponible pour le moment",
+      offBody: 'Le chat est ouvert les jours ouvrables de 9 h à 17 h. Laissez un message, nous vous répondrons par e-mail.',
+      emailReq: 'Adresse e-mail',
+      message: 'Votre message',
+      sendMsg: 'Envoyer le message',
+      offErr: 'Indiquez votre adresse e-mail et votre message.',
+      sentTitle: 'Message reçu',
+      sentBody: 'Nous vous répondons par e-mail dans les deux jours ouvrables.',
+      operator: 'Sophie',
+      greet: function (n) { return 'Bonjour ' + n + ", je suis Sophie, tabacologue chez Tabacstop. Merci de nous contacter. Comment puis-je vous aider ?"; },
+      replies: [
+        'Je comprends tout à fait. Depuis combien de temps fumez-vous, et combien par jour environ ?',
+        "Merci de le partager. Beaucoup de personnes ont besoin de plusieurs tentatives, c'est tout à fait normal.",
+        "Un tabacologue peut vous accompagner pas à pas. Voulez-vous que je vous explique comment cela fonctionne ?"
+      ],
+      sample: [
+        { from: 'op', text: 'Bonjour Sarah, je suis Sophie, tabacologue chez Tabacstop. Comment puis-je vous aider ?' },
+        { from: 'me', text: "Je veux arrêter, mais je ne sais pas par où commencer." },
+        { from: 'op', text: "C'est une belle décision. Vous fumez depuis longtemps ?" }
+      ],
+      hints: {
+        form: 'Remplissez le formulaire et démarrez une conversation. La réponse arrive automatiquement.',
+        chat: 'Envoyez un message, ou cliquez sur Terminer pour clôturer vous-même.',
+        rate: 'Ce que le visiteur voit juste après la conversation.',
+        offline: 'En dehors des heures, le chat devient un formulaire envoyé par e-mail.'
+      }
+    }
+  };
+
+  var lang = 'nl';
+  function L() { return T[lang]; }
+
+  /* ---------- Visitor chat component ---------- */
+  function Chat(mount, mode) {
+    var s = {
+      state: 'form', msgs: [], name: '', topic: 0, email: '', consent: false,
+      draft: '', typing: false, rating: 0, comment: '', confirm: false, err: '',
+      replyIdx: 0, offEmail: '', offMsg: '', open: mode === 'embed'
+    };
+    var timers = [];
+    function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+    function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+    function head() {
+      var l = L();
+      var isChat = s.state === 'chat';
+      var who = isChat
+        ? '<div class="avatar">' + esc(l.operator.charAt(0)) + '</div><div class="who"><b>' + esc(l.operator) + '</b><span>' + esc(l.role) + '</span></div>'
+        : '<div class="who"><b>' + esc(l.title) + '</b><span><i class="' + (s.state === 'offline' || s.state === 'offsent' ? 'off' : '') + '"></i>' + esc(s.state === 'offline' || s.state === 'offsent' ? l.offline : l.online) + '</span></div>';
+      var endBtn = isChat ? '<button class="hbtn" data-act="end">' + esc(l.end) + '</button>' : '';
+      var minBtn = mode === 'widget' ? '<button class="icon-btn" data-act="min" aria-label="Chatvenster verkleinen">' + ICON.minus + '</button>' : '';
+      return '<div class="c-head">' + who + endBtn + minBtn + '</div>';
+    }
+
+    function body() {
+      var l = L();
+      if (s.state === 'form') {
+        var opts = l.topics.map(function (t, i) { return '<option value="' + i + '"' + (i === s.topic ? ' selected' : '') + '>' + esc(t) + '</option>'; }).join('');
+        return '<div class="c-body"><form class="stack" data-form="start" novalidate>' +
+          '<p class="intro">' + esc(l.intro) + '</p>' +
+          '<div class="f"><label for="' + mode + '-name">' + esc(l.name) + '</label><input id="' + mode + '-name" data-bind="name" value="' + esc(s.name) + '" autocomplete="off"></div>' +
+          '<div class="f"><label for="' + mode + '-topic">' + esc(l.topic) + '</label><select id="' + mode + '-topic" data-bind="topic">' + opts + '</select></div>' +
+          '<div class="f"><label for="' + mode + '-email">' + esc(l.email) + '</label><input id="' + mode + '-email" type="email" data-bind="email" placeholder="' + esc(l.emailPh) + '" value="' + esc(s.email) + '"></div>' +
+          '<label class="check"><input type="checkbox" id="' + mode + '-consent" data-bind="consent"' + (s.consent ? ' checked' : '') + '><span>' + esc(l.consent) + '</span></label>' +
+          (s.err ? '<p class="err" role="alert">' + esc(s.err) + '</p>' : '') +
+          '<button class="btn" type="submit">' + esc(l.start) + '</button>' +
+          '</form></div>';
+      }
+      if (s.state === 'chat') {
+        var h = s.msgs.map(function (m) {
+          if (m.from === 'sys') return '<div class="sys">' + esc(m.text) + '</div>';
+          if (m.from === 'op') return '<div class="msg them"><small>' + esc(L().operator) + '</small>' + esc(m.text) + '</div>';
+          return '<div class="msg me">' + esc(m.text) + '</div>';
+        }).join('');
+        if (s.typing) h += '<div class="typing" aria-label="aan het typen"><i></i><i></i><i></i></div>';
+        return '<div class="c-body" data-scroll>' + h + '</div>' +
+          '<form class="c-foot" data-form="send"><textarea id="' + mode + '-draft" rows="1" data-bind="draft" placeholder="' + esc(l.placeholder) + '" aria-label="' + esc(l.placeholder) + '">' + esc(s.draft) + '</textarea>' +
+          '<button class="send" type="submit" aria-label="Versturen">' + ICON.send + '</button></form>';
+      }
+      if (s.state === 'rate') {
+        var btns = [1, 2, 3, 4, 5].map(function (n) { return '<button type="button" data-rate="' + n + '" aria-pressed="' + (s.rating === n) + '">' + n + '</button>'; }).join('');
+        return '<div class="c-body"><form class="stack" data-form="rate" novalidate style="margin:auto 0">' +
+          '<p class="rate-q">' + esc(l.rateQ) + '</p>' +
+          '<div class="scale" role="group" aria-label="' + esc(l.rateQ) + '">' + btns + '</div>' +
+          '<div class="scale-ends"><span>' + esc(l.rateLo) + '</span><span>' + esc(l.rateHi) + '</span></div>' +
+          '<div class="f"><label for="' + mode + '-comment">' + esc(l.comment) + '</label><textarea id="' + mode + '-comment" rows="3" data-bind="comment" placeholder="' + esc(l.commentPh) + '">' + esc(s.comment) + '</textarea></div>' +
+          (s.err ? '<p class="err" role="alert">' + esc(s.err) + '</p>' : '') +
+          '<button class="btn" type="submit">' + esc(l.submit) + '</button>' +
+          '<button class="btn ghost" type="button" data-act="skip">' + esc(l.skip) + '</button>' +
+          '</form></div>';
+      }
+      if (s.state === 'thanks') {
+        return '<div class="c-body"><div class="done"><div class="ring">' + ICON.check + '</div><b>' + esc(l.thanks) + '</b><p>' + esc(l.thanksBody) + '</p><button class="btn small" data-act="again">' + esc(l.again) + '</button></div></div>';
+      }
+      if (s.state === 'offline') {
+        return '<div class="c-body"><form class="stack" data-form="offline" novalidate>' +
+          '<div class="offline-note"><b>' + esc(l.offTitle) + '</b>' + esc(l.offBody) + '</div>' +
+          '<div class="f"><label for="' + mode + '-offemail">' + esc(l.emailReq) + '</label><input id="' + mode + '-offemail" type="email" data-bind="offEmail" placeholder="' + esc(l.emailPh) + '" value="' + esc(s.offEmail) + '"></div>' +
+          '<div class="f"><label for="' + mode + '-offmsg">' + esc(l.message) + '</label><textarea id="' + mode + '-offmsg" rows="5" data-bind="offMsg">' + esc(s.offMsg) + '</textarea></div>' +
+          (s.err ? '<p class="err" role="alert">' + esc(s.err) + '</p>' : '') +
+          '<button class="btn" type="submit">' + esc(l.sendMsg) + '</button>' +
+          '</form></div>';
+      }
+      return '<div class="c-body"><div class="done"><div class="ring">' + ICON.check + '</div><b>' + esc(l.sentTitle) + '</b><p>' + esc(l.sentBody) + '</p></div></div>';
+    }
+
+    function dialog() {
+      if (!s.confirm) return '';
+      var l = L();
+      return '<div class="overlay"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="' + mode + '-endq"><b id="' + mode + '-endq">' + esc(l.endQ) + '</b><p class="intro">' + esc(l.endBody) + '</p>' +
+        '<button class="btn" data-act="endyes">' + esc(l.yes) + '</button><button class="btn ghost" data-act="endno">' + esc(l.no) + '</button></div></div>';
+    }
+
+    function render(focusDraft) {
+      var l = L();
+      var html = '';
+      if (mode === 'widget') {
+        if (s.open) html += '<div class="panel"><div class="chat">' + head() + body() + dialog() + '</div></div>';
+        html += '<button class="launcher' + (s.open ? ' round' : '') + '" data-act="toggle" aria-label="' + esc(s.open ? 'Chat sluiten' : l.launcher) + '">' +
+          (s.open ? ICON.close : ICON.chat + '<span>' + esc(l.launcher) + '</span>') + '</button>';
+      } else {
+        html = '<div class="chat">' + head() + body() + dialog() + '</div>';
+      }
+      mount.innerHTML = html;
+      var sc = mount.querySelector('[data-scroll]');
+      if (sc) sc.scrollTop = sc.scrollHeight;
+      if (focusDraft) { var d = mount.querySelector('[data-bind="draft"]'); if (d) d.focus(); }
+    }
+
+    function opReply() {
+      s.typing = true; render(true);
+      later(function () {
+        s.typing = false;
+        var r = L().replies;
+        s.msgs.push({ from: 'op', text: r[s.replyIdx % r.length] });
+        s.replyIdx++;
+        render(true);
+      }, 1800);
+    }
+
+    function startChat() {
+      var l = L();
+      s.state = 'chat'; s.err = ''; s.msgs = [];
+      render(true);
+      later(function () { s.msgs.push({ from: 'sys', text: l.joined(l.operator) }); render(true); }, 600);
+      later(function () { s.typing = true; render(true); }, 1200);
+      later(function () { s.typing = false; s.msgs.push({ from: 'op', text: L().greet(s.name.trim()) }); render(true); }, 2600);
+    }
+
+    mount.addEventListener('input', function (e) {
+      var k = e.target.getAttribute('data-bind');
+      if (!k) return;
+      if (k === 'consent') s.consent = e.target.checked;
+      else if (k === 'topic') s.topic = +e.target.value;
+      else s[k] = e.target.value;
+    });
+    mount.addEventListener('change', function (e) {
+      var k = e.target.getAttribute('data-bind');
+      if (k === 'consent') s.consent = e.target.checked;
+      if (k === 'topic') s.topic = +e.target.value;
+    });
+    mount.addEventListener('keydown', function (e) {
+      if (e.target.getAttribute('data-bind') === 'draft' && e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        e.target.form.requestSubmit ? e.target.form.requestSubmit() : e.target.form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      }
+    });
+    mount.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = e.target.getAttribute('data-form');
+      var l = L();
+      if (f === 'start') {
+        if (!s.name.trim()) { s.err = l.required; render(); mount.querySelector('[data-bind="name"]').focus(); return; }
+        if (!s.consent) { s.err = l.consentReq; render(); return; }
+        startChat();
+      } else if (f === 'send') {
+        var t = s.draft.trim();
+        if (!t) return;
+        s.msgs.push({ from: 'me', text: t }); s.draft = '';
+        render(true);
+        later(opReply, 700);
+      } else if (f === 'rate') {
+        if (!s.rating) { s.err = l.rateReq; render(); return; }
+        s.err = ''; s.state = 'thanks'; render();
+      } else if (f === 'offline') {
+        if (!/\S+@\S+\.\S+/.test(s.offEmail) || !s.offMsg.trim()) { s.err = l.offErr; render(); return; }
+        s.err = ''; s.state = 'offsent'; render();
+      }
+    });
+    mount.addEventListener('click', function (e) {
+      var r = e.target.closest('[data-rate]');
+      if (r) { s.rating = +r.getAttribute('data-rate'); s.err = ''; render(); return; }
+      var a = e.target.closest('[data-act]');
+      if (!a) return;
+      var act = a.getAttribute('data-act');
+      if (act === 'toggle') { s.open = !s.open; render(s.open && s.state === 'chat'); }
+      else if (act === 'min') { s.open = false; render(); }
+      else if (act === 'end') { s.confirm = true; render(); var y = mount.querySelector('[data-act="endyes"]'); if (y) y.focus(); }
+      else if (act === 'endno') { s.confirm = false; render(true); }
+      else if (act === 'endyes') { clearTimers(); s.confirm = false; s.typing = false; s.state = 'rate'; s.rating = 0; s.err = ''; render(); syncControls(); }
+      else if (act === 'skip') { s.state = 'thanks'; s.err = ''; render(); }
+      else if (act === 'again') { s.state = 'form'; s.msgs = []; s.rating = 0; s.comment = ''; render(); syncControls(); }
+    });
+
+    return {
+      state: function () { return s.state; },
+      setState: function (st) {
+        clearTimers();
+        s.confirm = false; s.typing = false; s.err = '';
+        if (mode === 'widget') s.open = true;
+        if (st === 'chat') {
+          if (!s.name.trim()) s.name = 'Sarah';
+          s.msgs = L().sample.map(function (m) { return { from: m.from, text: m.text }; });
+        }
+        if (st === 'rate') s.rating = 0;
+        s.state = st;
+        render(st === 'chat');
+      },
+      render: render
+    };
+  }
+
+  var widget = Chat(document.getElementById('widget-mount'), 'widget');
+  var embed = Chat(document.getElementById('embed-mount'), 'embed');
+  widget.setState('form');
+  embed.render();
+
+  /* ---------- Views + controls ---------- */
+  var view = 'embed';
+  function active() { return view === 'embed' ? embed : widget; }
+  function norm(st) { return st === 'offsent' ? 'offline' : st === 'thanks' ? 'rate' : st; }
+  function syncControls() {
+    var st = norm(active().state());
+    [].forEach.call(document.querySelectorAll('#state-seg button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-state') === st)); });
+    [].forEach.call(document.querySelectorAll('#lang-seg button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang)); });
+    document.getElementById('controls-hint').textContent = L().hints[st] || '';
+  }
+  document.getElementById('state-seg').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    active().setState(b.getAttribute('data-state')); syncControls();
+  });
+  document.getElementById('lang-seg').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    lang = b.getAttribute('data-lang');
+    widget.render(); embed.render(); syncControls();
+  });
+
+  function show(v) {
+    view = v;
+    ['widget', 'embed', 'beheer'].forEach(function (k) {
+      document.getElementById('view-' + k).hidden = k !== v;
+      document.getElementById('tab-' + k).setAttribute('aria-selected', String(k === v));
+    });
+    document.getElementById('visitor-controls').hidden = v === 'beheer';
+    if (v === 'beheer') { Admin.start(); } else { syncControls(); }
+    try { history.replaceState(null, '', '#' + v); } catch (err) {}
+  }
+  document.querySelector('.tabs').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-view]'); if (b) show(b.getAttribute('data-view'));
+  });
+
+  /* ---------- Admin ---------- */
+  var Admin = (function () {
+    var root = document.getElementById('admin');
+    var ME = 'Lies Peeters';
+    var TEAM = [{ n: 'An Claes', s: 'online' }, { n: 'Karim Haddad', s: 'away' }, { n: 'Sophie Lambert', s: 'off' }];
+    var now = Date.now();
+    function ago(min) { return now - min * 60000; }
+    var seq = 10;
+
+    var convs = [
+      { id: 1, name: 'Sarah', topic: 'Ik wil stoppen met roken', lang: 'NL', email: '', page: '/pagina/stoppen-met-roken', started: ago(2.4), status: 'waiting',
+        msgs: [{ from: 'visitor', text: 'Hallo, ik wil stoppen maar ik weet niet goed hoe ik moet beginnen.' }] },
+      { id: 2, name: 'Marc', topic: 'Je veux arrêter de fumer', lang: 'FR', email: 'marc.d@exemple.be', page: '/fr/page/arreter', started: ago(0.8), status: 'waiting',
+        msgs: [{ from: 'visitor', text: "Bonjour, est-ce que je peux parler à quelqu'un en français ?" }] },
+      { id: 3, name: 'Jan', topic: 'Ik ben gestopt en heb het moeilijk', lang: 'NL', email: 'jan.v@voorbeeld.be', page: '/traject/gestopt', started: ago(11), taken: ago(10), status: 'mine', operator: ME,
+        msgs: [
+          { from: 'visitor', text: 'Ik ben drie weken geleden gestopt, maar vandaag heb ik echt heel veel zin.' },
+          { from: 'sys', text: 'Lies Peeters heeft het gesprek aangenomen' },
+          { from: 'op', text: 'Hallo Jan, drie weken is al een mooie prestatie. Wat maakt het vandaag moeilijk?' },
+          { from: 'visitor', text: 'Stress op het werk. Vroeger nam ik dan altijd een sigaret in de pauze.' },
+          { from: 'op', text: 'Dat is heel herkenbaar. Die pauze is een gewoonte geworden. Heb je al iets anders geprobeerd om die momenten op te vangen?' },
+          { from: 'visitor', text: 'Nog niet echt. Ik ga meestal gewoon naar buiten.' }
+        ] },
+      { id: 4, name: 'Nadia', topic: 'Ik wil iemand helpen stoppen', lang: 'NL', email: '', page: '/pagina/iemand-helpen', started: ago(6), taken: ago(5), status: 'theirs', operator: 'An Claes',
+        msgs: [
+          { from: 'visitor', text: 'Mijn vader wil stoppen. Hoe kan ik hem het best steunen?' },
+          { from: 'sys', text: 'An Claes heeft het gesprek aangenomen' },
+          { from: 'op', text: 'Mooi dat je hem wilt steunen, Nadia. Weet hij al hoe hij het wil aanpakken?' }
+        ] }
+    ];
+
+    var archive = [
+      { id: 101, date: 'Vandaag 10:42', name: 'Els', topic: 'Ik wil stoppen met roken', op: 'Lies Peeters', dur: '14 min', rating: 5, lang: 'NL', outcome: 'ok', comment: 'Heel vriendelijk en duidelijk, bedankt!',
+        msgs: [['visitor', 'Hallo, ik wil stoppen voor mijn zwangerschap.'], ['op', 'Wat fijn dat je contact opneemt, Els. Hoe ver ben je?'], ['visitor', 'Twaalf weken.'], ['op', 'Een tabakoloog kan je daar goed bij begeleiden. Ik stuur je de gegevens door.']] },
+      { id: 102, date: 'Vandaag 09:58', name: 'Luc', topic: 'Iets anders', op: 'An Claes', dur: '6 min', rating: 4, lang: 'NL', outcome: 'ok', comment: '',
+        msgs: [['visitor', 'Kan ik de brochure over nicotinevervangers ook op papier krijgen?'], ['op', 'Zeker, Luc. Je kunt ze gratis bestellen via de pagina Brochures.']] },
+      { id: 103, date: 'Vandaag 09:31', name: 'Anonieme bezoeker', topic: 'Ik wil stoppen met roken', op: '—', dur: '—', rating: null, lang: 'NL', outcome: 'miss', comment: '',
+        msgs: [['visitor', 'Is er iemand?'], ['sys', 'Bezoeker vertrok na 4 min wachten']] },
+      { id: 104, date: 'Gisteren 16:20', name: 'Camille', topic: 'Je veux arrêter de fumer', op: 'Sophie Lambert', dur: '18 min', rating: 5, lang: 'FR', outcome: 'ok', comment: 'Très utile.',
+        msgs: [['visitor', "J'ai déjà essayé trois fois."], ['op', "C'est courageux de réessayer, Camille. Qu'est-ce qui a été le plus difficile ?"]] },
+      { id: 105, date: 'Gisteren 15:02', name: 'Tom', topic: 'Ik ben gestopt en heb het moeilijk', op: 'Karim Haddad', dur: '11 min', rating: 3, lang: 'NL', outcome: 'ok', comment: 'Ik had meer concrete tips verwacht.',
+        msgs: [['visitor', 'Ik ben aangekomen sinds ik gestopt ben.'], ['op', 'Dat komt vaak voor, Tom. Wil je daar samen naar kijken?']] },
+      { id: 106, date: 'Gisteren 11:47', name: 'Ines', topic: 'Ik wil iemand helpen stoppen', op: 'Lies Peeters', dur: '9 min', rating: 5, lang: 'NL', outcome: 'ok', comment: '',
+        msgs: [['visitor', 'Mijn partner rookt en wil stoppen.'], ['op', 'Fijn dat je hem wilt steunen. Heeft hij al een stopdatum gekozen?']] },
+      { id: 107, date: 'Gisteren 10:05', name: 'Anonieme bezoeker', topic: 'Iets anders', op: '—', dur: '—', rating: null, lang: 'FR', outcome: 'miss', comment: '',
+        msgs: [['visitor', 'Bonjour ?'], ['sys', 'Le visiteur est parti après 3 min']] },
+      { id: 108, date: 'Ma 22 sep 14:33', name: 'Peter', topic: 'Ik wil stoppen met roken', op: 'An Claes', dur: '21 min', rating: 4, lang: 'NL', outcome: 'ok', comment: '',
+        msgs: [['visitor', 'Werkt de e-sigaret om te stoppen?'], ['op', 'Goede vraag, Peter. Voor sommige mensen kan het helpen, maar er zijn ook andere opties.']] },
+      { id: 109, date: 'Ma 22 sep 13:10', name: 'Julie', topic: 'Je veux arrêter de fumer', op: 'Sophie Lambert', dur: '12 min', rating: 5, lang: 'FR', outcome: 'ok', comment: '',
+        msgs: [['visitor', "Est-ce que les consultations sont remboursées ?"], ['op', 'Bonne question, Julie. Je vous explique comment cela fonctionne.']] },
+      { id: 110, date: 'Ma 22 sep 10:21', name: 'Bram', topic: 'Ik ben gestopt en heb het moeilijk', op: 'Karim Haddad', dur: '8 min', rating: 2, lang: 'NL', outcome: 'ok', comment: 'Moest lang wachten.',
+        msgs: [['visitor', 'Ik heb gisteren weer gerookt.'], ['op', 'Een uitschuiver betekent niet dat alles verloren is, Bram.']] }
+    ];
+
+    var st = { page: 'inbox', sel: 3, drafts: {}, status: 'online', sound: true, menu: false, q: '', filter: 'all', arcSel: 101, period: 7, toast: null, typing: {}, started: false, notes: {} };
+
+    function mins(t) { var m = Math.max(0, Math.round((Date.now() - t) / 60000)); return m < 1 ? '<1 min' : m + ' min'; }
+    function waitLong(t) { var sec = Math.max(0, Math.round((Date.now() - t) / 1000)); return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0'); }
+    function conv(id) { for (var i = 0; i < convs.length; i++) if (convs[i].id === id) return convs[i]; return null; }
+    function chip(l) { return '<span class="chip' + (l === 'FR' ? ' fr' : '') + '">' + l + '</span>'; }
+    function initials(n) { return n.split(' ').map(function (p) { return p.charAt(0); }).join('').slice(0, 2); }
+
+    function side() {
+      var waiting = convs.filter(function (c) { return c.status === 'waiting'; }).length;
+      function nav(k, label, icon, badge) {
+        return '<button data-page="' + k + '"' + (st.page === k ? ' aria-current="page"' : '') + '>' + icon + '<span>' + label + '</span>' + (badge ? '<span class="badge">' + badge + '</span>' : '') + '</button>';
+      }
+      var team = TEAM.map(function (m) {
+        return '<div><span class="dot ' + (m.s === 'online' ? '' : m.s === 'away' ? 'away' : 'off') + '"></span>' + esc(m.n) + '</div>';
+      }).join('');
+      return '<aside class="side">' +
+        '<div class="brandrow"><b>Tabakstop</b><span>Chat</span></div>' +
+        '<nav aria-label="Beheer">' + nav('inbox', 'Gesprekken', ICON.inbox, waiting) + nav('archive', 'Archief', ICON.archive) + nav('stats', 'Statistieken', ICON.stats) + '</nav>' +
+        '<div class="team"><span class="lbl">Collega\'s</span>' + team + '</div>' +
+        '<div class="me"><div class="row"><div class="avatar">LP</div><div><b>' + ME + '</b><small>' + (st.status === 'online' ? 'Beschikbaar voor nieuwe gesprekken' : 'Krijgt geen nieuwe gesprekken') + '</small></div></div>' +
+        '<div class="status-toggle" role="group" aria-label="Jouw status"><button data-status="online" aria-pressed="' + (st.status === 'online') + '"><span class="dot"></span>Beschikbaar</button><button data-status="away" aria-pressed="' + (st.status === 'away') + '"><span class="dot away"></span>Afwezig</button></div>' +
+        '<div class="sound"><span id="sound-lbl">Geluid bij nieuw gesprek</span><button class="switch" role="switch" aria-labelledby="sound-lbl" aria-checked="' + st.sound + '" data-act="sound"></button></div>' +
+        '</div></aside>';
+    }
+
+    function listItem(c) {
+      var cls = 'item' + (c.status === 'waiting' ? ' waiting' : '') + (c.status === 'theirs' ? ' theirs' : '');
+      var last = c.msgs.filter(function (m) { return m.from !== 'sys'; }).slice(-1)[0];
+      var right = c.status === 'waiting' ? mins(c.started) : c.status === 'theirs' ? esc(c.operator.split(' ')[0]) : mins(c.started);
+      return '<button class="' + cls + '" data-conv="' + c.id + '" aria-current="' + (st.sel === c.id) + '">' +
+        '<span class="r1"><b>' + esc(c.name) + '</b>' + chip(c.lang) + '<span class="t">' + right + '</span></span>' +
+        '<span class="r2">' + esc(c.topic) + '</span>' +
+        '<span class="r2">' + (last ? (last.from === 'op' ? 'Jij: ' : '') + esc(last.text) : '') + '</span></button>';
+    }
+
+    function listPane() {
+      var groups = [['waiting', 'Wachtend'], ['mine', 'Mijn gesprekken'], ['theirs', 'Bij collega\'s']];
+      return '<div class="list">' + groups.map(function (g) {
+        var items = convs.filter(function (c) { return c.status === g[0]; });
+        return '<h3><span>' + g[1] + '</span><span>' + items.length + '</span></h3>' +
+          (items.length ? items.map(listItem).join('') : '<p class="empty-list">' + (g[0] === 'waiting' ? 'Niemand wacht op dit moment.' : 'Geen gesprekken.') + '</p>');
+      }).join('') + '</div>';
+    }
+
+    function msgHtml(m, c) {
+      if (m.from === 'sys') return '<div class="sys">' + esc(m.text) + '</div>';
+      if (m.from === 'visitor') return '<div class="msg them"><small>' + esc(c.name) + '</small>' + esc(m.text) + '</div>';
+      return '<div class="msg me">' + esc(m.text) + '</div>';
+    }
+
+    function convPane() {
+      var c = conv(st.sel);
+      if (!c) return '<div class="conv"><div class="take"><p>Kies een gesprek in de lijst.</p></div></div>';
+      var headActions = '';
+      if (c.status === 'mine') {
+        var menu = st.menu ? '<div class="menu" role="menu"><span class="lbl">Doorgeven aan</span>' + TEAM.map(function (m) {
+          return '<button role="menuitem" data-transfer="' + esc(m.n) + '"' + (m.s === 'off' ? ' disabled' : '') + '><span class="dot ' + (m.s === 'online' ? '' : m.s === 'away' ? 'away' : 'off') + '"></span>' + esc(m.n) + (m.s === 'off' ? ' · offline' : m.s === 'away' ? ' · afwezig' : '') + '</button>';
+        }).join('') + '</div>' : '';
+        headActions = '<div class="conv-actions"><button class="btn ghost small" data-act="menu" aria-expanded="' + st.menu + '">Doorgeven</button><button class="btn small" data-act="close">Afsluiten</button>' + menu + '</div>';
+      }
+      var sub = c.status === 'waiting' ? 'Wacht op een medewerker' : c.status === 'theirs' ? 'In gesprek met ' + esc(c.operator) : 'In gesprek met jou · gestart ' + mins(c.started) + ' geleden';
+      var head = '<div class="conv-head"><div class="who"><b>' + esc(c.name) + ' ' + chip(c.lang) + '</b><span>' + sub + '</span></div>' + headActions + '</div>';
+
+      var bodyHtml, foot;
+      if (c.status === 'waiting') {
+        bodyHtml = '<div class="conv-body"><div class="take"><span class="wait" data-wait="' + c.id + '">' + waitLong(c.started) + '</span><p>' + esc(c.name) + ' wacht op een antwoord</p>' +
+          '<div class="first">' + esc(c.msgs[0].text) + '</div>' +
+          '<button class="btn" data-act="take">Gesprek aannemen</button></div></div>';
+        foot = '';
+      } else {
+        bodyHtml = '<div class="conv-body" data-scroll>' + c.msgs.map(function (m) { return msgHtml(m, c); }).join('') +
+          (st.typing[c.id] ? '<div class="typing" aria-label="aan het typen"><i></i><i></i><i></i></div>' : '') + '</div>';
+        foot = c.status === 'mine'
+          ? '<form class="composer" data-form="reply"><div style="flex:1;display:flex;flex-direction:column;gap:4px"><textarea id="reply-' + c.id + '" rows="2" data-bind="draft" placeholder="Typ je antwoord aan ' + esc(c.name) + '…" aria-label="Antwoord">' + esc(st.drafts[c.id] || '') + '</textarea><span class="hint">Enter om te versturen · Shift+Enter voor een nieuwe regel</span></div><button class="send" type="submit" aria-label="Versturen">' + ICON.send + '</button></form>'
+          : '<div class="readonly">Dit gesprek wordt gevoerd door ' + esc(c.operator) + '. Je kunt meelezen.</div>';
+      }
+      return '<div class="conv">' + head + bodyHtml + foot + '</div>';
+    }
+
+    function detailsPane() {
+      var c = conv(st.sel);
+      if (!c) return '<div class="details"></div>';
+      function kv(k, v) { return '<div><dt>' + k + '</dt><dd' + (v ? '' : ' class="none"') + '>' + (v ? esc(v) : 'niet ingevuld') + '</dd></div>'; }
+      return '<div class="details">' +
+        '<section class="stack"><h4>Formulier vóór de chat</h4><dl class="kv">' + kv('Voornaam', c.name) + kv('Onderwerp', c.topic) + kv('E-mailadres', c.email) + '</dl></section>' +
+        '<section class="stack"><h4>Sessie</h4><dl class="kv">' + kv('Taal', c.lang === 'FR' ? 'Frans' : 'Nederlands') + kv('Gestart vanaf', c.page) + kv('Wachttijd', c.taken ? Math.max(1, Math.round((c.taken - c.started) / 60000)) + ' min' : 'wacht nog') + '</dl></section>' +
+        '<section class="stack"><h4>Interne notitie</h4><label for="note-' + c.id + '" style="font-size:12px;color:var(--muted)">Enkel zichtbaar voor medewerkers</label><textarea class="note-area" id="note-' + c.id + '" data-bind="note" placeholder="Bijvoorbeeld: doorverwezen naar tabakoloog in Gent">' + esc(st.notes[c.id] || '') + '</textarea></section>' +
+        '</div>';
+    }
+
+    function inbox() { return '<div class="inbox">' + listPane() + convPane() + detailsPane() + '</div>'; }
+
+    function scoreHtml(r) {
+      if (r == null) return '<span style="color:var(--faint)">—</span>';
+      var col = r >= 4 ? '#2E9E5B' : r === 3 ? '#E2A13B' : '#B4462B';
+      return '<span class="score"><i style="background:' + col + '"></i>' + r + '/5</span>';
+    }
+
+    function archiveRows() {
+      var q = st.q.trim().toLowerCase();
+      return archive.filter(function (a) {
+        if (st.filter === 'miss' && a.outcome !== 'miss') return false;
+        if (st.filter === 'low' && !(a.rating != null && a.rating <= 3)) return false;
+        if (!q) return true;
+        var hay = [a.name, a.topic, a.op, a.comment].concat(a.msgs.map(function (m) { return m[1]; })).join(' ').toLowerCase();
+        return hay.indexOf(q) !== -1;
+      });
+    }
+
+    function archivePane() {
+      var rows = archiveRows();
+      var sel = null;
+      for (var i = 0; i < rows.length; i++) if (rows[i].id === st.arcSel) sel = rows[i];
+      if (!sel && rows.length) { sel = rows[0]; st.arcSel = sel.id; }
+      var seg = [['all', 'Alle'], ['miss', 'Gemist'], ['low', 'Score 3 of lager']].map(function (f) {
+        return '<button data-filter="' + f[0] + '" aria-pressed="' + (st.filter === f[0]) + '">' + f[1] + '</button>';
+      }).join('');
+      var table = rows.length ? '<table><thead><tr><th>Datum</th><th>Bezoeker</th><th>Onderwerp</th><th>Medewerker</th><th>Duur</th><th>Score</th><th>Taal</th></tr></thead><tbody>' +
+        rows.map(function (a) {
+          return '<tr data-arc="' + a.id + '" aria-selected="' + (sel && sel.id === a.id) + '" tabindex="0"><td>' + esc(a.date) + '</td><td>' + esc(a.name) + '</td><td class="wrap">' + esc(a.topic) + '</td><td>' +
+            (a.outcome === 'miss' ? '<span class="pill miss">Gemist</span>' : esc(a.op)) + '</td><td>' + esc(a.dur) + '</td><td>' + scoreHtml(a.rating) + '</td><td>' + chip(a.lang) + '</td></tr>';
+        }).join('') + '</tbody></table>' : '<p class="no-results">Geen gesprekken gevonden voor “' + esc(st.q) + '”.</p>';
+      var tr = sel ? '<div class="transcript"><div class="th"><b>' + esc(sel.name) + '</b><span>' + esc(sel.date) + ' · ' + esc(sel.topic) + (sel.outcome === 'miss' ? '' : ' · ' + esc(sel.op) + ' · ' + esc(sel.dur)) + '</span></div>' +
+        '<div class="tb">' + sel.msgs.map(function (m) {
+          if (m[0] === 'sys') return '<div class="sys">' + esc(m[1]) + '</div>';
+          return '<div class="msg ' + (m[0] === 'visitor' ? 'them' : 'me') + '">' + (m[0] === 'visitor' ? '<small>' + esc(sel.name) + '</small>' : '') + esc(m[1]) + '</div>';
+        }).join('') + '</div>' +
+        '<div class="fb"><span>Tevredenheid: ' + (sel.rating != null ? '<b>' + sel.rating + '/5</b>' : 'geen score') + '</span>' + (sel.comment ? '<span>Opmerking: <b>“' + esc(sel.comment) + '”</b></span>' : '') + '</div></div>' : '';
+      return '<div class="pane"><div class="pane-head"><h2>Archief</h2><span class="sample">Voorbeeldgegevens</span></div>' +
+        '<div class="pane-head" style="gap:10px"><label class="search" for="arc-q">' + ICON.search + '<input id="arc-q" data-bind="q" placeholder="Zoek op naam, onderwerp of tekst in het gesprek" value="' + esc(st.q) + '"></label><div class="seg" id="arc-filter">' + seg + '</div></div>' +
+        '<div class="archive-grid"><div class="table-wrap">' + table + '</div>' + tr + '</div></div>';
+    }
+
+    /* Stats */
+    function seeded(n, seed) {
+      var out = [], x = seed;
+      for (var i = 0; i < n; i++) { x = (x * 9301 + 49297) % 233280; out.push(x / 233280); }
+      return out;
+    }
+    var DAYS7 = ['wo 17', 'do 18', 'vr 19', 'za 20', 'zo 21', 'ma 22', 'di 23'];
+    var S7 = { chats: [16, 18, 21, 0, 0, 19, 15], missed: [1, 2, 2, 0, 0, 1, 1] };
+    var S30 = (function () {
+      var r = seeded(30, 7), chats = [], missed = [], labels = [];
+      var start = new Date(2026, 7, 25);
+      for (var i = 0; i < 30; i++) {
+        var d = new Date(start.getTime() + i * 86400000);
+        var wd = d.getDay();
+        var c = (wd === 0 || wd === 6) ? 0 : Math.round(12 + r[i] * 11);
+        chats.push(c); missed.push(c ? Math.round(c * (0.04 + r[(i + 3) % 30] * 0.08)) : 0);
+        labels.push(d.getDate() + '/' + (d.getMonth() + 1));
+      }
+      return { chats: chats, missed: missed, labels: labels };
+    })();
+    function sum(a) { return a.reduce(function (x, y) { return x + y; }, 0); }
+
+    function statsData() {
+      var d = st.period === 7 ? { chats: S7.chats, missed: S7.missed, labels: DAYS7 } : S30;
+      var total = sum(d.chats), missed = sum(d.missed), answered = total - missed;
+      var rated = Math.round(answered * 0.52);
+      var shares = [0.56, 0.28, 0.1, 0.04, 0.02];
+      var dist = shares.map(function (p) { return Math.round(rated * p); });
+      dist[0] += rated - sum(dist);
+      var avg = (dist[0] * 5 + dist[1] * 4 + dist[2] * 3 + dist[3] * 2 + dist[4]) / Math.max(1, rated);
+      var hw = [0.07, 0.12, 0.15, 0.1, 0.08, 0.13, 0.14, 0.13, 0.08];
+      var hours = hw.map(function (w) { return Math.round(total * w); });
+      hours[2] += total - sum(hours);
+      var opsShare = [['Lies Peeters', 0.36, 4.6], ['An Claes', 0.3, 4.4], ['Sophie Lambert', 0.2, 4.5], ['Karim Haddad', 0.14, 4.0]];
+      var ops = opsShare.map(function (o) { return { n: o[0], c: Math.round(answered * o[1]), r: o[2] }; });
+      ops[0].c += answered - sum(ops.map(function (o) { return o.c; }));
+      return { d: d, total: total, missed: missed, answered: answered, rated: rated, dist: dist, avg: avg, hours: hours, ops: ops,
+        wait: st.period === 7 ? '1:12' : '1:26' };
+    }
+
+    function niceStep(max, ticks) {
+      var raw = max / ticks, mag = Math.pow(10, Math.floor(Math.log10(raw || 1))), n = raw / mag;
+      var step = n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10;
+      return Math.max(1, step * mag);
+    }
+
+    function barChart(vals, missed, labels, labelEvery) {
+      var W = 640, H = 230, pl = 34, pr = 8, pt = 12, pb = 28;
+      var max = Math.max.apply(null, vals.concat([1]));
+      var step = niceStep(max, 4), top = Math.ceil(max / step) * step;
+      var iw = W - pl - pr, ih = H - pt - pb, n = vals.length, bw = iw / n;
+      var g = '';
+      for (var v = 0; v <= top; v += step) {
+        var y = pt + ih - (v / top) * ih;
+        g += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y + '" y2="' + y + '" stroke="#E6ECF2" stroke-width="1"/>' +
+          '<text x="' + (pl - 8) + '" y="' + (y + 4) + '" text-anchor="end" font-size="11" fill="#8A9BAC" font-family="Figtree, sans-serif">' + v + '</text>';
+      }
+      var bars = '';
+      vals.forEach(function (val, i) {
+        var x = pl + i * bw + bw * 0.18, w = bw * 0.64;
+        var hAns = ((val - missed[i]) / top) * ih, hMiss = (missed[i] / top) * ih;
+        var yAns = pt + ih - hAns - hMiss;
+        if (val > 0) {
+          bars += '<rect x="' + x.toFixed(1) + '" y="' + (pt + ih - hMiss - hAns).toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + hAns.toFixed(1) + '" rx="3" fill="#2B6490"><title>' + labels[i] + ': ' + val + ' gesprekken, ' + missed[i] + ' gemist</title></rect>';
+          if (hMiss > 0) bars += '<rect x="' + x.toFixed(1) + '" y="' + (pt + ih - hMiss).toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + hMiss.toFixed(1) + '" fill="#E07A5F"/>';
+          if (n <= 10) bars += '<text x="' + (x + w / 2).toFixed(1) + '" y="' + (yAns - 5).toFixed(1) + '" text-anchor="middle" font-size="11" font-weight="600" fill="#16293D" font-family="Figtree, sans-serif">' + val + '</text>';
+        }
+        if (i % labelEvery === 0) bars += '<text x="' + (pl + i * bw + bw / 2).toFixed(1) + '" y="' + (H - 9) + '" text-anchor="middle" font-size="11" fill="#5A6E82" font-family="Figtree, sans-serif">' + labels[i] + '</text>';
+      });
+      return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Gesprekken per dag">' + g + '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + (pt + ih) + '" y2="' + (pt + ih) + '" stroke="#C9D3DC"/>' + bars + '</svg>';
+    }
+
+    function hourChart(hours) {
+      var W = 360, H = 170, pl = 8, pr = 8, pt = 18, pb = 24;
+      var max = Math.max.apply(null, hours.concat([1]));
+      var iw = W - pl - pr, ih = H - pt - pb, bw = iw / hours.length;
+      var out = '';
+      hours.forEach(function (v, i) {
+        var h = (v / max) * ih, x = pl + i * bw + bw * 0.15, w = bw * 0.7, y = pt + ih - h;
+        var peak = v === max;
+        out += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + h.toFixed(1) + '" rx="3" fill="' + (peak ? '#FDB913' : '#A9C6DE') + '"><title>' + (9 + i) + ':00 – ' + (10 + i) + ':00: ' + v + ' gesprekken</title></rect>' +
+          '<text x="' + (x + w / 2).toFixed(1) + '" y="' + (y - 5).toFixed(1) + '" text-anchor="middle" font-size="10.5" font-weight="600" fill="#16293D" font-family="Figtree, sans-serif">' + v + '</text>' +
+          '<text x="' + (x + w / 2).toFixed(1) + '" y="' + (H - 7) + '" text-anchor="middle" font-size="10.5" fill="#5A6E82" font-family="Figtree, sans-serif">' + (9 + i) + 'u</text>';
+      });
+      return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Gesprekken per uur">' + '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + (pt + ih) + '" y2="' + (pt + ih) + '" stroke="#C9D3DC"/>' + out + '</svg>';
+    }
+
+    function statsPane() {
+      var s = statsData();
+      var fmt = function (n) { return n.toFixed(1).replace('.', ','); };
+      var pct = Math.round((s.missed / Math.max(1, s.total)) * 100);
+      var perDay = (s.total / Math.max(1, s.d.chats.filter(function (c) { return c > 0; }).length)).toFixed(0);
+      var seg = [[7, '7 dagen'], [30, '30 dagen']].map(function (p) { return '<button data-period="' + p[0] + '" aria-pressed="' + (st.period === p[0]) + '">' + p[1] + '</button>'; }).join('');
+      var distMax = Math.max.apply(null, s.dist);
+      var distColors = ['#2E9E5B', '#7CC49A', '#E2A13B', '#E07A5F', '#B4462B'];
+      var dist = [5, 4, 3, 2, 1].map(function (score, i) {
+        return '<div class="row"><b>' + score + '</b><div class="track"><div class="fill" style="width:' + (s.dist[i] / distMax * 100).toFixed(1) + '%;background:' + distColors[i] + '"></div></div><span>' + s.dist[i] + '</span></div>';
+      }).join('');
+      var ops = '<table class="ops"><thead><tr><th>Medewerker</th><th>Gesprekken</th><th>Gem. score</th></tr></thead><tbody>' + s.ops.map(function (o) {
+        return '<tr><td>' + esc(o.n) + '</td><td>' + o.c + '</td><td>' + fmt(o.r) + '</td></tr>';
+      }).join('') + '</tbody></table>';
+      var every = st.period === 7 ? 1 : 5;
+      return '<div class="pane"><div class="pane-head"><h2>Statistieken</h2><span class="sample">Voorbeeldgegevens</span><div class="seg">' + seg + '</div></div>' +
+        '<div class="kpis">' +
+        '<div class="kpi"><span class="k">Gesprekken</span><span class="v">' + s.total + '</span><span class="s">gemiddeld ' + perDay + ' per werkdag</span></div>' +
+        '<div class="kpi"><span class="k">Gemiddelde wachttijd</span><span class="v">' + s.wait + ' <small>min</small></span><span class="s">tot een medewerker antwoordt</span></div>' +
+        '<div class="kpi warn"><span class="k">Gemiste gesprekken</span><span class="v">' + s.missed + ' <small>(' + pct + '%)</small></span><span class="s">bezoeker vertrok voor een antwoord</span></div>' +
+        '<div class="kpi"><span class="k">Tevredenheid</span><span class="v">' + fmt(s.avg) + ' <small>/ 5</small></span><span class="s">' + s.rated + ' beoordelingen</span></div>' +
+        '</div>' +
+        '<div class="card chart"><h3>Gesprekken per dag</h3><div class="legend"><span><i style="background:#2B6490"></i>Beantwoord</span><span><i style="background:#E07A5F"></i>Gemist</span><span>Weekend: chat gesloten</span></div>' + barChart(s.d.chats, s.d.missed, s.d.labels, every) + '</div>' +
+        '<div class="charts">' +
+        '<div class="card chart"><h3>Drukste uren</h3><p class="sub">Alle gesprekken in deze periode, per uur</p>' + hourChart(s.hours) + '</div>' +
+        '<div class="card"><h3>Tevredenheid</h3><div class="avg"><b>' + fmt(s.avg) + '</b><span>gemiddeld op ' + s.rated + ' beoordelingen</span></div><div class="dist">' + dist + '</div></div>' +
+        '</div>' +
+        '<div class="card"><h3>Per medewerker</h3><div class="table-wrap" style="border:0">' + ops + '</div></div>' +
+        '</div>';
+    }
+
+    function toastHtml() {
+      if (!st.toast) return '';
+      return '<div class="toast" role="status">' + ICON.bell + '<div><b>Nieuw gesprek van ' + esc(st.toast.name) + '</b><span>' + esc(st.toast.topic) + (st.sound ? ' · geluidsmelding afgespeeld' : '') + '</span></div><button data-act="opentoast">Bekijken</button></div>';
+    }
+
+    function render(focusReply) {
+      var main = st.page === 'inbox' ? inbox() : st.page === 'archive' ? archivePane() : statsPane();
+      var qFocused = document.activeElement && document.activeElement.id === 'arc-q';
+      var caret = qFocused ? document.activeElement.selectionStart : null;
+      root.innerHTML = side() + '<div class="main">' + main + '</div>' + toastHtml();
+      var sc = root.querySelector('[data-scroll]');
+      if (sc) sc.scrollTop = sc.scrollHeight;
+      if (focusReply) { var t = root.querySelector('[data-bind="draft"]'); if (t) t.focus(); }
+      if (qFocused) { var q = document.getElementById('arc-q'); if (q) { q.focus(); try { q.setSelectionRange(caret, caret); } catch (e) {} } }
+      var w = convs.filter(function (c) { return c.status === 'waiting'; }).length;
+      document.title = (view === 'beheer' && w ? '(' + w + ') ' : '') + 'Tabakstop Chat Prototype';
+    }
+
+    var audioCtx = null;
+    function chime() {
+      if (!st.sound) return;
+      try {
+        audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+        [0, 0.16].forEach(function (d, i) {
+          var o = audioCtx.createOscillator(), g = audioCtx.createGain();
+          o.type = 'sine'; o.frequency.value = i ? 988 : 784;
+          g.gain.setValueAtTime(0.0001, audioCtx.currentTime + d);
+          g.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + d + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + d + 0.35);
+          o.connect(g); g.connect(audioCtx.destination);
+          o.start(audioCtx.currentTime + d); o.stop(audioCtx.currentTime + d + 0.4);
+        });
+      } catch (e) {}
+    }
+
+    var visitorReplies = [
+      'Oké, dat ga ik proberen. Wat raad je aan voor de pauzes?',
+      'Dank je, dat helpt al. Kan ik ook een afspraak maken met een tabakoloog?',
+      'Top, bedankt voor je hulp!'
+    ];
+    var vIdx = 0;
+
+    root.addEventListener('click', function (e) {
+      var t;
+      if ((t = e.target.closest('[data-page]'))) { st.page = t.getAttribute('data-page'); st.menu = false; render(); return; }
+      if ((t = e.target.closest('[data-status]'))) { st.status = t.getAttribute('data-status'); render(); return; }
+      if ((t = e.target.closest('[data-conv]'))) { st.sel = +t.getAttribute('data-conv'); st.menu = false; render(conv(st.sel).status === 'mine'); return; }
+      if ((t = e.target.closest('[data-transfer]'))) {
+        var c = conv(st.sel), to = t.getAttribute('data-transfer');
+        c.status = 'theirs'; c.operator = to; c.msgs.push({ from: 'sys', text: 'Doorgegeven aan ' + to });
+        st.menu = false; render(); return;
+      }
+      if ((t = e.target.closest('[data-filter]'))) { st.filter = t.getAttribute('data-filter'); render(); return; }
+      if ((t = e.target.closest('[data-arc]'))) { st.arcSel = +t.getAttribute('data-arc'); render(); return; }
+      if ((t = e.target.closest('[data-period]'))) { st.period = +t.getAttribute('data-period'); render(); return; }
+      if (!(t = e.target.closest('[data-act]'))) { if (st.menu && !e.target.closest('.menu')) { st.menu = false; render(); } return; }
+      var act = t.getAttribute('data-act'), cur = conv(st.sel);
+      if (act === 'sound') { st.sound = !st.sound; if (st.sound) chime(); render(); }
+      else if (act === 'menu') { st.menu = !st.menu; render(); }
+      else if (act === 'take' && cur) {
+        cur.status = 'mine'; cur.operator = ME; cur.taken = Date.now();
+        cur.msgs.push({ from: 'sys', text: ME + ' heeft het gesprek aangenomen' });
+        render(true);
+      } else if (act === 'close' && cur) {
+        var m = Math.max(1, Math.round((Date.now() - cur.started) / 60000));
+        archive.unshift({ id: ++seq + 1000, date: 'Vandaag, net', name: cur.name, topic: cur.topic, op: ME, dur: m + ' min', rating: null, lang: cur.lang, outcome: 'ok', comment: '',
+          msgs: cur.msgs.map(function (x) { return [x.from === 'op' ? 'op' : x.from, x.text]; }).concat([['sys', 'Afgesloten door ' + ME + ' · wacht op tevredenheidsscore']]) });
+        convs = convs.filter(function (c) { return c.id !== cur.id; });
+        var next = convs.filter(function (c) { return c.status === 'mine'; })[0] || convs.filter(function (c) { return c.status === 'waiting'; })[0] || convs[0];
+        st.sel = next ? next.id : null; st.menu = false;
+        render();
+      } else if (act === 'opentoast' && st.toast) {
+        st.page = 'inbox'; st.sel = st.toast.id; st.toast = null; render();
+      }
+    });
+    root.addEventListener('input', function (e) {
+      var k = e.target.getAttribute('data-bind');
+      if (k === 'draft') st.drafts[st.sel] = e.target.value;
+      else if (k === 'note') st.notes[st.sel] = e.target.value;
+      else if (k === 'q') { st.q = e.target.value; render(); }
+    });
+    root.addEventListener('keydown', function (e) {
+      if (e.target.getAttribute('data-bind') === 'draft' && e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        var f = e.target.form; f.requestSubmit ? f.requestSubmit() : f.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      }
+      if (e.key === 'Enter' && e.target.hasAttribute('data-arc')) { st.arcSel = +e.target.getAttribute('data-arc'); render(); }
+      if (e.key === 'Escape' && st.menu) { st.menu = false; render(); }
+    });
+    root.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var c = conv(st.sel), text = (st.drafts[st.sel] || '').trim();
+      if (!c || !text) return;
+      c.msgs.push({ from: 'op', text: text }); st.drafts[c.id] = '';
+      render(true);
+      if (vIdx < visitorReplies.length) {
+        var id = c.id, reply = visitorReplies[vIdx++];
+        setTimeout(function () { st.typing[id] = true; if (st.sel === id && st.page === 'inbox') render(true); }, 900);
+        setTimeout(function () {
+          st.typing[id] = false;
+          var cc = conv(id); if (cc) cc.msgs.push({ from: 'visitor', text: reply });
+          if (st.page === 'inbox' && st.sel === id) render(true); else if (view === 'beheer') render();
+        }, 2600);
+      }
+    });
+
+    setInterval(function () {
+      if (view !== 'beheer') return;
+      [].forEach.call(root.querySelectorAll('[data-wait]'), function (el) {
+        var c = conv(+el.getAttribute('data-wait')); if (c) el.textContent = waitLong(c.started);
+      });
+    }, 1000);
+    setInterval(function () {
+      if (view === 'beheer' && st.page === 'inbox' && !root.contains(document.activeElement)) render();
+    }, 30000);
+
+    return {
+      start: function () {
+        render();
+        if (st.started) return;
+        st.started = true;
+        setTimeout(function () {
+          var c = { id: 5, name: 'Tom', topic: 'Iets anders', lang: 'NL', email: '', page: '/info/brochures', started: Date.now(), status: 'waiting',
+            msgs: [{ from: 'visitor', text: 'Hoi, kan ik ook brochures voor mijn huisartsenpraktijk bestellen?' }] };
+          convs.splice(2, 0, c);
+          if (st.status === 'online') { st.toast = { id: 5, name: c.name, topic: c.topic }; chime(); }
+          if (view === 'beheer' && !(document.activeElement && root.contains(document.activeElement) && document.activeElement.tagName === 'TEXTAREA')) render();
+          else if (view === 'beheer') { var tmp = document.createElement('div'); tmp.innerHTML = toastHtml(); root.appendChild(tmp.firstChild); var n = root.querySelector('.side nav [data-page="inbox"] .badge'); if (n) n.textContent = convs.filter(function (x) { return x.status === 'waiting'; }).length; }
+          setTimeout(function () { if (st.toast && st.toast.id === 5) { st.toast = null; var el = root.querySelector('.toast'); if (el) el.remove(); } }, 9000);
+        }, 12000);
+      }
+    };
+  })();
+
+  var initial = (location.hash || '').replace('#', '');
+  show(['widget', 'embed', 'beheer'].indexOf(initial) !== -1 ? initial : 'embed');
+})();
+</script>
+</body>
+</html>
