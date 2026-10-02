@@ -1,0 +1,1228 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>AI-assistent voor Tabakstop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --bg: #E9EEF3;
+  --surface: #FFFFFF;
+  --sunken: #F4F7FA;
+  --ink: #16293D;
+  --muted: #5A6E82;
+  --faint: #8A9BAC;
+  --line: #DCE4EC;
+  --brand: #F78F1E;
+  --brand-dark: #E27F0C;
+  --brand-ink: #B85A00;
+  --brand-deep: #8F4300;
+  --brand-soft: #FDEBD3;
+  --chart-brand: #C96A00;
+  --bot: #16293D;
+  --bot-soft: #E6EAF0;
+  --bot-line: #CBD3DD;
+  --ok: #2E9E5B;
+  --ok-soft: #E3F4EA;
+  --bad: #B4462B;
+  --bad-soft: #FBE9E4;
+  --fr: #7A3D74;
+  --fr-soft: #F4E7F2;
+  --shadow-lg: 0 2px 6px rgba(22, 41, 61, .08), 0 18px 48px rgba(22, 41, 61, .18);
+  --shadow: 0 1px 2px rgba(22, 41, 61, .06), 0 6px 18px rgba(22, 41, 61, .08);
+  --display: "Outfit", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { background: var(--bg); margin: 0; }
+body {
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 0 16px;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--brand-ink); outline-offset: 2px; }
+.c-head :focus-visible { outline-color: var(--ink); }
+.side :focus-visible { outline-color: var(--brand); }
+h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.2; text-wrap: balance; }
+p { margin: 0; }
+
+.shell { max-width: 1320px; margin: 0 auto; padding-block: 20px 40px; display: flex; flex-direction: column; gap: 16px; }
+
+/* Top bar */
+.topbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.proto-label { display: flex; flex-direction: column; gap: 2px; margin-right: auto; }
+.proto-label h1 { font-size: 20px; font-weight: 700; }
+.proto-label span { font-size: 13px; color: var(--muted); }
+.back { font-size: 13px; font-weight: 600; color: var(--brand-deep); text-decoration: none; margin-bottom: 4px; }
+.back:hover { text-decoration: underline; }
+.tabs { display: inline-flex; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 3px; gap: 2px; flex-wrap: wrap; }
+.tabs button {
+  border: 0; background: transparent; padding: 8px 14px; border-radius: 7px;
+  font-weight: 600; color: var(--muted);
+}
+.tabs button[aria-selected="true"] { background: var(--brand); color: var(--ink); }
+.tabs button:not([aria-selected="true"]):hover { background: var(--sunken); color: var(--ink); }
+
+/* Visitor controls */
+.controls {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  padding: 10px 14px;
+}
+.controls .grp { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.controls .lbl { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex-wrap: wrap; }
+.seg button { border: 0; background: var(--surface); padding: 6px 11px; font-size: 13px; font-weight: 500; color: var(--muted); border-left: 1px solid var(--line); }
+.seg button:first-child { border-left: 0; }
+.seg button[aria-pressed="true"] { background: var(--brand-soft); color: var(--brand-deep); font-weight: 600; }
+.controls .hint { font-size: 13px; color: var(--muted); margin-left: auto; }
+
+/* Browser frame */
+.browser { background: var(--surface); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; border: 1px solid var(--line); }
+.bar { display: flex; align-items: center; gap: 12px; padding: 9px 14px; background: #F1F4F7; border-bottom: 1px solid var(--line); }
+.bar .dots { display: flex; gap: 6px; flex: none; }
+.bar .dots i { width: 10px; height: 10px; border-radius: 50%; background: #CFD8E1; display: block; }
+.bar .url { flex: 1; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Faux site */
+.site { position: relative; height: 660px; overflow: hidden; background: #FFFFFF; }
+.site-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 32px; }
+.wordmark { font-family: var(--display); font-weight: 700; font-size: 20px; color: #1D3A5A; letter-spacing: -.01em; }
+.wordmark span { color: var(--brand-ink); font-weight: 500; }
+.site-nav nav { display: flex; gap: 22px; font-size: 14px; color: var(--brand-ink); font-weight: 500; }
+.site-hero { padding: 26px 32px 0; max-width: 620px; display: flex; flex-direction: column; gap: 14px; }
+.site-hero h2 { font-size: 38px; font-weight: 700; color: #1D3A5A; letter-spacing: -.01em; }
+.site-hero p { font-size: 17px; color: #4B6076; line-height: 1.6; }
+.site-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 30px 32px; max-width: 900px; }
+.site-card { border-radius: 14px; padding: 18px; min-height: 150px; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; color: #FFFFFF; }
+.site-card b { font-family: var(--display); font-size: 17px; font-weight: 600; }
+.site-card span { font-size: 13px; }
+.site-card.c1 { background: #AB58A2; }
+.site-card.c2 { background: #1D3A5A; }
+.site-card.c3 { background: var(--brand); color: var(--ink); }
+.skel { padding: 0 32px; display: flex; flex-direction: column; gap: 10px; max-width: 700px; }
+.skel i { display: block; height: 10px; border-radius: 5px; background: #EDF1F5; }
+
+/* Launcher + widget panel */
+.launcher {
+  position: absolute; right: 22px; bottom: 22px; z-index: 3;
+  display: flex; align-items: center; gap: 10px;
+  border: 0; border-radius: 999px; padding: 12px 18px 12px 14px;
+  background: var(--brand); color: var(--ink); font-weight: 600; font-size: 15px;
+  box-shadow: var(--shadow-lg);
+}
+.launcher:hover { background: var(--brand-dark); }
+.launcher svg { width: 22px; height: 22px; flex: none; }
+.launcher.round { padding: 14px; }
+.panel {
+  position: absolute; right: 22px; bottom: 92px; z-index: 4;
+  width: 370px; height: calc(100% - 116px); max-height: 560px;
+  background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-lg);
+  overflow: hidden; display: flex;
+  transform-origin: bottom right;
+  animation: pop .18s ease-out;
+}
+@keyframes pop { from { opacity: .4; transform: scale(.96) translateY(6px); } to { opacity: 1; transform: none; } }
+@media (max-width: 620px) {
+  .site-nav nav { display: none; }
+  .site-hero h2 { font-size: 28px; }
+  .site-cards { grid-template-columns: 1fr; }
+  .site-card { min-height: 90px; }
+  .panel { left: 8px; right: 8px; width: auto; bottom: 84px; height: calc(100% - 96px); }
+}
+
+/* Chat component */
+.chat { display: flex; flex-direction: column; width: 100%; height: 100%; position: relative; background: var(--surface); }
+.c-head { background: var(--brand); color: var(--ink); padding: 14px 16px; display: flex; align-items: center; gap: 11px; flex: none; }
+.c-head .who { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.c-head .who b { font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 1.2; }
+.c-head .who span { font-size: 12.5px; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-family: var(--display); font-weight: 600; font-size: 13px; flex: none; background: var(--bot); color: #FFFFFF; }
+.c-head .hbtn { border: 1px solid rgba(22, 41, 61, .55); background: transparent; color: var(--ink); border-radius: 8px; padding: 5px 10px; font-size: 12.5px; font-weight: 600; flex: none; }
+.c-head .hbtn:hover { background: rgba(22, 41, 61, .1); }
+.c-head .icon-btn { border: 0; background: transparent; color: var(--ink); width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; flex: none; }
+.c-head .icon-btn:hover { background: rgba(22, 41, 61, .1); }
+.c-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: var(--surface); }
+.c-foot { border-top: 1px solid var(--line); padding: 10px 12px; display: flex; gap: 8px; align-items: flex-end; flex: none; background: var(--surface); }
+.c-foot textarea { flex: 1; resize: none; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; min-height: 40px; max-height: 110px; background: var(--sunken); }
+.c-foot textarea:focus { background: var(--surface); }
+.send { border: 0; background: var(--brand); color: var(--ink); width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; flex: none; }
+.send:hover { background: var(--brand-dark); }
+.send svg { width: 18px; height: 18px; }
+.ai-note { flex: none; text-align: center; font-size: 11.5px; color: var(--muted); padding: 0 12px 8px; background: var(--surface); }
+.c-body + .ai-note { border-top: 1px solid var(--line); padding-top: 7px; }
+.intro { color: var(--muted); font-size: 13.5px; }
+.f { display: flex; flex-direction: column; gap: 5px; }
+.f label { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.f input, .f select, .f textarea { border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px; background: var(--sunken); width: 100%; }
+.f textarea { resize: vertical; }
+.f input:focus, .f select:focus, .f textarea:focus { background: var(--surface); }
+.err { color: var(--bad); font-size: 12.5px; font-weight: 600; }
+.btn { border: 0; border-radius: 10px; padding: 11px 14px; font-weight: 600; background: var(--brand); color: var(--ink); }
+.btn:hover { background: var(--brand-dark); }
+.btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+.btn.ghost:hover { background: var(--sunken); color: var(--ink); }
+.btn.small { padding: 7px 11px; font-size: 13px; border-radius: 8px; }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.msg { max-width: 84%; padding: 9px 12px; border-radius: 14px; font-size: 14px; line-height: 1.45; white-space: pre-wrap; word-wrap: break-word; }
+.msg.me { background: var(--brand); color: var(--ink); border-bottom-right-radius: 4px; align-self: flex-end; }
+.msg.bot { background: var(--bot-soft); border: 1px solid var(--bot-line); color: var(--ink); border-bottom-left-radius: 4px; align-self: flex-start; }
+.msg small { display: block; font-size: 11px; color: #44586C; margin-bottom: 2px; font-weight: 600; }
+.sys { align-self: center; font-size: 12px; color: var(--muted); text-align: center; }
+.thinking { align-self: flex-start; display: flex; gap: 4px; padding: 11px 13px; background: var(--bot-soft); border: 1px solid var(--bot-line); border-radius: 14px; border-bottom-left-radius: 4px; }
+.thinking i { width: 6px; height: 6px; border-radius: 50%; background: #5A6E82; display: block; animation: blink 1.2s infinite ease-in-out; }
+.thinking i:nth-child(2) { animation-delay: .15s; }
+.thinking i:nth-child(3) { animation-delay: .3s; }
+@keyframes blink { 0%, 60%, 100% { opacity: .3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-2px); } }
+.overlay { position: absolute; inset: 0; background: rgba(22, 41, 61, .45); display: grid; place-items: center; padding: 20px; z-index: 2; }
+.dialog { background: var(--surface); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 300px; box-shadow: var(--shadow-lg); }
+.dialog b { font-family: var(--display); font-size: 16px; font-weight: 600; }
+.rate-q { font-family: var(--display); font-size: 18px; font-weight: 600; line-height: 1.3; }
+.scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.scale button { aspect-ratio: 1; max-width: 100%; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--muted); }
+.scale button:hover { border-color: var(--brand-ink); color: var(--brand-deep); }
+.scale button[aria-pressed="true"] { background: var(--brand); border-color: var(--brand); color: var(--ink); }
+.scale-ends { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: -4px; }
+.done { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; margin: auto 0; padding: 12px; }
+.done .ring { width: 56px; height: 56px; border-radius: 50%; background: var(--ok-soft); color: var(--ok); display: grid; place-items: center; }
+.done .ring svg { width: 28px; height: 28px; }
+.done b { font-family: var(--display); font-size: 18px; font-weight: 600; }
+.done p { color: var(--muted); font-size: 13.5px; max-width: 30ch; overflow-wrap: anywhere; }
+.srcs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.src { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 600; color: var(--brand-ink); background: #FFFFFF; border: 1px solid var(--line); border-radius: 6px; padding: 2px 7px; white-space: normal; }
+.src svg { width: 12px; height: 12px; flex: none; }
+.fbk { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); margin-top: 8px; }
+.fbk button { border: 1px solid var(--bot-line); background: #FFFFFF; border-radius: 6px; width: 28px; height: 24px; display: grid; place-items: center; color: var(--muted); padding: 0; }
+.fbk button svg { width: 14px; height: 14px; }
+.fbk button:hover { color: var(--ink); border-color: var(--brand-ink); }
+.fbk button[aria-pressed="true"] { background: var(--brand-soft); border-color: var(--brand-ink); color: var(--brand-deep); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips button { border: 1px solid var(--brand-ink); color: var(--brand-ink); background: #FFFFFF; border-radius: 999px; padding: 6px 11px; font-size: 13px; font-weight: 600; text-align: left; }
+.chips button:hover { background: var(--brand-soft); color: var(--brand-deep); }
+.escalate { align-self: flex-start; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; max-width: 92%; }
+.contact-line { font-size: 12.5px; color: var(--muted); }
+.c-assist { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px 0; background: var(--surface); border-top: 1px solid var(--line); flex-wrap: wrap; }
+.c-assist + .c-foot { border-top: 0; }
+.linkbtn { border: 0; background: transparent; color: var(--brand-ink); font-weight: 700; font-size: 13px; padding: 4px 0; display: inline-flex; align-items: center; gap: 6px; text-align: left; }
+.linkbtn:hover { text-decoration: underline; }
+.c-assist span { font-size: 11.5px; color: var(--muted); }
+.formnote { background: var(--bot-soft); border: 1px solid var(--bot-line); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: var(--ink); }
+.fine { font-size: 12px; color: var(--muted); }
+
+/* Embed page */
+.page-wrap { padding: 30px 32px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 32px; align-items: start; max-width: 1100px; }
+.page-copy { display: flex; flex-direction: column; gap: 16px; padding-top: 6px; }
+.page-copy .crumb { font-size: 13px; color: var(--muted); }
+.page-copy h2 { font-size: 32px; font-weight: 700; color: #1D3A5A; letter-spacing: -.01em; }
+.page-copy p { font-size: 15.5px; color: #4B6076; line-height: 1.6; }
+.facts { border-top: 1px solid var(--line); }
+.facts div { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.facts div span:last-child { color: var(--muted); text-align: right; }
+.embed-card { height: 580px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); display: flex; }
+.embed-site { height: auto; min-height: 660px; }
+@media (max-width: 860px) {
+  .page-wrap { grid-template-columns: 1fr; padding: 22px 18px; }
+  .embed-card { height: 540px; }
+}
+
+/* Admin */
+.admin { display: grid; grid-template-columns: 216px minmax(0, 1fr); height: 760px; background: var(--sunken); position: relative; }
+.side { background: #16293D; color: #D6E1EB; display: flex; flex-direction: column; padding: 16px 12px; gap: 18px; min-height: 0; }
+.side .brandrow { display: flex; align-items: center; gap: 9px; padding: 2px 6px; }
+.side .brandrow b { font-family: var(--display); font-weight: 700; font-size: 16px; color: #FFFFFF; }
+.side .brandrow span { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #8FA6BC; }
+.side nav { display: flex; flex-direction: column; gap: 2px; }
+.side nav button { display: flex; align-items: center; gap: 10px; border: 0; background: transparent; color: #C3D1DE; padding: 9px 10px; border-radius: 8px; text-align: left; font-weight: 500; }
+.side nav button svg { width: 18px; height: 18px; flex: none; opacity: .85; }
+.side nav button:hover { background: rgba(255, 255, 255, .06); color: #FFFFFF; }
+.side nav button[aria-current="page"] { background: rgba(255, 255, 255, .1); color: #FFFFFF; font-weight: 600; box-shadow: inset 3px 0 0 var(--brand); }
+.side nav .badge { margin-left: auto; background: var(--brand); color: var(--ink); font-size: 11.5px; font-weight: 700; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; display: grid; place-items: center; }
+.main { min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+
+.pane { flex: 1; overflow-y: auto; padding: 22px 24px; display: flex; flex-direction: column; gap: 18px; min-height: 0; }
+.pane-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.pane-head h2 { font-size: 22px; font-weight: 700; margin-right: auto; }
+.sample { font-size: 12px; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); padding: 3px 8px; border-radius: 6px; }
+.search { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 9px; padding: 0 10px; min-width: 0; flex: 1 1 240px; max-width: 360px; }
+.search svg { width: 16px; height: 16px; color: var(--faint); flex: none; }
+.search input { border: 0; background: transparent; padding: 8px 0; width: 100%; min-width: 0; }
+.search input:focus { outline: none; }
+.search:focus-within { outline: 2px solid var(--brand-ink); outline-offset: 1px; }
+.chip { font-size: 10.5px; font-weight: 700; letter-spacing: .04em; padding: 2px 6px; border-radius: 5px; background: var(--bot-soft); color: var(--bot); flex: none; }
+.chip.fr { background: var(--fr-soft); color: var(--fr); }
+
+.archive-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 18px; min-height: 0; align-items: start; }
+.table-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th { text-align: left; font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 11px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; background: var(--surface); }
+td { padding: 10px 12px; border-bottom: 1px solid #EEF2F6; white-space: nowrap; font-variant-numeric: tabular-nums; }
+td.wrap { white-space: normal; min-width: 180px; color: var(--muted); }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--sunken); }
+tbody tr[aria-selected="true"] { background: var(--brand-soft); }
+tbody tr:last-child td { border-bottom: 0; }
+.ops td, .ops tbody tr { cursor: default; }
+.ops tbody tr:hover { background: transparent; }
+.score { display: inline-flex; align-items: center; gap: 5px; font-weight: 600; }
+.score i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.st { font-size: 12px; font-weight: 600; padding: 2px 7px; border-radius: 6px; }
+.st.solved { background: var(--ok-soft); color: #1F6B3E; }
+.st.left { background: var(--brand-soft); color: var(--brand-deep); }
+.st.unanswered { background: var(--bad-soft); color: var(--bad); }
+.transcript { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; display: flex; flex-direction: column; max-height: 600px; }
+.transcript .th { padding: 14px 16px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
+.transcript .th b { font-family: var(--display); font-weight: 600; font-size: 16px; }
+.transcript .th span { font-size: 12.5px; color: var(--muted); }
+.transcript .tb { padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; }
+.transcript .tb .msg { font-size: 13px; max-width: 92%; }
+.transcript .fb { border-top: 1px solid var(--line); padding: 12px 16px; font-size: 13px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
+.transcript .fb b { color: var(--ink); }
+.no-results { padding: 24px; text-align: center; color: var(--muted); }
+
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.kpi .k { font-size: 12.5px; color: var(--muted); font-weight: 500; }
+.kpi .v { font-family: var(--display); font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.kpi .v small { font-size: 15px; font-weight: 600; color: var(--muted); }
+.kpi .s { font-size: 12.5px; color: var(--muted); }
+.kpi.warn .v { color: var(--bad); }
+.charts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.card h3 { font-size: 15px; font-weight: 600; }
+.card .sub { font-size: 12.5px; color: var(--muted); margin-top: -6px; }
+.chart svg { width: 100%; height: auto; display: block; }
+.legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.dist { display: flex; flex-direction: column; gap: 8px; }
+.dist .row { display: grid; grid-template-columns: 22px 1fr 34px; align-items: center; gap: 8px; font-size: 13px; font-variant-numeric: tabular-nums; }
+.dist .row b { font-family: var(--display); font-weight: 600; text-align: center; }
+.dist .track { height: 12px; border-radius: 6px; background: #EEF2F6; overflow: hidden; }
+.dist .fill { height: 100%; border-radius: 6px; background: var(--chart-brand); }
+.dist .row span:last-child { text-align: right; color: var(--muted); }
+.topics .row { grid-template-columns: minmax(120px, 190px) 1fr 34px; }
+.topics .row b { font-family: var(--body); font-weight: 500; text-align: left; font-size: 13px; }
+.avg { display: flex; align-items: baseline; gap: 8px; }
+.avg b { font-family: var(--display); font-size: 30px; font-weight: 700; }
+.avg span { color: var(--muted); font-size: 13px; }
+
+.reviews { display: flex; flex-direction: column; gap: 12px; max-width: 820px; }
+.review { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.review .top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.review .flag { font-size: 12.5px; font-weight: 700; color: var(--bad); }
+.review .meta { font-size: 12.5px; color: var(--muted); margin-left: auto; }
+.review .q { font-weight: 600; font-size: 15px; }
+.review .a { background: var(--bot-soft); border: 1px solid var(--bot-line); border-radius: 10px; padding: 10px 12px; font-size: 13.5px; }
+.review .a small { display: block; font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #44586C; margin-bottom: 3px; }
+.review .acts { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.review textarea { width: 100%; min-height: 96px; resize: vertical; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; background: var(--sunken); }
+.review label { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.review.is-done { background: var(--sunken); }
+.review.is-done .q { color: var(--muted); font-weight: 500; }
+.review .who { font-weight: 700; font-size: 14px; }
+.review .attached { background: var(--sunken); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.review .attached .msg { font-size: 13px; max-width: 92%; }
+.check-btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 6px 11px 6px 8px; font-weight: 600; font-size: 13px; color: var(--muted); }
+.check-btn:hover { border-color: var(--brand-ink); color: var(--ink); }
+.check-btn .box { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid #6B7F93; display: grid; place-items: center; color: transparent; }
+.check-btn .box svg { width: 13px; height: 13px; }
+.check-btn[aria-pressed="true"] { color: var(--ink); }
+.check-btn[aria-pressed="true"] .box { background: var(--brand); border-color: var(--brand); color: var(--ink); }
+.toggle-link { border: 0; background: none; color: var(--brand-deep); font-weight: 600; font-size: 13px; padding: 2px; }
+.toggle-link:hover { text-decoration: underline; }
+.subtabs { display: inline-flex; }
+.kb-note { font-size: 13px; color: var(--muted); max-width: 70ch; }
+.status-pill { font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; }
+.status-pill.ok { background: var(--ok-soft); color: #1F6B3E; }
+.status-pill.busy { background: var(--brand-soft); color: var(--brand-deep); }
+.status-pill.busy::before { content: ""; width: 9px; height: 9px; border: 2px solid currentColor; border-top-color: transparent; border-radius: 50%; animation: spin .9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.provs { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+.prov { text-align: left; border: 1.5px solid var(--line); background: var(--surface); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 6px; }
+.prov:hover { border-color: var(--brand-ink); }
+.prov[aria-checked="true"] { border-color: var(--brand-ink); background: var(--brand-soft); }
+.prov .nm { display: flex; align-items: center; gap: 9px; font-family: var(--display); font-weight: 600; font-size: 16px; }
+.prov .radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #6B7F93; flex: none; background: var(--surface); }
+.prov[aria-checked="true"] .radio { border-color: var(--brand-ink); background: var(--brand-ink); box-shadow: inset 0 0 0 3px var(--brand-soft); }
+.prov .reco { margin-left: auto; font-family: var(--body); font-size: 11.5px; font-weight: 700; background: var(--bot); color: #FFFFFF; padding: 2px 8px; border-radius: 6px; }
+.prov .note { font-size: 13px; color: #44586C; padding-left: 27px; }
+.summary-line { font-size: 13.5px; background: var(--sunken); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+
+.toast { position: absolute; top: 14px; right: 14px; z-index: 10; background: #16293D; color: #FFFFFF; border-radius: 12px; padding: 12px 14px; display: flex; gap: 12px; align-items: center; box-shadow: var(--shadow-lg); max-width: 340px; animation: pop .2s ease-out; }
+.toast svg { width: 22px; height: 22px; color: #7BE09B; flex: none; }
+.toast b { display: block; font-weight: 600; }
+.toast span { font-size: 12.5px; color: #C3D1DE; }
+
+@media (max-width: 1180px) {
+  .archive-grid { grid-template-columns: 1fr; }
+  .transcript { max-height: none; }
+}
+@media (max-width: 900px) {
+  .charts { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .admin { grid-template-columns: 1fr; height: auto; }
+  .side { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .side nav { flex-direction: row; flex-wrap: wrap; }
+  .pane { padding: 16px; }
+  .controls .hint { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <div class="proto-label">
+      <a class="back" href="./">&larr; Terug naar het voorstel</a>
+      <h1>AI-assistent voor Tabakstop</h1>
+      <span>Klikbaar prototype · alle gesprekken, bronnen en cijfers zijn voorbeelden</span>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Onderdeel">
+      <button role="tab" id="tab-embed" aria-selected="true" data-view="embed">Ingesloten op een pagina</button>
+      <button role="tab" id="tab-widget" aria-selected="false" data-view="widget">Chatknop op de site</button>
+      <button role="tab" id="tab-beheer" aria-selected="false" data-view="beheer">Beheer</button>
+    </div>
+  </div>
+
+  <div class="controls" id="visitor-controls">
+    <div class="grp">
+      <span class="lbl">Stap</span>
+      <div class="seg" id="state-seg">
+        <button data-state="bot" aria-pressed="true">Assistent</button>
+        <button data-state="form" aria-pressed="false">Bericht achterlaten</button>
+        <button data-state="rate" aria-pressed="false">Tevredenheid</button>
+      </div>
+    </div>
+    <div class="grp">
+      <span class="lbl">Taal</span>
+      <div class="seg" id="lang-seg">
+        <button data-lang="nl" aria-pressed="true">NL</button>
+        <button data-lang="fr" aria-pressed="false">FR</button>
+      </div>
+    </div>
+    <span class="hint" id="controls-hint"></span>
+  </div>
+
+  <section id="view-embed" role="tabpanel" aria-labelledby="tab-embed">
+    <div class="browser">
+      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">tabakstop.be/pagina/chat</div></div>
+      <div class="site embed-site">
+        <div class="site-nav">
+          <div class="wordmark">Tabakstop <span>· stoppen is mogelijk</span></div>
+          <nav><span>Ik wil stoppen</span><span>Ik ben gestopt</span><span>Ik help iemand</span><span>Info</span></nav>
+        </div>
+        <div class="page-wrap">
+          <div class="page-copy">
+            <span class="crumb">Home › Contact › Vraag het de assistent</span>
+            <h2>Stel je vraag over stoppen met roken</h2>
+            <p>Onze digitale assistent antwoordt meteen, dag en nacht, met de informatie van Tabakstop. Kan de assistent een vraag niet beantwoorden, dan laat je een bericht achter. Een tabakoloog antwoordt je per e-mail.</p>
+            <div class="facts" aria-label="Wat kun je verwachten">
+              <div><span>Digitale assistent</span><span>altijd beschikbaar</span></div>
+              <div><span>Bericht aan een tabakoloog</span><span>antwoord binnen twee werkdagen</span></div>
+              <div><span>Medisch advies</span><span>enkel via een tabakoloog of huisarts</span></div>
+            </div>
+            <p>Denk je aan zelfdoding? Bel de Zelfmoordlijn op 1813, dag en nacht bereikbaar.</p>
+          </div>
+          <div class="embed-card" id="embed-mount"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-widget" role="tabpanel" aria-labelledby="tab-widget" hidden>
+    <div class="browser">
+      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">tabakstop.be/pagina/stoppen-met-roken</div></div>
+      <div class="site" id="site-widget">
+        <div class="site-nav">
+          <div class="wordmark">Tabakstop <span>· stoppen is mogelijk</span></div>
+          <nav><span>Ik wil stoppen</span><span>Ik ben gestopt</span><span>Ik help iemand</span><span>Info</span></nav>
+        </div>
+        <div class="site-hero">
+          <h2>Stoppen met roken, je hoeft het niet alleen te doen</h2>
+          <p>Een tabakoloog helpt je een plan te maken dat bij jou past. Heb je een vraag? Stel ze rechtsonder aan onze assistent.</p>
+        </div>
+        <div class="site-cards">
+          <div class="site-card c1"><b>Ik wil stoppen</b><span>Zo begin je eraan</span></div>
+          <div class="site-card c2"><b>Hulp bij stoppen</b><span>Begeleiding door een tabakoloog</span></div>
+          <div class="site-card c3"><b>Brochures</b><span>Downloaden of bestellen</span></div>
+        </div>
+        <div class="skel"><i style="width:92%"></i><i style="width:78%"></i><i style="width:85%"></i><i style="width:60%"></i></div>
+        <div id="widget-mount"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-beheer" role="tabpanel" aria-labelledby="tab-beheer" hidden>
+    <div class="browser">
+      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">assistent.tabakstop.be</div></div>
+      <div class="admin" id="admin"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var ICON = {
+    chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12Z"/></svg>',
+    close: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+    minus: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 12h12"/></svg>',
+    send: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>',
+    check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+    bot: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M2 13v2M22 13v2"/></svg>',
+    mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+    gear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>',
+    stats: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+    search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+    doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>',
+    page: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>',
+    up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v11M7 10l4-7a2 2 0 0 1 3 2l-1 5h5.5a2 2 0 0 1 2 2.4l-1.5 7A2 2 0 0 1 17 21H7"/></svg>',
+    down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V3M17 14l-4 7a2 2 0 0 1-3-2l1-5H5.5a2 2 0 0 1-2-2.4l1.5-7A2 2 0 0 1 7 3h10"/></svg>'
+  };
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function fire(form) {
+    if (form.requestSubmit) form.requestSubmit();
+    else form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+  }
+
+  /* ---------- Visitor copy ---------- */
+  var T = {
+    nl: {
+      launcher: 'Stel je vraag',
+      botName: 'Tabakstop-assistent',
+      botSub: 'Antwoordt met info van tabakstop.be',
+      botLabel: 'Assistent',
+      leave: 'Laat een bericht achter voor een tabakoloog',
+      noMed: 'Geen medisch advies',
+      aiNote: 'Antwoorden worden gegenereerd door AI',
+      contact: 'Liever zelf contact opnemen? Kijk op tabakstop.be/contact.',
+      placeholder: 'Typ je vraag…',
+      useful: 'Was dit nuttig?',
+      thanksFb: 'Bedankt voor je feedback',
+      formTitle: 'Bericht voor een tabakoloog',
+      formSub: 'Je krijgt antwoord per e-mail',
+      formNote: 'Je gesprek met de assistent wordt meegestuurd, zodat je niets hoeft te herhalen. Een tabakoloog antwoordt je per e-mail, binnen twee werkdagen.',
+      name: 'Voornaam of bijnaam (optioneel)',
+      email: 'E-mailadres',
+      emailPh: 'naam@voorbeeld.be',
+      question: 'Je vraag',
+      questionPh: 'Waarmee kan een tabakoloog je helpen?',
+      privacy: 'Door te versturen ga je akkoord met de privacyverklaring.',
+      sendMsg: 'Bericht versturen',
+      backBot: 'Terug naar de assistent',
+      emailErr: 'Vul een geldig e-mailadres in.',
+      questionErr: 'Schrijf je vraag.',
+      sentTitle: 'Bericht ontvangen',
+      sentBody: function (e) { return 'Een tabakoloog antwoordt binnen twee werkdagen per e-mail op ' + e + '.'; },
+      end: 'Beëindigen',
+      endQ: 'Wil je het gesprek beëindigen?',
+      endBody: 'Je kunt daarna altijd een nieuw gesprek starten.',
+      yes: 'Ja, beëindigen',
+      no: 'Verder chatten',
+      rateQ: 'Hoe tevreden ben je over dit gesprek?',
+      rateLo: 'Helemaal niet',
+      rateHi: 'Heel tevreden',
+      comment: 'Wil je nog iets kwijt? (optioneel)',
+      commentPh: 'Je opmerking…',
+      submit: 'Versturen',
+      skip: 'Overslaan',
+      rateReq: 'Kies een score van 1 tot 5.',
+      thanks: 'Bedankt voor je gesprek',
+      thanksBody: 'Veel succes. Je kunt altijd opnieuw een vraag stellen.',
+      again: 'Nieuw gesprek',
+      hints: {
+        bot: 'Kies een voorgestelde vraag of typ er zelf een. Tip: vraag iets over Champix of zwangerschap, of vraag naar een persoon, om het doorverwijzen te zien.',
+        form: 'De assistent kan niet antwoorden. De bezoeker laat een bericht achter, het gesprek gaat mee.',
+        rate: 'Dit ziet de bezoeker meteen na het gesprek.'
+      }
+    },
+    fr: {
+      launcher: 'Posez votre question',
+      botName: 'Assistant Tabacstop',
+      botSub: 'Répond avec les infos de tabacstop.be',
+      botLabel: 'Assistant',
+      leave: 'Laisser un message à un tabacologue',
+      noMed: 'Pas de conseil médical',
+      aiNote: 'Les réponses sont générées par IA',
+      contact: 'Vous préférez nous contacter vous-même ? Rendez-vous sur tabacstop.be/contact.',
+      placeholder: 'Écrivez votre question…',
+      useful: 'Cette réponse vous aide ?',
+      thanksFb: 'Merci pour votre avis',
+      formTitle: 'Message pour un tabacologue',
+      formSub: 'Vous recevez une réponse par e-mail',
+      formNote: 'Votre conversation avec l’assistant est jointe, vous ne devez rien répéter. Un tabacologue vous répond par e-mail, dans les deux jours ouvrables.',
+      name: 'Prénom ou pseudo (facultatif)',
+      email: 'Adresse e-mail',
+      emailPh: 'nom@exemple.be',
+      question: 'Votre question',
+      questionPh: 'En quoi un tabacologue peut-il vous aider ?',
+      privacy: 'En envoyant, vous acceptez la déclaration de confidentialité.',
+      sendMsg: 'Envoyer le message',
+      backBot: "Retour à l'assistant",
+      emailErr: 'Indiquez une adresse e-mail valide.',
+      questionErr: 'Écrivez votre question.',
+      sentTitle: 'Message reçu',
+      sentBody: function (e) { return 'Un tabacologue vous répond par e-mail à ' + e + ', dans les deux jours ouvrables.'; },
+      end: 'Terminer',
+      endQ: 'Voulez-vous terminer la conversation ?',
+      endBody: 'Vous pourrez toujours en démarrer une nouvelle.',
+      yes: 'Oui, terminer',
+      no: 'Continuer',
+      rateQ: 'Êtes-vous satisfait(e) de cette conversation ?',
+      rateLo: 'Pas du tout',
+      rateHi: 'Très satisfait(e)',
+      comment: 'Un commentaire ? (facultatif)',
+      commentPh: 'Votre commentaire…',
+      submit: 'Envoyer',
+      skip: 'Passer',
+      rateReq: 'Choisissez une note de 1 à 5.',
+      thanks: 'Merci pour cette conversation',
+      thanksBody: 'Bonne chance. Vous pouvez toujours poser une nouvelle question.',
+      again: 'Nouvelle conversation',
+      hints: {
+        bot: "Choisissez une question proposée ou tapez la vôtre. Astuce : posez une question sur Champix ou la grossesse, ou demandez une personne, pour voir l'orientation.",
+        form: "L'assistant ne peut pas répondre. Le visiteur laisse un message, la conversation est jointe.",
+        rate: 'Ce que le visiteur voit juste après la conversation.'
+      }
+    }
+  };
+
+  /* ---------- Knowledge base (example answers) ---------- */
+  var KB = {
+    nl: {
+      greet: { text: 'Hallo! Ik ben de digitale assistent van Tabakstop. Ik beantwoord je vragen met de informatie van tabakstop.be en onze brochures. Medisch advies geef ik niet. Kan ik een vraag niet beantwoorden, dan kun je een bericht achterlaten voor een tabakoloog.',
+        chips: ['Hoe werkt begeleiding?', 'Welke nicotinevervangers zijn er?', 'Wat helpt tegen ontwenning?'] },
+      support: { text: 'Een tabakoloog is een zorgverlener die je helpt stoppen met roken. Samen maak je een stopplan dat bij jou past, en je krijgt begeleiding tijdens de moeilijke eerste weken. Dat kan individueel of in groep, bij je in de buurt of online.',
+        src: [['page', 'Stoppen met begeleiding']], chips: ['Welke nicotinevervangers zijn er?', 'Wat helpt tegen ontwenning?'], fb: true },
+      nrt: { text: 'Nicotinevervangers geven je lichaam nicotine zonder de schadelijke stoffen van tabaksrook. Zo worden ontwenningsverschijnselen minder sterk. Er zijn pleisters, kauwgom, zuigtabletten, een inhalator en een mondspray. Ze werken het best samen met begeleiding.',
+        src: [['doc', 'Brochure Nicotinevervangers (PDF)'], ['page', 'Nicotine en nicotineproducten']], chips: ['Hoe werkt begeleiding?', 'Wat helpt tegen ontwenning?'], fb: true },
+      withdrawal: { text: 'Ontwenningsverschijnselen zijn het sterkst in de eerste dagen na het stoppen en nemen na enkele weken af. Een hevige zin in een sigaret duurt meestal maar een paar minuten. Wat kan helpen: een glas water drinken, even bewegen, diep in- en uitademen of jezelf afleiden.',
+        src: [['page', 'Omgaan met ontwenningsverschijnselen'], ['doc', 'Brochure Ik voel me zoveel beter (PDF)']], chips: ['Hoe werkt begeleiding?', 'Welke nicotinevervangers zijn er?'], fb: true },
+      medical: { text: 'Over medicatie, dosissen of zwangerschap geef ik geen advies. Dat bespreek je best met een tabakoloog of je huisarts. Je kunt een bericht voor een tabakoloog achterlaten: die antwoordt je per e-mail.', hand: 'med' },
+      distress: { text: 'Het klinkt alsof je het nu heel moeilijk hebt. Je hoeft dit niet alleen te dragen. Hier kan ik je niet verder mee helpen, maar een tabakoloog wel. Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.', hand: 'care' },
+      person: { text: 'Ik ben een digitale assistent, dus ik kan je niet doorverbinden voor een gesprek. Je kunt wel een bericht achterlaten voor een tabakoloog. Die antwoordt je per e-mail.', hand: 'ask' },
+      fallback: { text: 'Daarover vind ik niets in de informatie van Tabakstop, en ik wil je geen verkeerd antwoord geven. Een tabakoloog kan je vraag wel beantwoorden. Laat een bericht achter, dan krijg je antwoord per e-mail.', hand: 'none' }
+    },
+    fr: {
+      greet: { text: "Bonjour ! Je suis l'assistant numérique de Tabacstop. Je réponds à vos questions avec les informations de tabacstop.be et de nos brochures. Je ne donne pas de conseils médicaux. Si je ne peux pas répondre, vous pouvez laisser un message à un tabacologue.",
+        chips: ['Comment se passe un accompagnement ?', 'Quels substituts nicotiniques existent ?', 'Que faire contre le manque ?'] },
+      support: { text: "Un tabacologue est un professionnel de santé qui vous aide à arrêter de fumer. Ensemble, vous établissez un plan d'arrêt adapté, et vous êtes accompagné(e) pendant les premières semaines, les plus difficiles. C'est possible seul(e) ou en groupe, près de chez vous ou en ligne.",
+        src: [['page', 'Arrêter avec un accompagnement']], chips: ['Quels substituts nicotiniques existent ?', 'Que faire contre le manque ?'], fb: true },
+      nrt: { text: 'Les substituts nicotiniques apportent de la nicotine à votre corps sans les substances nocives de la fumée. Les symptômes de manque sont ainsi moins forts. Il existe des patchs, des gommes, des comprimés à sucer, un inhalateur et un spray buccal. Ils fonctionnent le mieux avec un accompagnement.',
+        src: [['doc', 'Brochure Substituts nicotiniques (PDF)']], chips: ['Comment se passe un accompagnement ?', 'Que faire contre le manque ?'], fb: true },
+      withdrawal: { text: "Les symptômes de manque sont les plus forts les premiers jours après l'arrêt et diminuent après quelques semaines. Une forte envie de fumer ne dure généralement que quelques minutes. Ce qui peut aider : boire un verre d'eau, bouger un peu, respirer profondément ou vous changer les idées.",
+        src: [['page', 'Gérer les symptômes de manque'], ['doc', 'Brochure Je me sens tellement mieux sans tabac (PDF)']], chips: ['Comment se passe un accompagnement ?', 'Quels substituts nicotiniques existent ?'], fb: true },
+      medical: { text: 'Je ne donne pas de conseils sur les médicaments, les doses ou la grossesse. Parlez-en plutôt à un tabacologue ou à votre médecin. Vous pouvez laisser un message à un tabacologue : il vous répondra par e-mail.', hand: 'med' },
+      distress: { text: "On dirait que c'est très difficile pour vous en ce moment. Vous n'êtes pas seul(e). Je ne peux pas vous aider davantage, mais un tabacologue le peut. Si vous pensez au suicide, appelez le Centre de Prévention du Suicide au 0800 32 123, joignable 24 h/24.", hand: 'care' },
+      person: { text: "Je suis un assistant numérique, je ne peux donc pas vous mettre en relation pour une conversation. Vous pouvez en revanche laisser un message à un tabacologue. Il vous répondra par e-mail.", hand: 'ask' },
+      fallback: { text: "Je ne trouve rien à ce sujet dans les informations de Tabacstop, et je ne veux pas vous donner une mauvaise réponse. Un tabacologue peut répondre à votre question. Laissez un message, vous recevrez une réponse par e-mail.", hand: 'none' }
+    }
+  };
+  var ROUTES = [
+    ['distress', /(niet meer zitten|hopeloos|wanhoop|zelfmoord|zelfdoding|geen zin meer|désespér|suicide|n'en peux plus|plus envie de vivre)/i],
+    ['medical', /(champix|cytisine|varenicline|varénicline|medicat|medicijn|dosis|zwanger|bijwerking|médica|dose|enceinte|grossesse|effet secondaire)/i],
+    ['person', /(met iemand|iemand (spreken|praten|bellen)|echt persoon|een mens|medewerker|kan ik bellen|parler à|parler avec|quelqu'un|une personne|un humain|conseiller)/i],
+    ['support', /(begeleid|tabakoloog|coach|hulp bij|accompagn|tabacologue|aide)/i],
+    ['nrt', /(vervang|pleister|kauwgom|zuigtablet|mondspray|inhalator|substitut|patch|gomme|spray)/i],
+    ['withdrawal', /(ontwenning|zin in|craving|trek|sevrage|envie|manque)/i]
+  ];
+  function route(text) {
+    for (var i = 0; i < ROUTES.length; i++) if (ROUTES[i][1].test(text)) return ROUTES[i][0];
+    return 'fallback';
+  }
+
+  var lang = 'nl';
+  function L() { return T[lang]; }
+  function K() { return KB[lang]; }
+
+  /* ---------- Visitor chat ---------- */
+  function Chat(mount, mode) {
+    var s = { phase: 'bot', msgs: [], draft: '', thinking: false, name: '', email: '', question: '',
+      rating: 0, comment: '', confirm: false, err: '', open: mode === 'embed', sentTo: '' };
+    var timers = [];
+    function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+    function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+    function botMsg(key) {
+      var e = K()[key];
+      return { from: 'bot', key: key, text: e.text, src: e.src || [], chips: e.chips || [], hand: e.hand || null, fb: e.fb ? null : undefined };
+    }
+    function reset() {
+      s.msgs = [botMsg('greet')];
+      s.phase = 'bot'; s.rating = 0; s.comment = ''; s.err = ''; s.question = ''; s.name = ''; s.email = ''; s.thinking = false;
+    }
+    function lastQuestion() {
+      for (var i = s.msgs.length - 1; i >= 0; i--) if (s.msgs[i].from === 'me') return s.msgs[i].text;
+      return '';
+    }
+
+    function head() {
+      var l = L(), who;
+      if (s.phase === 'form') who = '<div class="avatar">' + ICON.mail.replace('<svg ', '<svg width="18" height="18" ') + '</div><div class="who"><b>' + esc(l.formTitle) + '</b><span>' + esc(l.formSub) + '</span></div>';
+      else who = '<div class="avatar">AI</div><div class="who"><b>' + esc(l.botName) + '</b><span>' + esc(l.botSub) + '</span></div>';
+      var endBtn = s.phase === 'bot' ? '<button class="hbtn" data-act="end">' + esc(l.end) + '</button>' : '';
+      var minBtn = mode === 'widget' ? '<button class="icon-btn" data-act="min" aria-label="Chatvenster verkleinen">' + ICON.minus + '</button>' : '';
+      return '<div class="c-head">' + who + endBtn + minBtn + '</div>';
+    }
+
+    function renderMsg(m, i, isLast) {
+      var l = L();
+      if (m.from === 'me') return '<div class="msg me">' + esc(m.text) + '</div>';
+      var h = '<div class="msg bot"><small>' + esc(l.botLabel) + '</small>' + esc(m.text);
+      if (m.src.length) h += '<div class="srcs">' + m.src.map(function (x) { return '<span class="src">' + (x[0] === 'doc' ? ICON.doc : ICON.page) + esc(x[1]) + '</span>'; }).join('') + '</div>';
+      if (m.fb !== undefined) {
+        h += m.fb ? '<div class="fbk">' + esc(l.thanksFb) + '</div>'
+          : '<div class="fbk"><span>' + esc(l.useful) + '</span><button data-fb="' + i + ':up" aria-label="Nuttig">' + ICON.up + '</button><button data-fb="' + i + ':down" aria-label="Niet nuttig">' + ICON.down + '</button></div>';
+      }
+      h += '</div>';
+      var live = isLast && s.phase === 'bot' && !s.thinking;
+      if (m.hand && live) h += '<div class="escalate"><button class="btn small" data-act="leave">' + esc(l.leave) + '</button><p class="contact-line">' + esc(l.contact) + '</p></div>';
+      if (m.chips.length && live) h += '<div class="chips">' + m.chips.map(function (c) { return '<button data-chip="' + esc(c) + '">' + esc(c) + '</button>'; }).join('') + '</div>';
+      return h;
+    }
+
+    function stream() {
+      var h = s.msgs.map(function (m, i) { return renderMsg(m, i, i === s.msgs.length - 1); }).join('');
+      if (s.thinking) h += '<div class="thinking" role="status" aria-label="De assistent schrijft"><i></i><i></i><i></i></div>';
+      return h;
+    }
+
+    function body() {
+      var l = L();
+      if (s.phase === 'bot') {
+        return '<div class="c-body" data-scroll>' + stream() + '</div>' +
+          '<div class="c-assist"><button class="linkbtn" data-act="leave">' + esc(l.leave) + '</button><span>' + esc(l.noMed) + '</span></div>' +
+          '<form class="c-foot" data-form="send"><textarea id="' + mode + '-draft" rows="1" data-bind="draft" placeholder="' + esc(l.placeholder) + '" aria-label="' + esc(l.placeholder) + '">' + esc(s.draft) + '</textarea>' +
+          '<button class="send" type="submit" aria-label="Versturen">' + ICON.send + '</button></form>' +
+          '<div class="ai-note">' + esc(l.aiNote) + '</div>';
+      }
+      if (s.phase === 'form') {
+        return '<div class="c-body"><form class="stack" data-form="leave" novalidate>' +
+          '<p class="formnote">' + esc(l.formNote) + '</p>' +
+          '<div class="f"><label for="' + mode + '-name">' + esc(l.name) + '</label><input id="' + mode + '-name" data-bind="name" value="' + esc(s.name) + '" autocomplete="off"></div>' +
+          '<div class="f"><label for="' + mode + '-email">' + esc(l.email) + '</label><input id="' + mode + '-email" type="email" data-bind="email" placeholder="' + esc(l.emailPh) + '" value="' + esc(s.email) + '"></div>' +
+          '<div class="f"><label for="' + mode + '-question">' + esc(l.question) + '</label><textarea id="' + mode + '-question" rows="3" data-bind="question" placeholder="' + esc(l.questionPh) + '">' + esc(s.question) + '</textarea></div>' +
+          (s.err ? '<p class="err" role="alert">' + esc(s.err) + '</p>' : '') +
+          '<button class="btn" type="submit">' + esc(l.sendMsg) + '</button>' +
+          '<button class="btn ghost" type="button" data-act="back">' + esc(l.backBot) + '</button>' +
+          '<p class="fine">' + esc(l.privacy) + '</p>' +
+          '<p class="contact-line">' + esc(l.contact) + '</p>' +
+          '</form></div>' +
+          '<div class="ai-note">' + esc(l.aiNote) + '</div>';
+      }
+      if (s.phase === 'rate') {
+        var btns = [1, 2, 3, 4, 5].map(function (n) { return '<button type="button" data-rate="' + n + '" aria-pressed="' + (s.rating === n) + '">' + n + '</button>'; }).join('');
+        return '<div class="c-body"><form class="stack" data-form="rate" novalidate style="margin:auto 0">' +
+          '<p class="rate-q">' + esc(l.rateQ) + '</p>' +
+          '<div class="scale" role="group" aria-label="' + esc(l.rateQ) + '">' + btns + '</div>' +
+          '<div class="scale-ends"><span>' + esc(l.rateLo) + '</span><span>' + esc(l.rateHi) + '</span></div>' +
+          '<div class="f"><label for="' + mode + '-comment">' + esc(l.comment) + '</label><textarea id="' + mode + '-comment" rows="3" data-bind="comment" placeholder="' + esc(l.commentPh) + '">' + esc(s.comment) + '</textarea></div>' +
+          (s.err ? '<p class="err" role="alert">' + esc(s.err) + '</p>' : '') +
+          '<button class="btn" type="submit">' + esc(l.submit) + '</button>' +
+          '<button class="btn ghost" type="button" data-act="skip">' + esc(l.skip) + '</button>' +
+          '</form></div>';
+      }
+      if (s.phase === 'sent') {
+        return '<div class="c-body"><div class="done"><div class="ring">' + ICON.check + '</div><b>' + esc(l.sentTitle) + '</b><p>' + esc(l.sentBody(s.sentTo)) + '</p><button class="btn small" data-act="again">' + esc(l.again) + '</button></div></div>';
+      }
+      return '<div class="c-body"><div class="done"><div class="ring">' + ICON.check + '</div><b>' + esc(l.thanks) + '</b><p>' + esc(l.thanksBody) + '</p><button class="btn small" data-act="again">' + esc(l.again) + '</button></div></div>';
+    }
+
+    function dialog() {
+      if (!s.confirm) return '';
+      var l = L();
+      return '<div class="overlay"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="' + mode + '-endq"><b id="' + mode + '-endq">' + esc(l.endQ) + '</b><p class="intro">' + esc(l.endBody) + '</p>' +
+        '<button class="btn" data-act="endyes">' + esc(l.yes) + '</button><button class="btn ghost" data-act="endno">' + esc(l.no) + '</button></div></div>';
+    }
+
+    function render(focusDraft) {
+      var l = L(), html = '';
+      if (mode === 'widget') {
+        if (s.open) html += '<div class="panel"><div class="chat">' + head() + body() + dialog() + '</div></div>';
+        html += '<button class="launcher' + (s.open ? ' round' : '') + '" data-act="toggle" aria-label="' + esc(s.open ? 'Chat sluiten' : l.launcher) + '">' +
+          (s.open ? ICON.close : ICON.chat + '<span>' + esc(l.launcher) + '</span>') + '</button>';
+      } else {
+        html = '<div class="chat">' + head() + body() + dialog() + '</div>';
+      }
+      mount.innerHTML = html;
+      var sc = mount.querySelector('[data-scroll]');
+      if (sc) sc.scrollTop = sc.scrollHeight;
+      if (focusDraft) { var d = mount.querySelector('[data-bind="draft"]'); if (d) d.focus(); }
+    }
+
+    function ask(text) {
+      s.msgs.push({ from: 'me', text: text });
+      s.thinking = true; render(true);
+      later(function () {
+        s.thinking = false;
+        s.msgs.push(botMsg(route(text)));
+        render(true);
+      }, 1300);
+    }
+    function sampleBot() {
+      return [botMsg('greet'), { from: 'me', text: lang === 'nl' ? 'Welke nicotinevervangers zijn er?' : 'Quels substituts nicotiniques existent ?' }, botMsg('nrt'),
+        { from: 'me', text: lang === 'nl' ? 'Mag ik Champix nemen als ik zwanger ben?' : 'Puis-je prendre Champix si je suis enceinte ?' }, botMsg('medical')];
+    }
+    function transcript() {
+      return s.msgs.map(function (m) { return [m.from === 'me' ? 'visitor' : 'bot', m.text]; });
+    }
+
+    mount.addEventListener('input', function (e) {
+      var k = e.target.getAttribute('data-bind'); if (k) s[k] = e.target.value;
+    });
+    mount.addEventListener('keydown', function (e) {
+      if (e.target.getAttribute('data-bind') === 'draft' && e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); fire(e.target.form); }
+    });
+    mount.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = e.target.getAttribute('data-form'), l = L();
+      if (f === 'send') {
+        var t = s.draft.trim(); if (!t) return;
+        s.draft = '';
+        ask(t);
+      } else if (f === 'leave') {
+        if (!/\S+@\S+\.\S+/.test(s.email.trim())) { s.err = l.emailErr; render(); mount.querySelector('[data-bind="email"]').focus(); return; }
+        if (!s.question.trim()) { s.err = l.questionErr; render(); mount.querySelector('[data-bind="question"]').focus(); return; }
+        s.err = ''; s.sentTo = s.email.trim(); s.phase = 'sent';
+        Admin.addMessage({ name: s.name.trim(), email: s.sentTo, lang: lang.toUpperCase(), question: s.question.trim(), msgs: transcript() });
+        render(); syncControls();
+      } else if (f === 'rate') {
+        if (!s.rating) { s.err = l.rateReq; render(); return; }
+        s.err = ''; s.phase = 'thanks'; render();
+      }
+    });
+    mount.addEventListener('click', function (e) {
+      var c = e.target.closest('[data-chip]');
+      if (c) { ask(c.getAttribute('data-chip')); return; }
+      var fb = e.target.closest('[data-fb]');
+      if (fb) { var p = fb.getAttribute('data-fb').split(':'); s.msgs[+p[0]].fb = p[1]; render(); return; }
+      var r = e.target.closest('[data-rate]');
+      if (r) { s.rating = +r.getAttribute('data-rate'); s.err = ''; render(); return; }
+      var a = e.target.closest('[data-act]'); if (!a) return;
+      var act = a.getAttribute('data-act');
+      if (act === 'toggle') { s.open = !s.open; render(s.open && s.phase === 'bot'); }
+      else if (act === 'min') { s.open = false; render(); }
+      else if (act === 'leave') { s.question = lastQuestion(); s.phase = 'form'; s.err = ''; render(); syncControls(); }
+      else if (act === 'back') { s.phase = 'bot'; s.err = ''; render(true); syncControls(); }
+      else if (act === 'end') { s.confirm = true; render(); var y = mount.querySelector('[data-act="endyes"]'); if (y) y.focus(); }
+      else if (act === 'endno') { s.confirm = false; render(true); }
+      else if (act === 'endyes') { clearTimers(); s.confirm = false; s.thinking = false; s.phase = 'rate'; s.rating = 0; render(); syncControls(); }
+      else if (act === 'skip') { s.phase = 'thanks'; render(); }
+      else if (act === 'again') { reset(); render(true); syncControls(); }
+    });
+
+    reset();
+    return {
+      phase: function () { return s.phase; },
+      setPhase: function (p) {
+        clearTimers(); s.confirm = false; s.thinking = false; s.err = '';
+        if (mode === 'widget') s.open = true;
+        if (p === 'bot') reset();
+        if (p === 'form') { s.msgs = sampleBot(); s.question = lastQuestion(); s.phase = 'form'; }
+        if (p === 'rate') { s.phase = 'rate'; s.rating = 0; }
+        render(p === 'bot');
+      },
+      relang: function () {
+        s.msgs = s.msgs.map(function (m) { return m.from === 'bot' ? Object.assign(botMsg(m.key), { fb: m.fb }) : m; });
+        render();
+      },
+      render: render
+    };
+  }
+
+  var widget = Chat(document.getElementById('widget-mount'), 'widget');
+  var embed = Chat(document.getElementById('embed-mount'), 'embed');
+  widget.setPhase('bot');
+  embed.render();
+
+  var view = 'embed';
+  function active() { return view === 'widget' ? widget : embed; }
+  function norm(p) { return p === 'thanks' ? 'rate' : p === 'sent' ? 'form' : p; }
+  function syncControls() {
+    var p = norm(active().phase());
+    [].forEach.call(document.querySelectorAll('#state-seg button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-state') === p)); });
+    [].forEach.call(document.querySelectorAll('#lang-seg button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang)); });
+    document.getElementById('controls-hint').textContent = L().hints[p] || '';
+  }
+  document.getElementById('state-seg').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    active().setPhase(b.getAttribute('data-state')); syncControls();
+  });
+  document.getElementById('lang-seg').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    lang = b.getAttribute('data-lang'); widget.relang(); embed.relang(); syncControls();
+  });
+
+  function show(v) {
+    view = v;
+    ['widget', 'embed', 'beheer'].forEach(function (k) {
+      document.getElementById('view-' + k).hidden = k !== v;
+      document.getElementById('tab-' + k).setAttribute('aria-selected', String(k === v));
+    });
+    document.getElementById('visitor-controls').hidden = v === 'beheer';
+    if (v === 'beheer') Admin.start(); else syncControls();
+    try { history.replaceState(null, '', '#' + v); } catch (err) {}
+  }
+  document.querySelector('.tabs').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-view]'); if (b) show(b.getAttribute('data-view'));
+  });
+
+  /* ---------- Admin ---------- */
+  var Admin = (function () {
+    var root = document.getElementById('admin');
+    var STATUS = { solved: 'Opgelost', left: 'Bericht achtergelaten', unanswered: 'Niet beantwoord' };
+    var PROVIDERS = [
+      { k: 'mistral', n: 'Mistral AI', reco: 'Aanbevolen', note: 'Frans bedrijf, gegevens blijven in de EU' },
+      { k: 'openai', n: 'OpenAI', note: 'Amerikaans bedrijf' },
+      { k: 'gemini', n: 'Google Gemini', note: 'Amerikaans bedrijf' }
+    ];
+
+    var archive = [
+      { id: 101, date: 'Vandaag 10:42', name: 'Els', topic: 'Medicatie en zwangerschap', status: 'left', dur: '3 min', rating: 4, lang: 'NL', comment: '',
+        msgs: [['visitor', 'Mag ik nicotinepleisters gebruiken als ik zwanger ben?'], ['bot', 'Over medicatie, dosissen of zwangerschap geef ik geen advies. Dat bespreek je best met een tabakoloog of je huisarts. Je kunt een bericht voor een tabakoloog achterlaten.'], ['sys', 'Bericht achtergelaten voor een tabakoloog']] },
+      { id: 102, date: 'Vandaag 10:15', name: 'Anoniem', topic: 'Nicotinevervangers', status: 'solved', dur: '3 min', rating: 4, lang: 'NL', comment: '',
+        msgs: [['visitor', 'Welke nicotinevervangers zijn er?'], ['bot', 'Er zijn pleisters, kauwgom, zuigtabletten, een inhalator en een mondspray. Ze werken het best samen met begeleiding.'], ['visitor', 'Dank je!']] },
+      { id: 103, date: 'Vandaag 09:58', name: 'Luc', topic: 'Brochures', status: 'solved', dur: '2 min', rating: 5, lang: 'NL', comment: '',
+        msgs: [['visitor', 'Kan ik de brochure over nicotinevervangers ook op papier krijgen?'], ['bot', 'Ja. Op de pagina Brochures kun je ze downloaden of gratis op papier bestellen.']] },
+      { id: 104, date: 'Vandaag 09:31', name: 'Anoniem', topic: 'Kosten van begeleiding', status: 'unanswered', dur: '1 min', rating: null, lang: 'NL', comment: '',
+        msgs: [['visitor', 'Hoeveel kost een sessie bij een tabakoloog?'], ['bot', 'Daarover vind ik niets in de informatie van Tabakstop, en ik wil je geen verkeerd antwoord geven. Laat een bericht achter, dan krijg je antwoord per e-mail.'], ['sys', 'Bezoeker verliet het gesprek zonder bericht achter te laten']] },
+      { id: 105, date: 'Vandaag 02:14', name: 'Anoniem', topic: 'Ontwenning', status: 'solved', dur: '5 min', rating: 4, lang: 'NL', comment: '',
+        msgs: [['visitor', 'Ik kan niet slapen sinds ik gestopt ben.'], ['bot', 'Slaapproblemen komen vaak voor in de eerste weken na het stoppen en gaan meestal vanzelf over.'], ['visitor', 'Oké, dat stelt me gerust.']] },
+      { id: 106, date: 'Gisteren 16:20', name: 'Camille', topic: 'Remboursement', status: 'left', dur: '4 min', rating: 3, lang: 'FR', comment: 'Pas de réponse immédiate.',
+        msgs: [['visitor', 'Est-ce que les consultations sont remboursées ?'], ['bot', 'Je ne trouve rien à ce sujet dans les informations de Tabacstop. Laissez un message, vous recevrez une réponse par e-mail.'], ['sys', 'Bericht achtergelaten voor een tabakoloog']] },
+      { id: 107, date: 'Gisteren 21:47', name: 'Anoniem', topic: 'Moeilijke situatie', status: 'left', dur: '2 min', rating: null, lang: 'NL', comment: '',
+        msgs: [['visitor', 'Ik zie het echt niet meer zitten.'], ['bot', 'Het klinkt alsof je het nu heel moeilijk hebt. Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.'], ['sys', 'Bericht achtergelaten voor een tabakoloog']] },
+      { id: 108, date: 'Gisteren 15:02', name: 'Tom', topic: 'Aankomen na het stoppen', status: 'left', dur: '5 min', rating: 3, lang: 'NL', comment: 'Ik had meer concrete tips verwacht.',
+        msgs: [['visitor', 'Ik ben aangekomen sinds ik gestopt ben.'], ['bot', 'Daarover vind ik weinig in de informatie van Tabakstop. Laat een bericht achter, dan antwoordt een tabakoloog per e-mail.'], ['sys', 'Bericht achtergelaten voor een tabakoloog']] },
+      { id: 109, date: 'Zo 21 sep 14:33', name: 'Anoniem', topic: 'E-sigaret', status: 'solved', dur: '4 min', rating: 2, lang: 'NL', comment: 'Geen duidelijk antwoord.',
+        msgs: [['visitor', 'Kan ik stoppen met een e-sigaret?'], ['bot', 'Op tabakstop.be lees je meer over de e-sigaret en andere nicotineproducten.']] },
+      { id: 110, date: 'Zo 21 sep 13:10', name: 'Julie', topic: 'Arrêter de fumer', status: 'solved', dur: '6 min', rating: 5, lang: 'FR', comment: '',
+        msgs: [['visitor', 'Comment se passe un accompagnement ?'], ['bot', "Un tabacologue vous aide à établir un plan d'arrêt adapté et vous accompagne pendant les premières semaines."]] }
+    ];
+
+    var messages = [
+      { id: 1, arc: 101, date: 'Vandaag 10:42', name: 'Els', email: 'els.m@voorbeeld.be', lang: 'NL', question: 'Mag ik nicotinepleisters gebruiken als ik zwanger ben?', done: false },
+      { id: 2, arc: 106, date: 'Gisteren 16:20', name: 'Camille', email: 'camille.r@exemple.be', lang: 'FR', question: 'Est-ce que les consultations sont remboursées ?', done: false },
+      { id: 3, arc: 107, date: 'Gisteren 21:47', name: '', email: 'anoniem@voorbeeld.be', lang: 'NL', question: 'Ik zie het echt niet meer zitten.', done: true },
+      { id: 4, arc: 108, date: 'Gisteren 15:02', name: 'Tom', email: 'tom.v@voorbeeld.be', lang: 'NL', question: 'Ik ben aangekomen sinds ik gestopt ben. Wat kan ik doen?', done: true }
+    ];
+
+    var reviews = [
+      { id: 1, flag: 'Geen antwoord gevonden', times: '5× deze week', lang: 'NL', q: 'Hoeveel kost een sessie bij een tabakoloog?',
+        a: 'Daarover vind ik niets in de informatie van Tabakstop, en ik wil je geen verkeerd antwoord geven.', fix: '' },
+      { id: 2, flag: 'Bezoeker vond dit niet nuttig', times: '2× deze week', lang: 'NL', q: 'Kan ik stoppen met een e-sigaret?',
+        a: 'Op tabakstop.be lees je meer over de e-sigaret en andere nicotineproducten.',
+        fix: 'Sommige mensen gebruiken een e-sigaret als hulpmiddel om te stoppen met roken. Het doel blijft om uiteindelijk ook daarmee te stoppen. Een tabakoloog helpt je kiezen welke aanpak bij jou past.' },
+      { id: 3, flag: 'Bezoeker vond dit niet nuttig', times: '1× deze week', lang: 'NL', q: 'Hoe lang duurt het voor de zin in roken weggaat?',
+        a: 'Ontwenningsverschijnselen zijn het sterkst in de eerste dagen na het stoppen en nemen na enkele weken af.', fix: '' },
+      { id: 4, flag: 'Geen antwoord gevonden', times: '3× deze week', lang: 'FR', q: 'Est-ce que les consultations sont remboursées ?',
+        a: 'Je ne trouve rien à ce sujet dans les informations de Tabacstop.', fix: '' }
+    ];
+
+    var sources = [
+      { t: 'Stoppen met roken is mogelijk', k: 'page', lang: 'NL', upd: '3 dagen geleden', st: 'ok' },
+      { t: 'Stoppen met begeleiding', k: 'page', lang: 'NL', upd: '2 weken geleden', st: 'ok' },
+      { t: 'Omgaan met ontwenningsverschijnselen', k: 'page', lang: 'NL', upd: '1 maand geleden', st: 'ok' },
+      { t: 'Zwanger en roken', k: 'page', lang: 'NL', upd: 'net gewijzigd in WordPress', st: 'busy' },
+      { t: 'Nicotine en nicotineproducten', k: 'page', lang: 'NL', upd: '2 weken geleden', st: 'ok' },
+      { t: 'Brochure Nicotinevervangers', k: 'doc', lang: 'NL', upd: 'maart 2025', st: 'ok' },
+      { t: 'Brochure Ik voel me zoveel beter', k: 'doc', lang: 'NL', upd: 'maart 2025', st: 'ok' },
+      { t: 'Arrêter avec un accompagnement', k: 'page', lang: 'FR', upd: '2 weken geleden', st: 'ok' },
+      { t: 'Gérer les symptômes de manque', k: 'page', lang: 'FR', upd: '1 maand geleden', st: 'ok' },
+      { t: 'Brochure Substituts nicotiniques', k: 'doc', lang: 'FR', upd: 'maart 2025', st: 'ok' },
+      { t: 'Brochure Je me sens tellement mieux sans tabac', k: 'doc', lang: 'FR', upd: 'maart 2025', st: 'ok' },
+      { t: 'Goedgekeurde antwoorden', k: 'kb', lang: 'NL + FR', upd: '12 antwoorden', st: 'ok' }
+    ];
+    var approved = 12;
+
+    var st = { page: 'ai', aiTab: 'review', editing: {}, q: '', filter: 'all', arcSel: 101, period: 7, toast: null, shown: {}, provider: 'mistral', started: false };
+
+    function chip(l) { return '<span class="chip' + (l === 'FR' ? ' fr' : '') + '">' + l + '</span>'; }
+    function openMessages() { return messages.filter(function (m) { return !m.done; }).length; }
+    function byId(list, id) { for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i]; return null; }
+
+    function side() {
+      function nav(k, label, icon, badge) {
+        return '<button data-page="' + k + '"' + (st.page === k ? ' aria-current="page"' : '') + '>' + icon + '<span>' + label + '</span>' + (badge ? '<span class="badge">' + badge + '</span>' : '') + '</button>';
+      }
+      return '<aside class="side">' +
+        '<div class="brandrow"><b>Tabakstop</b><span>AI</span></div>' +
+        '<nav aria-label="Beheer">' + nav('ai', 'AI-assistent', ICON.bot, reviews.length) + nav('archive', 'Gesprekken', ICON.chat) + nav('messages', 'Berichten', ICON.mail, openMessages()) + nav('stats', 'Statistieken', ICON.stats) + nav('settings', 'Instellingen', ICON.gear) + '</nav>' +
+        '</aside>';
+    }
+
+    function tmsg(m) {
+      if (m[0] === 'sys') return '<div class="sys">' + esc(m[1]) + '</div>';
+      if (m[0] === 'bot') return '<div class="msg bot"><small>AI-assistent</small>' + esc(m[1]) + '</div>';
+      return '<div class="msg me">' + esc(m[1]) + '</div>';
+    }
+
+    /* AI page */
+    function aiPane() {
+      var seg = '<div class="seg subtabs"><button data-aitab="review" aria-pressed="' + (st.aiTab === 'review') + '">Te beoordelen (' + reviews.length + ')</button><button data-aitab="sources" aria-pressed="' + (st.aiTab === 'sources') + '">Bronnen (' + sources.length + ')</button></div>';
+      var inner;
+      if (st.aiTab === 'review') {
+        inner = '<p class="kb-note">Antwoorden die bezoekers niet nuttig vonden, en vragen waarop de assistent geen antwoord vond. Wat je hier goedkeurt, gebruikt de assistent vanaf dan. Er staan nu <b>' + approved + '</b> goedgekeurde antwoorden in de kennisbank.</p>' +
+          (reviews.length ? '<div class="reviews">' + reviews.map(function (r) {
+            var editing = st.editing[r.id] !== undefined;
+            return '<div class="review"><div class="top"><span class="flag">' + esc(r.flag) + '</span>' + chip(r.lang) + '<span class="meta">' + esc(r.times) + '</span></div>' +
+              '<div class="q">“' + esc(r.q) + '”</div>' +
+              '<div class="a"><small>Antwoord van de assistent</small>' + esc(r.a) + '</div>' +
+              (editing
+                ? '<div class="stack"><label for="fix-' + r.id + '">Goedgekeurd antwoord</label><textarea id="fix-' + r.id + '" data-fix="' + r.id + '" placeholder="Schrijf het antwoord dat de assistent voortaan moet geven">' + esc(st.editing[r.id]) + '</textarea>' +
+                  '<div class="acts"><button class="btn small" data-save="' + r.id + '">Opslaan in de kennisbank</button><button class="btn ghost small" data-cancel="' + r.id + '">Annuleren</button></div></div>'
+                : '<div class="acts"><button class="btn small" data-edit="' + r.id + '">' + (r.fix || r.a.indexOf('vind ik niets') === -1 && r.a.indexOf('ne trouve rien') === -1 ? 'Verbeter het antwoord' : 'Schrijf een antwoord') + '</button><button class="btn ghost small" data-ok="' + r.id + '">Antwoord klopt</button><button class="btn ghost small" data-ignore="' + r.id + '">Negeren</button></div>') +
+              '</div>';
+          }).join('') + '</div>' : '<div class="card"><p class="no-results">Alles is beoordeeld. Nieuwe meldingen verschijnen hier vanzelf.</p></div>');
+      } else {
+        inner = '<div class="pane-head" style="gap:10px"><p class="kb-note" style="margin-right:auto">Alle pagina\'s en brochures van tabakstop.be die de assistent gebruikt. Een pagina wordt automatisch opnieuw ingelezen zodra een redacteur ze opslaat in WordPress.</p><button class="btn ghost small" data-act="reindex">Alles opnieuw inlezen</button></div>' +
+          '<div class="table-wrap"><table class="ops"><thead><tr><th>Bron</th><th>Soort</th><th>Taal</th><th>Laatst bijgewerkt</th><th>Status</th></tr></thead><tbody>' +
+          sources.map(function (x) {
+            return '<tr><td style="white-space:normal;min-width:220px"><span class="src" style="font-size:13px;border:0;padding:0;background:none;color:var(--ink)">' + (x.k === 'doc' ? ICON.doc : x.k === 'kb' ? ICON.check : ICON.page) + esc(x.t) + '</span></td><td>' + (x.k === 'doc' ? 'Brochure (PDF)' : x.k === 'kb' ? 'Kennisbank' : 'Pagina') + '</td><td>' + esc(x.lang) + '</td><td>' + esc(x.upd) + '</td><td>' +
+              (x.st === 'ok' ? '<span class="status-pill ok">Ingelezen</span>' : '<span class="status-pill busy">Wordt ingelezen</span>') + '</td></tr>';
+          }).join('') + '</tbody></table></div>';
+      }
+      return '<div class="pane"><div class="pane-head"><h2>AI-assistent</h2><span class="sample">Voorbeeldgegevens</span>' + seg + '</div>' + inner + '</div>';
+    }
+
+    /* Conversations archive */
+    function scoreHtml(r) {
+      if (r == null) return '<span style="color:var(--muted)">—</span>';
+      var col = r >= 4 ? '#2E9E5B' : r === 3 ? '#E2A13B' : '#B4462B';
+      return '<span class="score"><i style="background:' + col + '"></i>' + r + '/5</span>';
+    }
+    function archiveRows() {
+      var q = st.q.trim().toLowerCase();
+      return archive.filter(function (a) {
+        if (st.filter === 'solved' && a.status !== 'solved') return false;
+        if (st.filter === 'left' && a.status !== 'left') return false;
+        if (st.filter === 'low' && !(a.rating != null && a.rating <= 3)) return false;
+        if (!q) return true;
+        return [a.name, a.topic, a.comment].concat(a.msgs.map(function (m) { return m[1]; })).join(' ').toLowerCase().indexOf(q) !== -1;
+      });
+    }
+    function archivePane() {
+      var rows = archiveRows(), sel = null;
+      for (var i = 0; i < rows.length; i++) if (rows[i].id === st.arcSel) sel = rows[i];
+      if (!sel && rows.length) { sel = rows[0]; st.arcSel = sel.id; }
+      var seg = [['all', 'Alle'], ['solved', 'Opgelost'], ['left', 'Bericht achtergelaten'], ['low', 'Score 3 of lager']].map(function (f) {
+        return '<button data-filter="' + f[0] + '" aria-pressed="' + (st.filter === f[0]) + '">' + f[1] + '</button>';
+      }).join('');
+      var table = rows.length ? '<table><thead><tr><th>Datum</th><th>Bezoeker</th><th>Onderwerp</th><th>Afloop</th><th>Duur</th><th>Score</th><th>Taal</th></tr></thead><tbody>' +
+        rows.map(function (a) {
+          return '<tr data-arc="' + a.id + '" aria-selected="' + (sel && sel.id === a.id) + '" tabindex="0"><td>' + esc(a.date) + '</td><td>' + esc(a.name) + '</td><td class="wrap">' + esc(a.topic) + '</td><td><span class="st ' + a.status + '">' + STATUS[a.status] + '</span></td><td>' + esc(a.dur) + '</td><td>' + scoreHtml(a.rating) + '</td><td>' + chip(a.lang) + '</td></tr>';
+        }).join('') + '</tbody></table>' : '<p class="no-results">Geen gesprekken gevonden' + (st.q ? ' voor “' + esc(st.q) + '”' : '') + '.</p>';
+      var tr = sel ? '<div class="transcript"><div class="th"><b>' + esc(sel.name) + '</b><span>' + esc(sel.date) + ' · ' + esc(sel.topic) + ' · ' + STATUS[sel.status] + '</span></div>' +
+        '<div class="tb">' + sel.msgs.map(tmsg).join('') + '</div>' +
+        '<div class="fb"><span>Tevredenheid: ' + (sel.rating != null ? '<b>' + sel.rating + '/5</b>' : 'geen score') + '</span>' + (sel.comment ? '<span>Opmerking: <b>“' + esc(sel.comment) + '”</b></span>' : '') + '</div></div>' : '';
+      return '<div class="pane"><div class="pane-head"><h2>Gesprekken</h2><span class="sample">Voorbeeldgegevens</span></div>' +
+        '<div class="pane-head" style="gap:10px"><label class="search" for="arc-q">' + ICON.search + '<input id="arc-q" data-bind="q" placeholder="Zoek op naam, onderwerp of tekst in het gesprek" value="' + esc(st.q) + '"></label><div class="seg">' + seg + '</div></div>' +
+        '<div class="archive-grid"><div class="table-wrap">' + table + '</div>' + tr + '</div></div>';
+    }
+
+    /* Left-behind messages */
+    function messagesPane() {
+      var list = messages.slice().sort(function (a, b) { return a.done - b.done; });
+      var open = openMessages();
+      var cards = list.map(function (m) {
+        var arc = byId(archive, m.arc), shown = !!st.shown[m.id];
+        return '<div class="review' + (m.done ? ' is-done' : '') + '"><div class="top"><span class="who">' + esc(m.name || 'Anoniem') + '</span>' + chip(m.lang) + '<span class="meta">' + esc(m.date) + ' · ' + esc(m.email) + '</span></div>' +
+          '<div class="q">“' + esc(m.question) + '”</div>' +
+          '<div class="acts"><button class="check-btn" data-done="' + m.id + '" aria-pressed="' + m.done + '"><span class="box">' + ICON.check + '</span>Beantwoord</button>' +
+          (arc ? '<button class="toggle-link" data-showconv="' + m.id + '" aria-expanded="' + shown + '">' + (shown ? 'Verberg' : 'Toon') + ' het gesprek met de assistent (' + arc.msgs.length + ' berichten)</button>' : '') + '</div>' +
+          (arc && shown ? '<div class="attached">' + arc.msgs.map(tmsg).join('') + '</div>' : '') + '</div>';
+      }).join('');
+      return '<div class="pane"><div class="pane-head"><h2>Berichten</h2><span class="sample">Voorbeeldgegevens</span></div>' +
+        '<p class="kb-note">Bezoekers laten een bericht achter als de assistent niet kan of mag antwoorden. Een tabakoloog antwoordt per e-mail, binnen twee werkdagen. Vink <b>Beantwoord</b> aan als dat gebeurd is. Nu te beantwoorden: <b>' + open + '</b>.</p>' +
+        (cards ? '<div class="reviews">' + cards + '</div>' : '<div class="card"><p class="no-results">Er zijn nog geen berichten.</p></div>') + '</div>';
+    }
+
+    /* Stats */
+    function seeded(n, seed) { var out = [], x = seed; for (var i = 0; i < n; i++) { x = (x * 9301 + 49297) % 233280; out.push(x / 233280); } return out; }
+    function sum(a) { return a.reduce(function (x, y) { return x + y; }, 0); }
+    var D7 = { labels: ['wo 17', 'do 18', 'vr 19', 'za 20', 'zo 21', 'ma 22', 'di 23'],
+      total: [38, 41, 45, 12, 9, 43, 36], left: [4, 5, 6, 2, 1, 5, 4], unanswered: [2, 1, 2, 1, 0, 2, 1] };
+    var D30 = (function () {
+      var r = seeded(30, 11), o = { labels: [], total: [], left: [], unanswered: [] };
+      var start = new Date(2025, 7, 25);
+      for (var i = 0; i < 30; i++) {
+        var d = new Date(start.getTime() + i * 86400000), wd = d.getDay(), we = wd === 0 || wd === 6;
+        var t = we ? Math.round(6 + r[i] * 8) : Math.round(32 + r[i] * 16);
+        o.total.push(t);
+        o.left.push(Math.round(t * (0.09 + r[(i + 5) % 30] * 0.06)));
+        o.unanswered.push(Math.round(t * (0.03 + r[(i + 9) % 30] * 0.04)));
+        o.labels.push(d.getDate() + '/' + (d.getMonth() + 1));
+      }
+      return o;
+    })();
+    var TOPICS = [['Nicotinevervangers', 0.26], ['Ontwenning en zin in roken', 0.24], ['Begeleiding door een tabakoloog', 0.19], ['Brochures bestellen', 0.12], ['Medicatie en zwangerschap', 0.11], ['Andere vragen', 0.08]];
+    var SCORES = [0.46, 0.31, 0.13, 0.06, 0.04];
+
+    function statsData() {
+      var d = st.period === 7 ? D7 : D30;
+      var total = sum(d.total), left = sum(d.left), un = sum(d.unanswered), solved = total - left - un;
+      var topics = TOPICS.map(function (t) { return Math.round(total * t[1]); }); topics[0] += total - sum(topics);
+      var rated = Math.round(total * 0.28);
+      var counts = SCORES.map(function (p) { return Math.round(rated * p); }); counts[0] += rated - sum(counts);
+      var avg = sum(counts.map(function (c, i) { return c * (5 - i); })) / Math.max(1, rated);
+      return { d: d, total: total, left: left, un: un, solved: solved, topics: topics, rated: rated, counts: counts, avg: avg };
+    }
+    function niceStep(max, ticks) { var raw = max / ticks, mag = Math.pow(10, Math.floor(Math.log10(raw || 1))), n = raw / mag; return Math.max(1, (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * mag); }
+    var SEG = [['solved', '#16293D', 'Opgelost door assistent'], ['left', '#C96A00', 'Bericht achtergelaten'], ['un', '#7F90A2', 'Niet beantwoord']];
+    function stackChart(d, every) {
+      var W = 640, H = 240, pl = 34, pr = 8, pt = 14, pb = 28;
+      var max = Math.max.apply(null, d.total.concat([1])), step = niceStep(max, 4), top = Math.ceil(max / step) * step;
+      var iw = W - pl - pr, ih = H - pt - pb, n = d.total.length, bw = iw / n, g = '';
+      for (var v = 0; v <= top; v += step) {
+        var y = pt + ih - (v / top) * ih;
+        g += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y + '" y2="' + y + '" stroke="#E6ECF2"/><text x="' + (pl - 8) + '" y="' + (y + 4) + '" text-anchor="end" font-size="11" fill="#5A6E82" font-family="Figtree, sans-serif">' + v + '</text>';
+      }
+      var bars = '';
+      for (var i = 0; i < n; i++) {
+        var parts = { solved: d.total[i] - d.left[i] - d.unanswered[i], left: d.left[i], un: d.unanswered[i] };
+        var x = pl + i * bw + bw * 0.18, w = bw * 0.64, yCur = pt + ih;
+        SEG.forEach(function (sg) {
+          var val = parts[sg[0]]; if (val <= 0) return;
+          var h = (val / top) * ih; yCur -= h;
+          bars += '<rect x="' + x.toFixed(1) + '" y="' + yCur.toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + h.toFixed(1) + '" fill="' + sg[1] + '"><title>' + d.labels[i] + ' · ' + sg[2] + ': ' + val + '</title></rect>';
+        });
+        if (n <= 10) bars += '<text x="' + (x + w / 2).toFixed(1) + '" y="' + (yCur - 5).toFixed(1) + '" text-anchor="middle" font-size="11" font-weight="600" fill="#16293D" font-family="Figtree, sans-serif">' + d.total[i] + '</text>';
+        if (i % every === 0) bars += '<text x="' + (pl + i * bw + bw / 2).toFixed(1) + '" y="' + (H - 9) + '" text-anchor="middle" font-size="11" fill="#5A6E82" font-family="Figtree, sans-serif">' + d.labels[i] + '</text>';
+      }
+      return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Gesprekken per dag, per afloop">' + g + '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + (pt + ih) + '" y2="' + (pt + ih) + '" stroke="#C9D3DC"/>' + bars + '</svg>';
+    }
+    function statsPane() {
+      var s = statsData(), fmt = function (n) { return n.toFixed(1).replace('.', ','); };
+      var pctSolved = Math.round(s.solved / Math.max(1, s.total) * 100);
+      var seg = [[7, '7 dagen'], [30, '30 dagen']].map(function (p) { return '<button data-period="' + p[0] + '" aria-pressed="' + (st.period === p[0]) + '">' + p[1] + '</button>'; }).join('');
+      var tmax = Math.max.apply(null, s.topics);
+      var topics = s.topics.map(function (v, i) {
+        return '<div class="row"><b>' + TOPICS[i][0] + '</b><div class="track"><div class="fill" style="width:' + (v / tmax * 100).toFixed(1) + '%"></div></div><span>' + v + '</span></div>';
+      }).join('');
+      var cmax = Math.max.apply(null, s.counts);
+      var scores = s.counts.map(function (v, i) {
+        return '<div class="row"><b>' + (5 - i) + '</b><div class="track"><div class="fill" style="width:' + (v / cmax * 100).toFixed(1) + '%"></div></div><span>' + v + '</span></div>';
+      }).join('');
+      var legend = SEG.map(function (sg) { return '<span><i style="background:' + sg[1] + '"></i>' + sg[2] + '</span>'; }).join('');
+      return '<div class="pane"><div class="pane-head"><h2>Statistieken</h2><span class="sample">Voorbeeldgegevens</span><div class="seg">' + seg + '</div></div>' +
+        '<div class="kpis">' +
+        '<div class="kpi"><span class="k">Gesprekken</span><span class="v">' + s.total + '</span><span class="s">met de assistent</span></div>' +
+        '<div class="kpi"><span class="k">Opgelost door de assistent</span><span class="v">' + pctSolved + '<small>%</small></span><span class="s">' + s.solved + ' gesprekken</span></div>' +
+        '<div class="kpi"><span class="k">Bericht achtergelaten</span><span class="v">' + s.left + '</span><span class="s">voor een tabakoloog</span></div>' +
+        '<div class="kpi warn"><span class="k">Niet beantwoord</span><span class="v">' + s.un + '</span><span class="s">bezoeker vertrok zonder antwoord of bericht</span></div>' +
+        '<div class="kpi"><span class="k">Tevredenheid</span><span class="v">' + fmt(s.avg) + ' <small>/ 5</small></span><span class="s">' + s.rated + ' beoordelingen</span></div>' +
+        '</div>' +
+        '<div class="card chart"><h3>Gesprekken per dag</h3><div class="legend">' + legend + '</div>' + stackChart(s.d, st.period === 7 ? 1 : 5) + '<p class="sub" style="margin-top:0">De assistent is altijd beschikbaar, ook in het weekend. Berichten voor een tabakoloog worden op werkdagen beantwoord.</p></div>' +
+        '<div class="charts">' +
+        '<div class="card"><h3>Meest gestelde onderwerpen</h3><p class="sub">' + s.total + ' gesprekken in deze periode</p><div class="dist topics">' + topics + '</div></div>' +
+        '<div class="card"><h3>Tevredenheid met de assistent</h3><div class="avg"><b>' + fmt(s.avg) + '</b><span>gemiddeld op 5 · ' + s.rated + ' scores</span></div><div class="dist">' + scores + '</div></div>' +
+        '</div></div>';
+    }
+
+    /* Settings */
+    function settingsPane() {
+      var cur = PROVIDERS.filter(function (p) { return p.k === st.provider; })[0];
+      var cards = PROVIDERS.map(function (p) {
+        return '<button class="prov" role="radio" aria-checked="' + (st.provider === p.k) + '" data-prov="' + p.k + '"><span class="nm"><span class="radio" aria-hidden="true"></span>' + esc(p.n) + (p.reco ? '<span class="reco">' + esc(p.reco) + '</span>' : '') + '</span><span class="note">' + esc(p.note) + '</span></button>';
+      }).join('');
+      return '<div class="pane"><div class="pane-head"><h2>Instellingen</h2><span class="sample">Voorbeeldgegevens</span></div>' +
+        '<div class="card"><h3>Taalmodel</h3><p class="sub">Het taalmodel schrijft de antwoorden van de assistent, op basis van de bronnen van Tabakstop.</p>' +
+        '<div class="provs" role="radiogroup" aria-label="Taalmodel">' + cards + '</div>' +
+        '<p class="summary-line" role="status">De assistent schrijft nu antwoorden met <b>' + esc(cur.n) + '</b>. ' + esc(cur.note) + '. Bronnen, goedgekeurde antwoorden en veiligheidsregels blijven hetzelfde.</p></div></div>';
+    }
+
+    function toastHtml() {
+      if (!st.toast) return '';
+      return '<div class="toast" role="status">' + ICON.check + '<div><b>' + esc(st.toast.title) + '</b><span>' + esc(st.toast.body) + '</span></div></div>';
+    }
+    function flash(title, body) {
+      st.toast = { title: title, body: body }; render();
+      setTimeout(function () { if (st.toast && st.toast.title === title) { st.toast = null; var el = root.querySelector('.toast'); if (el) el.remove(); } }, 3500);
+    }
+
+    function render() {
+      var main = st.page === 'ai' ? aiPane() : st.page === 'archive' ? archivePane() : st.page === 'messages' ? messagesPane() : st.page === 'stats' ? statsPane() : settingsPane();
+      var act = document.activeElement, keep = act && root.contains(act) && (act.id === 'arc-q' || act.hasAttribute('data-fix')) ? act.id : null;
+      var caret = keep ? act.selectionStart : null;
+      root.innerHTML = side() + '<div class="main">' + main + '</div>' + toastHtml();
+      if (keep) { var k = document.getElementById(keep); if (k) { k.focus(); try { k.setSelectionRange(caret, caret); } catch (e) {} } }
+    }
+
+    root.addEventListener('click', function (e) {
+      var t;
+      if ((t = e.target.closest('[data-page]'))) { st.page = t.getAttribute('data-page'); render(); return; }
+      if ((t = e.target.closest('[data-filter]'))) { st.filter = t.getAttribute('data-filter'); render(); return; }
+      if ((t = e.target.closest('[data-arc]'))) { st.arcSel = +t.getAttribute('data-arc'); render(); return; }
+      if ((t = e.target.closest('[data-period]'))) { st.period = +t.getAttribute('data-period'); render(); return; }
+      if ((t = e.target.closest('[data-aitab]'))) { st.aiTab = t.getAttribute('data-aitab'); render(); return; }
+      if ((t = e.target.closest('[data-done]'))) { var dm = byId(messages, +t.getAttribute('data-done')); dm.done = !dm.done; render(); return; }
+      if ((t = e.target.closest('[data-showconv]'))) { var sid0 = +t.getAttribute('data-showconv'); st.shown[sid0] = !st.shown[sid0]; render(); return; }
+      if ((t = e.target.closest('[data-prov]'))) {
+        var pk = t.getAttribute('data-prov');
+        if (pk !== st.provider) { st.provider = pk; flash('Voorbeeld: wisselen kan zonder de rest aan te passen', 'Taalmodel: ' + PROVIDERS.filter(function (p) { return p.k === pk; })[0].n); }
+        return;
+      }
+      if ((t = e.target.closest('[data-edit]'))) { var id = +t.getAttribute('data-edit'), r = byId(reviews, id); st.editing[id] = r.fix || ''; render(); var ta = document.getElementById('fix-' + id); if (ta) ta.focus(); return; }
+      if ((t = e.target.closest('[data-cancel]'))) { delete st.editing[+t.getAttribute('data-cancel')]; render(); return; }
+      if ((t = e.target.closest('[data-save]'))) {
+        var sid = +t.getAttribute('data-save');
+        if (!(st.editing[sid] || '').trim()) { var ta2 = document.getElementById('fix-' + sid); if (ta2) { ta2.focus(); ta2.style.borderColor = '#B4462B'; } return; }
+        reviews = reviews.filter(function (x) { return x.id !== sid; }); delete st.editing[sid]; approved++;
+        sources[sources.length - 1].upd = approved + ' antwoorden';
+        flash('Toegevoegd aan de kennisbank', 'De assistent gebruikt dit antwoord vanaf nu.'); return;
+      }
+      if ((t = e.target.closest('[data-ok]'))) { var oid = +t.getAttribute('data-ok'); reviews = reviews.filter(function (x) { return x.id !== oid; }); flash('Gemarkeerd als correct', 'Het antwoord blijft ongewijzigd.'); return; }
+      if ((t = e.target.closest('[data-ignore]'))) { var iid = +t.getAttribute('data-ignore'); reviews = reviews.filter(function (x) { return x.id !== iid; }); render(); return; }
+      if ((t = e.target.closest('[data-act]')) && t.getAttribute('data-act') === 'reindex') {
+        sources.forEach(function (x) { x.st = 'busy'; }); render();
+        setTimeout(function () { sources.forEach(function (x) { x.st = 'ok'; if (x.k !== 'kb') x.upd = 'zonet'; }); if (st.page === 'ai') render(); }, 2600);
+      }
+    });
+    root.addEventListener('input', function (e) {
+      var k = e.target.getAttribute('data-bind');
+      if (k === 'q') { st.q = e.target.value; render(); }
+      else if (e.target.hasAttribute('data-fix')) { st.editing[+e.target.getAttribute('data-fix')] = e.target.value; e.target.style.borderColor = ''; }
+    });
+    root.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && e.target.hasAttribute('data-arc')) { st.arcSel = +e.target.getAttribute('data-arc'); render(); }
+    });
+
+    return {
+      addMessage: function (m) {
+        var id = Date.now();
+        archive.unshift({ id: id, date: 'Vandaag, net', name: m.name || 'Anoniem', topic: m.question.length > 40 ? m.question.slice(0, 40) + '…' : m.question, status: 'left', dur: '—', rating: null, lang: m.lang, comment: '',
+          msgs: m.msgs.concat([['sys', 'Bericht achtergelaten voor een tabakoloog']]) });
+        messages.unshift({ id: id, arc: id, date: 'Vandaag, net', name: m.name, email: m.email, lang: m.lang, question: m.question, done: false });
+        if (st.started) render();
+      },
+      start: function () { st.started = true; render(); }
+    };
+  })();
+
+  var initial = (location.hash || '').replace('#', '');
+  show(['widget', 'embed', 'beheer'].indexOf(initial) !== -1 ? initial : 'embed');
+})();
+</script>
+</body>
+</html>

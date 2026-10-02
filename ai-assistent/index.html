@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Tabakstop AI-assistent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Figtree:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --ground: #F4F7FA;
+  --surface: #FFFFFF;
+  --ink: #16293D;
+  --muted: #53687D;
+  --line: #DAE3EC;
+  --brand: #B85A00;
+  --brand-solid: #F78F1E;
+  --on-brand: #16293D;
+  --brand-soft: #FDEBD3;
+  --sun: #16293D;
+  --sun-soft: #E6EAF0;
+  --sun-ink: #16293D;
+  --bubble-them: #EEF3F8;
+  --shadow: 0 1px 2px rgba(22, 41, 61, .06), 0 8px 24px rgba(22, 41, 61, .08);
+  --display: "Outfit", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  padding: 0 20px;
+  -webkit-font-smoothing: antialiased;
+}
+.page {
+  max-width: 780px;
+  margin: 0 auto;
+  padding-block: 56px 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+h1, h2, h3 {
+  font-family: var(--display);
+  line-height: 1.15;
+  text-wrap: balance;
+  margin: 0;
+}
+h1 { font-size: clamp(32px, 6vw, 44px); font-weight: 700; letter-spacing: -.01em; }
+h2 { font-size: 26px; font-weight: 700; }
+h3 { font-size: 18px; font-weight: 600; }
+p { margin: 0; max-width: 64ch; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+.eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+.muted { color: var(--muted); }
+
+/* Header */
+header { display: flex; flex-direction: column; gap: 18px; }
+.lede { font-size: 20px; line-height: 1.55; color: var(--muted); }
+.lede strong { color: var(--ink); font-weight: 600; }
+.byline { font-size: 14px; color: var(--muted); }
+
+section { display: flex; flex-direction: column; gap: 22px; }
+.section-head { display: flex; flex-direction: column; gap: 8px; }
+
+/* Pain points */
+.pains { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.pains li {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 12px;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.pains .x {
+  width: 22px; height: 22px; margin-top: 3px;
+  border-radius: 50%;
+  background: var(--sun-soft);
+  color: var(--sun-ink);
+  font: 700 13px/22px var(--display);
+  text-align: center;
+}
+
+/* Benefits */
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 36px;
+}
+.benefits > div { display: flex; flex-direction: column; gap: 14px; }
+.when {
+  display: inline-flex; align-self: flex-start;
+  font: 600 13px/1 var(--body);
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 7px 11px; border-radius: 999px;
+}
+.when.now { background: var(--brand-soft); color: var(--brand); }
+.when.later { background: var(--sun-soft); color: var(--sun-ink); }
+.ticks { display: flex; flex-direction: column; gap: 12px; }
+.ticks li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; }
+.ticks li::before {
+  content: ""; width: 8px; height: 8px; margin-top: 10px; margin-left: 4px;
+  border-radius: 50%; background: var(--brand);
+}
+.benefits .later-col .ticks li::before { background: var(--sun); }
+.new { font-size: 12px; font-weight: 600; color: var(--brand); margin-left: 6px; letter-spacing: .03em; }
+
+/* Flow mockups */
+.flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+.step { display: flex; flex-direction: column; gap: 12px; }
+.step-label { display: flex; align-items: baseline; gap: 8px; }
+.step-no {
+  font: 700 14px/1 var(--display);
+  color: var(--brand);
+}
+.step-cap { font-size: 15px; color: var(--muted); }
+.widget {
+  background: var(--surface);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  font-size: 13.5px;
+  line-height: 1.45;
+  display: flex; flex-direction: column;
+  min-height: 300px;
+}
+.w-head {
+  background: var(--brand-solid);
+  color: var(--on-brand);
+  padding: 12px 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.w-head b { font-family: var(--display); font-weight: 600; font-size: 15px; }
+.w-head .dot { width: 8px; height: 8px; border-radius: 50%; background: #2E9E5B; flex: none; }
+.w-head .sub { font-size: 12px; opacity: .85; margin-left: auto; }
+.w-body { padding: 14px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field span { font-size: 12px; font-weight: 600; color: var(--muted); }
+.field i {
+  display: block; font-style: normal;
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: 7px 9px; color: var(--ink);
+  background: var(--ground);
+}
+.field i.empty { color: var(--muted); }
+.w-btn {
+  margin-top: auto;
+  background: var(--brand-solid); color: var(--on-brand);
+  border-radius: 8px; padding: 9px 12px;
+  font-weight: 600; text-align: center;
+}
+.w-btn.ghost {
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--line); font-weight: 500;
+}
+.msg { max-width: 88%; padding: 8px 11px; border-radius: 12px; }
+.msg.them { background: var(--bubble-them); border-bottom-left-radius: 4px; }
+.msg.me { background: var(--brand-solid); color: var(--on-brand); align-self: flex-end; border-bottom-right-radius: 4px; }
+.msg small { display: block; font-size: 11px; opacity: .7; margin-bottom: 2px; }
+.typing { font-size: 12px; color: var(--muted); font-style: italic; }
+.rate-q { font-weight: 600; font-size: 14.5px; }
+.scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.scale span {
+  aspect-ratio: 1; max-width: 100%;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: grid; place-items: center;
+  font: 600 14px/1 var(--display);
+  color: var(--muted);
+}
+.scale span.on { background: var(--brand-solid); border-color: var(--brand-solid); color: var(--on-brand); }
+.scale-ends { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+.w-note { font-size: 12px; color: var(--muted); }
+.sketch-note { font-size: 14px; color: var(--muted); font-style: italic; }
+
+/* Scope */
+.scope {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px;
+}
+.scope > div { display: flex; flex-direction: column; gap: 12px; }
+.scope h3 { padding-bottom: 10px; border-bottom: 2px solid var(--brand); }
+.scope ul { display: flex; flex-direction: column; gap: 9px; font-size: 16px; }
+.scope li { padding-left: 16px; position: relative; }
+.scope li::before { content: "–"; position: absolute; left: 0; color: var(--muted); }
+.out {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.out h3 { font-size: 16px; }
+.out ul { display: flex; flex-direction: column; gap: 6px; font-size: 16px; color: var(--muted); }
+.out li b { color: var(--ink); font-weight: 600; }
+
+
+footer { font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 20px; }
+
+@media print {
+  @page { size: A4; margin: 16mm 14mm; }
+  html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  :root { --ground: #FFFFFF; --bubble-them: #EEF3F8; --shadow: none; }
+  body { font-size: 14px; padding: 0; background: #FFFFFF; }
+  .page { padding-block: 0; gap: 34px; max-width: none; }
+  .lede { font-size: 17px; }
+  .flow { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .widget { min-height: 0; border: 1px solid var(--line); font-size: 12px; }
+  .field i { background: #F4F7FA; }
+  .scope { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .scope ul, .out ul { font-size: 14px; }
+  .step, .widget, .scope > div, .out, .pains li, .ticks li, .section-head { break-inside: avoid; }
+  h2 { break-after: avoid; }
+}
+
+@media (max-width: 520px) {
+  body { font-size: 16px; padding: 0 16px; }
+  .page { padding-block: 36px 56px; gap: 52px; }
+  .lede { font-size: 18px; }
+}
+
+html, body { margin: 0; }
+[hidden] { display: none !important; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.cta a { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 600; font-size: 15px; border-radius: 10px; padding: 11px 16px; }
+.cta .cta-main { background: var(--brand-solid); color: var(--on-brand); }
+.cta .cta-main:hover { filter: brightness(.92); }
+.cta .cta-alt { color: var(--brand); border: 1px solid var(--line); background: var(--surface); }
+.cta .cta-alt:hover { border-color: var(--brand); }
+.try { font-size: 15px; font-weight: 600; color: var(--brand); text-decoration: none; }
+.try:hover { text-decoration: underline; }
+@media print { .cta, .try { display: none !important; } }
+
+/* v2 additions */
+.flow { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.scope { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.w-head .avatar { width: 30px; height: 30px; border-radius: 50%; background: #FFFFFF; color: var(--brand); display: grid; place-items: center; font: 700 12px/1 var(--display); flex: none; }
+.w-head .avatar.ai { background: var(--sun); color: #FFFFFF; }
+.w-head .who { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+.w-head .who small { font-size: 11px; opacity: .85; }
+.msg.bot { background: var(--brand-soft); border-bottom-left-radius: 4px; }
+.src { display: inline-flex; align-items: center; gap: 5px; margin-top: 6px; font-size: 11px; font-weight: 600; color: var(--brand); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 2px 7px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips span { border: 1px solid var(--brand); color: var(--brand); border-radius: 999px; padding: 3px 9px; font-size: 11.5px; font-weight: 600; }
+.w-sys { align-self: center; font-size: 11px; color: var(--muted); text-align: center; }
+.w-divider { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); }
+.w-divider::before, .w-divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.w-tiny { font-size: 11.5px; color: var(--muted); text-align: center; }
+
+.safety { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px 28px; }
+.safety li { display: grid; grid-template-columns: 30px 1fr; gap: 12px; }
+.safety .mk { width: 30px; height: 30px; border-radius: 9px; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; }
+.safety .mk svg { width: 17px; height: 17px; }
+.safety b { display: block; font-weight: 600; margin-bottom: 2px; }
+.safety span.t { color: var(--muted); font-size: 16px; }
+
+.phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; align-items: start; }
+.phase { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+.phase .when { align-self: flex-start; }
+.phase h3 { font-size: 19px; }
+.phase p { color: var(--muted); font-size: 16px; }
+.phase ul { display: flex; flex-direction: column; gap: 7px; font-size: 15.5px; }
+.phase li { padding-left: 16px; position: relative; }
+.phase li::before { content: "–"; position: absolute; left: 0; color: var(--muted); }
+
+@media print {
+  .flow { grid-template-columns: repeat(2, 1fr) !important; gap: 16px; }
+  .scope { grid-template-columns: repeat(2, 1fr) !important; }
+  .phases { grid-template-columns: repeat(2, 1fr); }
+  .safety { grid-template-columns: repeat(2, 1fr); }
+  .safety li, .phase { break-inside: avoid; }
+  .safety span.t, .phase p, .phase ul { font-size: 13.5px; }
+  .page { gap: 28px; }
+  section { gap: 16px; }
+  .scope ul { gap: 6px; }
+  .out { padding: 12px 16px; gap: 6px; }
+  body { line-height: 1.45; }
+  .phase { padding: 12px 16px; gap: 6px; }
+  .scope h3 { padding-bottom: 6px; }
+  .scope ul, .out ul { font-size: 13.5px; }
+  footer { display: none; }
+}
+
+/* standalone AI proposal */
+.pains .x { background: var(--sun-soft); color: var(--sun-ink); }
+.benefits .later-col .ticks li::before { background: var(--sun); }
+.cta .cta-main { color: var(--on-brand); }
+.providers { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; align-items: stretch; }
+.prov { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+.prov.pick { border: 2px solid var(--brand-solid); box-shadow: var(--shadow); }
+.prov h3 { font-size: 20px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.badge { font: 600 12px/1 var(--body); letter-spacing: .05em; text-transform: uppercase; background: var(--brand-solid); color: var(--on-brand); border-radius: 999px; padding: 6px 10px; }
+.prov dl { margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 15.5px; }
+.prov dt { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.prov dd { margin: 2px 0 0; }
+.note { background: var(--brand-soft); border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
+.note h3 { font-size: 16px; }
+.note p { font-size: 16px; }
+.addon { border: 1px dashed var(--muted); border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+.addon h3 { font-size: 17px; }
+.addon p { font-size: 16px; color: var(--muted); }
+.ticks a, .lede a { color: var(--brand); }
+@media print {
+  .providers { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .prov { padding: 12px 14px; break-inside: avoid; }
+  .prov dl { font-size: 12.5px; gap: 7px; }
+  .addon, .note { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header>
+    <span class="eyebrow">Voorstel · AI-assistent tabakstop.be</span>
+    <h1>Een assistent die bezoekers dag en nacht op weg helpt</h1>
+    <p class="lede">Een <strong>AI-assistent</strong> op tabakstop.be beantwoordt vragen over stoppen met roken, op basis van de eigen pagina's en brochures. Elk antwoord toont de bron. Bij medische of moeilijke vragen verwijst de assistent door naar een tabakoloog, en een bezoeker kan altijd een bericht achterlaten.</p>
+    <span class="byline">Oktober 2026</span>
+    <div class="cta"><a class="cta-main" href="prototype.html">Bekijk het klikbare prototype &rarr;</a><a class="cta-alt" href="voorstel-ai-assistent-tabakstop.pdf" download>Download als PDF</a></div>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <h2>Waar bezoekers nu op wachten</h2>
+    </div>
+    <ul class="pains">
+      <li><span class="x">!</span><span>Veel vragen komen steeds terug, en het antwoord staat al op de site of in een brochure.</span></li>
+      <li><span class="x">!</span><span>Een vraag 's avonds of in het weekend blijft liggen tot de volgende werkdag.</span></li>
+      <li><span class="x">!</span><span>Bezoekers vinden de juiste pagina of brochure niet altijd.</span></li>
+      <li><span class="x">!</span><span>Er is weinig zicht op wat bezoekers eigenlijk willen weten.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Wat de assistent oplevert</h2>
+    </div>
+    <div class="benefits">
+      <div>
+        <span class="when now">Meteen</span>
+        <ul class="ticks">
+          <li><span>Antwoord op veelgestelde vragen, ook 's avonds en in het weekend.</span></li>
+          <li><span>Elk antwoord komt uit de eigen informatie, met de bron erbij.</span></li>
+          <li><span>Volledig tweetalig: Nederlands en Frans, afgestemd op de rest van de site.</span></li>
+          <li><span>Een tevredenheidsvraag na elk gesprek.</span></li>
+          <li><span>Inzicht in de vragen van bezoekers, en in de vragen waarop de assistent geen antwoord had.</span></li>
+          <li><span>Medewerkers keuren nieuwe antwoorden goed. De assistent leert niet vanzelf bij.</span></li>
+          <li><span>Jullie kiezen de AI-aanbieder. Met een Europese aanbieder blijven de gesprekken in de EU.</span></li>
+        </ul>
+      </div>
+      <div class="later-col">
+        <span class="when later">Later</span>
+        <ul class="ticks">
+          <li><span>Dezelfde assistent op andere sites inzetten.</span></li>
+          <li><span>Een livechat met tabakologen erbij, in hetzelfde venster. Dat is een <a href="../">apart voorstel</a>.</span></li>
+          <li><span>De kennis uitbreiden met goedgekeurde antwoorden uit geanonimiseerde gesprekken.</span></li>
+          <li><span>Gespreksgegevens ontsluiten via een API of MCP (zie onderaan).</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Het gesprek, van begin tot einde</h2>
+      <p class="muted">Zo ziet een gesprek eruit voor de bezoeker.</p>
+    </div>
+    <div class="flow">
+
+      <div class="step">
+        <div class="step-label"><span class="step-no">1</span><h3>De assistent antwoordt</h3></div>
+        <div class="widget" aria-label="Schets: de assistent beantwoordt een vraag">
+          <div class="w-head"><span class="avatar ai">AI</span><span class="who"><b>Tabakstop-assistent</b><small>Antwoordt met info van tabakstop.be</small></span></div>
+          <div class="w-body">
+            <div class="msg me">Welke nicotinevervangers zijn er?</div>
+            <div class="msg bot">Er zijn pleisters, kauwgom, zuigtabletten, een inhalator en een mondspray. Ze werken het best samen met begeleiding.<br><span class="src"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>Brochure Nicotinevervangers</span></div>
+            <div class="chips"><span>Hoe werkt begeleiding?</span></div>
+            <p class="w-tiny">Antwoorden worden gegenereerd door AI</p>
+          </div>
+        </div>
+        <p class="step-cap">Meteen een antwoord, altijd met de bron erbij.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-label"><span class="step-no">2</span><h3>Doorverwijzen</h3></div>
+        <div class="widget" aria-label="Schets: een medische vraag wordt doorverwezen">
+          <div class="w-head"><span class="avatar ai">AI</span><span class="who"><b>Tabakstop-assistent</b><small>Antwoordt met info van tabakstop.be</small></span></div>
+          <div class="w-body">
+            <div class="msg me">Mag ik Champix nemen als ik zwanger ben?</div>
+            <div class="msg bot">Over medicatie en zwangerschap geef ik geen advies. Een tabakoloog kan je daarmee helpen.</div>
+            <div class="w-btn">Laat een bericht achter</div>
+            <p class="w-tiny">Je gesprek gaat mee, je hoeft niets te herhalen.</p>
+          </div>
+        </div>
+        <p class="step-cap">Medische vragen gaan altijd naar een mens.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-label"><span class="step-no">3</span><h3>Na het gesprek</h3></div>
+        <div class="widget" aria-label="Schets van de tevredenheidsvraag na de chat">
+          <div class="w-head"><span class="dot"></span><b>Bedankt</b></div>
+          <div class="w-body">
+            <p class="rate-q">Hoe tevreden ben je over dit gesprek?</p>
+            <div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span class="on">5</span></div>
+            <div class="scale-ends"><span>Helemaal niet</span><span>Heel tevreden</span></div>
+            <div class="field"><span>Wil je nog iets kwijt? (optioneel)</span><i class="empty">Je opmerking…</i></div>
+            <div class="w-btn">Versturen</div>
+          </div>
+        </div>
+        <p class="step-cap">Eén vraag, meteen na afloop.</p>
+      </div>
+
+    </div>
+    <p class="sketch-note">Schetsen ter illustratie, geen definitief ontwerp.</p>
+    <a class="try" href="prototype.html">Probeer het zelf in het klikbare prototype &rarr;</a>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Veilig bij gezondheidsvragen</h2>
+      <p class="muted">Gesprekken over stoppen met roken gaan over gezondheid. Daarom werkt de assistent binnen duidelijke grenzen.</p>
+    </div>
+    <ul class="safety">
+      <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><span><b>Enkel de eigen informatie</b><span class="t">De assistent antwoordt alleen met wat op tabakstop.be en in de brochures staat, en toont altijd de bron. Staat het er niet in, dan zegt hij dat.</span></span></li>
+      <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10Z"/></svg></span><span><b>Geen medisch advies</b><span class="t">Vragen over medicatie, dosissen, zwangerschap of bijwerkingen worden doorverwezen naar een tabakoloog.</span></span></li>
+      <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span><b>Hulp bij moeilijke momenten</b><span class="t">Bij tekenen van een crisis toont de assistent meteen de juiste hulplijn, zoals de Zelfmoordlijn 1813.</span></span></li>
+      <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h9M8.5 3v2M6 5c0 4 3 7 7 8M11 5c-.5 4-3 7-7 8"/><path d="m13 21 4-10 4 10M14.5 17.5h5"/></svg></span><span><b>In de taal van de bezoeker</b><span class="t">Nederlandstalige bezoekers krijgen antwoord uit de Nederlandse informatie, Franstalige uit de Franse.</span></span></li>
+      <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><span><b>Medewerkers beslissen wat de assistent leert</b><span class="t">Nieuwe antwoorden worden eerst door medewerkers goedgekeurd. Duidelijk vermeld bij elk antwoord: het is door AI gegenereerd.</span></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Kies de AI-aanbieder</h2>
+      <p class="muted">De assistent is gebouwd zodat de aanbieder later kan wisselen, zonder dat de rest verandert. Er zijn drie opties.</p>
+    </div>
+    <div class="providers">
+      <div class="prov pick">
+        <h3>Mistral AI <span class="badge">Aanbevolen</span></h3>
+        <dl>
+          <div><dt>Herkomst</dt><dd>Frans bedrijf, gevestigd in Parijs.</dd></div>
+          <div><dt>Gegevens</dt><dd>Verwerkt in de EU, onder Europese privacywetgeving (AVG).</dd></div>
+          <div><dt>Waarom</dt><dd>Gesprekken over stoppen met roken bevatten vaak gezondheidsinformatie. Met een Europese aanbieder blijft die in de EU, en is er geen Amerikaanse partij bij betrokken.</dd></div>
+        </dl>
+      </div>
+      <div class="prov">
+        <h3>OpenAI</h3>
+        <dl>
+          <div><dt>Herkomst</dt><dd>Amerikaans bedrijf (ChatGPT).</dd></div>
+          <div><dt>Gegevens</dt><dd>Verwerking in Europa is mogelijk voor zakelijke gebruikers, maar het bedrijf valt onder Amerikaanse wetgeving.</dd></div>
+          <div><dt>Waarom</dt><dd>Zeer bekend en breed getest. Een goede keuze als privacy minder zwaar weegt.</dd></div>
+        </dl>
+      </div>
+      <div class="prov">
+        <h3>Google Gemini</h3>
+        <dl>
+          <div><dt>Herkomst</dt><dd>Amerikaans bedrijf (Google).</dd></div>
+          <div><dt>Gegevens</dt><dd>Via Google Cloud kan een Europese regio gekozen worden, maar het bedrijf valt onder Amerikaanse wetgeving.</dd></div>
+          <div><dt>Waarom</dt><dd>Handig als jullie al met Google Cloud of Workspace werken.</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="note">
+      <h3>Onze aanbeveling: Mistral AI</h3>
+      <p>Voor een gezondheidsonderwerp met Belgische bezoekers is Europese gegevensverwerking het sterkste argument. Wat we bij elke aanbieder vastleggen: gesprekken worden niet gebruikt om modellen te trainen, er is een verwerkersovereenkomst, en we testen de gekozen aanbieder met dezelfde vragen voor de assistent live gaat. De exacte voorwaarden controleren we bij de start.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Wat de eerste versie bevat</h2>
+    </div>
+    <div class="scope">
+      <div>
+        <h3>Voor bezoekers</h3>
+        <ul>
+          <li>Chat op tabakstop.be, in NL en FR</li>
+          <li>Een assistent die dag en nacht antwoordt, met bronvermelding</li>
+          <li>Bericht achterlaten voor een tabakoloog</li>
+          <li>Tevredenheidsvraag na het gesprek</li>
+          <li>Duidelijke vermelding dat antwoorden door AI gegenereerd zijn</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Voor medewerkers</h3>
+        <ul>
+          <li>Een eenvoudig beheerscherm in de browser</li>
+          <li>Goedkeuren van nieuwe antwoorden</li>
+          <li>Achtergelaten berichten als lijst, met het gesprek erbij</li>
+          <li>Doorzoekbaar archief van alle gesprekken</li>
+          <li>De AI-aanbieder kiezen en wisselen</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Kennisbank</h3>
+        <ul>
+          <li>Kent alle pagina's en brochures van tabakstop.be, in NL en FR</li>
+          <li>Automatisch bijgewerkt zodra een pagina wijzigt</li>
+          <li>Getest met een vijftigtal echte vragen, elk antwoord nagekeken</li>
+          <li>Eerst op één pagina, daarna op de hele site</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Rapportage</h3>
+        <ul>
+          <li>Aantal gesprekken per dag</li>
+          <li>Opgelost door de assistent of bericht achtergelaten</li>
+          <li>Meest gestelde onderwerpen</li>
+          <li>Tevredenheid van bezoekers</li>
+        </ul>
+      </div>
+    </div>
+    <div class="out">
+      <h3>Bewust niet in de eerste versie</h3>
+      <ul>
+        <li><b>Livechat met tabakologen.</b> Daar is een apart voorstel voor, dat hierop aansluit.</li>
+        <li><b>Bestanden of afbeeldingen versturen.</b> Kan later nog.</li>
+        <li><b>Afspraken maken of diagnoses stellen.</b> Dat blijft bij de tabakoloog.</li>
+      </ul>
+    </div>
+    <div class="addon">
+      <h3>Mogelijke uitbreiding: API of MCP</h3>
+      <p>Later kan een API of een MCP-server worden toegevoegd, zodat gespreksgegevens (op wens geanonimiseerd) opgehaald en gebruikt kunnen worden in andere systemen, bijvoorbeeld een rapportagetool of een eigen AI-toepassing. Dit zit niet in de eerste versie.</p>
+    </div>
+  </section>
+
+  <footer>Voorstel voor Tabakstop · oktober 2026</footer>
+
+</main>
+</body>
+</html>
