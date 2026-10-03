@@ -20,6 +20,8 @@
   --line: #DCE4EC;
   --brand: #F78F1E;
   --brand-dark: #E27F0C;
+  --cta: #C2570A;
+  --cta-dark: #A84A06;
   --brand-ink: #B85A00;
   --brand-deep: #8F4300;
   --brand-soft: #FDEBD3;
@@ -52,7 +54,7 @@ body {
 button, input, select, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 2px solid var(--brand-ink); outline-offset: 2px; }
-.c-head :focus-visible { outline-color: var(--ink); }
+.c-head :focus-visible { outline-color: var(--brand); }
 .side :focus-visible { outline-color: var(--brand); }
 h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.2; text-wrap: balance; }
 p { margin: 0; }
@@ -71,7 +73,7 @@ p { margin: 0; }
   border: 0; background: transparent; padding: 8px 14px; border-radius: 7px;
   font-weight: 600; color: var(--muted);
 }
-.tabs button[aria-selected="true"] { background: var(--brand); color: var(--ink); }
+.tabs button[aria-selected="true"] { background: var(--cta); color: #FFFFFF; }
 .tabs button:not([aria-selected="true"]):hover { background: var(--sunken); color: var(--ink); }
 
 /* Visitor controls */
@@ -85,7 +87,7 @@ p { margin: 0; }
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex-wrap: wrap; }
 .seg button { border: 0; background: var(--surface); padding: 6px 11px; font-size: 13px; font-weight: 500; color: var(--muted); border-left: 1px solid var(--line); }
 .seg button:first-child { border-left: 0; }
-.seg button[aria-pressed="true"] { background: var(--brand-soft); color: var(--brand-deep); font-weight: 600; }
+.seg button[aria-pressed="true"] { background: var(--cta); color: #FFFFFF; font-weight: 600; }
 .controls .hint { font-size: 13px; color: var(--muted); margin-left: auto; }
 
 /* Browser frame */
@@ -110,7 +112,13 @@ p { margin: 0; }
 .site-card span { font-size: 13px; }
 .site-card.c1 { background: #AB58A2; }
 .site-card.c2 { background: #1D3A5A; }
-.site-card.c3 { background: var(--brand); color: var(--ink); }
+.site-card.c3 { background: var(--cta); }
+.site.kanker .wordmark, .site.kanker .page-copy h2, .site.kanker .site-hero h2 { color: #2B333B; }
+.site.kanker .wordmark span, .site.kanker .site-nav nav { color: #4A5663; }
+.site.kanker .site-hero p, .site.kanker .page-copy p { color: #4A5663; }
+.site.kanker .site-card.c1 { background: #5B6773; }
+.site.kanker .site-card.c2 { background: #3B4652; }
+.site.kanker .site-card.c3 { background: #E3E7EB; color: var(--ink); }
 .skel { padding: 0 32px; display: flex; flex-direction: column; gap: 10px; max-width: 700px; }
 .skel i { display: block; height: 10px; border-radius: 5px; background: #EDF1F5; }
 
@@ -144,21 +152,21 @@ p { margin: 0; }
 
 /* Chat component */
 .chat { display: flex; flex-direction: column; width: 100%; height: 100%; position: relative; background: var(--surface); }
-.c-head { background: var(--brand); color: var(--ink); padding: 14px 16px; display: flex; align-items: center; gap: 11px; flex: none; }
+.c-head { background: var(--ink); color: #FFFFFF; border-bottom: 3px solid var(--brand); padding: 14px 16px; display: flex; align-items: center; gap: 11px; flex: none; }
 .c-head .who { display: flex; flex-direction: column; min-width: 0; flex: 1; }
 .c-head .who b { font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 1.2; }
-.c-head .who span { font-size: 12.5px; }
-.avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-family: var(--display); font-weight: 600; font-size: 13px; flex: none; background: var(--bot); color: #FFFFFF; }
-.c-head .hbtn { border: 1px solid rgba(22, 41, 61, .55); background: transparent; color: var(--ink); border-radius: 8px; padding: 5px 10px; font-size: 12.5px; font-weight: 600; flex: none; }
-.c-head .hbtn:hover { background: rgba(22, 41, 61, .1); }
-.c-head .icon-btn { border: 0; background: transparent; color: var(--ink); width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; flex: none; }
-.c-head .icon-btn:hover { background: rgba(22, 41, 61, .1); }
+.c-head .who span { font-size: 12.5px; color: #D6E1EB; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-family: var(--display); font-weight: 600; font-size: 13px; flex: none; background: var(--brand); color: var(--ink); }
+.c-head .hbtn { border: 1px solid rgba(255, 255, 255, .55); background: transparent; color: #FFFFFF; border-radius: 8px; padding: 5px 10px; font-size: 12.5px; font-weight: 600; flex: none; }
+.c-head .hbtn:hover { background: rgba(255, 255, 255, .14); }
+.c-head .icon-btn { border: 0; background: transparent; color: #FFFFFF; width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; flex: none; }
+.c-head .icon-btn:hover { background: rgba(255, 255, 255, .14); }
 .c-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: var(--surface); }
 .c-foot { border-top: 1px solid var(--line); padding: 10px 12px; display: flex; gap: 8px; align-items: flex-end; flex: none; background: var(--surface); }
 .c-foot textarea { flex: 1; resize: none; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; min-height: 40px; max-height: 110px; background: var(--sunken); }
 .c-foot textarea:focus { background: var(--surface); }
-.send { border: 0; background: var(--brand); color: var(--ink); width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; flex: none; }
-.send:hover { background: var(--brand-dark); }
+.send { border: 0; background: var(--cta); color: #FFFFFF; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; flex: none; }
+.send:hover { background: var(--cta-dark); }
 .send svg { width: 18px; height: 18px; }
 .ai-note { flex: none; text-align: center; font-size: 11.5px; color: var(--muted); padding: 0 12px 8px; background: var(--surface); }
 .c-body + .ai-note { border-top: 1px solid var(--line); padding-top: 7px; }
@@ -169,14 +177,14 @@ p { margin: 0; }
 .f textarea { resize: vertical; }
 .f input:focus, .f select:focus, .f textarea:focus { background: var(--surface); }
 .err { color: var(--bad); font-size: 12.5px; font-weight: 600; }
-.btn { border: 0; border-radius: 10px; padding: 11px 14px; font-weight: 600; background: var(--brand); color: var(--ink); }
-.btn:hover { background: var(--brand-dark); }
+.btn { border: 0; border-radius: 10px; padding: 11px 14px; font-weight: 600; background: var(--cta); color: #FFFFFF; }
+.btn:hover { background: var(--cta-dark); }
 .btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
 .btn.ghost:hover { background: var(--sunken); color: var(--ink); }
 .btn.small { padding: 7px 11px; font-size: 13px; border-radius: 8px; }
 .stack { display: flex; flex-direction: column; gap: 12px; }
 .msg { max-width: 84%; padding: 9px 12px; border-radius: 14px; font-size: 14px; line-height: 1.45; white-space: pre-wrap; word-wrap: break-word; }
-.msg.me { background: var(--brand); color: var(--ink); border-bottom-right-radius: 4px; align-self: flex-end; }
+.msg.me { background: var(--brand-soft); border: 1px solid #F6D3A8; color: var(--ink); border-bottom-right-radius: 4px; align-self: flex-end; }
 .msg.bot { background: var(--bot-soft); border: 1px solid var(--bot-line); color: var(--ink); border-bottom-left-radius: 4px; align-self: flex-start; }
 .msg small { display: block; font-size: 11px; color: #44586C; margin-bottom: 2px; font-weight: 600; }
 .sys { align-self: center; font-size: 12px; color: var(--muted); text-align: center; }
@@ -192,7 +200,7 @@ p { margin: 0; }
 .scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
 .scale button { aspect-ratio: 1; max-width: 100%; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--muted); }
 .scale button:hover { border-color: var(--brand-ink); color: var(--brand-deep); }
-.scale button[aria-pressed="true"] { background: var(--brand); border-color: var(--brand); color: var(--ink); }
+.scale button[aria-pressed="true"] { background: var(--cta); border-color: var(--cta); color: #FFFFFF; }
 .scale-ends { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: -4px; }
 .done { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; margin: auto 0; padding: 12px; }
 .done .ring { width: 56px; height: 56px; border-radius: 50%; background: var(--ok-soft); color: var(--ok); display: grid; place-items: center; }
@@ -247,7 +255,7 @@ p { margin: 0; }
 .side nav button svg { width: 18px; height: 18px; flex: none; opacity: .85; }
 .side nav button:hover { background: rgba(255, 255, 255, .06); color: #FFFFFF; }
 .side nav button[aria-current="page"] { background: rgba(255, 255, 255, .1); color: #FFFFFF; font-weight: 600; box-shadow: inset 3px 0 0 var(--brand); }
-.side nav .badge { margin-left: auto; background: var(--brand); color: var(--ink); font-size: 11.5px; font-weight: 700; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; display: grid; place-items: center; }
+.side nav .badge { margin-left: auto; background: var(--cta); color: #FFFFFF; font-size: 11.5px; font-weight: 700; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; display: grid; place-items: center; }
 .main { min-width: 0; min-height: 0; display: flex; flex-direction: column; }
 
 .pane { flex: 1; overflow-y: auto; padding: 22px 24px; display: flex; flex-direction: column; gap: 18px; min-height: 0; }
@@ -338,7 +346,7 @@ tbody tr:last-child td { border-bottom: 0; }
 .check-btn .box { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid #6B7F93; display: grid; place-items: center; color: transparent; }
 .check-btn .box svg { width: 13px; height: 13px; }
 .check-btn[aria-pressed="true"] { color: var(--ink); }
-.check-btn[aria-pressed="true"] .box { background: var(--brand); border-color: var(--brand); color: var(--ink); }
+.check-btn[aria-pressed="true"] .box { background: var(--cta); border-color: var(--cta); color: #FFFFFF; }
 .toggle-link { border: 0; background: none; color: var(--brand-deep); font-weight: 600; font-size: 13px; padding: 2px; }
 .toggle-link:hover { text-decoration: underline; }
 .subtabs { display: inline-flex; }
@@ -352,7 +360,8 @@ tbody tr:last-child td { border-bottom: 0; }
 .provs { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
 .prov { text-align: left; border: 1.5px solid var(--line); background: var(--surface); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 6px; }
 .prov:hover { border-color: var(--brand-ink); }
-.prov[aria-checked="true"] { border-color: var(--brand-ink); background: var(--brand-soft); }
+.prov[aria-checked="true"] { border-color: var(--brand); background: var(--brand-soft); }
+.prov .nm img { flex: none; }
 .prov .nm { display: flex; align-items: center; gap: 9px; font-family: var(--display); font-weight: 600; font-size: 16px; }
 .prov .radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #6B7F93; flex: none; background: var(--surface); }
 .prov[aria-checked="true"] .radio { border-color: var(--brand-ink); background: var(--brand-ink); box-shadow: inset 0 0 0 3px var(--brand-soft); }
@@ -389,7 +398,7 @@ tbody tr:last-child td { border-bottom: 0; }
   <div class="topbar">
     <div class="proto-label">
       <a class="back" href="./">&larr; Terug naar het voorstel</a>
-      <h1>AI-assistent voor Tabakstop</h1>
+      <h1 id="proto-h1">AI-assistent voor Tabakstop</h1>
       <span>Klikbaar prototype · alle gesprekken, bronnen en cijfers zijn voorbeelden</span>
     </div>
     <div class="tabs" role="tablist" aria-label="Onderdeel">
@@ -400,6 +409,13 @@ tbody tr:last-child td { border-bottom: 0; }
   </div>
 
   <div class="controls" id="visitor-controls">
+    <div class="grp">
+      <span class="lbl">Site</span>
+      <div class="seg" id="site-seg">
+        <button data-site="tabakstop" aria-pressed="true">Tabakstop</button>
+        <button data-site="kanker" aria-pressed="false">Kanker.be</button>
+      </div>
+    </div>
     <div class="grp">
       <span class="lbl">Stap</span>
       <div class="seg" id="state-seg">
@@ -420,24 +436,11 @@ tbody tr:last-child td { border-bottom: 0; }
 
   <section id="view-embed" role="tabpanel" aria-labelledby="tab-embed">
     <div class="browser">
-      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">tabakstop.be/pagina/chat</div></div>
-      <div class="site embed-site">
-        <div class="site-nav">
-          <div class="wordmark">Tabakstop <span>· stoppen is mogelijk</span></div>
-          <nav><span>Ik wil stoppen</span><span>Ik ben gestopt</span><span>Ik help iemand</span><span>Info</span></nav>
-        </div>
+      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url" id="embed-url"></div></div>
+      <div class="site embed-site" id="site-embed">
+        <div class="site-nav"><div class="wordmark" id="embed-brand"></div><nav id="embed-nav"></nav></div>
         <div class="page-wrap">
-          <div class="page-copy">
-            <span class="crumb">Home › Contact › Vraag het de assistent</span>
-            <h2>Stel je vraag over stoppen met roken</h2>
-            <p>Onze digitale assistent antwoordt meteen, dag en nacht, met de informatie van Tabakstop. Kan de assistent een vraag niet beantwoorden, dan laat je een bericht achter. Een tabakoloog antwoordt je per e-mail.</p>
-            <div class="facts" aria-label="Wat kun je verwachten">
-              <div><span>Digitale assistent</span><span>altijd beschikbaar</span></div>
-              <div><span>Bericht aan een tabakoloog</span><span>antwoord binnen twee werkdagen</span></div>
-              <div><span>Medisch advies</span><span>enkel via een tabakoloog of huisarts</span></div>
-            </div>
-            <p>Denk je aan zelfdoding? Bel de Zelfmoordlijn op 1813, dag en nacht bereikbaar.</p>
-          </div>
+          <div class="page-copy" id="embed-copy"></div>
           <div class="embed-card" id="embed-mount"></div>
         </div>
       </div>
@@ -446,21 +449,11 @@ tbody tr:last-child td { border-bottom: 0; }
 
   <section id="view-widget" role="tabpanel" aria-labelledby="tab-widget" hidden>
     <div class="browser">
-      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">tabakstop.be/pagina/stoppen-met-roken</div></div>
+      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url" id="widget-url"></div></div>
       <div class="site" id="site-widget">
-        <div class="site-nav">
-          <div class="wordmark">Tabakstop <span>· stoppen is mogelijk</span></div>
-          <nav><span>Ik wil stoppen</span><span>Ik ben gestopt</span><span>Ik help iemand</span><span>Info</span></nav>
-        </div>
-        <div class="site-hero">
-          <h2>Stoppen met roken, je hoeft het niet alleen te doen</h2>
-          <p>Een tabakoloog helpt je een plan te maken dat bij jou past. Heb je een vraag? Stel ze rechtsonder aan onze assistent.</p>
-        </div>
-        <div class="site-cards">
-          <div class="site-card c1"><b>Ik wil stoppen</b><span>Zo begin je eraan</span></div>
-          <div class="site-card c2"><b>Hulp bij stoppen</b><span>Begeleiding door een tabakoloog</span></div>
-          <div class="site-card c3"><b>Brochures</b><span>Downloaden of bestellen</span></div>
-        </div>
+        <div class="site-nav"><div class="wordmark" id="widget-brand"></div><nav id="widget-nav"></nav></div>
+        <div class="site-hero" id="widget-hero"></div>
+        <div class="site-cards" id="widget-cards"></div>
         <div class="skel"><i style="width:92%"></i><i style="width:78%"></i><i style="width:85%"></i><i style="width:60%"></i></div>
         <div id="widget-mount"></div>
       </div>
@@ -469,7 +462,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
   <section id="view-beheer" role="tabpanel" aria-labelledby="tab-beheer" hidden>
     <div class="browser">
-      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">assistent.tabakstop.be</div></div>
+      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url" id="admin-url"></div></div>
       <div class="admin" id="admin"></div>
     </div>
   </section>
@@ -506,8 +499,14 @@ tbody tr:last-child td { border-bottom: 0; }
     else form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
   }
 
+  var CFG = {
+    tabakstop: { name: 'Tabakstop', domain: 'tabakstop.be', adminUrl: 'assistent.tabakstop.be', role: 'tabakoloog', cms: 'WordPress' },
+    kanker: { name: 'Kanker.be', domain: 'kanker.be', adminUrl: 'assistent.kanker.be', role: 'kankerinfo-medewerker', cms: 'het CMS' }
+  };
+  var site = 'tabakstop';
+
   /* ---------- Visitor copy ---------- */
-  var T = {
+  var TB = {
     nl: {
       launcher: 'Stel je vraag',
       botName: 'Tabakstop-assistent',
@@ -608,16 +607,50 @@ tbody tr:last-child td { border-bottom: 0; }
     }
   };
 
+  var T = {
+    tabakstop: TB,
+    kanker: {
+      nl: Object.assign({}, TB.nl, {
+        botName: 'Kanker.be-assistent',
+        botSub: 'Antwoordt met info van kanker.be',
+        leave: 'Laat een bericht achter voor een kankerinfo-medewerker',
+        contact: 'Liever bellen? De Kankerlijn is gratis bereikbaar op 0800 15 801, op werkdagen. Of kijk op kanker.be.',
+        formTitle: 'Bericht voor een medewerker',
+        sentBody: function (e) { return 'Een kankerinfo-medewerker antwoordt binnen twee werkdagen per e-mail op ' + e + '.'; },
+        formNote: 'Je gesprek met de assistent wordt meegestuurd, zodat je niets hoeft te herhalen. Een kankerinfo-medewerker antwoordt je per e-mail, binnen twee werkdagen.',
+        hints: {
+          bot: 'Kies een voorgestelde vraag of typ er zelf een. Tip: vraag "Ik heb een knobbel, is dat kanker?", of vraag naar een persoon, om het doorverwijzen te zien.',
+          form: 'De assistent kan of mag niet antwoorden (geen diagnose, geen behandeladvies). De bezoeker laat een bericht achter, het gesprek gaat mee.',
+          rate: 'Dit ziet de bezoeker meteen na het gesprek.'
+        }
+      }),
+      fr: Object.assign({}, TB.fr, {
+        botName: 'Assistant Cancer.be',
+        botSub: 'Répond avec les infos de cancer.be',
+        leave: 'Laisser un message à un conseiller info-cancer',
+        contact: "Vous préférez appeler ? La ligne d'information sur le cancer est gratuite : 0800 15 801, les jours ouvrables. Ou consultez cancer.be.",
+        formTitle: 'Message pour un conseiller',
+        sentBody: function (e) { return 'Un conseiller info-cancer vous répond par e-mail à ' + e + ', dans les deux jours ouvrables.'; },
+        formNote: 'Votre conversation avec l’assistant est jointe, vous ne devez rien répéter. Un conseiller info-cancer vous répond par e-mail, dans les deux jours ouvrables.',
+        hints: {
+          bot: "Choisissez une question proposée ou tapez la vôtre. Astuce : posez la question « J'ai une boule, est-ce un cancer ? », ou demandez une personne, pour voir l'orientation.",
+          form: "L'assistant ne peut ou ne doit pas répondre (ni diagnostic, ni conseil de traitement). Le visiteur laisse un message, la conversation est jointe.",
+          rate: 'Ce que le visiteur voit juste après la conversation.'
+        }
+      })
+    }
+  };
+
   /* ---------- Knowledge base (example answers) ---------- */
-  var KB = {
+  var KBT = {
     nl: {
       greet: { text: 'Hallo! Ik ben de digitale assistent van Tabakstop. Ik beantwoord je vragen met de informatie van tabakstop.be en onze brochures. Medisch advies geef ik niet. Kan ik een vraag niet beantwoorden, dan kun je een bericht achterlaten voor een tabakoloog.',
         chips: ['Hoe werkt begeleiding?', 'Welke nicotinevervangers zijn er?', 'Wat helpt tegen ontwenning?'] },
-      support: { text: 'Een tabakoloog is een zorgverlener die je helpt stoppen met roken. Samen maak je een stopplan dat bij jou past, en je krijgt begeleiding tijdens de moeilijke eerste weken. Dat kan individueel of in groep, bij je in de buurt of online.',
+      t1: { text: 'Een tabakoloog is een zorgverlener die je helpt stoppen met roken. Samen maak je een stopplan dat bij jou past, en je krijgt begeleiding tijdens de moeilijke eerste weken. Dat kan individueel of in groep, bij je in de buurt of online.',
         src: [['page', 'Stoppen met begeleiding']], chips: ['Welke nicotinevervangers zijn er?', 'Wat helpt tegen ontwenning?'], fb: true },
-      nrt: { text: 'Nicotinevervangers geven je lichaam nicotine zonder de schadelijke stoffen van tabaksrook. Zo worden ontwenningsverschijnselen minder sterk. Er zijn pleisters, kauwgom, zuigtabletten, een inhalator en een mondspray. Ze werken het best samen met begeleiding.',
+      t2: { text: 'Nicotinevervangers geven je lichaam nicotine zonder de schadelijke stoffen van tabaksrook. Zo worden ontwenningsverschijnselen minder sterk. Er zijn pleisters, kauwgom, zuigtabletten, een inhalator en een mondspray. Ze werken het best samen met begeleiding.',
         src: [['doc', 'Brochure Nicotinevervangers (PDF)'], ['page', 'Nicotine en nicotineproducten']], chips: ['Hoe werkt begeleiding?', 'Wat helpt tegen ontwenning?'], fb: true },
-      withdrawal: { text: 'Ontwenningsverschijnselen zijn het sterkst in de eerste dagen na het stoppen en nemen na enkele weken af. Een hevige zin in een sigaret duurt meestal maar een paar minuten. Wat kan helpen: een glas water drinken, even bewegen, diep in- en uitademen of jezelf afleiden.',
+      t3: { text: 'Ontwenningsverschijnselen zijn het sterkst in de eerste dagen na het stoppen en nemen na enkele weken af. Een hevige zin in een sigaret duurt meestal maar een paar minuten. Wat kan helpen: een glas water drinken, even bewegen, diep in- en uitademen of jezelf afleiden.',
         src: [['page', 'Omgaan met ontwenningsverschijnselen'], ['doc', 'Brochure Ik voel me zoveel beter (PDF)']], chips: ['Hoe werkt begeleiding?', 'Welke nicotinevervangers zijn er?'], fb: true },
       medical: { text: 'Over medicatie, dosissen of zwangerschap geef ik geen advies. Dat bespreek je best met een tabakoloog of je huisarts. Je kunt een bericht voor een tabakoloog achterlaten: die antwoordt je per e-mail.', hand: 'med' },
       distress: { text: 'Het klinkt alsof je het nu heel moeilijk hebt. Je hoeft dit niet alleen te dragen. Hier kan ik je niet verder mee helpen, maar een tabakoloog wel. Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.', hand: 'care' },
@@ -627,11 +660,11 @@ tbody tr:last-child td { border-bottom: 0; }
     fr: {
       greet: { text: "Bonjour ! Je suis l'assistant numérique de Tabacstop. Je réponds à vos questions avec les informations de tabacstop.be et de nos brochures. Je ne donne pas de conseils médicaux. Si je ne peux pas répondre, vous pouvez laisser un message à un tabacologue.",
         chips: ['Comment se passe un accompagnement ?', 'Quels substituts nicotiniques existent ?', 'Que faire contre le manque ?'] },
-      support: { text: "Un tabacologue est un professionnel de santé qui vous aide à arrêter de fumer. Ensemble, vous établissez un plan d'arrêt adapté, et vous êtes accompagné(e) pendant les premières semaines, les plus difficiles. C'est possible seul(e) ou en groupe, près de chez vous ou en ligne.",
+      t1: { text: "Un tabacologue est un professionnel de santé qui vous aide à arrêter de fumer. Ensemble, vous établissez un plan d'arrêt adapté, et vous êtes accompagné(e) pendant les premières semaines, les plus difficiles. C'est possible seul(e) ou en groupe, près de chez vous ou en ligne.",
         src: [['page', 'Arrêter avec un accompagnement']], chips: ['Quels substituts nicotiniques existent ?', 'Que faire contre le manque ?'], fb: true },
-      nrt: { text: 'Les substituts nicotiniques apportent de la nicotine à votre corps sans les substances nocives de la fumée. Les symptômes de manque sont ainsi moins forts. Il existe des patchs, des gommes, des comprimés à sucer, un inhalateur et un spray buccal. Ils fonctionnent le mieux avec un accompagnement.',
+      t2: { text: 'Les substituts nicotiniques apportent de la nicotine à votre corps sans les substances nocives de la fumée. Les symptômes de manque sont ainsi moins forts. Il existe des patchs, des gommes, des comprimés à sucer, un inhalateur et un spray buccal. Ils fonctionnent le mieux avec un accompagnement.',
         src: [['doc', 'Brochure Substituts nicotiniques (PDF)']], chips: ['Comment se passe un accompagnement ?', 'Que faire contre le manque ?'], fb: true },
-      withdrawal: { text: "Les symptômes de manque sont les plus forts les premiers jours après l'arrêt et diminuent après quelques semaines. Une forte envie de fumer ne dure généralement que quelques minutes. Ce qui peut aider : boire un verre d'eau, bouger un peu, respirer profondément ou vous changer les idées.",
+      t3: { text: "Les symptômes de manque sont les plus forts les premiers jours après l'arrêt et diminuent après quelques semaines. Une forte envie de fumer ne dure généralement que quelques minutes. Ce qui peut aider : boire un verre d'eau, bouger un peu, respirer profondément ou vous changer les idées.",
         src: [['page', 'Gérer les symptômes de manque'], ['doc', 'Brochure Je me sens tellement mieux sans tabac (PDF)']], chips: ['Comment se passe un accompagnement ?', 'Quels substituts nicotiniques existent ?'], fb: true },
       medical: { text: 'Je ne donne pas de conseils sur les médicaments, les doses ou la grossesse. Parlez-en plutôt à un tabacologue ou à votre médecin. Vous pouvez laisser un message à un tabacologue : il vous répondra par e-mail.', hand: 'med' },
       distress: { text: "On dirait que c'est très difficile pour vous en ce moment. Vous n'êtes pas seul(e). Je ne peux pas vous aider davantage, mais un tabacologue le peut. Si vous pensez au suicide, appelez le Centre de Prévention du Suicide au 0800 32 123, joignable 24 h/24.", hand: 'care' },
@@ -639,22 +672,68 @@ tbody tr:last-child td { border-bottom: 0; }
       fallback: { text: "Je ne trouve rien à ce sujet dans les informations de Tabacstop, et je ne veux pas vous donner une mauvaise réponse. Un tabacologue peut répondre à votre question. Laissez un message, vous recevrez une réponse par e-mail.", hand: 'none' }
     }
   };
-  var ROUTES = [
+  var RT = {};
+  RT.tabakstop = [
     ['distress', /(niet meer zitten|hopeloos|wanhoop|zelfmoord|zelfdoding|geen zin meer|désespér|suicide|n'en peux plus|plus envie de vivre)/i],
     ['medical', /(champix|cytisine|varenicline|varénicline|medicat|medicijn|dosis|zwanger|bijwerking|médica|dose|enceinte|grossesse|effet secondaire)/i],
     ['person', /(met iemand|iemand (spreken|praten|bellen)|echt persoon|een mens|medewerker|kan ik bellen|parler à|parler avec|quelqu'un|une personne|un humain|conseiller)/i],
-    ['support', /(begeleid|tabakoloog|coach|hulp bij|accompagn|tabacologue|aide)/i],
-    ['nrt', /(vervang|pleister|kauwgom|zuigtablet|mondspray|inhalator|substitut|patch|gomme|spray)/i],
-    ['withdrawal', /(ontwenning|zin in|craving|trek|sevrage|envie|manque)/i]
+    ['t1', /(begeleid|tabakoloog|coach|hulp bij|accompagn|tabacologue|aide)/i],
+    ['t2', /(vervang|pleister|kauwgom|zuigtablet|mondspray|inhalator|substitut|patch|gomme|spray)/i],
+    ['t3', /(ontwenning|zin in|craving|trek|sevrage|envie|manque)/i]
   ];
+  KBT.nl.sample = ['Welke nicotinevervangers zijn er?', 'Mag ik Champix nemen als ik zwanger ben?'];
+  KBT.fr.sample = ['Quels substituts nicotiniques existent ?', 'Puis-je prendre Champix si je suis enceinte ?'];
+  var KBK = {
+    nl: {
+      sample: ['Hoe verloopt een chemotherapie?', 'Ik heb een knobbel in mijn borst, is dat kanker?'],
+      greet: { text: 'Hallo! Ik ben de digitale assistent van Kanker.be. Ik beantwoord je vragen met de informatie van kanker.be en onze brochures. Ik stel geen diagnose, geef geen behandeladvies en duid geen klachten of uitslagen. Kan ik een vraag niet beantwoorden, dan kun je een bericht achterlaten voor een kankerinfo-medewerker.',
+        chips: ['Wat zijn de risicofactoren voor borstkanker?', 'Hoe verloopt een chemotherapie?', 'Wat is een bevolkingsonderzoek?'] },
+      t1: { text: 'Bij borstkanker spelen meerdere risicofactoren een rol, zoals leeftijd, erfelijke aanleg, hormonale factoren, alcohol en overgewicht. Een risicofactor betekent niet dat je kanker krijgt: veel mensen met borstkanker hebben geen enkele risicofactor.',
+        src: [['page', 'Borstkanker: risicofactoren (voorbeeld)'], ['doc', 'Brochure Borstkanker (voorbeeld, PDF)']], chips: ['Hoe verloopt een chemotherapie?', 'Wat is een bevolkingsonderzoek?'], fb: true },
+      t2: { text: 'Een chemotherapie bestaat meestal uit meerdere behandelcycli, met rustperiodes ertussen. Je krijgt de medicatie via een infuus of als tabletten, vaak in het dagziekenhuis. Het schema verschilt per persoon en wordt door je behandelend arts uitgelegd.',
+        src: [['page', 'Chemotherapie: wat kun je verwachten (voorbeeld)'], ['doc', 'Brochure Chemotherapie (voorbeeld, PDF)']], chips: ['Wat zijn de risicofactoren voor borstkanker?', 'Wat is een bevolkingsonderzoek?'], fb: true },
+      t3: { text: 'Een bevolkingsonderzoek is een onderzoek voor mensen zonder klachten, om bepaalde kankers vroeg op te sporen. Voor borstkanker, baarmoederhalskanker en dikkedarmkanker nodigt de overheid de doelgroep uit.',
+        src: [['page', 'Bevolkingsonderzoek: wie wordt uitgenodigd (voorbeeld)']], chips: ['Wat zijn de risicofactoren voor borstkanker?', 'Hoe verloopt een chemotherapie?'], fb: true },
+      medical: { text: 'Een diagnose stellen, klachten of uitslagen duiden of behandeladvies geven kan ik niet. Dat bespreek je best met je huisarts of behandelend arts. Je kunt een bericht voor een kankerinfo-medewerker achterlaten: die antwoordt je per e-mail.', hand: 'med' },
+      distress: { text: 'Het klinkt alsof je het nu heel zwaar hebt. Je staat er niet alleen voor. Hier kan ik je niet verder mee helpen, maar een kankerinfo-medewerker wel. Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.', hand: 'care' },
+      person: { text: 'Ik ben een digitale assistent, dus ik kan je niet doorverbinden voor een gesprek. Je kunt wel een bericht achterlaten voor een kankerinfo-medewerker. Die antwoordt je per e-mail.', hand: 'ask' },
+      fallback: { text: 'Daarover vind ik niets in de informatie van Kanker.be, en ik wil je geen verkeerd antwoord geven. Een kankerinfo-medewerker kan je vraag wel beantwoorden. Laat een bericht achter, dan krijg je antwoord per e-mail.', hand: 'none' }
+    },
+    fr: {
+      sample: ['Comment se déroule une chimiothérapie ?', "J'ai une boule au sein, est-ce un cancer ?"],
+      greet: { text: "Bonjour ! Je suis l'assistant numérique de Cancer.be. Je réponds à vos questions avec les informations de cancer.be et de nos brochures. Je ne pose pas de diagnostic, je ne donne pas de conseil de traitement et je n'interprète ni symptômes ni résultats. Si je ne peux pas répondre, vous pouvez laisser un message à un conseiller info-cancer.",
+        chips: ['Quels sont les facteurs de risque du cancer du sein ?', 'Comment se déroule une chimiothérapie ?', "Qu'est-ce qu'un dépistage organisé ?"] },
+      t1: { text: "Plusieurs facteurs de risque jouent un rôle dans le cancer du sein : l'âge, les prédispositions héréditaires, les facteurs hormonaux, l'alcool et le surpoids. Un facteur de risque ne signifie pas que vous aurez un cancer : beaucoup de personnes atteintes n'en ont aucun.",
+        src: [['page', 'Cancer du sein : facteurs de risque (exemple)'], ['doc', 'Brochure Cancer du sein (exemple, PDF)']], chips: ['Comment se déroule une chimiothérapie ?', "Qu'est-ce qu'un dépistage organisé ?"], fb: true },
+      t2: { text: "Une chimiothérapie se compose généralement de plusieurs cycles de traitement, avec des périodes de repos entre eux. Les médicaments sont administrés par perfusion ou en comprimés, souvent à l'hôpital de jour. Le schéma varie d'une personne à l'autre et est expliqué par votre médecin.",
+        src: [['page', 'Chimiothérapie : à quoi s’attendre (exemple)'], ['doc', 'Brochure Chimiothérapie (exemple, PDF)']], chips: ['Quels sont les facteurs de risque du cancer du sein ?', "Qu'est-ce qu'un dépistage organisé ?"], fb: true },
+      t3: { text: "Un dépistage organisé est un examen proposé aux personnes sans symptômes, pour détecter certains cancers tôt. Pour le cancer du sein, du col de l'utérus et du côlon, les autorités invitent la population concernée.",
+        src: [['page', 'Dépistage organisé : qui est invité (exemple)']], chips: ['Quels sont les facteurs de risque du cancer du sein ?', 'Comment se déroule une chimiothérapie ?'], fb: true },
+      medical: { text: "Je ne peux pas poser de diagnostic, interpréter des symptômes ou des résultats, ni donner de conseil de traitement. Parlez-en plutôt à votre médecin traitant. Vous pouvez laisser un message à un conseiller info-cancer : il vous répondra par e-mail.", hand: 'med' },
+      distress: { text: "On dirait que c'est très lourd pour vous en ce moment. Vous n'êtes pas seul(e). Je ne peux pas vous aider davantage, mais un conseiller info-cancer le peut. Si vous pensez au suicide, appelez le Centre de Prévention du Suicide au 0800 32 123, joignable 24 h/24.", hand: 'care' },
+      person: { text: "Je suis un assistant numérique, je ne peux donc pas vous mettre en relation pour une conversation. Vous pouvez en revanche laisser un message à un conseiller info-cancer. Il vous répondra par e-mail.", hand: 'ask' },
+      fallback: { text: "Je ne trouve rien à ce sujet dans les informations de Cancer.be, et je ne veux pas vous donner une mauvaise réponse. Un conseiller info-cancer peut répondre à votre question. Laissez un message, vous recevrez une réponse par e-mail.", hand: 'none' }
+    }
+  };
+  var KB = { tabakstop: KBT, kanker: KBK };
+  RT.kanker = [
+    ['distress', /(niet meer zitten|hopeloos|wanhoop|zelfmoord|zelfdoding|geen zin meer|niet meer tegen|désespér|suicide|n'en peux plus|plus envie de vivre)/i],
+    ['medical', /(knobbel|bultje|klacht|symptoom|diagnose|uitslag|resultaat|scan|biopt|is dat kanker|heb ik kanker|dosis|medicatie|bijwerking|prognose|overleven|boule|symptôme|diagnostic|résultat|ai-je un cancer|est-ce un cancer|dose|médicament|effet secondaire|pronostic)/i],
+    ['person', /(met iemand|iemand (spreken|praten|bellen)|echt persoon|een mens|medewerker|kan ik bellen|parler à|parler avec|quelqu'un|une personne|un humain|conseiller)/i],
+    ['t2', /(chemo|chimio)/i],
+    ['t1', /(risicofactor|borstkanker|facteur|risque|sein)/i],
+    ['t3', /(bevolkingsonderzoek|screening|opsporing|dépistage)/i]
+  ];
+
   function route(text) {
-    for (var i = 0; i < ROUTES.length; i++) if (ROUTES[i][1].test(text)) return ROUTES[i][0];
+    var R = RT[site];
+    for (var i = 0; i < R.length; i++) if (R[i][1].test(text)) return R[i][0];
     return 'fallback';
   }
 
   var lang = 'nl';
-  function L() { return T[lang]; }
-  function K() { return KB[lang]; }
+  function L() { return T[site][lang]; }
+  function K() { return KB[site][lang]; }
 
   /* ---------- Visitor chat ---------- */
   function Chat(mount, mode) {
@@ -781,8 +860,8 @@ tbody tr:last-child td { border-bottom: 0; }
       }, 1300);
     }
     function sampleBot() {
-      return [botMsg('greet'), { from: 'me', text: lang === 'nl' ? 'Welke nicotinevervangers zijn er?' : 'Quels substituts nicotiniques existent ?' }, botMsg('nrt'),
-        { from: 'me', text: lang === 'nl' ? 'Mag ik Champix nemen als ik zwanger ben?' : 'Puis-je prendre Champix si je suis enceinte ?' }, botMsg('medical')];
+      var q = K().sample;
+      return [botMsg('greet'), { from: 'me', text: q[0] }, botMsg('t2'), { from: 'me', text: q[1] }, botMsg('medical')];
     }
     function transcript() {
       return s.msgs.map(function (m) { return [m.from === 'me' ? 'visitor' : 'bot', m.text]; });
@@ -847,6 +926,7 @@ tbody tr:last-child td { border-bottom: 0; }
         s.msgs = s.msgs.map(function (m) { return m.from === 'bot' ? Object.assign(botMsg(m.key), { fb: m.fb }) : m; });
         render();
       },
+      restart: function () { clearTimers(); s.confirm = false; reset(); render(); },
       render: render
     };
   }
@@ -862,6 +942,7 @@ tbody tr:last-child td { border-bottom: 0; }
   function syncControls() {
     var p = norm(active().phase());
     [].forEach.call(document.querySelectorAll('#state-seg button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-state') === p)); });
+    [].forEach.call(document.querySelectorAll('#site-seg button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-site') === site)); });
     [].forEach.call(document.querySelectorAll('#lang-seg button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang)); });
     document.getElementById('controls-hint').textContent = L().hints[p] || '';
   }
@@ -956,6 +1037,69 @@ tbody tr:last-child td { border-bottom: 0; }
     ];
     var approved = 12;
 
+    var LEFT_K = 'Bericht achtergelaten voor een kankerinfo-medewerker';
+    var DATA = {
+      tabakstop: { archive: archive, messages: messages, reviews: reviews, sources: sources, approved: approved, arcSel: 101 },
+      kanker: {
+        arcSel: 201, approved: 9,
+        archive: [
+          { id: 201, date: 'Vandaag 10:42', name: 'Els', topic: 'Klacht: knobbel in de borst', status: 'left', dur: '3 min', rating: 4, lang: 'NL', comment: '',
+            msgs: [['visitor', 'Ik heb een knobbeltje in mijn borst gevoeld. Is dat kanker?'], ['bot', 'Een diagnose stellen of klachten duiden kan ik niet. Dat bespreek je best met je huisarts. Je kunt een bericht voor een kankerinfo-medewerker achterlaten.'], ['sys', LEFT_K]] },
+          { id: 202, date: 'Vandaag 10:15', name: 'Anoniem', topic: 'Bevolkingsonderzoek', status: 'solved', dur: '3 min', rating: 4, lang: 'NL', comment: '',
+            msgs: [['visitor', 'Wat is een bevolkingsonderzoek?'], ['bot', 'Een bevolkingsonderzoek is een onderzoek voor mensen zonder klachten, om bepaalde kankers vroeg op te sporen. De overheid nodigt de doelgroep uit.'], ['visitor', 'Dank je!']] },
+          { id: 203, date: 'Vandaag 09:58', name: 'Luc', topic: 'Chemotherapie', status: 'solved', dur: '2 min', rating: 5, lang: 'NL', comment: '',
+            msgs: [['visitor', 'Hoe verloopt een chemotherapie?'], ['bot', 'Een chemotherapie bestaat meestal uit meerdere behandelcycli, met rustperiodes ertussen. Je behandelend arts legt het schema uit.']] },
+          { id: 204, date: 'Vandaag 09:31', name: 'Anoniem', topic: 'Brochure in andere taal', status: 'unanswered', dur: '1 min', rating: null, lang: 'NL', comment: '',
+            msgs: [['visitor', 'Is de brochure over rouw ook in het Arabisch beschikbaar?'], ['bot', 'Daarover vind ik niets in de informatie van Kanker.be. Laat een bericht achter, dan krijg je antwoord per e-mail.'], ['sys', 'Bezoeker verliet het gesprek zonder bericht achter te laten']] },
+          { id: 205, date: 'Vandaag 02:14', name: 'Anoniem', topic: 'Voeding', status: 'solved', dur: '4 min', rating: 4, lang: 'NL', comment: '',
+            msgs: [['visitor', 'Welke voeding past bij een gezonde levensstijl?'], ['bot', 'Een gevarieerd voedingspatroon met veel groenten en fruit en weinig alcohol en bewerkt vlees is een goede basis.'], ['visitor', 'Oké, bedankt.']] },
+          { id: 206, date: 'Gisteren 16:20', name: 'Camille', topic: 'Remboursement d’une perruque', status: 'left', dur: '4 min', rating: 3, lang: 'FR', comment: 'Pas de réponse immédiate.',
+            msgs: [['visitor', 'Une perruque est-elle remboursée ?'], ['bot', 'Je ne trouve rien à ce sujet dans les informations de Cancer.be. Laissez un message, vous recevrez une réponse par e-mail.'], ['sys', LEFT_K]] },
+          { id: 207, date: 'Gisteren 21:47', name: 'Anoniem', topic: 'Rouw', status: 'left', dur: '2 min', rating: null, lang: 'NL', comment: '',
+            msgs: [['visitor', 'Mijn man is overleden aan kanker en ik zie het echt niet meer zitten.'], ['bot', 'Het klinkt alsof je het nu heel zwaar hebt. Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.'], ['sys', LEFT_K]] },
+          { id: 208, date: 'Gisteren 15:02', name: 'Tom', topic: 'Werk en kanker', status: 'left', dur: '5 min', rating: 3, lang: 'NL', comment: 'Ik had meer concrete tips verwacht.',
+            msgs: [['visitor', 'Moet ik mijn werkgever zeggen dat ik kanker heb?'], ['bot', 'Daarover vind ik weinig in de informatie van Kanker.be. Laat een bericht achter, dan antwoordt een kankerinfo-medewerker per e-mail.'], ['sys', LEFT_K]] },
+          { id: 209, date: 'Zo 21 sep 14:33', name: 'Anoniem', topic: 'Risicofactoren', status: 'solved', dur: '4 min', rating: 2, lang: 'NL', comment: 'Geen duidelijk antwoord.',
+            msgs: [['visitor', 'Wat is mijn risico op darmkanker?'], ['bot', 'Op kanker.be lees je meer over risicofactoren van dikkedarmkanker.']] },
+          { id: 210, date: 'Zo 21 sep 13:10', name: 'Julie', topic: 'Dépistage', status: 'solved', dur: '6 min', rating: 5, lang: 'FR', comment: '',
+            msgs: [['visitor', 'Qui est invité au dépistage du cancer du sein ?'], ['bot', "Les autorités invitent la population concernée. Vous trouverez les détails sur la page consacrée au dépistage organisé."]] }
+        ],
+        messages: [
+          { id: 1, arc: 201, date: 'Vandaag 10:42', name: 'Els', email: 'els.m@voorbeeld.be', lang: 'NL', question: 'Ik heb een knobbeltje in mijn borst gevoeld. Is dat kanker?', done: false },
+          { id: 2, arc: 206, date: 'Gisteren 16:20', name: 'Camille', email: 'camille.r@exemple.be', lang: 'FR', question: 'Une perruque est-elle remboursée ?', done: false },
+          { id: 3, arc: 207, date: 'Gisteren 21:47', name: '', email: 'anoniem@voorbeeld.be', lang: 'NL', question: 'Mijn man is overleden aan kanker en ik zie het echt niet meer zitten.', done: true },
+          { id: 4, arc: 208, date: 'Gisteren 15:02', name: 'Tom', email: 'tom.v@voorbeeld.be', lang: 'NL', question: 'Moet ik mijn werkgever zeggen dat ik kanker heb? Welke rechten heb ik?', done: true }
+        ],
+        reviews: [
+          { id: 1, flag: 'Geen antwoord gevonden', times: '5× deze week', lang: 'NL', q: 'Wordt een pruik terugbetaald?',
+            a: 'Daarover vind ik niets in de informatie van Kanker.be, en ik wil je geen verkeerd antwoord geven.', fix: '' },
+          { id: 2, flag: 'Bezoeker vond dit niet nuttig', times: '2× deze week', lang: 'NL', q: 'Wat is mijn risico op darmkanker?',
+            a: 'Op kanker.be lees je meer over risicofactoren van dikkedarmkanker.',
+            fix: 'Het risico op dikkedarmkanker hangt onder meer af van leeftijd, erfelijke aanleg, voeding en beweging. De overheid nodigt de doelgroep uit voor een bevolkingsonderzoek. Heb je klachten of kanker in de familie, bespreek dat dan met je huisarts.' },
+          { id: 3, flag: 'Bezoeker vond dit niet nuttig', times: '1× deze week', lang: 'NL', q: 'Welke steun is er voor kinderen van een zieke ouder?',
+            a: 'Op kanker.be lees je meer over leven met kanker.', fix: '' },
+          { id: 4, flag: 'Geen antwoord gevonden', times: '3× deze week', lang: 'FR', q: 'Une perruque est-elle remboursée ?',
+            a: 'Je ne trouve rien à ce sujet dans les informations de Cancer.be.', fix: '' }
+        ],
+        sources: [
+          { t: 'Borstkanker: risicofactoren', k: 'page', lang: 'NL', upd: '3 dagen geleden', st: 'ok' },
+          { t: 'Chemotherapie: wat kun je verwachten', k: 'page', lang: 'NL', upd: '2 weken geleden', st: 'ok' },
+          { t: 'Bevolkingsonderzoek: wie wordt uitgenodigd', k: 'page', lang: 'NL', upd: '1 maand geleden', st: 'ok' },
+          { t: 'Voeding en kanker', k: 'page', lang: 'NL', upd: '2 weken geleden', st: 'ok' },
+          { t: 'Werk en kanker', k: 'page', lang: 'NL', upd: '1 maand geleden', st: 'ok' },
+          { t: 'Rouw en verlies', k: 'page', lang: 'NL', upd: 'net gewijzigd in het CMS', st: 'busy' },
+          { t: 'Brochure Borstkanker', k: 'doc', lang: 'NL', upd: 'maart 2025', st: 'ok' },
+          { t: 'Brochure Chemotherapie', k: 'doc', lang: 'NL', upd: 'maart 2025', st: 'ok' },
+          { t: 'Brochure Leven na kanker', k: 'doc', lang: 'NL', upd: 'maart 2025', st: 'ok' },
+          { t: 'Cancer du sein : facteurs de risque', k: 'page', lang: 'FR', upd: '2 weken geleden', st: 'ok' },
+          { t: 'Dépistage organisé', k: 'page', lang: 'FR', upd: '1 maand geleden', st: 'ok' },
+          { t: 'Brochure Chimiothérapie', k: 'doc', lang: 'FR', upd: 'maart 2025', st: 'ok' },
+          { t: 'Goedgekeurde antwoorden', k: 'kb', lang: 'NL + FR', upd: '9 antwoorden', st: 'ok' }
+        ]
+      }
+    };
+    var cur = 'tabakstop';
+
     var st = { page: 'ai', aiTab: 'review', editing: {}, q: '', filter: 'all', arcSel: 101, period: 7, toast: null, shown: {}, provider: 'mistral', started: false };
 
     function chip(l) { return '<span class="chip' + (l === 'FR' ? ' fr' : '') + '">' + l + '</span>'; }
@@ -967,7 +1111,7 @@ tbody tr:last-child td { border-bottom: 0; }
         return '<button data-page="' + k + '"' + (st.page === k ? ' aria-current="page"' : '') + '>' + icon + '<span>' + label + '</span>' + (badge ? '<span class="badge">' + badge + '</span>' : '') + '</button>';
       }
       return '<aside class="side">' +
-        '<div class="brandrow"><b>Tabakstop</b><span>AI</span></div>' +
+        '<div class="brandrow"><b>' + esc(CFG[cur].name) + '</b><span>AI</span></div>' +
         '<nav aria-label="Beheer">' + nav('ai', 'AI-assistent', ICON.bot, reviews.length) + nav('archive', 'Gesprekken', ICON.chat) + nav('messages', 'Berichten', ICON.mail, openMessages()) + nav('stats', 'Statistieken', ICON.stats) + nav('settings', 'Instellingen', ICON.gear) + '</nav>' +
         '</aside>';
     }
@@ -996,7 +1140,7 @@ tbody tr:last-child td { border-bottom: 0; }
               '</div>';
           }).join('') + '</div>' : '<div class="card"><p class="no-results">Alles is beoordeeld. Nieuwe meldingen verschijnen hier vanzelf.</p></div>');
       } else {
-        inner = '<div class="pane-head" style="gap:10px"><p class="kb-note" style="margin-right:auto">Alle pagina\'s en brochures van tabakstop.be die de assistent gebruikt. Een pagina wordt automatisch opnieuw ingelezen zodra een redacteur ze opslaat in WordPress.</p><button class="btn ghost small" data-act="reindex">Alles opnieuw inlezen</button></div>' +
+        inner = '<div class="pane-head" style="gap:10px"><p class="kb-note" style="margin-right:auto">Alle pagina\'s en brochures van ' + CFG[cur].domain + ' die de assistent gebruikt. Een pagina wordt automatisch opnieuw ingelezen zodra een redacteur ze opslaat in ' + CFG[cur].cms + '.</p><button class="btn ghost small" data-act="reindex">Alles opnieuw inlezen</button></div>' +
           '<div class="table-wrap"><table class="ops"><thead><tr><th>Bron</th><th>Soort</th><th>Taal</th><th>Laatst bijgewerkt</th><th>Status</th></tr></thead><tbody>' +
           sources.map(function (x) {
             return '<tr><td style="white-space:normal;min-width:220px"><span class="src" style="font-size:13px;border:0;padding:0;background:none;color:var(--ink)">' + (x.k === 'doc' ? ICON.doc : x.k === 'kb' ? ICON.check : ICON.page) + esc(x.t) + '</span></td><td>' + (x.k === 'doc' ? 'Brochure (PDF)' : x.k === 'kb' ? 'Kennisbank' : 'Pagina') + '</td><td>' + esc(x.lang) + '</td><td>' + esc(x.upd) + '</td><td>' +
@@ -1054,7 +1198,7 @@ tbody tr:last-child td { border-bottom: 0; }
           (arc && shown ? '<div class="attached">' + arc.msgs.map(tmsg).join('') + '</div>' : '') + '</div>';
       }).join('');
       return '<div class="pane"><div class="pane-head"><h2>Berichten</h2><span class="sample">Voorbeeldgegevens</span></div>' +
-        '<p class="kb-note">Bezoekers laten een bericht achter als de assistent niet kan of mag antwoorden. Een tabakoloog antwoordt per e-mail, binnen twee werkdagen. Vink <b>Beantwoord</b> aan als dat gebeurd is. Nu te beantwoorden: <b>' + open + '</b>.</p>' +
+        '<p class="kb-note">Bezoekers laten een bericht achter als de assistent niet kan of mag antwoorden. Een ' + CFG[cur].role + ' antwoordt per e-mail, binnen twee werkdagen. Vink <b>Beantwoord</b> aan als dat gebeurd is. Nu te beantwoorden: <b>' + open + '</b>.</p>' +
         (cards ? '<div class="reviews">' + cards + '</div>' : '<div class="card"><p class="no-results">Er zijn nog geen berichten.</p></div>') + '</div>';
     }
 
@@ -1077,12 +1221,15 @@ tbody tr:last-child td { border-bottom: 0; }
       return o;
     })();
     var TOPICS = [['Nicotinevervangers', 0.26], ['Ontwenning en zin in roken', 0.24], ['Begeleiding door een tabakoloog', 0.19], ['Brochures bestellen', 0.12], ['Medicatie en zwangerschap', 0.11], ['Andere vragen', 0.08]];
+    DATA.tabakstop.d7 = D7; DATA.tabakstop.topics = TOPICS;
+    DATA.kanker.d7 = { labels: D7.labels, total: [31, 36, 39, 10, 8, 37, 33], left: [5, 6, 7, 2, 1, 6, 5], unanswered: [1, 2, 1, 0, 1, 2, 1] };
+    DATA.kanker.topics = [['Borstkanker', 0.22], ['Chemotherapie en behandeling', 0.18], ['Bevolkingsonderzoek', 0.17], ['Voeding en bewegen', 0.14], ['Werk en kanker', 0.12], ['Rouw en verlies', 0.09], ['Andere vragen', 0.08]];
     var SCORES = [0.46, 0.31, 0.13, 0.06, 0.04];
 
     function statsData() {
-      var d = st.period === 7 ? D7 : D30;
+      var d = st.period === 7 ? DATA[cur].d7 : D30;
       var total = sum(d.total), left = sum(d.left), un = sum(d.unanswered), solved = total - left - un;
-      var topics = TOPICS.map(function (t) { return Math.round(total * t[1]); }); topics[0] += total - sum(topics);
+      var topics = DATA[cur].topics.map(function (t) { return Math.round(total * t[1]); }); topics[0] += total - sum(topics);
       var rated = Math.round(total * 0.28);
       var counts = SCORES.map(function (p) { return Math.round(rated * p); }); counts[0] += rated - sum(counts);
       var avg = sum(counts.map(function (c, i) { return c * (5 - i); })) / Math.max(1, rated);
@@ -1118,7 +1265,7 @@ tbody tr:last-child td { border-bottom: 0; }
       var seg = [[7, '7 dagen'], [30, '30 dagen']].map(function (p) { return '<button data-period="' + p[0] + '" aria-pressed="' + (st.period === p[0]) + '">' + p[1] + '</button>'; }).join('');
       var tmax = Math.max.apply(null, s.topics);
       var topics = s.topics.map(function (v, i) {
-        return '<div class="row"><b>' + TOPICS[i][0] + '</b><div class="track"><div class="fill" style="width:' + (v / tmax * 100).toFixed(1) + '%"></div></div><span>' + v + '</span></div>';
+        return '<div class="row"><b>' + DATA[cur].topics[i][0] + '</b><div class="track"><div class="fill" style="width:' + (v / tmax * 100).toFixed(1) + '%"></div></div><span>' + v + '</span></div>';
       }).join('');
       var cmax = Math.max.apply(null, s.counts);
       var scores = s.counts.map(function (v, i) {
@@ -1129,11 +1276,11 @@ tbody tr:last-child td { border-bottom: 0; }
         '<div class="kpis">' +
         '<div class="kpi"><span class="k">Gesprekken</span><span class="v">' + s.total + '</span><span class="s">met de assistent</span></div>' +
         '<div class="kpi"><span class="k">Opgelost door de assistent</span><span class="v">' + pctSolved + '<small>%</small></span><span class="s">' + s.solved + ' gesprekken</span></div>' +
-        '<div class="kpi"><span class="k">Bericht achtergelaten</span><span class="v">' + s.left + '</span><span class="s">voor een tabakoloog</span></div>' +
+        '<div class="kpi"><span class="k">Bericht achtergelaten</span><span class="v">' + s.left + '</span><span class="s">voor een ' + CFG[cur].role + '</span></div>' +
         '<div class="kpi warn"><span class="k">Niet beantwoord</span><span class="v">' + s.un + '</span><span class="s">bezoeker vertrok zonder antwoord of bericht</span></div>' +
         '<div class="kpi"><span class="k">Tevredenheid</span><span class="v">' + fmt(s.avg) + ' <small>/ 5</small></span><span class="s">' + s.rated + ' beoordelingen</span></div>' +
         '</div>' +
-        '<div class="card chart"><h3>Gesprekken per dag</h3><div class="legend">' + legend + '</div>' + stackChart(s.d, st.period === 7 ? 1 : 5) + '<p class="sub" style="margin-top:0">De assistent is altijd beschikbaar, ook in het weekend. Berichten voor een tabakoloog worden op werkdagen beantwoord.</p></div>' +
+        '<div class="card chart"><h3>Gesprekken per dag</h3><div class="legend">' + legend + '</div>' + stackChart(s.d, st.period === 7 ? 1 : 5) + '<p class="sub" style="margin-top:0">De assistent is altijd beschikbaar, ook in het weekend. Berichten voor een ' + CFG[cur].role + ' worden op werkdagen beantwoord.</p></div>' +
         '<div class="charts">' +
         '<div class="card"><h3>Meest gestelde onderwerpen</h3><p class="sub">' + s.total + ' gesprekken in deze periode</p><div class="dist topics">' + topics + '</div></div>' +
         '<div class="card"><h3>Tevredenheid met de assistent</h3><div class="avg"><b>' + fmt(s.avg) + '</b><span>gemiddeld op 5 · ' + s.rated + ' scores</span></div><div class="dist">' + scores + '</div></div>' +
@@ -1142,14 +1289,14 @@ tbody tr:last-child td { border-bottom: 0; }
 
     /* Settings */
     function settingsPane() {
-      var cur = PROVIDERS.filter(function (p) { return p.k === st.provider; })[0];
+      var prov = PROVIDERS.filter(function (p) { return p.k === st.provider; })[0];
       var cards = PROVIDERS.map(function (p) {
-        return '<button class="prov" role="radio" aria-checked="' + (st.provider === p.k) + '" data-prov="' + p.k + '"><span class="nm"><span class="radio" aria-hidden="true"></span>' + esc(p.n) + (p.reco ? '<span class="reco">' + esc(p.reco) + '</span>' : '') + '</span><span class="note">' + esc(p.note) + '</span></button>';
+        return '<button class="prov" role="radio" aria-checked="' + (st.provider === p.k) + '" data-prov="' + p.k + '"><span class="nm"><span class="radio" aria-hidden="true"></span><img src="img/' + p.k + '.svg" alt="" width="28" height="28">' + esc(p.n) + (p.reco ? '<span class="reco">' + esc(p.reco) + '</span>' : '') + '</span><span class="note">' + esc(p.note) + '</span></button>';
       }).join('');
       return '<div class="pane"><div class="pane-head"><h2>Instellingen</h2><span class="sample">Voorbeeldgegevens</span></div>' +
-        '<div class="card"><h3>Taalmodel</h3><p class="sub">Het taalmodel schrijft de antwoorden van de assistent, op basis van de bronnen van Tabakstop.</p>' +
+        '<div class="card"><h3>Taalmodel</h3><p class="sub">Het taalmodel schrijft de antwoorden van de assistent, op basis van de bronnen van ' + CFG[cur].name + '.</p>' +
         '<div class="provs" role="radiogroup" aria-label="Taalmodel">' + cards + '</div>' +
-        '<p class="summary-line" role="status">De assistent schrijft nu antwoorden met <b>' + esc(cur.n) + '</b>. ' + esc(cur.note) + '. Bronnen, goedgekeurde antwoorden en veiligheidsregels blijven hetzelfde.</p></div></div>';
+        '<p class="summary-line" role="status">De assistent schrijft nu antwoorden met <b>' + esc(prov.n) + '</b>. ' + esc(prov.note) + '. Bronnen, goedgekeurde antwoorden en veiligheidsregels blijven hetzelfde.</p></div></div>';
     }
 
     function toastHtml() {
@@ -1212,13 +1359,66 @@ tbody tr:last-child td { border-bottom: 0; }
       addMessage: function (m) {
         var id = Date.now();
         archive.unshift({ id: id, date: 'Vandaag, net', name: m.name || 'Anoniem', topic: m.question.length > 40 ? m.question.slice(0, 40) + '…' : m.question, status: 'left', dur: '—', rating: null, lang: m.lang, comment: '',
-          msgs: m.msgs.concat([['sys', 'Bericht achtergelaten voor een tabakoloog']]) });
+          msgs: m.msgs.concat([['sys', 'Bericht achtergelaten voor een ' + CFG[cur].role]]) });
         messages.unshift({ id: id, arc: id, date: 'Vandaag, net', name: m.name, email: m.email, lang: m.lang, question: m.question, done: false });
+        if (st.started) render();
+      },
+      setSite: function (k) {
+        DATA[cur].reviews = reviews; DATA[cur].approved = approved;
+        cur = k; archive = DATA[k].archive; messages = DATA[k].messages; reviews = DATA[k].reviews; sources = DATA[k].sources; approved = DATA[k].approved;
+        st.arcSel = DATA[k].arcSel; st.editing = {}; st.shown = {}; st.q = ''; st.filter = 'all'; st.toast = null; st.aiTab = 'review';
         if (st.started) render();
       },
       start: function () { st.started = true; render(); }
     };
   })();
+
+
+  var HOST = {
+    tabakstop: {
+      embedUrl: 'tabakstop.be/pagina/chat', widgetUrl: 'tabakstop.be/pagina/stoppen-met-roken',
+      brand: 'Tabakstop <span>· stoppen is mogelijk</span>',
+      nav: ['Ik wil stoppen', 'Ik ben gestopt', 'Ik help iemand', 'Info'],
+      copy: '<span class="crumb">Home › Contact › Vraag het de assistent</span><h2>Stel je vraag over stoppen met roken</h2>' +
+        '<p>Onze digitale assistent antwoordt meteen, dag en nacht, met de informatie van Tabakstop. Kan de assistent een vraag niet beantwoorden, dan laat je een bericht achter. Een tabakoloog antwoordt je per e-mail.</p>' +
+        '<div class="facts" aria-label="Wat kun je verwachten"><div><span>Digitale assistent</span><span>altijd beschikbaar</span></div><div><span>Bericht aan een tabakoloog</span><span>antwoord binnen twee werkdagen</span></div><div><span>Medisch advies</span><span>enkel via een tabakoloog of huisarts</span></div></div>' +
+        '<p>Denk je aan zelfdoding? Bel de Zelfmoordlijn op 1813, dag en nacht bereikbaar.</p>',
+      hero: '<h2>Stoppen met roken, je hoeft het niet alleen te doen</h2><p>Een tabakoloog helpt je een plan te maken dat bij jou past. Heb je een vraag? Stel ze rechtsonder aan onze assistent.</p>',
+      cards: [['c1', 'Ik wil stoppen', 'Zo begin je eraan'], ['c2', 'Hulp bij stoppen', 'Begeleiding door een tabakoloog'], ['c3', 'Brochures', 'Downloaden of bestellen']]
+    },
+    kanker: {
+      embedUrl: 'kanker.be/kankerinfo/stel-je-vraag', widgetUrl: 'kanker.be/kankerinfo/borstkanker',
+      brand: 'Kanker.be',
+      nav: ['Over kanker', 'Preventie', 'Leven met kanker', 'Hulp'],
+      copy: '<span class="crumb">Home › Kankerinfo › Stel je vraag</span><h2>Stel je vraag over kanker</h2>' +
+        '<p>Onze digitale assistent antwoordt meteen, dag en nacht, met de informatie van Kanker.be. Een diagnose, behandeladvies of uitleg bij klachten en uitslagen geeft de assistent niet. Voor die vragen laat je een bericht achter. Een kankerinfo-medewerker antwoordt je per e-mail.</p>' +
+        '<div class="facts" aria-label="Wat kun je verwachten"><div><span>Digitale assistent</span><span>altijd beschikbaar</span></div><div><span>Bericht aan een medewerker</span><span>antwoord binnen twee werkdagen</span></div><div><span>Medisch advies</span><span>enkel via je huisarts of behandelend arts</span></div></div>' +
+        '<p>Denk je aan zelfdoding? Bel de Zelfmoordlijn op 1813, dag en nacht bereikbaar. Liever bellen over kanker? De Kankerlijn is gratis bereikbaar op 0800 15 801, op werkdagen.</p>',
+      hero: '<h2>Betrouwbare informatie over kanker, voor wie het nodig heeft</h2><p>Lees over soorten kanker, behandelingen en leven met kanker. Heb je een vraag? Stel ze rechtsonder aan onze assistent.</p>',
+      cards: [['c1', 'Over kanker', 'Soorten kanker en risicofactoren'], ['c2', 'Leven met kanker', 'Werk, voeding en nazorg'], ['c3', 'Hulp en steun', 'Praten, lotgenoten en rouw']]
+    }
+  };
+  function applyHost() {
+    var h = HOST[site], name = 'AI-assistent voor ' + CFG[site].name;
+    ['embed', 'widget'].forEach(function (k) {
+      document.getElementById(k + '-brand').innerHTML = h.brand;
+      document.getElementById(k + '-nav').innerHTML = h.nav.map(function (x) { return '<span>' + x + '</span>'; }).join('');
+      document.getElementById(k + '-url').textContent = h[k + 'Url'];
+      document.getElementById('site-' + k).classList.toggle('kanker', site === 'kanker');
+    });
+    document.getElementById('embed-copy').innerHTML = h.copy;
+    document.getElementById('widget-hero').innerHTML = h.hero;
+    document.getElementById('widget-cards').innerHTML = h.cards.map(function (c) { return '<div class="site-card ' + c[0] + '"><b>' + c[1] + '</b><span>' + c[2] + '</span></div>'; }).join('');
+    document.getElementById('admin-url').textContent = CFG[site].adminUrl;
+    document.getElementById('proto-h1').textContent = name;
+    document.title = name;
+  }
+  document.getElementById('site-seg').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b || b.getAttribute('data-site') === site) return;
+    site = b.getAttribute('data-site');
+    widget.restart(); embed.restart(); applyHost(); Admin.setSite(site); syncControls();
+  });
+  applyHost();
 
   var initial = (location.hash || '').replace('#', '');
   show(['widget', 'embed', 'beheer'].indexOf(initial) !== -1 ? initial : 'embed');

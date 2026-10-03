@@ -309,6 +309,8 @@ html, body { margin: 0; }
 .prov { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
 .prov.pick { border: 2px solid var(--brand-solid); box-shadow: var(--shadow); }
 .prov h3 { font-size: 20px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.logo { width: 34px; height: 34px; flex: none; }
+.prov-name { display: flex; align-items: center; gap: 10px; }
 .badge { font: 600 12px/1 var(--body); letter-spacing: .05em; text-transform: uppercase; background: var(--brand-solid); color: var(--on-brand); border-radius: 999px; padding: 6px 10px; }
 .prov dl { margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 15.5px; }
 .prov dt { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
@@ -326,6 +328,15 @@ html, body { margin: 0; }
   .prov dl { font-size: 12.5px; gap: 7px; }
   .addon, .note { break-inside: avoid; }
 }
+
+/* readability: deep orange + white for small text, navy header */
+:root { --btn: #C2570A; }
+.w-head { background: var(--ink); color: #FFFFFF; border-bottom: 3px solid var(--brand-solid); }
+.w-head .avatar.ai { background: var(--brand-solid); color: var(--ink); }
+.w-btn, .cta .cta-main, .badge { background: var(--btn); color: #FFFFFF; }
+.w-btn.ghost { background: transparent; color: var(--muted); }
+.msg.me { background: var(--brand-soft); color: var(--ink); }
+.scale span.on { background: var(--btn); border-color: var(--btn); color: #FFFFFF; }
 </style>
 </head>
 <body>
@@ -456,7 +467,7 @@ html, body { margin: 0; }
     </div>
     <div class="providers">
       <div class="prov pick">
-        <h3>Mistral AI <span class="badge">Aanbevolen</span></h3>
+        <h3><span class="prov-name"><img class="logo" src="img/mistral.svg" alt="" width="34" height="34">Mistral AI</span> <span class="badge">Aanbevolen</span></h3>
         <dl>
           <div><dt>Herkomst</dt><dd>Frans bedrijf, gevestigd in Parijs.</dd></div>
           <div><dt>Gegevens</dt><dd>Verwerkt in de EU, onder Europese privacywetgeving (AVG).</dd></div>
@@ -464,7 +475,7 @@ html, body { margin: 0; }
         </dl>
       </div>
       <div class="prov">
-        <h3>OpenAI</h3>
+        <h3><span class="prov-name"><img class="logo" src="img/openai.svg" alt="" width="34" height="34">OpenAI</span></h3>
         <dl>
           <div><dt>Herkomst</dt><dd>Amerikaans bedrijf (ChatGPT).</dd></div>
           <div><dt>Gegevens</dt><dd>Verwerking in Europa is mogelijk voor zakelijke gebruikers, maar het bedrijf valt onder Amerikaanse wetgeving.</dd></div>
@@ -472,7 +483,7 @@ html, body { margin: 0; }
         </dl>
       </div>
       <div class="prov">
-        <h3>Google Gemini</h3>
+        <h3><span class="prov-name"><img class="logo" src="img/gemini.svg" alt="" width="34" height="34">Google Gemini</span></h3>
         <dl>
           <div><dt>Herkomst</dt><dd>Amerikaans bedrijf (Google).</dd></div>
           <div><dt>Gegevens</dt><dd>Via Google Cloud kan een Europese regio gekozen worden, maar het bedrijf valt onder Amerikaanse wetgeving.</dd></div>
