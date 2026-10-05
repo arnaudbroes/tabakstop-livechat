@@ -337,12 +337,25 @@ html, body { margin: 0; }
 .w-btn.ghost { background: transparent; color: var(--muted); }
 .msg.me { background: var(--brand-soft); color: var(--ink); }
 .scale span.on { background: var(--btn); border-color: var(--btn); color: #FFFFFF; }
+
+.providers { align-items: stretch; margin-top: 30px; }
+.prov.podium { margin-top: -30px; padding-top: 30px; }
+.logo-av { background: #FFFFFF !important; padding: 3px; }
+.logo-av img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.w-head .avatar.logo-av { overflow: hidden; }
+@media (max-width: 700px) { .providers { margin-top: 0; } .prov.podium { margin-top: 0; order: -1; padding-top: 18px; } }
+.lang { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; align-self: flex-start; }
+.lang button { border: 0; background: var(--surface); padding: 6px 12px; font: 600 13px/1 var(--body); color: var(--muted); cursor: pointer; }
+.lang button + button { border-left: 1px solid var(--line); }
+.lang button[aria-pressed="true"] { background: var(--btn); color: #FFFFFF; }
+@media print { .lang { display: none; } .providers { margin-top: 22px; } .prov.podium { margin-top: -22px; padding-top: 22px; } }
 </style>
 </head>
 <body>
 <main class="page">
 
   <header>
+    <div class="lang" role="group" aria-label="Taal / Langue"><button type="button" data-l="nl" aria-pressed="true">NL</button><button type="button" data-l="fr" aria-pressed="false">FR</button></div>
     <span class="eyebrow">Voorstel · AI-assistent kanker.be</span>
     <h1>Een assistent die bezoekers van kanker.be dag en nacht op weg helpt</h1>
     <p class="lede">Een <strong>AI-assistent</strong> op kanker.be beantwoordt vragen over kanker, op basis van de eigen pagina's en brochures van Stichting tegen Kanker. Elk antwoord toont de bron. Vragen over een diagnose, symptomen of behandeling krijgen geen antwoord, maar een doorverwijzing. Een bezoeker kan altijd een bericht achterlaten voor een medewerker.</p>
@@ -401,7 +414,7 @@ html, body { margin: 0; }
       <div class="step">
         <div class="step-label"><span class="step-no">1</span><h3>De assistent antwoordt</h3></div>
         <div class="widget" aria-label="Schets: de assistent beantwoordt een vraag">
-          <div class="w-head"><span class="avatar ai">AI</span><span class="who"><b>Kanker.be-assistent</b><small>Antwoordt met info van kanker.be</small></span></div>
+          <div class="w-head"><span class="avatar logo-av"><img src="img/stk.png" alt="" width="30" height="30"></span><span class="who"><b>Kanker.be-assistent</b><small>Antwoordt met info van kanker.be</small></span></div>
           <div class="w-body">
             <div class="msg me">Wat zijn risicofactoren voor borstkanker?</div>
             <div class="msg bot">Onder meer leeftijd, erfelijke aanleg, alcohol en overgewicht. Een bevolkingsonderzoek kan borstkanker vroeg opsporen.<br><span class="src"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>Pagina Borstkanker</span></div>
@@ -415,7 +428,7 @@ html, body { margin: 0; }
       <div class="step">
         <div class="step-label"><span class="step-no">2</span><h3>Doorverwijzen</h3></div>
         <div class="widget" aria-label="Schets: een medische vraag wordt doorverwezen">
-          <div class="w-head"><span class="avatar ai">AI</span><span class="who"><b>Kanker.be-assistent</b><small>Antwoordt met info van kanker.be</small></span></div>
+          <div class="w-head"><span class="avatar logo-av"><img src="img/stk.png" alt="" width="30" height="30"></span><span class="who"><b>Kanker.be-assistent</b><small>Antwoordt met info van kanker.be</small></span></div>
           <div class="w-body">
             <div class="msg me">Ik voel een knobbeltje in mijn borst. Is dat kanker?</div>
             <div class="msg bot">Ik kan geen diagnose stellen. Praat hierover met je huisarts. Een medewerker van Kankerinfo kan je ook verder helpen.</div>
@@ -444,7 +457,6 @@ html, body { margin: 0; }
     </div>
     <p class="sketch-note">Mockup: schetsen ter illustratie, nog niet definitief. Details kunnen nog veranderen.</p>
     <a class="try" href="prototype.html">Probeer het zelf in het klikbare prototype &rarr;</a>
-    <p class="sketch-note">Ook het prototype is een mockup en nog niet definitief.</p>
   </section>
 
   <section>
@@ -455,7 +467,7 @@ html, body { margin: 0; }
     <ul class="safety">
       <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><span><b>Enkel de eigen informatie</b><span class="t">De assistent antwoordt alleen met wat op kanker.be en in de brochures staat, en toont altijd de bron. Staat het er niet in, dan zegt hij dat.</span></span></li>
       <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10Z"/></svg></span><span><b>Geen medisch advies</b><span class="t">Vragen over een diagnose, symptomen, uitslagen of behandeling worden doorverwezen naar de huisarts of een medewerker.</span></span></li>
-      <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span><b>Hulp bij moeilijke momenten</b><span class="t">Bij tekenen van een crisis toont de assistent meteen de juiste hulplijn, zoals de Zelfmoordlijn 1813.</span></span></li>
+      <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span><b>Hulp bij moeilijke momenten</b><span class="t">Bij tekenen van een crisis verwijst de assistent door. Op wens toont hij een hulplijn die jullie zelf kiezen.</span></span></li>
       <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h9M8.5 3v2M6 5c0 4 3 7 7 8M11 5c-.5 4-3 7-7 8"/><path d="m13 21 4-10 4 10M14.5 17.5h5"/></svg></span><span><b>In de taal van de bezoeker</b><span class="t">Nederlandstalige bezoekers krijgen antwoord uit de Nederlandse informatie, Franstalige uit de Franse.</span></span></li>
       <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><span><b>Medewerkers beslissen wat de assistent weet</b><span class="t">De assistent leert niet vanzelf bij uit gesprekken. Bij elk antwoord staat duidelijk dat het door AI gegenereerd is.</span></span></li>
     </ul>
@@ -467,20 +479,20 @@ html, body { margin: 0; }
       <p class="muted">De assistent is gebouwd zodat de aanbieder later kan wisselen, zonder dat de rest verandert. Er zijn drie opties.</p>
     </div>
     <div class="providers">
-      <div class="prov pick">
-        <h3><span class="prov-name"><img class="logo" src="img/mistral.svg" alt="" width="34" height="34">Mistral AI</span> <span class="badge">Aanbevolen</span></h3>
-        <dl>
-          <div><dt>Herkomst</dt><dd>Frans bedrijf, gevestigd in Parijs.</dd></div>
-          <div><dt>Gegevens</dt><dd>Verwerkt in de EU, onder Europese privacywetgeving (AVG).</dd></div>
-          <div><dt>Waarom</dt><dd>Gesprekken over kanker bevatten vaak gezondheidsinformatie. Met een Europese aanbieder blijft die in de EU, en is er geen Amerikaanse partij bij betrokken.</dd></div>
-        </dl>
-      </div>
       <div class="prov">
         <h3><span class="prov-name"><img class="logo" src="img/openai.svg" alt="" width="34" height="34">OpenAI</span></h3>
         <dl>
           <div><dt>Herkomst</dt><dd>Amerikaans bedrijf (ChatGPT).</dd></div>
           <div><dt>Gegevens</dt><dd>Verwerking in Europa is mogelijk voor zakelijke gebruikers, maar het bedrijf valt onder Amerikaanse wetgeving.</dd></div>
           <div><dt>Waarom</dt><dd>Zeer bekend en breed getest. Een goede keuze als privacy minder zwaar weegt.</dd></div>
+        </dl>
+      </div>
+      <div class="prov pick podium">
+        <h3><span class="prov-name"><img class="logo" src="img/mistral.svg" alt="" width="34" height="34">Mistral AI</span> <span class="badge">Aanbevolen</span></h3>
+        <dl>
+          <div><dt>Herkomst</dt><dd>Frans bedrijf, gevestigd in Parijs.</dd></div>
+          <div><dt>Gegevens</dt><dd>Verwerkt in de EU, onder Europese privacywetgeving (AVG).</dd></div>
+          <div><dt>Waarom</dt><dd>Gesprekken over kanker bevatten vaak gezondheidsinformatie. Met een Europese aanbieder blijft die in de EU, en is er geen Amerikaanse partij bij betrokken.</dd></div>
         </dl>
       </div>
       <div class="prov">
@@ -520,7 +532,6 @@ html, body { margin: 0; }
           <li>Gesprekken filteren op onopgeloste vragen</li>
           <li>Achtergelaten berichten als lijst, met het gesprek erbij</li>
           <li>Doorzoekbaar archief van alle gesprekken</li>
-          <li>De AI-aanbieder kiezen en wisselen</li>
         </ul>
       </div>
       <div>
@@ -528,7 +539,7 @@ html, body { margin: 0; }
         <ul>
           <li>Bronnen toevoegen via URL's, sitemap en PDF's</li>
           <li>Kent de pagina's en brochures van kanker.be en cancer.be</li>
-          <li>Automatisch bijgewerkt zodra een pagina wijzigt</li>
+          <li>Wekelijks gecontroleerd via de sitemap (met de wijzigingsdatum). Alleen gewijzigde pagina's worden opnieuw ingelezen</li>
           <li>Getest met een vijftigtal echte vragen, elk antwoord nagekeken</li>
           <li>Eerst op één pagina, daarna op de hele site</li>
         </ul>
@@ -540,6 +551,7 @@ html, body { margin: 0; }
           <li>Opgelost door de assistent of bericht achtergelaten</li>
           <li>Meest gestelde onderwerpen</li>
           <li>Tevredenheid van bezoekers</li>
+          <li>Gebruik per maand: berichten, pagina's en geschatte AI-kosten</li>
         </ul>
       </div>
     </div>
@@ -560,5 +572,42 @@ html, body { margin: 0; }
   <footer>Voorstel voor Stichting tegen Kanker · oktober 2026</footer>
 
 </main>
+<script>
+(function () {
+  var FR = {"Gebruik per maand: berichten, pagina's en geschatte AI-kosten":"Utilisation par mois : messages, pages et coût estimé de l'IA","Kanker.be AI-assistent": "Assistant IA Cancer.be", "Voorstel · AI-assistent kanker.be": "Proposition · assistant IA cancer.be", "Een assistent die bezoekers van kanker.be dag en nacht op weg helpt": "Un assistant qui aide les visiteurs de cancer.be jour et nuit", "Een": "Un", "AI-assistent": "assistant IA", "op kanker.be beantwoordt vragen over kanker, op basis van de eigen pagina's en brochures van Stichting tegen Kanker. Elk antwoord toont de bron. Vragen over een diagnose, symptomen of behandeling krijgen geen antwoord, maar een doorverwijzing. Een bezoeker kan altijd een bericht achterlaten voor een medewerker.": "sur cancer.be répond aux questions sur le cancer, à partir des pages et des brochures de la Fondation contre le Cancer. Chaque réponse cite sa source. Les questions sur un diagnostic, des symptômes ou un traitement ne reçoivent pas de réponse, mais une orientation. Un visiteur peut toujours laisser un message à un collaborateur.", "Oktober 2026": "Octobre 2026", "Bekijk het klikbare prototype →": "Voir le prototype interactif →", "Download als PDF": "Télécharger en PDF", "Waar bezoekers nu op wachten": "Ce que les visiteurs attendent aujourd'hui", "Veel vragen komen steeds terug, bijvoorbeeld over risicofactoren, bevolkingsonderzoek en behandelingen. Het antwoord staat al op de site of in een brochure.": "Beaucoup de questions reviennent sans cesse, par exemple sur les facteurs de risque, le dépistage et les traitements. La réponse figure déjà sur le site ou dans une brochure.", "Mensen zoeken vaak 's avonds of in het weekend naar informatie. Een vraag blijft dan liggen tot de volgende werkdag.": "Les gens cherchent souvent des informations le soir ou le week-end. Une question reste alors sans réponse jusqu'au jour ouvrable suivant.", "Kanker.be is groot. Bezoekers vinden de juiste pagina of brochure niet altijd.": "Le site est vaste. Les visiteurs ne trouvent pas toujours la bonne page ou la bonne brochure.", "Er is weinig zicht op wat bezoekers eigenlijk willen weten.": "On sait peu de choses sur ce que les visiteurs veulent réellement savoir.", "Wat de assistent oplevert": "Ce qu'apporte l'assistant", "Meteen": "Tout de suite", "Antwoord op veelgestelde vragen, ook 's avonds en in het weekend.": "Réponse aux questions fréquentes, aussi le soir et le week-end.", "Elk antwoord komt uit de eigen informatie, met de bron erbij.": "Chaque réponse provient de vos propres informations, avec la source.", "Volledig tweetalig: Nederlands op kanker.be en Frans op cancer.be.": "Entièrement bilingue : néerlandais sur kanker.be et français sur cancer.be.", "Een tevredenheidsvraag na elk gesprek.": "Une question de satisfaction après chaque conversation.", "Inzicht in de vragen van bezoekers, en in de vragen waarop de assistent geen antwoord had.": "Un aperçu des questions des visiteurs, et de celles auxquelles l'assistant n'a pas pu répondre.", "Bronnen beheren medewerkers zelf, via webpagina's, sitemaps en PDF's. De assistent leert niet vanzelf bij.": "Les collaborateurs gèrent eux-mêmes les sources : pages web, sitemaps et PDF. L'assistant n'apprend pas tout seul.", "Jullie kiezen de AI-aanbieder. Met een Europese aanbieder blijven de gesprekken in de EU.": "Vous choisissez le fournisseur d'IA. Avec un fournisseur européen, les conversations restent dans l'UE.", "Later": "Plus tard", "Dezelfde assistent op andere sites inzetten, zoals tabakstop.be.": "Utiliser le même assistant sur d'autres sites, comme tabakstop.be.", "Een livechat met medewerkers erbij, in hetzelfde venster. Daarvoor bestaat een": "Un chat en direct avec des collaborateurs, dans la même fenêtre. Il existe pour cela une", "apart voorstel": "proposition distincte", "(voor Tabakstop).": "(pour Tabakstop).", "De kennis uitbreiden met goedgekeurde antwoorden uit geanonimiseerde gesprekken.": "Enrichir les connaissances avec des réponses validées issues de conversations anonymisées.", "Gespreksgegevens ontsluiten via een API of MCP (zie onderaan).": "Rendre les données de conversation accessibles via une API ou MCP (voir en bas).", "Het gesprek, van begin tot einde": "La conversation, du début à la fin", "Zo ziet een gesprek eruit voor de bezoeker.": "Voici à quoi ressemble une conversation pour le visiteur.", "De assistent antwoordt": "L'assistant répond", "Kanker.be-assistent": "Assistant Cancer.be", "Antwoordt met info van kanker.be": "Répond avec les infos de cancer.be", "Wat zijn risicofactoren voor borstkanker?": "Quels sont les facteurs de risque du cancer du sein ?", "Onder meer leeftijd, erfelijke aanleg, alcohol en overgewicht. Een bevolkingsonderzoek kan borstkanker vroeg opsporen.": "Entre autres l'âge, les prédispositions héréditaires, l'alcool et le surpoids. Un dépistage peut détecter tôt le cancer du sein.", "Pagina Borstkanker": "Page Cancer du sein", "Hoe verloopt een screening?": "Comment se déroule un dépistage ?", "Antwoorden worden gegenereerd door AI": "Les réponses sont générées par l'IA", "Meteen een antwoord, altijd met de bron erbij.": "Une réponse immédiate, toujours avec la source.", "Doorverwijzen": "Orientation", "Ik voel een knobbeltje in mijn borst. Is dat kanker?": "Je sens une boule dans mon sein. Est-ce un cancer ?", "Ik kan geen diagnose stellen. Praat hierover met je huisarts. Een medewerker van Kankerinfo kan je ook verder helpen.": "Je ne peux pas poser de diagnostic. Parlez-en à votre médecin généraliste. Un collaborateur de Cancerinfo peut aussi vous aider.", "Laat een bericht achter": "Laisser un message", "Je gesprek gaat mee, je hoeft niets te herhalen.": "Votre conversation est jointe, vous n'avez rien à répéter.", "Medische vragen gaan altijd naar een mens.": "Les questions médicales vont toujours vers un humain.", "Na het gesprek": "Après la conversation", "Bedankt": "Merci", "Hoe tevreden ben je over dit gesprek?": "Quel est votre degré de satisfaction pour cette conversation ?", "Helemaal niet": "Pas du tout", "Heel tevreden": "Très satisfait", "Wil je nog iets kwijt? (optioneel)": "Un commentaire ? (facultatif)", "Je opmerking…": "Votre remarque…", "Versturen": "Envoyer", "Eén vraag, meteen na afloop.": "Une seule question, juste après.", "Mockup: schetsen ter illustratie, nog niet definitief. Details kunnen nog veranderen.": "Maquette : esquisses à titre d'illustration, pas encore définitives. Des détails peuvent encore changer.", "Probeer het zelf in het klikbare prototype →": "Essayez-le dans le prototype interactif →", "Veilig bij gezondheidsvragen": "Sûr pour les questions de santé", "Gesprekken over kanker gaan over gezondheid en vaak over moeilijke momenten. Daarom werkt de assistent binnen duidelijke grenzen.": "Les conversations sur le cancer touchent à la santé et souvent à des moments difficiles. C'est pourquoi l'assistant travaille dans des limites claires.", "Enkel de eigen informatie": "Uniquement vos propres informations", "De assistent antwoordt alleen met wat op kanker.be en in de brochures staat, en toont altijd de bron. Staat het er niet in, dan zegt hij dat.": "L'assistant répond uniquement avec ce qui figure sur cancer.be et dans les brochures, et cite toujours la source. Si l'information n'y est pas, il le dit.", "Geen medisch advies": "Pas de conseil médical", "Vragen over een diagnose, symptomen, uitslagen of behandeling worden doorverwezen naar de huisarts of een medewerker.": "Les questions sur un diagnostic, des symptômes, des résultats ou un traitement sont orientées vers le médecin généraliste ou un collaborateur.", "Hulp bij moeilijke momenten": "Une aide dans les moments difficiles", "Bij tekenen van een crisis verwijst de assistent door. Op wens toont hij een hulplijn die jullie zelf kiezen.": "En cas de signes de crise, l'assistant oriente la personne. Si vous le souhaitez, il affiche une ligne d'aide que vous choisissez.", "In de taal van de bezoeker": "Dans la langue du visiteur", "Nederlandstalige bezoekers krijgen antwoord uit de Nederlandse informatie, Franstalige uit de Franse.": "Les visiteurs néerlandophones reçoivent une réponse tirée des informations en néerlandais, les francophones de celles en français.", "Medewerkers beslissen wat de assistent weet": "Les collaborateurs décident de ce que l'assistant connaît", "De assistent leert niet vanzelf bij uit gesprekken. Bij elk antwoord staat duidelijk dat het door AI gegenereerd is.": "L'assistant n'apprend pas seul à partir des conversations. Chaque réponse indique clairement qu'elle est générée par l'IA.", "Kies de AI-aanbieder": "Choisir le fournisseur d'IA", "De assistent is gebouwd zodat de aanbieder later kan wisselen, zonder dat de rest verandert. Er zijn drie opties.": "L'assistant est conçu pour que le fournisseur puisse changer plus tard, sans que le reste change. Il y a trois options.", "Herkomst": "Origine", "Amerikaans bedrijf (ChatGPT).": "Entreprise américaine (ChatGPT).", "Gegevens": "Données", "Verwerking in Europa is mogelijk voor zakelijke gebruikers, maar het bedrijf valt onder Amerikaanse wetgeving.": "Un traitement en Europe est possible pour les clients professionnels, mais l'entreprise est soumise à la législation américaine.", "Waarom": "Pourquoi", "Zeer bekend en breed getest. Een goede keuze als privacy minder zwaar weegt.": "Très connu et largement testé. Un bon choix si la vie privée pèse moins.", "Aanbevolen": "Recommandé", "Frans bedrijf, gevestigd in Parijs.": "Entreprise française, basée à Paris.", "Verwerkt in de EU, onder Europese privacywetgeving (AVG).": "Traité dans l'UE, selon la législation européenne sur la vie privée (RGPD).", "Gesprekken over kanker bevatten vaak gezondheidsinformatie. Met een Europese aanbieder blijft die in de EU, en is er geen Amerikaanse partij bij betrokken.": "Les conversations sur le cancer contiennent souvent des informations de santé. Avec un fournisseur européen, elles restent dans l'UE, et aucune partie américaine n'est impliquée.", "Amerikaans bedrijf (Google).": "Entreprise américaine (Google).", "Via Google Cloud kan een Europese regio gekozen worden, maar het bedrijf valt onder Amerikaanse wetgeving.": "Via Google Cloud, une région européenne peut être choisie, mais l'entreprise est soumise à la législation américaine.", "Handig als jullie al met Google Cloud of Workspace werken.": "Pratique si vous travaillez déjà avec Google Cloud ou Workspace.", "Onze aanbeveling: Mistral AI": "Notre recommandation : Mistral AI", "Voor een gezondheidsonderwerp met Belgische bezoekers is Europese gegevensverwerking het sterkste argument. Wat we bij elke aanbieder vastleggen: gesprekken worden niet gebruikt om modellen te trainen, er is een verwerkersovereenkomst, en we testen de gekozen aanbieder met dezelfde vragen voor de assistent live gaat. De exacte voorwaarden controleren we bij de start.": "Pour un sujet de santé et des visiteurs belges, le traitement européen des données est l'argument le plus fort. Avec chaque fournisseur, nous prévoyons : les conversations ne servent pas à entraîner des modèles, un contrat de sous-traitance est conclu, et nous testons le fournisseur choisi avec les mêmes questions avant la mise en ligne. Nous vérifions les conditions exactes au démarrage.", "Wat de eerste versie bevat": "Ce que contient la première version", "Voor bezoekers": "Pour les visiteurs", "Chat op kanker.be en cancer.be, in NL en FR": "Chat sur kanker.be et cancer.be, en NL et FR", "Een assistent die dag en nacht antwoordt, met bronvermelding": "Un assistant qui répond jour et nuit, avec la source", "Bericht achterlaten voor een medewerker van Kankerinfo": "Laisser un message à un collaborateur de Cancerinfo", "Tevredenheidsvraag na het gesprek": "Question de satisfaction après la conversation", "Duidelijke vermelding dat antwoorden door AI gegenereerd zijn": "Mention claire que les réponses sont générées par l'IA", "Voor medewerkers": "Pour les collaborateurs", "Een eenvoudig beheerscherm in de browser": "Un écran de gestion simple dans le navigateur", "Gesprekken filteren op onopgeloste vragen": "Filtrer les conversations sur les questions non résolues", "Achtergelaten berichten als lijst, met het gesprek erbij": "Les messages laissés sous forme de liste, avec la conversation", "Doorzoekbaar archief van alle gesprekken": "Archive consultable de toutes les conversations", "Kennisbank": "Base de connaissances", "Bronnen toevoegen via URL's, sitemap en PDF's": "Ajouter des sources via URL, sitemap et PDF", "Kent de pagina's en brochures van kanker.be en cancer.be": "Connaît les pages et brochures de kanker.be et cancer.be", "Wekelijks gecontroleerd via de sitemap (met de wijzigingsdatum). Alleen gewijzigde pagina's worden opnieuw ingelezen": "Vérification hebdomadaire via le sitemap (avec la date de modification). Seules les pages modifiées sont relues", "Getest met een vijftigtal echte vragen, elk antwoord nagekeken": "Testé avec une cinquantaine de vraies questions, chaque réponse relue", "Eerst op één pagina, daarna op de hele site": "D'abord sur une page, puis sur tout le site", "Rapportage": "Rapports", "Aantal gesprekken per dag": "Nombre de conversations par jour", "Opgelost door de assistent of bericht achtergelaten": "Résolues par l'assistant ou message laissé", "Meest gestelde onderwerpen": "Sujets les plus fréquents", "Tevredenheid van bezoekers": "Satisfaction des visiteurs", "Bewust niet in de eerste versie": "Volontairement exclu de la première version", "Livechat met medewerkers.": "Chat en direct avec des collaborateurs.", "Daar is een apart voorstel voor, dat hierop aansluit.": "Une proposition distincte existe, elle s'y raccorde.", "Bestanden of afbeeldingen versturen.": "Envoyer des fichiers ou des images.", "Kan later nog.": "Possible plus tard.", "Afspraken maken of diagnoses stellen.": "Prendre des rendez-vous ou poser des diagnostics.", "Dat blijft bij de arts.": "Cela reste du ressort du médecin.", "Mogelijke uitbreiding: API of MCP": "Extension possible : API ou MCP", "Later kan een API of een MCP-server worden toegevoegd, zodat gespreksgegevens (op wens geanonimiseerd) opgehaald en gebruikt kunnen worden in andere systemen, bijvoorbeeld een rapportagetool of een eigen AI-toepassing. Dit zit niet in de eerste versie.": "Plus tard, une API ou un serveur MCP peut être ajouté, afin que les données de conversation (anonymisées si souhaité) puissent être récupérées et utilisées dans d'autres systèmes, par exemple un outil de rapport ou une application d'IA propre. Cela ne fait pas partie de la première version.", "Voorstel voor Stichting tegen Kanker · oktober 2026": "Proposition pour la Fondation contre le Cancer · octobre 2026", "Schets: de assistent beantwoordt een vraag": "Esquisse : l'assistant répond à une question", "Schets: een medische vraag wordt doorverwezen": "Esquisse : une question médicale est orientée", "Schets van de tevredenheidsvraag na de chat": "Esquisse de la question de satisfaction après le chat"};
+  var LS = 'stk-lang', lang = 'nl';
+  function norm(t) { return t.replace(/\s+/g, ' ').trim(); }
+  var nodes = [], attrs = [];
+  var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: function (n) {
+    var p = n.parentNode.nodeName; if (p === 'SCRIPT' || p === 'STYLE') return NodeFilter.FILTER_REJECT;
+    return norm(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; } });
+  while (w.nextNode()) nodes.push({ n: w.currentNode, nl: w.currentNode.nodeValue });
+  [].forEach.call(document.querySelectorAll('[aria-label],[title],[alt]'), function (el) {
+    ['aria-label', 'title', 'alt'].forEach(function (a) { if (el.hasAttribute(a) && el.getAttribute(a)) attrs.push({ el: el, a: a, nl: el.getAttribute(a) }); });
+  });
+  var titleNl = document.title;
+  function tr(t) { return FR[norm(t)]; }
+  function apply(l) {
+    lang = l;
+    nodes.forEach(function (o) {
+      var f = l === 'fr' ? tr(o.nl) : null;
+      o.n.nodeValue = f ? o.nl.match(/^\s*/)[0] + f + o.nl.match(/\s*$/)[0] : o.nl;
+    });
+    attrs.forEach(function (o) { var f = l === 'fr' ? tr(o.nl) : null; o.el.setAttribute(o.a, f || o.nl); });
+    document.title = (l === 'fr' && FR[titleNl]) || titleNl;
+    document.documentElement.lang = l;
+    [].forEach.call(document.querySelectorAll('.lang button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-l') === l)); });
+    [].forEach.call(document.querySelectorAll('a[href^="prototype.html"]'), function (a) { a.setAttribute('href', 'prototype.html?lang=' + l); });
+    [].forEach.call(document.querySelectorAll('a[href^="voorstel-ai-assistent-kanker-be"]'), function (a) { a.setAttribute('href', 'voorstel-ai-assistent-kanker-be' + (l === 'fr' ? '-fr' : '') + '.pdf'); });
+  }
+  function save(l) { try { localStorage.setItem(LS, l); } catch (e) {} }
+  var q = /[?&]lang=(nl|fr)/.exec(location.search), init = q ? q[1] : null;
+  if (!init) { try { init = localStorage.getItem(LS); } catch (e) {} }
+  apply(init === 'fr' ? 'fr' : 'nl');
+  document.querySelector('.lang').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return; save(b.getAttribute('data-l')); apply(b.getAttribute('data-l'));
+  });
+})();
+</script>
 </body>
 </html>

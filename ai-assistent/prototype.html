@@ -288,7 +288,7 @@ tbody tr:last-child td { border-bottom: 0; }
 .score i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 .st { font-size: 12px; font-weight: 600; padding: 2px 7px; border-radius: 6px; }
 .st.solved { background: var(--ok-soft); color: #1F6B3E; }
-.st.left { background: var(--brand-soft); color: var(--brand-deep); }
+.st.left { background: #E3ECF8; color: #1F4E8C; }
 .st.unanswered { background: var(--bad-soft); color: var(--bad); }
 .transcript { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; display: flex; flex-direction: column; max-height: 600px; }
 .transcript .th { padding: 14px 16px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
@@ -507,9 +507,12 @@ tbody tr:last-child td { border-bottom: 0; }
 @media (max-width: 1360px) { .archive-grid { grid-template-columns: 1fr; } .transcript { max-height: none; } }
 @media (max-width: 1180px) {
 }
-@media (max-width: 1100px) {
-  .ap-grid, .test-grid { grid-template-columns: 1fr; }
+@media (max-width: 1180px) {
+  .ap-grid { grid-template-columns: 1fr; }
   .pv { position: static; }
+}
+@media (max-width: 1100px) {
+  .test-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {
   table.arc { min-width: 560px; }
@@ -522,44 +525,150 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
 .chip { white-space: nowrap; }
 .pane > * { flex: none; }
 .f .seg, .card > .seg { align-self: flex-start; }
+.topright { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.avatar.logo { width: 38px; height: 38px; padding: 4px; background: #FFFFFF; overflow: hidden; }
+.avatar.logo img { width: 30px; height: 30px; object-fit: contain; display: block; }
+.avatar.logo.custom { padding: 0; }
+.avatar.logo.custom img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.avi img { width: 20px; height: 20px; object-fit: contain; }
+.btnrow { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.transcript .fb { padding-right: 18px; }
+.transcript .fb .why { margin-top: 6px; }
+.stag { flex: none; font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 0 5px; border-radius: 4px; line-height: 16px; white-space: nowrap; }
+.stag.sitemap { background: #E3ECF8; color: #1F4E8C; }
+.stag.manual { background: var(--sunken); color: var(--muted); border: 1px solid var(--line); line-height: 14px; }
+.status-pill.changed { background: #FFF3E0; color: #7A3500; }
+.status-pill.off { background: var(--sunken); color: var(--muted); border: 1px solid var(--line); }
+.synccard { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+.synccard .st-txt { flex: 1 1 300px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.syncstats { display: flex; gap: 8px 22px; flex-wrap: wrap; }
+.syncstats > div { display: flex; flex-direction: column; gap: 2px; }
+.syncstats .k { font-size: 11.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.syncstats .v { font-weight: 600; }
+.spager .sp-pg { margin-left: auto; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.sp { position: relative; }
+.sp-btn { display: flex; align-items: center; gap: 10px; width: 100%; border: 1px solid rgba(255, 255, 255, .16); background: rgba(255, 255, 255, .05); color: #FFFFFF; padding: 7px 9px; border-radius: 10px; text-align: left; }
+.sp-btn:hover, .sp-btn[aria-expanded="true"] { background: rgba(255, 255, 255, .11); }
+.sp-btn > svg { margin-left: auto; flex: none; color: #C3D1DE; }
+.sp-logo { width: 30px; height: 30px; border-radius: 50%; background: #FFFFFF; display: grid; place-items: center; flex: none; overflow: hidden; }
+.sp-logo img { width: 24px; height: 24px; object-fit: contain; display: block; }
+.sp-txt { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+.sp-txt b { font-family: var(--display); font-weight: 700; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sp-txt span { font-size: 12px; color: #A9BCCD; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sp-menu { position: absolute; top: calc(100% + 6px); left: 0; right: 0; min-width: 220px; background: #FFFFFF; color: var(--ink); border-radius: 10px; box-shadow: var(--shadow-lg); padding: 4px; z-index: 30; }
+.sp-it { display: flex; align-items: center; gap: 10px; width: 100%; border: 0; background: transparent; padding: 7px 8px; border-radius: 8px; text-align: left; color: var(--ink); }
+.sp-it .sp-txt span { color: var(--muted); }
+.sp-it:hover, .sp-it:focus-visible { background: var(--sunken); }
+.sp-check { margin-left: auto; color: var(--cta); display: grid; flex: none; }
+.sp-check svg { width: 16px; height: 16px; }
+.sp-sep { height: 1px; background: var(--line); margin: 4px 2px; }
+.sp-add { cursor: not-allowed; }
+.sp-add .sp-txt b { color: #5A6E82; }
+.sp-plus { width: 30px; height: 30px; border-radius: 50%; border: 1px dashed #8A9BAC; display: grid; place-items: center; color: #5A6E82; flex: none; font-size: 18px; }
+.usr { position: relative; margin-top: auto; }
+.usr-btn { display: flex; align-items: center; gap: 10px; width: 100%; border: 0; background: transparent; color: #C3D1DE; padding: 8px; border-radius: 10px; text-align: left; }
+.usr-btn:hover, .usr-btn[aria-expanded="true"] { background: rgba(255, 255, 255, .09); }
+.usr-av { width: 34px; height: 34px; border-radius: 50%; background: #2E4A66; color: #FFFFFF; display: grid; place-items: center; font-weight: 700; font-size: 13px; flex: none; }
+.usr-txt { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+.usr-txt b { color: #FFFFFF; font-size: 13px; font-weight: 600; }
+.usr-role { font-size: 12px; color: #C3D1DE; }
+.usr-mail { font-size: 11.5px; color: #A9BCCD; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.usr-menu { position: absolute; left: 0; right: 0; bottom: calc(100% + 6px); min-width: 200px; background: #FFFFFF; color: var(--ink); border-radius: 10px; box-shadow: var(--shadow-lg); padding: 4px; z-index: 30; display: flex; flex-direction: column; }
+.usr-it { border: 0; background: transparent; padding: 9px 10px; text-align: left; border-radius: 8px; color: var(--ink); font-weight: 500; }
+.usr-it:hover:not(:disabled), .usr-it:focus-visible { background: var(--sunken); }
+.usr-it:disabled { color: #5A6E82; cursor: not-allowed; }
+.signedout { grid-column: 1 / -1; display: grid; place-items: center; background: var(--sunken); padding: 24px; min-height: 420px; }
+.so-card { background: #FFFFFF; border: 1px solid var(--line); border-radius: 14px; padding: 32px 28px; max-width: 380px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; box-shadow: var(--shadow); }
+.so-card h2 { font-size: 20px; }
+.so-card p { color: var(--muted); font-size: 14px; }
+.so-ring { width: 52px; height: 52px; border-radius: 50%; background: var(--brand-soft); color: var(--brand-deep); display: grid; place-items: center; }
+@media (max-width: 760px) {
+  .sp { flex: 1 1 220px; }
+  .usr { margin-top: 0; margin-left: auto; flex: 1 1 220px; }
+  .usr-menu { bottom: auto; top: calc(100% + 6px); }
+}
+.siglist { display: flex; flex-direction: column; gap: 8px; }
+.sig { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.sig.open { border-color: #B6C4D2; }
+.sig-head { display: flex; align-items: center; gap: 8px; padding: 4px 8px 4px 4px; }
+.sig-tg { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; border: 0; background: transparent; padding: 8px; text-align: left; border-radius: 8px; font: inherit; color: var(--ink); }
+.sig-tg b { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.sig-tg .sig-meta { color: var(--muted); font-size: 12.5px; margin-left: auto; white-space: nowrap; }
+.chev { display: inline-block; font-size: 18px; width: 14px; color: var(--muted); transition: transform .15s; }
+.chev.open { transform: rotate(90deg); }
+.sig-mv { display: flex; gap: 4px; flex: none; }
+.sig-body { border-top: 1px solid var(--line); padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.sig-foot { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.sqlist { display: flex; flex-direction: column; gap: 14px; }
+.sqcard { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; background: var(--sunken); }
+.sqhead { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.sqact { display: flex; gap: 6px; }
+.sqrow { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 10px; align-items: center; }
+.sqrow label { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.sqrow input { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px; background: var(--surface); }
+@media (max-width: 480px) { .sqrow { grid-template-columns: 1fr; gap: 4px; } }
+.avrow { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.av-prev { width: 56px; height: 56px; border-radius: 50%; background: #FFFFFF; border: 1px solid var(--line); overflow: hidden; display: grid; place-items: center; flex: none; }
+.av-prev img { width: 44px; height: 44px; object-fit: contain; }
+.av-prev.custom img { width: 100%; height: 100%; object-fit: cover; }
+.avdrop { flex: 1 1 220px; padding: 14px; }
+.meters { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.meter { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.mhead { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+.mhead span { color: var(--muted); }
+.mbar { height: 10px; background: #E6ECF2; border-radius: 5px; overflow: hidden; }
+.mbar i { display: block; height: 100%; background: #2A8A50; }
+.meter.warn .mbar i { background: #C96A00; }
+.meter.over .mbar i { background: #B4462B; }
+.mfoot { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 600; color: #1F6B3E; }
+.meter.warn .mfoot { color: #7A3500; }
+.meter.over .mfoot { color: #9A3A22; }
+.utable { width: 100%; border-collapse: collapse; font-size: 13px; }
+.utable th { text-align: left; font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding: 7px 8px; border-bottom: 1px solid var(--line); background: var(--sunken); white-space: nowrap; }
+.utable td { padding: 7px 8px; border-bottom: 1px solid #EEF2F6; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.utable .num { text-align: right; }
+.utable tbody tr { cursor: default; }
+.utable tbody tr:hover { background: transparent; }
+.utable tr.tot td { font-weight: 700; border-top: 1px solid var(--line); }
+.dtable summary { cursor: pointer; font-size: 13px; color: var(--brand-ink); font-weight: 600; margin-top: 6px; }
+.dt-scroll { max-height: 240px; overflow: auto; margin-top: 8px; border: 1px solid var(--line); border-radius: 8px; }
 </style>
 </head>
 <body>
 <div class="shell">
   <div class="topbar">
     <div class="proto-label">
-      <a class="back" href="./">&larr; Terug naar het voorstel</a>
+      <a class="back" id="proto-back" href="./">&larr; <span id="proto-back-t">Terug naar het voorstel</span></a>
       <h1 id="proto-h1">AI-assistent voor Tabakstop</h1>
-      <span>Klikbaar prototype · alle gesprekken, bronnen en cijfers zijn voorbeelden</span>
+      <span id="proto-sub">Klikbaar prototype · alle gesprekken, bronnen en cijfers zijn voorbeelden</span>
     </div>
-    <div class="tabs" role="tablist" aria-label="Onderdeel">
-      <button role="tab" id="tab-embed" aria-selected="true" data-view="embed">Ingesloten op een pagina</button>
-      <button role="tab" id="tab-widget" aria-selected="false" data-view="widget">Chatknop op de site</button>
-      <button role="tab" id="tab-beheer" aria-selected="false" data-view="beheer">Beheer</button>
+    <div class="topright">
+      <div class="seg" id="lang-seg" role="group" aria-label="Taal">
+        <button data-lang="nl" aria-pressed="true">NL</button>
+        <button data-lang="fr" aria-pressed="false">FR</button>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Onderdeel">
+        <button role="tab" id="tab-embed" aria-selected="true" data-view="embed">Ingesloten op een pagina</button>
+        <button role="tab" id="tab-widget" aria-selected="false" data-view="widget">Chatknop op de site</button>
+        <button role="tab" id="tab-beheer" aria-selected="false" data-view="beheer">Beheer</button>
+      </div>
     </div>
   </div>
 
   <div class="controls" id="visitor-controls">
     <div class="grp">
-      <span class="lbl">Site</span>
+      <span class="lbl" id="lbl-site">Site</span>
       <div class="seg" id="site-seg">
         <button data-site="kanker" aria-pressed="true">Kanker.be</button>
         <button data-site="tabakstop" aria-pressed="false">Tabakstop</button>
       </div>
     </div>
     <div class="grp">
-      <span class="lbl">Stap</span>
+      <span class="lbl" id="lbl-step">Stap</span>
       <div class="seg" id="state-seg">
         <button data-state="bot" aria-pressed="true">Assistent</button>
         <button data-state="form" aria-pressed="false">Bericht achterlaten</button>
         <button data-state="rate" aria-pressed="false">Tevredenheid</button>
-      </div>
-    </div>
-    <div class="grp">
-      <span class="lbl">Taal</span>
-      <div class="seg" id="lang-seg">
-        <button data-lang="nl" aria-pressed="true">NL</button>
-        <button data-lang="fr" aria-pressed="false">FR</button>
       </div>
     </div>
     <span class="hint" id="controls-hint"></span>
@@ -597,7 +706,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       <div class="admin" id="admin"></div>
     </div>
   </section>
-  <p class="mockup-note" role="note"><b>Mockup.</b> Dit is een ontwerp ter illustratie en nog niet definitief. Details kunnen nog veranderen.</p>
+  <p class="mockup-note" id="mockup-note" role="note"><b>Mockup.</b> Dit is een ontwerp ter illustratie en nog niet definitief. Details kunnen nog veranderen.</p>
 </div>
 
 <script>
@@ -626,6 +735,10 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V3M17 14l-4 7a2 2 0 0 1-3-2l1-5H5.5a2 2 0 0 1-2-2.4l1.5-7A2 2 0 0 1 7 3h10"/></svg>'
   };
 
+  ICON.dots = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01" stroke-width="3"/></svg>';
+  ICON.help = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg>';
+  ICON.usage = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14a9 9 0 0 1 18 0"/><path d="M12 14l4-5"/><path d="M5 14h2M17 14h2M12 7v2"/></svg>';
+
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -637,10 +750,27 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
   }
 
   var CFG = {
-    tabakstop: { name: 'Tabakstop', domain: 'tabakstop.be', adminUrl: 'assistent.tabakstop.be', siteId: 'tabakstop-be', mountId: 'tabakstop-assistent', role: 'tabakoloog', cms: 'WordPress' },
-    kanker: { name: 'Kanker.be', domain: 'kanker.be', adminUrl: 'assistent.kanker.be', siteId: 'kanker-be', mountId: 'kanker-assistent', role: 'kankerinfo-medewerker', cms: 'het CMS' }
+    tabakstop: { name: 'Tabakstop', domain: 'tabakstop.be', adminUrl: 'assistent.tabakstop.be', siteId: 'tabakstop-be', mountId: 'tabakstop-assistent', role: 'tabakoloog', roleEn: 'tobacco counsellor', cms: 'WordPress' },
+    kanker: { name: 'Kanker.be', domain: 'kanker.be', adminUrl: 'assistent.kanker.be', siteId: 'kanker-be', mountId: 'kanker-assistent', role: 'kankerinfo-medewerker', roleEn: 'cancer-info staff member', cms: 'het CMS' }
   };
   var site = 'kanker';
+
+  var PC = {
+    nl: {
+      back: 'Terug naar het voorstel', title: function (n) { return 'AI-assistent voor ' + n; },
+      sub: 'Klikbaar prototype · alle gesprekken, bronnen en cijfers zijn voorbeelden',
+      tabsLabel: 'Onderdeel', tabEmbed: 'Ingesloten op een pagina', tabWidget: 'Chatknop op de site', tabAdmin: 'Beheer',
+      langLabel: 'Taal', lblSite: 'Site', lblStep: 'Stap', stBot: 'Assistent', stForm: 'Bericht achterlaten', stRate: 'Tevredenheid',
+      note: '<b>Mockup.</b> Dit is een ontwerp ter illustratie en nog niet definitief. Details kunnen nog veranderen.'
+    },
+    fr: {
+      back: 'Retour à la proposition', title: function (n) { return 'Assistant IA pour ' + n; },
+      sub: 'Prototype cliquable · toutes les conversations, sources et chiffres sont des exemples',
+      tabsLabel: 'Section', tabEmbed: 'Intégré dans une page', tabWidget: 'Bouton de chat sur le site', tabAdmin: 'Administration',
+      langLabel: 'Langue', lblSite: 'Site', lblStep: 'Étape', stBot: 'Assistant', stForm: 'Laisser un message', stRate: 'Satisfaction',
+      note: '<b>Maquette.</b> Ceci est une conception à titre d’illustration et n’est pas encore définitive. Des détails peuvent encore changer.'
+    }
+  };
 
   /* ---------- Visitor copy ---------- */
   var TB = {
@@ -688,6 +818,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       thanks: 'Bedankt voor je gesprek',
       thanksBody: 'Veel succes. Je kunt altijd opnieuw een vraag stellen.',
       again: 'Nieuw gesprek',
+      ariaMin: 'Chatvenster verkleinen', ariaClose: 'Chat sluiten', ariaUp: 'Nuttig', ariaDown: 'Niet nuttig', ariaThinking: 'De assistent schrijft', ariaSend: 'Versturen',
       hints: {
         bot: 'Kies een voorgestelde vraag of typ er zelf een. Tip: vraag iets over Champix of zwangerschap, of vraag naar een persoon, om het doorverwijzen te zien.',
         form: 'De assistent kan niet antwoorden. De bezoeker laat een bericht achter, het gesprek gaat mee.',
@@ -738,6 +869,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       thanks: 'Merci pour cette conversation',
       thanksBody: 'Bonne chance. Vous pouvez toujours poser une nouvelle question.',
       again: 'Nouvelle conversation',
+      ariaMin: 'Réduire la fenêtre de chat', ariaClose: 'Fermer le chat', ariaUp: 'Utile', ariaDown: 'Pas utile', ariaThinking: "L'assistant écrit", ariaSend: 'Envoyer',
       hints: {
         bot: "Choisissez une question proposée ou tapez la vôtre. Astuce : posez une question sur Champix ou la grossesse, ou demandez une personne, pour voir l'orientation.",
         form: "L'assistant ne peut pas répondre. Le visiteur laisse un message, la conversation est jointe.",
@@ -860,13 +992,13 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
 
   /* ---------- Settings state (sample data, not persisted) ---------- */
   var PROVIDERS = [
-    { k: 'mistral', n: 'Mistral AI', reco: 'Aanbevolen', note: 'Frans bedrijf, gegevens blijven in de EU', proc: 'Verwerking: EU (Mistral AI)', procNote: 'Gegevens blijven binnen de Europese Unie.' },
-    { k: 'openai', n: 'OpenAI', note: 'Amerikaans bedrijf', proc: 'Verwerking: VS (OpenAI)', procNote: 'Gegevens worden buiten de EU verwerkt. Controleer de verwerkersovereenkomst.' },
-    { k: 'gemini', n: 'Google Gemini', note: 'Amerikaans bedrijf', proc: 'Verwerking: VS (Google Gemini)', procNote: 'Gegevens worden buiten de EU verwerkt. Controleer de verwerkersovereenkomst.' }
+    { k: 'mistral', n: 'Mistral AI', reco: 'Recommended', note: 'French company, data stays in the EU', proc: 'Processing: EU (Mistral AI)', procNote: 'Data stays within the European Union.' },
+    { k: 'openai', n: 'OpenAI', note: 'US company', proc: 'Processing: US (OpenAI)', procNote: 'Data is processed outside the EU. Check the data processing agreement.' },
+    { k: 'gemini', n: 'Google Gemini', note: 'US company', proc: 'Processing: US (Google Gemini)', procNote: 'Data is processed outside the EU. Check the data processing agreement.' }
   ];
   var provider = 'mistral';
   function clone(o) { return JSON.parse(JSON.stringify(o)); }
-  var RADII = { sharp: ['3px', '4px', '6px', '3px'], mid: ['10px', '14px', '16px', '8px'], round: ['999px', '20px', '24px', '999px'] };
+  var RADII = { none: ['0px', '0px', '0px', '0px'], mid: ['10px', '14px', '16px', '8px'], round: ['999px', '20px', '24px', '999px'] };
   var TOPIC_KW = {
     diagnose: ['diagnose', 'diagnostic', 'is dat kanker', 'heb ik kanker', 'ai-je un cancer', 'est-ce un cancer'],
     symptomen: ['knobbel', 'bultje', 'klacht', 'symptoom', 'symptomen', 'symptôme', 'boule'],
@@ -883,19 +1015,37 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     tabakstop: ['medicatie', 'dosissen', 'zwangerschap', 'bijwerkingen', 'e-sigaret'],
     kanker: ['diagnose', 'symptomen', 'uitslagen', 'behandeladvies', 'alternatieve geneeswijzen']
   };
-  var CRISIS_KW = ['zelfmoord', 'zelfdoding', 'niet meer zitten', 'hopeloos', 'wanhoop', 'geen zin meer', 'niet meer tegen', 'suicide', 'désespér', "n'en peux plus", 'plus envie de vivre'];
-  var CRISIS_TXT = {
-    nl: 'Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.',
-    fr: 'Si vous pensez au suicide, appelez le Centre de Prévention du Suicide au 0800 32 123, joignable 24 h/24.'
-  };
-  var TONE = { neutral: { nl: '', fr: '' }, friendly: { nl: 'Goede vraag! ', fr: 'Bonne question ! ' }, formal: { nl: 'Geachte bezoeker,\n', fr: 'Cher visiteur,\n' } };
+  var sigUid = 10;
+  var TONE = { neutral: { nl: '', fr: '' }, informal: { nl: 'Goeie vraag, dit kan ik je vertellen: ', fr: 'Bonne question, voici ce que je peux te dire : ' }, formal: { nl: 'Geachte bezoeker, dit kan ik u meedelen:\n', fr: 'Cher visiteur, voici ce que je peux vous indiquer :\n' } };
   function defApp(k) {
-    return { color: '', radius: 'mid', pos: 'right', name: '', label: '', avatar: 'ai', welcome: { nl: '', fr: '' },
+    return { color: '', radius: 'mid', pos: 'right', name: '', label: { nl: T[k].nl.launcher, fr: T[k].fr.launcher }, icon: 'chat', avatarImg: '', welcome: { nl: '', fr: '' },
       starts: { nl: KB[k].nl.greet.chips.slice(), fr: KB[k].fr.greet.chips.slice() } };
   }
+  function defSignals(k) {
+    if (k === 'kanker') {
+      return [
+        { id: 1, name: 'Emotional distress', on: true, open: false, action: 'offer', contact: '',
+          kw: ['zie het niet meer zitten', 'wanhopig', 'hopeloos', 'en détresse', 'désespér', "n'en peux plus"],
+          msg: { nl: 'Het klinkt alsof je het nu heel zwaar hebt. Je staat er niet alleen voor. Wil je met iemand praten? Bel de Kankerlijn gratis op 0800 15 801, op werkdagen, of laat hier een bericht achter voor een kankerinfo-medewerker.',
+            fr: "On dirait que c'est très lourd pour vous en ce moment. Vous n'êtes pas seul(e). Souhaitez-vous parler à quelqu'un ? Appelez gratuitement la ligne d'information sur le cancer au 0800 15 801, les jours ouvrables, ou laissez un message à un conseiller info-cancer." } },
+        { id: 2, name: 'Self-harm', on: false, open: false, action: 'offer', contact: '',
+          kw: ['zelfmoord', 'zelfdoding', 'suicide'], msg: { nl: '', fr: '' } }
+      ];
+    }
+    return [
+      { id: 1, name: 'Self-harm', on: true, open: false, action: 'offer', contact: '',
+        kw: ['zelfmoord', 'zelfdoding', 'niet meer zitten', 'hopeloos', 'wanhoop', 'suicide', 'désespér', "n'en peux plus", 'plus envie de vivre'],
+        msg: { nl: 'Het klinkt alsof je het nu heel moeilijk hebt. Je hoeft dit niet alleen te dragen. Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.',
+          fr: "On dirait que c'est très difficile pour vous en ce moment. Vous n'êtes pas seul(e). Si vous pensez au suicide, appelez le Centre de Prévention du Suicide au 0800 32 123, joignable 24 h/24." } },
+      { id: 2, name: 'Strong craving', on: true, open: false, action: 'only', contact: '',
+        kw: ['zin om te roken', 'zin in een sigaret', 'envie de fumer'],
+        msg: { nl: 'Een hevige zin duurt meestal maar een paar minuten. Drink een glas water, beweeg even of adem diep in en uit. Het gaat voorbij.',
+          fr: "Une forte envie dure généralement quelques minutes. Buvez un verre d'eau, bougez un peu ou respirez profondément. Cela passe." } }
+    ];
+  }
   function defBeh(k) {
-    return { tone: 'neutral', topics: PRESETS[k].slice(0, k === 'kanker' ? 4 : 4), fallback: { nl: '', fr: '' }, redirect: { nl: '', fr: '' },
-      crisisOn: true, crisisKw: CRISIS_KW.slice(), crisisText: { nl: '', fr: '' },
+    return { tone: 'neutral', topics: PRESETS[k].slice(0, 4), fallback: { nl: '', fr: '' }, redirect: { nl: '', fr: '' },
+      signals: defSignals(k),
       mailTo: k === 'kanker' ? 'kankerinfo@voorbeeld.be' : 'info@voorbeeld.be', mailSubject: '' };
   }
   function defPriv() { return { retention: '90', mask: true, policy: '', disclaimer: { nl: '', fr: '' } }; }
@@ -934,12 +1084,11 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     }
     return s + '--rad-btn:' + r[0] + ';--rad-bub:' + r[1] + ';--rad-panel:' + r[2] + ';--rad-btn-s:' + r[3] + ';';
   }
-  function avatarInner() {
-    var v = APP[site].avatar;
-    if (v === 'chat') return ICON.chat.replace('<svg ', '<svg width="18" height="18" ');
-    if (v === 'spark') return ICON.spark.replace('<svg ', '<svg width="18" height="18" ');
-    return 'AI';
-  }
+  function logoSrc() { return site === 'kanker' ? 'img/stk.png' : 'img/tabakstop.png'; }
+  function avatarInner() { return '<img src="' + esc(APP[site].avatarImg || logoSrc()) + '" alt="" width="30" height="30">'; }
+  function avatarCls() { return 'avatar logo' + (APP[site].avatarImg ? ' custom' : ''); }
+  function launcherIcon() { return ICON[APP[site].icon] || ICON.chat; }
+  function launcherLabel() { return (APP[site].label[lang] || '').trim(); }
 
   function L() { return T[site][lang]; }
   function K() {
@@ -954,8 +1103,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     if (red) out.medical = Object.assign({}, base.medical, { text: red });
     var fb = b.fallback[lang].trim();
     if (fb) out.fallback = Object.assign({}, base.fallback, { text: fb });
-    var ct = b.crisisText[lang].trim() || CRISIS_TXT[lang];
-    out.distress = Object.assign({}, base.distress, { text: base.distress.text + (b.crisisOn ? ' ' + ct : '') });
+    b.signals.forEach(function (r) { if (sigMsg(r)) out['sig:' + r.id] = { text: sigText(r), hand: r.action === 'only' ? null : 'care' }; });
     return out;
   }
 
@@ -976,23 +1124,35 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     }
     return null;
   }
+  function sigMsg(r) { return (r.msg[lang] || '').trim() || (r.msg[lang === 'nl' ? 'fr' : 'nl'] || '').trim(); }
+  function sigText(r) { var c = (r.contact || '').trim(); return sigMsg(r) + (c ? '\n' + c : ''); }
   function route(text) {
     var b = BEH[site], t = String(text).toLowerCase();
-    if (b.crisisOn && b.crisisKw.some(function (k) { k = k.toLowerCase().trim(); return k && t.indexOf(k) !== -1; })) return { key: 'distress', reason: 'crisis-signaal' };
+    for (var s = 0; s < b.signals.length; s++) {
+      var r = b.signals[s];
+      if (!r.on || !sigMsg(r)) continue;
+      if (r.kw.some(function (k) { k = k.toLowerCase().trim(); return k && t.indexOf(k) !== -1; })) return { key: 'sig:' + r.id, reason: 'signal: ' + r.name };
+    }
     var tp = topicHit(t);
-    if (tp) return { key: 'medical', reason: 'onderwerp: ' + tp };
+    if (tp) return { key: 'medical', reason: 'topic: ' + tp };
     var R = RT[site];
     for (var i = 0; i < R.length; i++) {
       if (!R[i][1].test(text)) continue;
       var key = R[i][0];
-      if (key === 'person') return { key: key, reason: 'vraag naar een persoon' };
-      if (!usedSources(key).length) return { key: 'fallback', reason: 'geen bron gevonden (bron verwijderd of niet ingelezen)' };
-      return { key: key, reason: 'beantwoord met bronnen' };
+      if (key === 'person') return { key: key, reason: 'asked for a person' };
+      if (!usedSources(key).length) return { key: 'fallback', reason: 'no source found (source deleted or not indexed)' };
+      return { key: key, reason: 'answered with sources' };
     }
-    return { key: 'fallback', reason: 'geen bron gevonden' };
+    return { key: 'fallback', reason: 'no source found' };
   }
 
-  var lang = 'nl';
+  function initLang() {
+    var m = /[?&]lang=(nl|fr)\b/.exec(location.search);
+    if (m) { try { localStorage.setItem('stk-lang', m[1]); } catch (err) {} return m[1]; }
+    try { var v = localStorage.getItem('stk-lang'); if (v === 'nl' || v === 'fr') return v; } catch (err) {}
+    return 'nl';
+  }
+  var lang = initLang();
 
   /* ---------- Visitor chat ---------- */
   function Chat(mount, mode, onAnswer) {
@@ -1003,7 +1163,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     function clearTimers() { timers.forEach(clearTimeout); timers = []; }
 
     function botMsg(key) {
-      var e = K()[key];
+      var e = K()[key] || K().fallback;
       return { from: 'bot', key: key, text: e.text, src: (e.src || []).filter(function (x) { return !!findSource(x[1]); }), chips: e.chips || [], hand: e.hand || null, fb: e.fb ? null : undefined };
     }
     function reset() {
@@ -1023,9 +1183,9 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     function head() {
       var l = L(), who;
       if (s.phase === 'form') who = '<div class="avatar">' + ICON.mail.replace('<svg ', '<svg width="18" height="18" ') + '</div><div class="who"><b>' + esc(l.formTitle) + '</b><span>' + esc(l.formSub) + '</span></div>';
-      else who = '<div class="avatar">' + avatarInner() + '</div><div class="who"><b>' + esc(APP[site].name.trim() || l.botName) + '</b><span>' + esc(l.botSub) + '</span></div>';
+      else who = '<div class="' + avatarCls() + '">' + avatarInner() + '</div><div class="who"><b>' + esc(APP[site].name.trim() || l.botName) + '</b><span>' + esc(l.botSub) + '</span></div>';
       var endBtn = s.phase === 'bot' ? '<button class="hbtn" data-act="end">' + esc(l.end) + '</button>' : '';
-      var minBtn = mode === 'widget' ? '<button class="icon-btn" data-act="min" aria-label="Chatvenster verkleinen">' + ICON.minus + '</button>' : '';
+      var minBtn = mode === 'widget' ? '<button class="icon-btn" data-act="min" aria-label="' + esc(l.ariaMin) + '">' + ICON.minus + '</button>' : '';
       return '<div class="c-head">' + who + endBtn + minBtn + '</div>';
     }
 
@@ -1036,7 +1196,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       if (m.src.length) h += '<div class="srcs">' + m.src.map(function (x) { return '<span class="src">' + (x[0] === 'doc' ? ICON.doc : ICON.page) + esc(x[1]) + '</span>'; }).join('') + '</div>';
       if (m.fb !== undefined) {
         h += m.fb ? '<div class="fbk">' + esc(l.thanksFb) + '</div>'
-          : '<div class="fbk"><span>' + esc(l.useful) + '</span><button data-fb="' + i + ':up" aria-label="Nuttig">' + ICON.up + '</button><button data-fb="' + i + ':down" aria-label="Niet nuttig">' + ICON.down + '</button></div>';
+          : '<div class="fbk"><span>' + esc(l.useful) + '</span><button data-fb="' + i + ':up" aria-label="' + esc(l.ariaUp) + '">' + ICON.up + '</button><button data-fb="' + i + ':down" aria-label="' + esc(l.ariaDown) + '">' + ICON.down + '</button></div>';
       }
       h += '</div>';
       var live = isLast && s.phase === 'bot' && !s.thinking;
@@ -1047,7 +1207,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
 
     function stream() {
       var h = s.msgs.map(function (m, i) { return renderMsg(m, i, i === s.msgs.length - 1); }).join('');
-      if (s.thinking) h += '<div class="thinking" role="status" aria-label="De assistent schrijft"><i></i><i></i><i></i></div>';
+      if (s.thinking) h += '<div class="thinking" role="status" aria-label="' + esc(L().ariaThinking) + '"><i></i><i></i><i></i></div>';
       return h;
     }
 
@@ -1055,9 +1215,9 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       var l = L();
       if (s.phase === 'bot') {
         return '<div class="c-body" data-scroll>' + stream() + '</div>' +
-          '<div class="c-assist"><button class="linkbtn" data-act="leave">' + esc(l.leave) + '</button><span>' + esc(l.noMed) + '</span></div>' +
+          '<div class="c-assist"><button class="linkbtn" data-act="leave">' + esc(l.leave) + '</button></div>' +
           '<form class="c-foot" data-form="send"><textarea id="' + mode + '-draft" rows="1" data-bind="draft" placeholder="' + esc(l.placeholder) + '" aria-label="' + esc(l.placeholder) + '">' + esc(s.draft) + '</textarea>' +
-          '<button class="send" type="submit" aria-label="Versturen">' + ICON.send + '</button></form>' +
+          '<button class="send" type="submit" aria-label="' + esc(l.ariaSend) + '">' + ICON.send + '</button></form>' +
           aiNote();
       }
       if (s.phase === 'form') {
@@ -1100,11 +1260,11 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     }
 
     function render(focusDraft) {
-      var l = L(), html = '', lab = APP[site].label.trim() || l.launcher;
+      var l = L(), html = '', lab = launcherLabel();
       if (mode === 'widget') {
         if (s.open) html += '<div class="panel"><div class="chat">' + head() + body() + dialog() + '</div></div>';
-        html += '<button class="launcher' + (s.open ? ' round' : '') + '" data-act="toggle" aria-label="' + esc(s.open ? 'Chat sluiten' : lab) + '">' +
-          (s.open ? ICON.close : ICON.chat + '<span>' + esc(lab) + '</span>') + '</button>';
+        html += '<button class="launcher' + (s.open || !lab ? ' round' : '') + '" data-act="toggle" aria-label="' + esc(s.open ? l.ariaClose : (lab || l.launcher)) + '">' +
+          (s.open ? ICON.close : launcherIcon() + (lab ? '<span>' + esc(lab) + '</span>' : '')) + '</button>';
       } else {
         html = '<div class="chat">' + head() + body() + dialog() + '</div>';
       }
@@ -1226,9 +1386,32 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     var b = e.target.closest('button'); if (!b) return;
     active().setPhase(b.getAttribute('data-state')); syncControls();
   });
+  function siteName() { return lang === 'fr' ? (site === 'kanker' ? 'Cancer.be' : 'Tabacstop') : CFG[site].name; }
+  function applyChrome() {
+    var c = PC[lang], el = function (id) { return document.getElementById(id); }, name = c.title(siteName());
+    document.documentElement.lang = lang;
+    el('proto-back-t').textContent = c.back;
+    el('proto-back').setAttribute('href', './?lang=' + lang);
+    el('proto-h1').textContent = name;
+    el('proto-sub').textContent = c.sub;
+    document.title = name;
+    el('tab-embed').textContent = c.tabEmbed; el('tab-widget').textContent = c.tabWidget; el('tab-beheer').textContent = c.tabAdmin;
+    document.querySelector('.tabs').setAttribute('aria-label', c.tabsLabel);
+    el('lang-seg').setAttribute('aria-label', c.langLabel);
+    el('lbl-site').textContent = c.lblSite; el('lbl-step').textContent = c.lblStep;
+    el('state-seg').querySelector('[data-state="bot"]').textContent = c.stBot;
+    el('state-seg').querySelector('[data-state="form"]').textContent = c.stForm;
+    el('state-seg').querySelector('[data-state="rate"]').textContent = c.stRate;
+    el('mockup-note').innerHTML = c.note;
+  }
+  function setLang(l) {
+    lang = l;
+    try { localStorage.setItem('stk-lang', l); } catch (err) {}
+    refreshChats(); applyChrome(); syncControls(); Admin.refresh();
+  }
   document.getElementById('lang-seg').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
-    lang = b.getAttribute('data-lang'); refreshChats(); syncControls();
+    setLang(b.getAttribute('data-lang'));
   });
 
   function show(v) {
@@ -1248,43 +1431,43 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
   /* ---------- Admin ---------- */
   var Admin = (function () {
     var root = document.getElementById('admin');
-    var STATUS = { solved: 'Opgelost', left: 'Bericht achtergelaten', unanswered: 'Niet beantwoord' };
+    var STATUS = { solved: 'Solved', left: 'Message left', unanswered: 'Unanswered' };
     var archive = [
-      { id: 101, email: 'els.m@voorbeeld.be', date: 'Vandaag 10:42', name: 'Els', topic: 'Medicatie en zwangerschap', status: 'left', dur: '3 min', rating: 4, lang: 'NL', comment: '',
-        msgs: [['visitor', 'Mag ik nicotinepleisters gebruiken als ik zwanger ben?'], ['bot', 'Over medicatie, dosissen of zwangerschap geef ik geen advies. Dat bespreek je best met een tabakoloog of je huisarts. Je kunt een bericht voor een tabakoloog achterlaten.'], ['visitor', 'Je kunt me bereiken op els.m@voorbeeld.be of 0470 12 34 56.'], ['sys', 'Bericht achtergelaten voor een tabakoloog']] },
-      { id: 102, date: 'Vandaag 10:15', name: 'Anoniem', topic: 'Nicotinevervangers', status: 'solved', dur: '3 min', rating: 4, lang: 'NL', comment: '',
+      { id: 101, email: 'els.m@voorbeeld.be', date: 'Today 10:42', name: 'Els', topic: 'Medication and pregnancy', status: 'left', dur: '3 min', rating: 4, lang: 'NL', comment: '',
+        msgs: [['visitor', 'Mag ik nicotinepleisters gebruiken als ik zwanger ben?'], ['bot', 'Over medicatie, dosissen of zwangerschap geef ik geen advies. Dat bespreek je best met een tabakoloog of je huisarts. Je kunt een bericht voor een tabakoloog achterlaten.'], ['visitor', 'Je kunt me bereiken op els.m@voorbeeld.be of 0470 12 34 56.'], ['sys', 'Message left for a tobacco counsellor']] },
+      { id: 102, date: 'Today 10:15', name: 'Anonymous', topic: 'Nicotine replacement', status: 'solved', dur: '3 min', rating: 4, lang: 'NL', comment: '',
         msgs: [['visitor', 'Welke nicotinevervangers zijn er?'], ['bot', 'Er zijn pleisters, kauwgom, zuigtabletten, een inhalator en een mondspray. Ze werken het best samen met begeleiding.'], ['visitor', 'Dank je!']] },
-      { id: 103, date: 'Vandaag 09:58', name: 'Luc', topic: 'Brochures', status: 'solved', dur: '2 min', rating: 5, lang: 'NL', comment: '',
+      { id: 103, date: 'Today 09:58', name: 'Luc', topic: 'Brochures', status: 'solved', dur: '2 min', rating: 5, lang: 'NL', comment: '',
         msgs: [['visitor', 'Kan ik de brochure over nicotinevervangers ook op papier krijgen?'], ['bot', 'Ja. Op de pagina Brochures kun je ze downloaden of gratis op papier bestellen.']] },
-      { id: 104, date: 'Vandaag 09:31', name: 'Anoniem', topic: 'Kosten van begeleiding', status: 'unanswered', dur: '1 min', rating: null, lang: 'NL', comment: '',
-        msgs: [['visitor', 'Hoeveel kost een sessie bij een tabakoloog?'], ['bot', 'Daarover vind ik niets in de informatie van Tabakstop, en ik wil je geen verkeerd antwoord geven. Laat een bericht achter, dan krijg je antwoord per e-mail.'], ['sys', 'Bezoeker verliet het gesprek zonder bericht achter te laten']] },
-      { id: 105, date: 'Vandaag 02:14', name: 'Anoniem', topic: 'Ontwenning', status: 'solved', dur: '5 min', rating: 4, lang: 'NL', comment: '',
+      { id: 104, date: 'Today 09:31', name: 'Anonymous', topic: 'Cost of counselling', status: 'unanswered', dur: '1 min', rating: null, lang: 'NL', comment: '',
+        msgs: [['visitor', 'Hoeveel kost een sessie bij een tabakoloog?'], ['bot', 'Daarover vind ik niets in de informatie van Tabakstop, en ik wil je geen verkeerd antwoord geven. Laat een bericht achter, dan krijg je antwoord per e-mail.'], ['sys', 'Visitor left without leaving a message']] },
+      { id: 105, date: 'Today 02:14', name: 'Anonymous', topic: 'Withdrawal', status: 'solved', dur: '5 min', rating: 4, lang: 'NL', comment: '',
         msgs: [['visitor', 'Ik kan niet slapen sinds ik gestopt ben.'], ['bot', 'Slaapproblemen komen vaak voor in de eerste weken na het stoppen en gaan meestal vanzelf over.'], ['visitor', 'Oké, dat stelt me gerust.']] },
-      { id: 106, email: 'camille.r@exemple.be', date: 'Gisteren 16:20', name: 'Camille', topic: 'Remboursement', status: 'left', dur: '4 min', rating: 3, lang: 'FR', comment: 'Pas de réponse immédiate.',
-        msgs: [['visitor', 'Est-ce que les consultations sont remboursées ?'], ['bot', 'Je ne trouve rien à ce sujet dans les informations de Tabacstop. Laissez un message, vous recevrez une réponse par e-mail.'], ['sys', 'Bericht achtergelaten voor een tabakoloog']] },
-      { id: 107, email: 'anoniem@voorbeeld.be', date: 'Gisteren 21:47', name: 'Anoniem', topic: 'Moeilijke situatie', status: 'left', dur: '2 min', rating: null, lang: 'NL', comment: '',
-        msgs: [['visitor', 'Ik zie het echt niet meer zitten.'], ['bot', 'Het klinkt alsof je het nu heel moeilijk hebt. Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.'], ['sys', 'Bericht achtergelaten voor een tabakoloog']] },
-      { id: 108, email: 'tom.v@voorbeeld.be', date: 'Gisteren 15:02', name: 'Tom', topic: 'Aankomen na het stoppen', status: 'left', dur: '5 min', rating: 3, lang: 'NL', comment: 'Ik had meer concrete tips verwacht.',
-        msgs: [['visitor', 'Ik ben aangekomen sinds ik gestopt ben.'], ['bot', 'Daarover vind ik weinig in de informatie van Tabakstop. Laat een bericht achter, dan antwoordt een tabakoloog per e-mail.'], ['sys', 'Bericht achtergelaten voor een tabakoloog']] },
-      { id: 109, date: 'Zo 21 sep 14:33', name: 'Anoniem', topic: 'E-sigaret', status: 'solved', dur: '4 min', rating: 2, lang: 'NL', comment: 'Geen duidelijk antwoord.',
+      { id: 106, email: 'camille.r@exemple.be', date: 'Yesterday 16:20', name: 'Camille', topic: 'Reimbursement', status: 'left', dur: '4 min', rating: 3, lang: 'FR', comment: 'Pas de réponse immédiate.',
+        msgs: [['visitor', 'Est-ce que les consultations sont remboursées ?'], ['bot', 'Je ne trouve rien à ce sujet dans les informations de Tabacstop. Laissez un message, vous recevrez une réponse par e-mail.'], ['sys', 'Message left for a tobacco counsellor']] },
+      { id: 107, email: 'anoniem@voorbeeld.be', date: 'Yesterday 21:47', name: 'Anonymous', topic: 'Difficult situation', status: 'left', dur: '2 min', rating: null, lang: 'NL', comment: '',
+        msgs: [['visitor', 'Ik zie het echt niet meer zitten.'], ['bot', 'Het klinkt alsof je het nu heel moeilijk hebt. Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.'], ['sys', 'Message left for a tobacco counsellor']] },
+      { id: 108, email: 'tom.v@voorbeeld.be', date: 'Yesterday 15:02', name: 'Tom', topic: 'Weight gain after quitting', status: 'left', dur: '5 min', rating: 3, lang: 'NL', comment: 'Ik had meer concrete tips verwacht.',
+        msgs: [['visitor', 'Ik ben aangekomen sinds ik gestopt ben.'], ['bot', 'Daarover vind ik weinig in de informatie van Tabakstop. Laat een bericht achter, dan antwoordt een tabakoloog per e-mail.'], ['sys', 'Message left for a tobacco counsellor']] },
+      { id: 109, date: 'Sun 21 Sep 14:33', name: 'Anonymous', topic: 'E-cigarette', status: 'solved', dur: '4 min', rating: 2, lang: 'NL', comment: 'Geen duidelijk antwoord.',
         msgs: [['visitor', 'Kan ik stoppen met een e-sigaret?'], ['bot', 'Op tabakstop.be lees je meer over de e-sigaret en andere nicotineproducten.']] },
-      { id: 110, date: 'Zo 21 sep 13:10', name: 'Julie', topic: 'Arrêter de fumer', status: 'solved', dur: '6 min', rating: 5, lang: 'FR', comment: '',
+      { id: 110, date: 'Sun 21 Sep 13:10', name: 'Julie', topic: 'Quitting smoking', status: 'solved', dur: '6 min', rating: 5, lang: 'FR', comment: '',
         msgs: [['visitor', 'Comment se passe un accompagnement ?'], ['bot', "Un tabacologue vous aide à établir un plan d'arrêt adapté et vous accompagne pendant les premières semaines."]] }
     ];
 
 
-    function W(id, title, url, lang, age, extra) { return Object.assign({ id: id, kind: 'web', title: title, url: url, lang: lang, status: 'ok', pages: 1, age: age, auto: 'weekly', reason: '' }, extra || {}); }
-    function P(id, file, mb, lang, pages, age, extra) { return Object.assign({ id: id, kind: 'pdf', title: file, url: '', lang: lang, status: 'ok', pages: pages, age: age, auto: 'off', size: Math.round(mb * 1048576), reason: '' }, extra || {}); }
+    function W(id, title, url, lang, age, extra) { return Object.assign({ id: id, kind: 'web', title: title, url: url, lang: lang, status: 'ok', pages: 1, age: age, origin: 'sitemap', mod: null, reason: '' }, extra || {}); }
+    function P(id, file, mb, lang, pages, age, extra) { return Object.assign({ id: id, kind: 'pdf', title: file, url: '', lang: lang, status: 'ok', pages: pages, age: age, origin: 'manual', mod: null, size: Math.round(mb * 1048576), reason: '' }, extra || {}); }
     var SRC = {
       tabakstop: [
         W(1, 'Stoppen met roken is mogelijk', 'https://www.tabakstop.be/pagina/stoppen-met-roken', 'NL', 4320),
         W(2, 'Stoppen met begeleiding', 'https://www.tabakstop.be/pagina/begeleiding', 'NL', 20160),
-        W(3, 'Omgaan met ontwenningsverschijnselen', 'https://www.tabakstop.be/pagina/ontwenning', 'NL', 43200),
-        W(4, 'Zwanger en roken', 'https://www.tabakstop.be/pagina/zwanger', 'NL', 0, { status: 'busy' }),
-        W(5, 'Nicotine en nicotineproducten', 'https://www.tabakstop.be/pagina/nicotine', 'NL', 20160, { auto: 'daily' }),
+        W(3, 'Omgaan met ontwenningsverschijnselen', 'https://www.tabakstop.be/pagina/ontwenning', 'NL', 43200, { status: 'changed' }),
+        W(4, 'Zwanger en roken', 'https://www.tabakstop.be/pagina/zwanger', 'NL', 0, { status: 'busy', origin: 'manual' }),
+        W(5, 'Nicotine en nicotineproducten', 'https://www.tabakstop.be/pagina/nicotine', 'NL', 20160),
         W(6, 'Arrêter avec un accompagnement', 'https://www.tabacstop.be/fr/page/accompagnement', 'FR', 20160),
         W(7, 'Gérer les symptômes de manque', 'https://www.tabacstop.be/fr/page/sevrage', 'FR', 43200),
-        W(8, 'Hulp bij e-sigaret', 'https://www.tabakstop.be/pagina/e-sigaret', 'NL', 1440, { status: 'failed', reason: 'Time-out bij het ophalen van de pagina' }),
+        W(8, 'Hulp bij e-sigaret', 'https://www.tabakstop.be/pagina/e-sigaret', 'NL', 1440, { status: 'failed', origin: 'manual', reason: 'Timed out while fetching the page' }),
         P(9, 'Brochure Nicotinevervangers.pdf', 2.4, 'NL', 24, 172800),
         P(10, 'Brochure Ik voel me zoveel beter.pdf', 3.1, 'NL', 32, 172800),
         P(11, 'Brochure Substituts nicotiniques.pdf', 2.4, 'FR', 24, 172800),
@@ -1293,18 +1476,18 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       kanker: [
         W(1, 'Borstkanker: risicofactoren', 'https://www.kanker.be/kankerinfo/borstkanker/risicofactoren', 'NL', 4320),
         W(2, 'Chemotherapie: wat kun je verwachten', 'https://www.kanker.be/kankerinfo/behandelingen/chemotherapie', 'NL', 20160),
-        W(3, 'Bevolkingsonderzoek: wie wordt uitgenodigd', 'https://www.kanker.be/kankerinfo/preventie/bevolkingsonderzoek', 'NL', 43200),
-        W(4, 'Voeding en kanker', 'https://www.kanker.be/kankerinfo/leven-met-kanker/voeding', 'NL', 20160, { auto: 'daily' }),
+        W(3, 'Bevolkingsonderzoek: wie wordt uitgenodigd', 'https://www.kanker.be/kankerinfo/preventie/bevolkingsonderzoek', 'NL', 43200, { status: 'changed' }),
+        W(4, 'Voeding en kanker', 'https://www.kanker.be/kankerinfo/leven-met-kanker/voeding', 'NL', 20160),
         W(5, 'Werk en kanker', 'https://www.kanker.be/kankerinfo/leven-met-kanker/werk', 'NL', 43200),
-        W(6, 'Rouw en verlies', 'https://www.kanker.be/kankerinfo/leven-met-kanker/rouw', 'NL', 0, { status: 'busy' }),
+        W(6, 'Rouw en verlies', 'https://www.kanker.be/kankerinfo/leven-met-kanker/rouw', 'NL', 0, { status: 'busy', origin: 'manual' }),
         W(7, 'Cancer du sein : facteurs de risque', 'https://www.cancer.be/fr/cancer-du-sein/facteurs-de-risque', 'FR', 20160),
         W(8, 'Dépistage organisé : qui est invité', 'https://www.cancer.be/fr/depistage', 'FR', 43200),
-        W(9, 'Steun voor kinderen van een zieke ouder', 'https://www.kanker.be/kankerinfo/steun/kinderen', 'NL', 1440, { status: 'failed', reason: 'Pagina niet gevonden (404)' }),
+        W(9, 'Steun voor kinderen van een zieke ouder', 'https://www.kanker.be/kankerinfo/steun/kinderen', 'NL', 1440, { status: 'failed', origin: 'manual', reason: 'Page not found (404)' }),
         P(10, 'Borstkanker - brochure.pdf', 3.4, 'NL', 28, 172800),
         P(11, 'Chemotherapie - brochure.pdf', 2.1, 'NL', 20, 172800),
         P(12, 'Leven na kanker - brochure.pdf', 4.8, 'NL', 44, 172800),
         P(13, 'Chimiothérapie - brochure.pdf', 2, 'FR', 20, 172800),
-        P(14, 'Rouw - brochure.pdf', 1.2, 'NL', 0, 2880, { status: 'failed', reason: 'Bestand is beveiligd met een wachtwoord' })
+        P(14, 'Rouw - brochure.pdf', 1.2, 'NL', 0, 2880, { status: 'failed', reason: 'File is password protected' })
       ]
     };
     var SITEMAP = {
@@ -1321,35 +1504,46 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
         for (var i = 0; i < c[1]; i++) {
           var tp = S.topics[i % S.topics.length], sb = S.subs[Math.floor(i / S.topics.length) % S.subs.length], url = S.host + S.nl + tp + '/' + sb;
           if (seen[url]) continue; seen[url] = true;
-          var ex = i % 37 === 5 ? { status: 'failed', reason: 'Pagina niet gevonden (404)' } : i % 19 === 7 ? { auto: 'off' } : i % 11 === 3 ? { auto: 'daily' } : {};
+          var ex = i % 37 === 5 ? { status: 'failed', reason: 'Page not found (404)' } : i % 16 === 7 ? { status: 'changed' } : i % 23 === 11 ? { origin: 'manual' } : {};
           list.push(W(id++, cap(tp) + ' - ' + cap(sb).toLowerCase(), url, 'NL', 40 + (i * 997) % 40000, ex));
         }
       });
+      Object.keys(SRC).forEach(function (k) {
+        SRC[k].forEach(function (x) {
+          if (x.kind !== 'web' || x.origin === 'manual') { x.mod = null; return; }
+          if (x.status === 'changed') { x.age = Math.max(x.age, 4320); x.mod = Math.max(0, Math.floor(x.age / 1440) - 2); }
+          else x.mod = Math.ceil(x.age / 1440) + 2 + (x.id % 30);
+        });
+      });
     })();
-    var LEFT_K = 'Bericht achtergelaten voor een kankerinfo-medewerker';
+    var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    function fmtDate(daysAgo) { var d = new Date(new Date(2025, 8, 23).getTime() - daysAgo * 86400000); return d.getDate() + ' ' + MON[d.getMonth()] + ' ' + d.getFullYear(); }
+    var SYNC = { tabakstop: { last: 2 * 1440 + 180, next: 4 * 1440 + 720 }, kanker: { last: 3 * 1440 + 60, next: 3 * 1440 + 1380 } };
+    var sync = SYNC.tabakstop;
+    var LEFT_K = 'Message left for a cancer-info staff member';
     var DATA = {
       tabakstop: { archive: archive, srcs: SRC.tabakstop, arcSel: 101 },
       kanker: { arcSel: 201, srcs: SRC.kanker,
         archive: [
-          { id: 201, email: 'els.m@voorbeeld.be', date: 'Vandaag 10:42', name: 'Els', topic: 'Klacht: knobbel in de borst', status: 'left', dur: '3 min', rating: 4, lang: 'NL', comment: '',
+          { id: 201, email: 'els.m@voorbeeld.be', date: 'Today 10:42', name: 'Els', topic: 'Symptom: lump in the breast', status: 'left', dur: '3 min', rating: 4, lang: 'NL', comment: '',
             msgs: [['visitor', 'Ik heb een knobbeltje in mijn borst gevoeld. Is dat kanker?'], ['bot', 'Een diagnose stellen of klachten duiden kan ik niet. Dat bespreek je best met je huisarts. Je kunt een bericht voor een kankerinfo-medewerker achterlaten.'], ['visitor', 'Je kunt me bereiken op els.m@voorbeeld.be of 0470 12 34 56.'], ['sys', LEFT_K]] },
-          { id: 202, date: 'Vandaag 10:15', name: 'Anoniem', topic: 'Bevolkingsonderzoek', status: 'solved', dur: '3 min', rating: 4, lang: 'NL', comment: '',
+          { id: 202, date: 'Today 10:15', name: 'Anonymous', topic: 'Population screening', status: 'solved', dur: '3 min', rating: 4, lang: 'NL', comment: '',
             msgs: [['visitor', 'Wat is een bevolkingsonderzoek?'], ['bot', 'Een bevolkingsonderzoek is een onderzoek voor mensen zonder klachten, om bepaalde kankers vroeg op te sporen. De overheid nodigt de doelgroep uit.'], ['visitor', 'Dank je!']] },
-          { id: 203, date: 'Vandaag 09:58', name: 'Luc', topic: 'Chemotherapie', status: 'solved', dur: '2 min', rating: 5, lang: 'NL', comment: '',
+          { id: 203, date: 'Today 09:58', name: 'Luc', topic: 'Chemotherapy', status: 'solved', dur: '2 min', rating: 5, lang: 'NL', comment: '',
             msgs: [['visitor', 'Hoe verloopt een chemotherapie?'], ['bot', 'Een chemotherapie bestaat meestal uit meerdere behandelcycli, met rustperiodes ertussen. Je behandelend arts legt het schema uit.']] },
-          { id: 204, date: 'Vandaag 09:31', name: 'Anoniem', topic: 'Brochure in andere taal', status: 'unanswered', dur: '1 min', rating: null, lang: 'NL', comment: '',
-            msgs: [['visitor', 'Is de brochure over rouw ook in het Arabisch beschikbaar?'], ['bot', 'Daarover vind ik niets in de informatie van Kanker.be. Laat een bericht achter, dan krijg je antwoord per e-mail.'], ['sys', 'Bezoeker verliet het gesprek zonder bericht achter te laten']] },
-          { id: 205, date: 'Vandaag 02:14', name: 'Anoniem', topic: 'Voeding', status: 'solved', dur: '4 min', rating: 4, lang: 'NL', comment: '',
+          { id: 204, date: 'Today 09:31', name: 'Anonymous', topic: 'Brochure in another language', status: 'unanswered', dur: '1 min', rating: null, lang: 'NL', comment: '',
+            msgs: [['visitor', 'Is de brochure over rouw ook in het Arabisch beschikbaar?'], ['bot', 'Daarover vind ik niets in de informatie van Kanker.be. Laat een bericht achter, dan krijg je antwoord per e-mail.'], ['sys', 'Visitor left without leaving a message']] },
+          { id: 205, date: 'Today 02:14', name: 'Anonymous', topic: 'Nutrition', status: 'solved', dur: '4 min', rating: 4, lang: 'NL', comment: '',
             msgs: [['visitor', 'Welke voeding past bij een gezonde levensstijl?'], ['bot', 'Een gevarieerd voedingspatroon met veel groenten en fruit en weinig alcohol en bewerkt vlees is een goede basis.'], ['visitor', 'Oké, bedankt.']] },
-          { id: 206, email: 'camille.r@exemple.be', date: 'Gisteren 16:20', name: 'Camille', topic: 'Remboursement d’une perruque', status: 'left', dur: '4 min', rating: 3, lang: 'FR', comment: 'Pas de réponse immédiate.',
+          { id: 206, email: 'camille.r@exemple.be', date: 'Yesterday 16:20', name: 'Camille', topic: 'Wig reimbursement', status: 'left', dur: '4 min', rating: 3, lang: 'FR', comment: 'Pas de réponse immédiate.',
             msgs: [['visitor', 'Une perruque est-elle remboursée ?'], ['bot', 'Je ne trouve rien à ce sujet dans les informations de Cancer.be. Laissez un message, vous recevrez une réponse par e-mail.'], ['sys', LEFT_K]] },
-          { id: 207, email: 'anoniem@voorbeeld.be', date: 'Gisteren 21:47', name: 'Anoniem', topic: 'Rouw', status: 'left', dur: '2 min', rating: null, lang: 'NL', comment: '',
-            msgs: [['visitor', 'Mijn man is overleden aan kanker en ik zie het echt niet meer zitten.'], ['bot', 'Het klinkt alsof je het nu heel zwaar hebt. Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.'], ['sys', LEFT_K]] },
-          { id: 208, email: 'tom.v@voorbeeld.be', date: 'Gisteren 15:02', name: 'Tom', topic: 'Werk en kanker', status: 'left', dur: '5 min', rating: 3, lang: 'NL', comment: 'Ik had meer concrete tips verwacht.',
+          { id: 207, email: 'anoniem@voorbeeld.be', date: 'Yesterday 21:47', name: 'Anonymous', topic: 'Grief', status: 'left', dur: '2 min', rating: null, lang: 'NL', comment: '',
+            msgs: [['visitor', 'Mijn man is overleden aan kanker en ik zie het echt niet meer zitten.'], ['bot', 'Het klinkt alsof je het nu heel zwaar hebt. Je staat er niet alleen voor. Wil je met iemand praten? Bel de Kankerlijn gratis op 0800 15 801, op werkdagen, of laat hier een bericht achter.'], ['sys', LEFT_K]] },
+          { id: 208, email: 'tom.v@voorbeeld.be', date: 'Yesterday 15:02', name: 'Tom', topic: 'Work and cancer', status: 'left', dur: '5 min', rating: 3, lang: 'NL', comment: 'Ik had meer concrete tips verwacht.',
             msgs: [['visitor', 'Moet ik mijn werkgever zeggen dat ik kanker heb?'], ['bot', 'Daarover vind ik weinig in de informatie van Kanker.be. Laat een bericht achter, dan antwoordt een kankerinfo-medewerker per e-mail.'], ['sys', LEFT_K]] },
-          { id: 209, date: 'Zo 21 sep 14:33', name: 'Anoniem', topic: 'Risicofactoren', status: 'solved', dur: '4 min', rating: 2, lang: 'NL', comment: 'Geen duidelijk antwoord.',
+          { id: 209, date: 'Sun 21 Sep 14:33', name: 'Anonymous', topic: 'Risk factors', status: 'solved', dur: '4 min', rating: 2, lang: 'NL', comment: 'Geen duidelijk antwoord.',
             msgs: [['visitor', 'Wat is mijn risico op darmkanker?'], ['bot', 'Op kanker.be lees je meer over risicofactoren van dikkedarmkanker.']] },
-          { id: 210, date: 'Zo 21 sep 13:10', name: 'Julie', topic: 'Dépistage', status: 'solved', dur: '6 min', rating: 5, lang: 'FR', comment: '',
+          { id: 210, date: 'Sun 21 Sep 13:10', name: 'Julie', topic: 'Screening', status: 'solved', dur: '6 min', rating: 5, lang: 'FR', comment: '',
             msgs: [['visitor', 'Qui est invité au dépistage du cancer du sein ?'], ['bot', "Les autorités invitent la population concernée. Vous trouverez les détails sur la page consacrée au dépistage organisé."]] }
         ]
 
@@ -1362,47 +1556,68 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
 
     var st = { page: 'sources', setTab: 'behavior', editing: {}, q: '', filter: 'all', arcSel: 101, period: 7, toast: null,
       add: null, addMenu: false, webMode: 'urls', webUrls: '', webErr: '', smUrl: SITEMAP.tabakstop.url, smErr: '', sm: null, sel: {}, smFilter: SITEMAP.tabakstop.filter,
-      webAuto: 'weekly', pdfLang: 'NL', pdfErrs: [], drag: false, srcQ: '', srcFilter: 'all', srcPage: 1, srcPer: 25, srcSort: 'title', srcDir: 1, srcSel: {}, bulkDel: false, delSrc: null, delArc: null,
-      hexDraft: null, snip: 'widget', copied: null, domains: { tabakstop: 'tabakstop.be, tabacstop.be', kanker: 'kanker.be, cancer.be' }, topicDraft: '', kwDraft: '', started: false };
+      pdfLang: 'NL', pdfErrs: [], drag: false, srcQ: '', srcFilter: 'all', srcPage: 1, srcPer: 25, srcSort: 'title', srcDir: 1, srcSel: {}, bulkDel: false, delSrc: null, delArc: null,
+      hexDraft: null, snip: 'widget', copied: null, domains: { tabakstop: 'tabakstop.be, tabacstop.be', kanker: 'kanker.be, cancer.be' }, topicDraft: '', sigKw: {}, sigDel: null, avErr: '',
+      started: false, userMenu: false, siteMenu: false, signedOut: false, syncing: false, uPeriod: 'this' };
 
-    function chip(l) { return '<span class="chip' + (l === 'FR' ? ' fr' : l === 'Overig' ? ' other' : '') + '">' + l + '</span>'; }
+    function chip(l) { return '<span class="chip' + (l === 'FR' ? ' fr' : l === 'Other' ? ' other' : '') + '">' + l + '</span>'; }
     function byId(list, id) { for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i]; return null; }
+    function unit(n, one) { return n + ' ' + one + (n === 1 ? '' : 's'); }
     function ago(m) {
-      if (m < 1) return 'zonet';
-      if (m < 60) return Math.round(m) + ' min geleden';
-      if (m < 1440) return Math.round(m / 60) + ' uur geleden';
-      if (m < 10080) return Math.round(m / 1440) + ' dagen geleden';
-      return Math.round(m / 10080) + ' weken geleden';
+      if (m < 1) return 'just now';
+      if (m < 60) return Math.round(m) + ' min ago';
+      if (m < 1440) return unit(Math.round(m / 60), 'hour') + ' ago';
+      if (m < 10080) return unit(Math.round(m / 1440), 'day') + ' ago';
+      return unit(Math.round(m / 10080), 'week') + ' ago';
     }
-    function fmtSize(b) { return (b / 1048576).toFixed(1).replace('.', ',') + ' MB'; }
+    function inRel(m) {
+      if (m < 60) return 'in under an hour';
+      if (m < 1440) return 'in ' + unit(Math.round(m / 60), 'hour');
+      if (m < 10080) return 'in ' + unit(Math.round(m / 1440), 'day');
+      return 'in ' + unit(Math.round(m / 10080), 'week');
+    }
+    function fmtSize(b) { return (b / 1048576).toFixed(1) + ' MB'; }
     function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
     function srcCounts() {
       var pages = 0, last = null;
-      srcs.forEach(function (x) { if (x.status !== 'failed') pages += x.pages; if (x.status === 'ok' && (last === null || x.age < last)) last = x.age; });
+      srcs.forEach(function (x) { if (x.status !== 'failed') pages += x.pages; if ((x.status === 'ok' || x.status === 'changed') && (last === null || x.age < last)) last = x.age; });
       return { n: srcs.length, pages: pages, last: last };
     }
 
+    var SITES = [['kanker', 'img/stk.png'], ['tabakstop', 'img/tabakstop.png']];
+    var CHEV = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+    function sitePicker() {
+      var c = CFG[cur], logo = SITES.filter(function (s) { return s[0] === cur; })[0][1];
+      var btn = '<button class="sp-btn" id="sp-btn" data-act="sitemenu" aria-haspopup="menu" aria-expanded="' + st.siteMenu + '"><span class="sp-logo"><img src="' + logo + '" alt="" width="24" height="24"></span><span class="sp-txt"><b>' + esc(c.name) + '</b><span>' + esc(c.domain) + '</span></span>' + CHEV + '</button>';
+      var menu = st.siteMenu ? '<div class="sp-menu" role="menu" aria-label="Sites">' + SITES.map(function (s) {
+        var cc = CFG[s[0]], on = s[0] === cur;
+        return '<button class="sp-it" role="menuitemradio" aria-checked="' + on + '" data-sitepick="' + s[0] + '"><span class="sp-logo"><img src="' + s[1] + '" alt="" width="24" height="24"></span><span class="sp-txt"><b>' + esc(cc.name) + '</b><span>' + esc(cc.domain) + '</span></span>' + (on ? '<span class="sp-check">' + ICON.check + '</span>' : '') + '</button>';
+      }).join('') + '<div class="sp-sep"></div><button class="sp-it sp-add" role="menuitem" aria-disabled="true" title="Not in this prototype"><span class="sp-plus" aria-hidden="true">+</span><span class="sp-txt"><b>Add site</b><span>Not in this prototype</span></span></button></div>' : '';
+      return '<div class="sp">' + btn + menu + '</div>';
+    }
+    function userBlock() {
+      var menu = st.userMenu ? '<div class="usr-menu" role="menu" aria-label="Account"><button class="usr-it" role="menuitem" disabled title="Not in this prototype">Account settings</button><button class="usr-it" role="menuitem" data-act="signout">Sign out</button></div>' : '';
+      return '<div class="usr">' + menu + '<button class="usr-btn" id="usr-btn" data-act="usermenu" aria-haspopup="menu" aria-expanded="' + st.userMenu + '"><span class="usr-av" aria-hidden="true">AP</span><span class="usr-txt"><b>Anna Peeters</b><span class="usr-role">Administrator</span><span class="usr-mail">anna.peeters@' + esc(CFG[cur].domain) + '</span></span></button></div>';
+    }
     function side() {
       function nav(k, label, icon, badge) {
         return '<button data-page="' + k + '"' + (st.page === k ? ' aria-current="page"' : '') + '>' + icon + '<span>' + label + '</span>' + (badge ? '<span class="badge">' + badge + '</span>' : '') + '</button>';
       }
-      return '<aside class="side">' +
-        '<div class="brandrow"><b>' + esc(CFG[cur].name) + '</b><span>AI</span></div>' +
-        '<nav aria-label="Beheer">' + nav('sources', 'Bronnen', ICON.book) + nav('archive', 'Gesprekken', ICON.chat) + nav('test', 'Test de assistent', ICON.test) + nav('stats', 'Statistieken', ICON.stats) + nav('settings', 'Instellingen', ICON.gear) + '</nav>' +
-        '</aside>';
+      return '<aside class="side">' + sitePicker() +
+        '<nav aria-label="Admin">' + nav('sources', 'Sources', ICON.book) + nav('archive', 'Conversations', ICON.chat) + nav('test', 'Test the assistant', ICON.test) + nav('stats', 'Statistics', ICON.stats) + nav('usage', 'Usage', ICON.usage) + nav('settings', 'Settings', ICON.gear) + '</nav>' +
+        userBlock() + '</aside>';
     }
 
     function tmsg(m) {
       if (m[0] === 'sys') return '<div class="sys">' + esc(m[1]) + '</div>';
-      if (m[0] === 'bot') return '<div class="msg bot"><small>AI-assistent</small>' + esc(mask(m[1])) + '</div>';
+      if (m[0] === 'bot') return '<div class="msg bot"><small>AI assistant</small>' + esc(mask(m[1])) + '</div>';
       return '<div class="msg me">' + esc(mask(m[1])) + '</div>';
     }
     function mask(t) {
       if (!PRIV[cur].mask) return t;
-      return String(t).replace(/([\w.+-])[\w.+-]*@([\w-]+\.[\w.-]+)/g, '$1***@$2').replace(/\+?\d[\d\s\/.-]{7,}\d/g, '[telefoon verborgen]');
+      return String(t).replace(/([\w.+-])[\w.+-]*@([\w-]+\.[\w.-]+)/g, '$1***@$2').replace(/\+?\d[\d\s\/.-]{7,}\d/g, '[phone hidden]');
     }
 
-    /* AI page */
     /* Sources */
     function genSitemap(k) {
       var c = SITEMAP[k], out = [], i;
@@ -1411,7 +1626,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       for (i = 1; out.length < 212; i++) out.push(i % 3 ? '/nieuws/bericht-' + i : (i % 2 ? '/evenementen/activiteit-' + i : '/en/page-' + i));
       return out.slice(0, 212).map(function (p) { return { url: c.host + p, path: p, hint: langHint(p) }; });
     }
-    function langHint(p) { return /^\/fr\//.test(p) ? 'FR' : /^\/(en|nieuws|evenementen)\//.test(p) ? 'Overig' : 'NL'; }
+    function langHint(p) { return /^\/fr\//.test(p) ? 'FR' : /^\/(en|nieuws|evenementen)\//.test(p) ? 'Other' : 'NL'; }
     function validUrl(u) { return /^https?:\/\/[a-z0-9-]+(\.[a-z0-9-]+)+(:\d+)?(\/\S*)?$/i.test(u); }
     function pathOf(u) { var m = u.match(/^https?:\/\/[^\/]+(\/[^?#]*)?/i); return (m && m[1]) || '/'; }
     function titleOf(u) {
@@ -1421,7 +1636,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     }
     function rerender() { if (st.page === 'sources') render(); }
     function addSource(o) {
-      var x = Object.assign({ id: nextSrc++, status: 'busy', pages: 1, age: 0, auto: 'off', reason: '' }, o);
+      var x = Object.assign({ id: nextSrc++, status: 'busy', pages: 1, age: 0, origin: 'manual', mod: null, reason: '' }, o);
       srcs.unshift(x);
       return x;
     }
@@ -1442,9 +1657,9 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     function handleFiles(files) {
       var errs = [], list = [].slice.call(files || []);
       list.forEach(function (f) {
-        if (!/\.pdf$/i.test(f.name) && f.type !== 'application/pdf') { errs.push(f.name + ': geen PDF-bestand.'); return; }
-        if (f.size > 25 * 1048576) { errs.push(f.name + ': groter dan 25 MB (' + fmtSize(f.size) + ').'); return; }
-        simulateUpload(addSource({ kind: 'pdf', title: f.name, url: '', lang: st.pdfLang === 'Beide' ? 'NL + FR' : st.pdfLang, size: f.size, pages: 0 }));
+        if (!/\.pdf$/i.test(f.name) && f.type !== 'application/pdf') { errs.push(f.name + ': not a PDF file.'); return; }
+        if (f.size > 25 * 1048576) { errs.push(f.name + ': larger than 25 MB (' + fmtSize(f.size) + ').'); return; }
+        simulateUpload(addSource({ kind: 'pdf', title: f.name, url: '', lang: st.pdfLang === 'Both' ? 'NL + FR' : st.pdfLang, size: f.size, pages: 0 }));
       });
       st.pdfErrs = errs;
       if (list.length && !errs.length) st.add = null;
@@ -1455,44 +1670,45 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       return srcs.filter(function (x) {
         if (st.srcFilter === 'web' && x.kind !== 'web') return false;
         if (st.srcFilter === 'pdf' && x.kind !== 'pdf') return false;
+        if (st.srcFilter === 'changed' && x.status !== 'changed') return false;
         if (st.srcFilter === 'failed' && x.status !== 'failed') return false;
         return !q || (x.title + ' ' + x.url).toLowerCase().indexOf(q) !== -1;
       });
     }
     function statusHtml(x) {
-      if (x.status === 'ok') return '<span class="status-pill ok">Ingelezen</span>';
-      if (x.status === 'busy') return '<span class="status-pill busy">Bezig met inlezen</span>';
-      if (x.status === 'upload') return '<span class="status-pill busy">Uploaden ' + Math.round(x.progress) + '%</span>';
-      return '<span class="status-pill failed" title="' + esc(x.reason) + '">Mislukt</span>';
+      if (x.status === 'ok') return '<span class="status-pill ok">Indexed</span>';
+      if (x.status === 'changed') return '<span class="status-pill changed" title="The page changed after it was indexed. It is re-indexed at the next sync.">Changed</span>';
+      if (x.status === 'busy') return '<span class="status-pill busy">Indexing</span>';
+      if (x.status === 'upload') return '<span class="status-pill busy">Uploading ' + Math.round(x.progress) + '%</span>';
+      return '<span class="status-pill failed" title="' + esc(x.reason) + '">Failed</span>';
     }
     function srcRow(x) {
-      var actions;
-      if (st.delSrc === x.id) actions = '<span class="ask">Verwijderen?</span><button class="lk del" data-act="delyes" data-id="' + x.id + '">Ja</button><button class="lk" data-act="delno">Nee</button>';
-      else actions = (x.status === 'ok' || x.status === 'failed' ? '<button class="ib" data-act="reread" data-id="' + x.id + '" title="' + (x.status === 'failed' ? 'Opnieuw proberen' : 'Opnieuw inlezen') + '" aria-label="' + (x.status === 'failed' ? 'Opnieuw proberen' : 'Opnieuw inlezen') + ': ' + esc(x.title) + '">' + ICON.refresh + '</button>' : '') +
-        '<button class="ib" data-act="delask" data-id="' + x.id + '" title="Verwijderen" aria-label="Verwijderen: ' + esc(x.title) + '">' + ICON.trash + '</button>';
-      var auto = x.kind === 'web'
-        ? '<select class="mini-sel" data-autoid="' + x.id + '" aria-label="Automatisch bijwerken: ' + esc(x.title) + '"><option value="off"' + (x.auto === 'off' ? ' selected' : '') + '>Uit</option><option value="daily"' + (x.auto === 'daily' ? ' selected' : '') + '>Dagelijks</option><option value="weekly"' + (x.auto === 'weekly' ? ' selected' : '') + '>Wekelijks</option></select>'
-        : '<span class="dash">—</span>';
+      var actions, canRe = x.status === 'ok' || x.status === 'changed' || x.status === 'failed', lbl = x.status === 'failed' ? 'Retry' : 'Re-index';
+      if (st.delSrc === x.id) actions = '<span class="ask">Delete?</span><button class="lk del" data-act="delyes" data-id="' + x.id + '">Yes</button><button class="lk" data-act="delno">No</button>';
+      else actions = (canRe ? '<button class="ib" data-act="reread" data-id="' + x.id + '" title="' + lbl + '" aria-label="' + lbl + ': ' + esc(x.title) + '">' + ICON.refresh + '</button>' : '') +
+        '<button class="ib" data-act="delask" data-id="' + x.id + '" title="Delete" aria-label="Delete: ' + esc(x.title) + '">' + ICON.trash + '</button>';
       var sub = x.status === 'failed' ? '<span class="u err">' + esc(x.reason) + '</span>' : '<span class="u">' + (x.kind === 'web' ? esc(x.url) : 'PDF · ' + fmtSize(x.size)) + '</span>';
-      return '<tr' + (st.srcSel[x.id] ? ' class="sel"' : '') + '><td class="ck"><input type="checkbox" data-srcck="' + x.id + '"' + (st.srcSel[x.id] ? ' checked' : '') + ' aria-label="Selecteer ' + esc(x.title) + '"></td>' +
-        '<td><div class="nm" title="' + esc(x.title + (x.url ? ' · ' + x.url : '')) + '"><span class="ic" aria-hidden="true">' + (x.kind === 'web' ? ICON.page : ICON.doc) + '</span><b>' + esc(x.title) + '</b>' + sub + '</div></td>' +
+      var tag = x.origin === 'sitemap' ? '<span class="stag sitemap">Sitemap</span>' : '<span class="stag manual">Manual</span>';
+      return '<tr' + (st.srcSel[x.id] ? ' class="sel"' : '') + '><td class="ck"><input type="checkbox" data-srcck="' + x.id + '"' + (st.srcSel[x.id] ? ' checked' : '') + ' aria-label="Select ' + esc(x.title) + '"></td>' +
+        '<td><div class="nm" title="' + esc(x.title + (x.url ? ' · ' + x.url : '')) + '"><span class="ic" aria-hidden="true">' + (x.kind === 'web' ? ICON.page : ICON.doc) + '</span><b>' + esc(x.title) + '</b>' + tag + sub + '</div></td>' +
         '<td>' + chip(x.lang) + '</td>' +
         '<td>' + statusHtml(x) + '</td>' +
         '<td class="num">' + (x.status === 'failed' || x.status === 'upload' ? '—' : x.pages) + '</td>' +
-        '<td class="c-rd">' + (x.status === 'ok' ? ago(x.age) : '—') + '</td>' +
-        '<td>' + auto + '</td>' +
+        '<td class="c-rd">' + (x.mod != null ? fmtDate(x.mod) : '<span class="dash" title="No last-modified date available">—</span>') + '</td>' +
+        '<td class="c-rd">' + (x.status === 'ok' || x.status === 'changed' ? ago(x.age) : '—') + '</td>' +
         '<td class="ac">' + actions + '</td></tr>';
     }
-    var STAT_ORDER = { failed: 0, busy: 1, upload: 1, ok: 2 };
+    var STAT_ORDER = { failed: 0, changed: 1, busy: 2, upload: 2, ok: 3 };
     function sortRows(rows) {
       var k = st.srcSort, d = st.srcDir;
       return rows.slice().sort(function (a, b) {
         var r;
         if (k === 'pages') r = a.pages - b.pages;
         else if (k === 'age') r = a.age - b.age;
+        else if (k === 'mod') r = (a.mod == null ? 99999 : a.mod) - (b.mod == null ? 99999 : b.mod);
         else if (k === 'status') r = STAT_ORDER[a.status] - STAT_ORDER[b.status];
-        else r = a.title.localeCompare(b.title, 'nl');
-        return (r || a.title.localeCompare(b.title, 'nl')) * d;
+        else r = a.title.localeCompare(b.title, 'en');
+        return (r || a.title.localeCompare(b.title, 'en')) * d;
       });
     }
     function srcTable(rows) {
@@ -1505,91 +1721,98 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
         var on = st.srcSort === k;
         return '<th' + (cls ? ' class="' + cls + '"' : '') + (on ? ' aria-sort="' + (st.srcDir === 1 ? 'ascending' : 'descending') + '"' : '') + '><button data-srcsort="' + k + '">' + label + (on ? (st.srcDir === 1 ? ' ↑' : ' ↓') : '') + '</button></th>';
       }
-      var bulk = nSel ? '<div class="sbulk" role="status"><b>' + nSel + ' geselecteerd</b>' + (st.bulkDel
-        ? '<span>' + plural(nSel, 'bron', 'bronnen') + ' verwijderen?</span><button class="btn small" data-act="bulkdelyes">Ja, verwijderen</button><button class="btn ghost small" data-act="bulkdelno">Annuleren</button>'
-        : '<button class="btn ghost small" data-act="bulkreread">Opnieuw inlezen</button><button class="btn ghost small" data-act="bulkdel">Verwijderen</button><button class="btn ghost small" data-act="bulkclear">Selectie opheffen</button>') + '</div>' : '';
-      var table = '<div class="stable-wrap"><table class="stable" aria-label="Bronnen"><colgroup><col style="width:36px"><col><col style="width:64px"><col style="width:118px"><col style="width:74px"><col class="c-rd" style="width:136px"><col style="width:98px"><col style="width:96px"></colgroup>' +
-        '<thead><tr><th class="ck"><input type="checkbox" data-srcall' + (allOn ? ' checked' : '') + ' aria-label="Alles op deze pagina selecteren"></th>' + th('title', 'Bron') + '<th>Taal</th>' + th('status', 'Status') + th('pages', 'Pagina\'s', 'num') + th('age', 'Gelezen', 'h-rd') + '<th>Bijwerken</th><th class="ac"><span class="sr-only">Acties</span></th></tr></thead><tbody>' +
+      var bulk = nSel ? '<div class="sbulk" role="status"><b>' + nSel + ' selected</b>' + (st.bulkDel
+        ? '<span>Delete ' + plural(nSel, 'source', 'sources') + '?</span><button class="btn small" data-act="bulkdelyes">Yes, delete</button><button class="btn ghost small" data-act="bulkdelno">Cancel</button>'
+        : '<button class="btn ghost small" data-act="bulkreread">Re-index</button><button class="btn ghost small" data-act="bulkdel">Delete</button><button class="btn ghost small" data-act="bulkclear">Clear selection</button>') + '</div>' : '';
+      var table = '<div class="stable-wrap"><table class="stable" aria-label="Sources"><colgroup><col style="width:36px"><col><col style="width:64px"><col style="width:100px"><col style="width:66px"><col class="c-rd" style="width:116px"><col class="c-rd" style="width:104px"><col style="width:96px"></colgroup>' +
+        '<thead><tr><th class="ck"><input type="checkbox" data-srcall' + (allOn ? ' checked' : '') + ' aria-label="Select all on this page"></th>' + th('title', 'Source') + '<th>Lang</th>' + th('status', 'Status') + th('pages', 'Pages', 'num') + th('mod', 'Last modified', 'h-rd') + th('age', 'Indexed', 'h-rd') + '<th class="ac"><span class="sr-only">Actions</span></th></tr></thead><tbody>' +
         view.map(srcRow).join('') + '</tbody></table></div>';
-      var pager = '<div class="spager"><span>' + (rows.length ? (from + 1) + '–' + (from + view.length) + ' van ' + rows.length : '0 bronnen') + '</span><span class="sp"><label for="src-per">Per pagina</label><select id="src-per" data-bind="srcPer">' +
+      var pager = '<div class="spager"><span>' + (rows.length ? (from + 1) + '–' + (from + view.length) + ' of ' + rows.length : '0 sources') + '</span><span class="sp-pg"><label for="src-per">Per page</label><select id="src-per" data-bind="srcPer">' +
         [25, 50, 100].map(function (n) { return '<option value="' + n + '"' + (per === n ? ' selected' : '') + '>' + n + '</option>'; }).join('') + '</select>' +
-        '<button data-srcpage="' + (st.srcPage - 1) + '"' + (st.srcPage <= 1 ? ' disabled' : '') + '>Vorige</button><span>Pagina ' + st.srcPage + ' van ' + pages + '</span><button data-srcpage="' + (st.srcPage + 1) + '"' + (st.srcPage >= pages ? ' disabled' : '') + '>Volgende</button></span></div>';
+        '<button data-srcpage="' + (st.srcPage - 1) + '"' + (st.srcPage <= 1 ? ' disabled' : '') + '>Previous</button><span>Page ' + st.srcPage + ' of ' + pages + '</span><button data-srcpage="' + (st.srcPage + 1) + '"' + (st.srcPage >= pages ? ' disabled' : '') + '>Next</button></span></div>';
       return bulk + table + pager;
     }
     function webPanel() {
-      var h = '<div class="card addcard"><div class="pane-head"><h3>Webpagina\'s toevoegen</h3><button class="toggle-link" data-act="closeadd">Sluiten</button></div>' +
-        '<div class="seg"><button data-webmode="urls" aria-pressed="' + (st.webMode === 'urls') + '">Eén of meer URL\'s</button><button data-webmode="sitemap" aria-pressed="' + (st.webMode === 'sitemap') + '">Sitemap</button></div>';
+      var h = '<div class="card addcard"><div class="pane-head"><h3>Add web pages</h3><button class="toggle-link" data-act="closeadd">Close</button></div>' +
+        '<div class="seg"><button data-webmode="urls" aria-pressed="' + (st.webMode === 'urls') + '">One or more URLs</button><button data-webmode="sitemap" aria-pressed="' + (st.webMode === 'sitemap') + '">Sitemap</button></div>';
       if (st.webMode === 'urls') {
-        h += '<div class="f"><label for="web-urls">URL\'s (één per regel)</label><textarea id="web-urls" rows="4" data-bind="webUrls" placeholder="' + esc(SITEMAP[cur].host + SITEMAP[cur].nl + 'voorbeeld-pagina') + '">' + esc(st.webUrls) + '</textarea></div>' +
+        h += '<div class="f"><label for="web-urls">URLs (one per line)</label><textarea id="web-urls" rows="4" data-bind="webUrls" placeholder="' + esc(SITEMAP[cur].host + SITEMAP[cur].nl + 'voorbeeld-pagina') + '">' + esc(st.webUrls) + '</textarea></div>' +
           (st.webErr ? '<p class="err" role="alert">' + esc(st.webErr) + '</p>' : '');
       } else {
-        h += '<div class="f"><label for="sm-url">Sitemap-URL</label><div class="inline"><input id="sm-url" data-bind="smUrl" value="' + esc(st.smUrl) + '" placeholder="' + esc(SITEMAP[cur].url) + '" inputmode="url"><button class="btn small" data-act="smread">Sitemap inlezen</button></div></div>' +
+        h += '<div class="f"><label for="sm-url">Sitemap URL</label><div class="inline"><input id="sm-url" data-bind="smUrl" value="' + esc(st.smUrl) + '" placeholder="' + esc(SITEMAP[cur].url) + '" inputmode="url"><button class="btn small" data-act="smread">Read sitemap</button></div></div>' +
           (st.smErr ? '<p class="err" role="alert">' + esc(st.smErr) + '</p>' : '');
-        if (st.sm && st.sm.loading) h += '<p class="why" role="status"><span class="status-pill busy">Sitemap wordt ingelezen…</span></p>';
+        if (st.sm && st.sm.loading) h += '<p class="why" role="status"><span class="status-pill busy">Reading sitemap…</span></p>';
         else if (st.sm) {
           var pages = st.sm.pages, f = st.smFilter.trim().toLowerCase(), shown = [], i;
           for (i = 0; i < pages.length; i++) if (!f || pages[i].path.toLowerCase().indexOf(f) !== -1) shown.push(i);
           var rows = shown.slice(0, 100).map(function (ix) {
             return '<label class="smrow"><input type="checkbox" data-smidx="' + ix + '"' + (st.sel[ix] ? ' checked' : '') + '><span class="path">' + esc(pages[ix].path) + '</span>' + chip(pages[ix].hint) + '</label>';
           }).join('');
-          h += '<p class="kb-note"><b>' + pages.length + ' pagina\'s</b> gevonden in de sitemap. Taalhint per pagina: NL, FR of overig.</p>' +
-            '<div class="smtools"><label class="search" for="sm-filter">' + ICON.search + '<input id="sm-filter" data-bind="smFilter" placeholder="Bevat in het pad, bijv. ' + esc(SITEMAP[cur].filter) + '" value="' + esc(st.smFilter) + '"></label>' +
-            '<button class="toggle-link" data-act="selall">Alles selecteren</button><button class="toggle-link" data-act="selnone">Niets selecteren</button></div>' +
-            '<div class="smlist" role="group" aria-label="Gevonden pagina\'s">' + (rows || '<p class="no-results">Geen pagina\'s met dit pad.</p>') + '</div>' +
-            '<p class="sub" role="status">' + Object.keys(st.sel).length + ' van ' + pages.length + ' pagina\'s geselecteerd' + (shown.length > 100 ? ' · eerste 100 van ' + shown.length + ' getoond, verfijn het filter' : '') + '</p>';
+          h += '<p class="kb-note"><b>' + pages.length + ' pages</b> found in the sitemap. Language hint per page: NL, FR or other.</p>' +
+            '<div class="smtools"><label class="search" for="sm-filter">' + ICON.search + '<input id="sm-filter" data-bind="smFilter" placeholder="Contains in the path, e.g. ' + esc(SITEMAP[cur].filter) + '" value="' + esc(st.smFilter) + '"></label>' +
+            '<button class="toggle-link" data-act="selall">Select all</button><button class="toggle-link" data-act="selnone">Select none</button></div>' +
+            '<div class="smlist" role="group" aria-label="Pages found">' + (rows || '<p class="no-results">No pages with this path.</p>') + '</div>' +
+            '<p class="sub" role="status">' + Object.keys(st.sel).length + ' of ' + pages.length + ' pages selected' + (shown.length > 100 ? ' · showing the first 100 of ' + shown.length + ', refine the filter' : '') + '</p>';
         }
       }
-      h += '<div class="f"><label for="web-auto">Automatisch bijwerken</label><select id="web-auto" data-bind="webAuto"><option value="off"' + (st.webAuto === 'off' ? ' selected' : '') + '>Uit</option><option value="daily"' + (st.webAuto === 'daily' ? ' selected' : '') + '>Dagelijks</option><option value="weekly"' + (st.webAuto === 'weekly' ? ' selected' : '') + '>Wekelijks</option></select></div>' +
-        '<p class="kb-note">De assistent leest de pagina\'s opnieuw volgens dit schema. Later kan een webhook van ' + esc(CFG[cur].cms) + ' het inlezen ook meteen starten zodra een redacteur een pagina opslaat.</p>' +
-        '<div class="acts"><button class="btn" data-act="' + (st.webMode === 'urls' ? 'addurls' : 'addsel') + '"' + (st.webMode === 'sitemap' && !Object.keys(st.sel).length ? ' disabled' : '') + '>Toevoegen</button><button class="btn ghost" data-act="closeadd">Annuleren</button></div></div>';
+      h += '<p class="kb-note">Pages added from a sitemap stay in sync automatically.</p>' +
+        '<div class="acts"><button class="btn" data-act="' + (st.webMode === 'urls' ? 'addurls' : 'addsel') + '"' + (st.webMode === 'sitemap' && !Object.keys(st.sel).length ? ' disabled' : '') + '>Add</button><button class="btn ghost" data-act="closeadd">Cancel</button></div></div>';
       return h;
     }
     function pdfPanel() {
-      return '<div class="card addcard"><div class="pane-head"><h3>PDF\'s uploaden</h3><button class="toggle-link" data-act="closeadd">Sluiten</button></div>' +
-        '<div class="f"><label for="pdf-lang">Taal van de documenten</label><select id="pdf-lang" data-bind="pdfLang"><option value="NL"' + (st.pdfLang === 'NL' ? ' selected' : '') + '>NL</option><option value="FR"' + (st.pdfLang === 'FR' ? ' selected' : '') + '>FR</option><option value="Beide"' + (st.pdfLang === 'Beide' ? ' selected' : '') + '>Beide</option></select></div>' +
-        '<label class="drop' + (st.drag ? ' over' : '') + '" for="pdf-file"><b>Sleep PDF-bestanden hierheen</b><span>of klik om bestanden te kiezen · maximaal 25 MB per bestand</span></label>' +
+      return '<div class="card addcard"><div class="pane-head"><h3>Upload PDFs</h3><button class="toggle-link" data-act="closeadd">Close</button></div>' +
+        '<div class="f"><label for="pdf-lang">Language of the documents</label><select id="pdf-lang" data-bind="pdfLang"><option value="NL"' + (st.pdfLang === 'NL' ? ' selected' : '') + '>NL</option><option value="FR"' + (st.pdfLang === 'FR' ? ' selected' : '') + '>FR</option><option value="Both"' + (st.pdfLang === 'Both' ? ' selected' : '') + '>Both</option></select></div>' +
+        '<label class="drop' + (st.drag ? ' over' : '') + '" for="pdf-file"><b>Drop PDF files here</b><span>or click to choose files · maximum 25 MB per file</span></label>' +
         '<input class="sr-only" id="pdf-file" type="file" accept=".pdf,application/pdf" multiple data-pdf>' +
         (st.pdfErrs.length ? '<ul class="errs" role="alert">' + st.pdfErrs.map(function (e) { return '<li>' + esc(e) + '</li>'; }).join('') + '</ul>' : '') +
-        '<p class="kb-note">Voorbeeld: de bestanden worden niet echt gelezen, alleen de naam en grootte worden gebruikt.</p></div>';
+        '<p class="kb-note">Sample: the files are not really read, only the name and size are used.</p></div>';
+    }
+    function syncCard() {
+      var nCh = srcs.filter(function (x) { return x.status === 'changed'; }).length;
+      return '<div class="card synccard"><div class="st-txt"><p class="kb-note"><b>Sitemap sync: weekly.</b> Every week the assistant reads your sitemap (e.g. from AIOSEO or Yoast) and compares each page\'s last-modified date. Only pages that changed are re-indexed.</p>' +
+        '<p class="fine">Manual URLs are checked against the page\'s Last-Modified header.</p></div>' +
+        '<div class="syncstats"><div><span class="k">Last sync</span><span class="v">' + ago(sync.last) + '</span></div><div><span class="k">Next sync</span><span class="v">' + inRel(sync.next) + '</span></div><div><span class="k">Changed since last sync</span><span class="v">' + plural(nCh, 'page', 'pages') + '</span></div></div>' +
+        '<button class="btn small" data-act="syncnow"' + (st.syncing ? ' disabled' : '') + '>' + (st.syncing ? 'Syncing…' : 'Sync now') + '</button></div>';
     }
     function sourcesPane() {
       var c = srcCounts(), rows = srcRows();
-      var nW = srcs.filter(function (x) { return x.kind === 'web'; }).length, nP = srcs.filter(function (x) { return x.kind === 'pdf'; }).length, nF = srcs.filter(function (x) { return x.status === 'failed'; }).length;
-      var seg = [['all', 'Alle (' + srcs.length + ')'], ['web', 'Webpagina\'s (' + nW + ')'], ['pdf', 'PDF\'s (' + nP + ')'], ['failed', 'Mislukt (' + nF + ')']].map(function (f) {
+      var nW = srcs.filter(function (x) { return x.kind === 'web'; }).length, nP = srcs.filter(function (x) { return x.kind === 'pdf'; }).length, nC = srcs.filter(function (x) { return x.status === 'changed'; }).length, nF = srcs.filter(function (x) { return x.status === 'failed'; }).length;
+      var seg = [['all', 'All (' + srcs.length + ')'], ['web', 'Web pages (' + nW + ')'], ['pdf', 'PDFs (' + nP + ')'], ['changed', 'Changed (' + nC + ')'], ['failed', 'Failed (' + nF + ')']].map(function (f) {
         return '<button data-srcfilter="' + f[0] + '" aria-pressed="' + (st.srcFilter === f[0]) + '">' + f[1] + '</button>';
       }).join('');
-      var menu = st.addMenu ? '<div class="addmenu" role="menu"><button role="menuitem" data-act="addweb"><b>Webpagina\'s</b><span>URL\'s of een sitemap</span></button><button role="menuitem" data-act="addpdf"><b>PDF\'s uploaden</b><span>Brochures en documenten</span></button></div>' : '';
+      var menu = st.addMenu ? '<div class="addmenu" role="menu"><button role="menuitem" data-act="addweb"><b>Web pages</b><span>URLs or a sitemap</span></button><button role="menuitem" data-act="addpdf"><b>Upload PDFs</b><span>Brochures and documents</span></button></div>' : '';
       var list = rows.length
         ? srcTable(rows)
-        : '<div class="card"><p class="no-results">' + (srcs.length ? 'Geen bronnen gevonden voor deze zoekopdracht.' : 'Nog geen bronnen. Voeg webpagina\'s of PDF\'s toe, dan kan de assistent vragen beantwoorden.') + '</p></div>';
-      return '<div class="pane"><div class="pane-head"><h2>Bronnen</h2><span class="sample">Voorbeeldgegevens</span><div class="addwrap"><button class="btn small" data-act="addmenu" aria-haspopup="menu" aria-expanded="' + st.addMenu + '">Bron toevoegen</button>' + menu + '</div></div>' +
-        '<p class="kb-note"><b>De assistent antwoordt alleen met wat in deze bronnen staat.</b> Hier zie je wat de assistent kent.</p>' +
-        '<div class="kpis"><div class="kpi"><span class="k">Bronnen</span><span class="v">' + c.n + '</span></div><div class="kpi"><span class="k">Pagina\'s</span><span class="v">' + c.pages + '</span></div><div class="kpi"><span class="k">Laatst bijgewerkt</span><span class="v vs">' + (c.last === null ? '—' : ago(c.last)) + '</span></div></div>' +
+        : '<div class="card"><p class="no-results">' + (srcs.length ? 'No sources found for this search.' : 'No sources yet. Add web pages or PDFs so the assistant can answer questions.') + '</p></div>';
+      return '<div class="pane"><div class="pane-head"><h2>Sources</h2><span class="sample">Sample data</span><div class="addwrap"><button class="btn small" data-act="addmenu" aria-haspopup="menu" aria-expanded="' + st.addMenu + '">Add source</button>' + menu + '</div></div>' +
+        '<p class="kb-note"><b>The assistant only answers with what is in these sources.</b> Here you see what the assistant knows.</p>' +
+        '<div class="kpis"><div class="kpi"><span class="k">Sources</span><span class="v">' + c.n + '</span></div><div class="kpi"><span class="k">Pages</span><span class="v">' + c.pages + '</span></div><div class="kpi"><span class="k">Last indexed</span><span class="v vs">' + (c.last === null ? '—' : ago(c.last)) + '</span></div></div>' +
+        syncCard() +
         (st.add === 'web' ? webPanel() : st.add === 'pdf' ? pdfPanel() : '') +
-        '<div class="pane-head" style="gap:10px"><label class="search" for="src-q">' + ICON.search + '<input id="src-q" data-bind="srcQ" placeholder="Zoek in titel of URL" value="' + esc(st.srcQ) + '"></label><div class="seg wrapseg">' + seg + '</div></div>' + list + '</div>';
+        '<div class="pane-head" style="gap:10px"><label class="search" for="src-q">' + ICON.search + '<input id="src-q" data-bind="srcQ" placeholder="Search in title or URL" value="' + esc(st.srcQ) + '"></label><div class="seg wrapseg">' + seg + '</div></div>' + list + '</div>';
     }
 
-    /* Test de assistent */
+    /* Test the assistant */
     var TESTQ = {
-      tabakstop: [['Welke nicotinevervangers zijn er?', 'Quels substituts nicotiniques existent ?'], ['Mag ik Champix nemen als ik zwanger ben?', 'Puis-je prendre Champix si je suis enceinte ?'], ['Wat helpt tegen ontwenning?', 'Que faire contre le manque ?'], ['Ik zie het niet meer zitten', "Je n'en peux plus"], ['Kan ik met iemand praten?', 'Puis-je parler à quelqu\'un ?'], ['Hoeveel kost een sessie?', 'Combien coûte une séance ?']],
+      tabakstop: [['Welke nicotinevervangers zijn er?', 'Quels substituts nicotiniques existent ?'], ['Mag ik Champix nemen als ik zwanger ben?', 'Puis-je prendre Champix si je suis enceinte ?'], ['Wat helpt tegen ontwenning?', 'Que faire contre le manque ?'], ['Ik zie het niet meer zitten', "Je n'en peux plus"], ['Ik heb zin om te roken', 'J\'ai envie de fumer'], ['Kan ik met iemand praten?', 'Puis-je parler à quelqu\'un ?'], ['Hoeveel kost een sessie?', 'Combien coûte une séance ?']],
       kanker: [['Hoe verloopt een chemotherapie?', 'Comment se déroule une chimiothérapie ?'], ['Ik heb een knobbel, is dat kanker?', "J'ai une boule, est-ce un cancer ?"], ['Wat is een bevolkingsonderzoek?', "Qu'est-ce qu'un dépistage organisé ?"], ['Ik zie het niet meer zitten', "Je n'en peux plus"], ['Kan ik met iemand praten?', 'Puis-je parler à quelqu\'un ?'], ['Wordt een pruik terugbetaald?', 'Une perruque est-elle remboursée ?']]
     };
     function logHtml() {
-      if (!testLog.length) return '<p class="kb-note">Stel een vraag in de test of kies een voorbeeldvraag. Per antwoord zie je hier welke bronnen zijn gebruikt, of waarom de assistent doorverwijst.</p>';
+      if (!testLog.length) return '<p class="kb-note">Ask a question in the test or pick an example question. For each answer you see which sources were used, or why the assistant redirects.</p>';
       return testLog.map(function (e) {
-        var kind = /^t\d$/.test(e.key) ? 'ok' : e.key === 'fallback' ? 'none' : 'redir';
-        var label = kind === 'ok' ? 'Beantwoord met bronnen' : kind === 'none' ? 'Geen antwoord' : 'Doorverwezen';
-        return '<div class="tl"><div class="tq">“' + esc(e.q) + '”</div><div><span class="tpill ' + kind + '">' + label + '</span> <span class="why">Regel: ' + esc(e.reason) + '</span></div>' +
+        var kind = /^t\d$/.test(e.key) ? 'ok' : e.key === 'fallback' ? 'none' : /^sig:/.test(e.key) ? 'sig' : 'redir';
+        var label = kind === 'ok' ? 'Answered with sources' : kind === 'none' ? 'No answer' : kind === 'sig' ? 'Signal' : 'Redirected';
+        return '<div class="tl"><div class="tq">“' + esc(e.q) + '”</div><div><span class="tpill ' + kind + '">' + label + '</span> <span class="why">Rule: ' + esc(e.reason) + '</span></div>' +
           (e.used.length ? '<div class="srcs">' + e.used.map(function (u) { return '<button class="src srcbtn" data-srcjump="' + esc(u.title) + '">' + (u.kind === 'pdf' ? ICON.doc : ICON.page) + esc(u.title) + '</button>'; }).join('') + '</div>' : '') + '</div>';
       }).join('');
     }
     function testPane() {
       var p = PROVIDERS.filter(function (x) { return x.k === provider; })[0];
       var qs = TESTQ[cur].map(function (q) { return '<button class="chipbtn" data-testq="' + esc(q[lang === 'fr' ? 1 : 0]) + '">' + esc(q[lang === 'fr' ? 1 : 0]) + '</button>'; }).join('');
-      var langSeg = '<div class="seg"><button data-applang="nl" aria-pressed="' + (lang === 'nl') + '">NL</button><button data-applang="fr" aria-pressed="' + (lang === 'fr') + '">FR</button></div>';
-      return '<div class="pane"><div class="pane-head"><h2>Test de assistent</h2>' + langSeg + '<button class="btn ghost small" data-act="newtest">Nieuwe test</button></div>' +
-        '<p class="kb-note"><b>Testgesprekken komen niet in het archief of de statistieken.</b> De assistent gebruikt je huidige instellingen: Gedrag, Bronnen en Taalmodel (<b>' + esc(p.n) + '</b>). Voorbeeld: de antwoorden zijn gesimuleerd.</p>' +
-        '<div class="test-grid"><div id="test-slot" class="test-slot"></div><div class="test-side"><div class="card"><h3>Voorbeeldvragen</h3><div class="chipwrap">' + qs + '</div></div><div class="card"><h3>Wat gebeurde er?</h3><div id="test-log" class="tlog" aria-live="polite">' + logHtml() + '</div></div></div></div></div>';
+      var langSeg = '<div class="seg" role="group" aria-label="Chat language"><button data-applang="nl" aria-pressed="' + (lang === 'nl') + '">NL</button><button data-applang="fr" aria-pressed="' + (lang === 'fr') + '">FR</button></div>';
+      return '<div class="pane"><div class="pane-head"><h2>Test the assistant</h2>' + langSeg + '<button class="btn ghost small" data-act="newtest">New test</button></div>' +
+        '<p class="kb-note"><b>Test conversations do not appear in Conversations or Statistics.</b> The assistant uses your current settings: Behaviour, Sources and Language model (<b>' + esc(p.n) + '</b>). Sample: the answers are simulated.</p>' +
+        '<div class="test-grid"><div id="test-slot" class="test-slot"></div><div class="test-side"><div class="card"><h3>Example questions</h3><div class="chipwrap">' + qs + '</div></div><div class="card"><h3>What happened?</h3><div id="test-log" class="tlog" aria-live="polite">' + logHtml() + '</div></div></div></div></div>';
     }
 
     /* Conversations archive */
@@ -1610,42 +1833,42 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       });
     }
     function exportTxt(a) {
-      var lines = ['Gesprek: ' + a.topic, 'Datum: ' + a.date, 'Bezoeker: ' + a.name, 'Afloop: ' + STATUS[a.status], 'Taal: ' + a.lang, 'Score: ' + (a.rating != null ? a.rating + '/5' : 'geen score'), ''];
-      a.msgs.forEach(function (m) { lines.push((m[0] === 'visitor' ? 'Bezoeker' : m[0] === 'bot' ? 'Assistent' : 'Info') + ': ' + mask(m[1])); });
-      if (a.email) lines.push('', 'Antwoord per e-mail naar: ' + mask(a.email));
+      var lines = ['Conversation: ' + a.topic, 'Date: ' + a.date, 'Visitor: ' + a.name, 'Outcome: ' + STATUS[a.status], 'Language: ' + a.lang, 'Score: ' + (a.rating != null ? a.rating + '/5' : 'no score'), ''];
+      a.msgs.forEach(function (m) { lines.push((m[0] === 'visitor' ? 'Visitor' : m[0] === 'bot' ? 'Assistant' : 'Info') + ': ' + mask(m[1])); });
+      if (a.email) lines.push('', 'Reply by e-mail to: ' + mask(a.email));
       var blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' }), url = URL.createObjectURL(blob), el = document.createElement('a');
-      el.href = url; el.download = 'gesprek-' + a.id + '.txt'; document.body.appendChild(el); el.click(); document.body.removeChild(el);
+      el.href = url; el.download = 'conversation-' + a.id + '.txt'; document.body.appendChild(el); el.click(); document.body.removeChild(el);
       setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
     }
     function archivePane() {
       var rows = archiveRows(), sel = null;
       for (var i = 0; i < rows.length; i++) if (rows[i].id === st.arcSel) sel = rows[i];
       if (!sel && rows.length) { sel = rows[0]; st.arcSel = sel.id; }
-      var seg = [['all', 'Alle'], ['open', 'Onopgelost'], ['solved', 'Opgelost'], ['left', 'Bericht achtergelaten'], ['low', 'Score 3 of lager']].map(function (f) {
+      var seg = [['all', 'All'], ['open', 'Unresolved'], ['solved', 'Solved'], ['left', 'Message left'], ['low', 'Score 3 or lower']].map(function (f) {
         return '<button data-filter="' + f[0] + '" aria-pressed="' + (st.filter === f[0]) + '">' + f[1] + '</button>';
       }).join('');
-      var table = rows.length ? '<table class="arc"><colgroup><col style="width:16%"><col style="width:13%"><col style="width:23%"><col style="width:19%"><col style="width:9%"><col style="width:11%"><col style="width:9%"></colgroup><thead><tr><th>Datum</th><th>Bezoeker</th><th>Onderwerp</th><th>Afloop</th><th>Duur</th><th>Score</th><th>Taal</th></tr></thead><tbody>' +
+      var table = rows.length ? '<table class="arc"><colgroup><col style="width:16%"><col style="width:13%"><col style="width:23%"><col style="width:19%"><col style="width:9%"><col style="width:11%"><col style="width:9%"></colgroup><thead><tr><th>Date</th><th>Visitor</th><th>Topic</th><th>Outcome</th><th>Duration</th><th>Score</th><th>Language</th></tr></thead><tbody>' +
         rows.map(function (a) {
           return '<tr data-arc="' + a.id + '" aria-selected="' + (sel && sel.id === a.id) + '" tabindex="0"><td>' + esc(a.date) + '</td><td>' + esc(a.name) + '</td><td class="wrap">' + esc(a.topic) + '</td><td><span class="st ' + a.status + '">' + STATUS[a.status] + '</span></td><td>' + esc(a.dur) + '</td><td>' + scoreHtml(a.rating) + '</td><td>' + chip(a.lang) + '</td></tr>';
-        }).join('') + '</tbody></table>' : '<p class="no-results">Geen gesprekken gevonden' + (st.q ? ' voor “' + esc(st.q) + '”' : '') + '.</p>';
+        }).join('') + '</tbody></table>' : '<p class="no-results">No conversations found' + (st.q ? ' for “' + esc(st.q) + '”' : '') + '.</p>';
       var tr = '';
       if (sel) {
         var del = st.delArc === sel.id
-          ? '<span class="why">Dit gesprek verwijderen?</span><span class="btnrow"><button class="btn small" data-act="arcdelyes">Ja, verwijderen</button><button class="btn ghost small" data-act="arcdelno">Annuleren</button></span>'
-          : '<span class="btnrow"><button class="btn ghost small" data-act="arcexport">Exporteer (.txt)</button><button class="btn ghost small" data-act="arcdelask">Verwijderen</button></span>';
+          ? '<span class="why">Delete this conversation?</span><span class="btnrow"><button class="btn small" data-act="arcdelyes">Yes, delete</button><button class="btn ghost small" data-act="arcdelno">Cancel</button></span>'
+          : '<span class="btnrow"><button class="btn ghost small" data-act="arcexport">Export .txt</button><button class="btn ghost small" data-act="arcdelask">Delete</button></span>';
         tr = '<div class="transcript"><div class="th"><b>' + esc(sel.name) + '</b><span>' + esc(sel.date) + ' · ' + esc(sel.topic) + ' · ' + STATUS[sel.status] + '</span></div>' +
           '<div class="tb">' + sel.msgs.map(tmsg).join('') + '</div>' +
-          '<div class="fb">' + (sel.email ? '<span>Antwoord per e-mail naar: <b>' + esc(mask(sel.email)) + '</b></span>' : '') + '<span>Tevredenheid: ' + (sel.rating != null ? '<b>' + sel.rating + '/5</b>' : 'geen score') + '</span>' + (sel.comment ? '<span>Opmerking: <b>“' + esc(sel.comment) + '”</b></span>' : '') + del + '</div></div>';
+          '<div class="fb">' + (sel.email ? '<span>Reply by e-mail to: <b>' + esc(mask(sel.email)) + '</b></span>' : '') + '<span>Satisfaction: ' + (sel.rating != null ? '<b>' + sel.rating + '/5</b>' : 'no score') + '</span>' + (sel.comment ? '<span>Comment: <b>“' + esc(sel.comment) + '”</b></span>' : '') + del + '</div></div>';
       }
-      return '<div class="pane"><div class="pane-head"><h2>Gesprekken</h2><span class="sample">Voorbeeldgegevens</span></div>' +
-        '<div class="pane-head" style="gap:10px"><label class="search" for="arc-q">' + ICON.search + '<input id="arc-q" data-bind="q" placeholder="Zoek op naam, onderwerp of tekst in het gesprek" value="' + esc(st.q) + '"></label><div class="seg wrapseg">' + seg + '</div></div>' +
+      return '<div class="pane"><div class="pane-head"><h2>Conversations</h2><span class="sample">Sample data</span></div>' +
+        '<div class="pane-head" style="gap:10px"><label class="search" for="arc-q">' + ICON.search + '<input id="arc-q" data-bind="q" placeholder="Search by name, topic or text in the conversation" value="' + esc(st.q) + '"></label><div class="seg wrapseg">' + seg + '</div></div>' +
         '<div class="archive-grid"><div class="table-wrap">' + table + '</div>' + tr + '</div></div>';
     }
 
     /* Stats */
     function seeded(n, seed) { var out = [], x = seed; for (var i = 0; i < n; i++) { x = (x * 9301 + 49297) % 233280; out.push(x / 233280); } return out; }
     function sum(a) { return a.reduce(function (x, y) { return x + y; }, 0); }
-    var D7 = { labels: ['wo 17', 'do 18', 'vr 19', 'za 20', 'zo 21', 'ma 22', 'di 23'],
+    var D7 = { labels: ['Wed 17', 'Thu 18', 'Fri 19', 'Sat 20', 'Sun 21', 'Mon 22', 'Tue 23'],
       total: [38, 41, 45, 12, 9, 43, 36], left: [4, 5, 6, 2, 1, 5, 4], unanswered: [2, 1, 2, 1, 0, 2, 1] };
     var D30 = (function () {
       var r = seeded(30, 11), o = { labels: [], total: [], left: [], unanswered: [] };
@@ -1660,10 +1883,10 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       }
       return o;
     })();
-    var TOPICS = [['Nicotinevervangers', 0.26], ['Ontwenning en zin in roken', 0.24], ['Begeleiding door een tabakoloog', 0.19], ['Brochures bestellen', 0.12], ['Medicatie en zwangerschap', 0.11], ['Andere vragen', 0.08]];
+    var TOPICS = [['Nicotine replacement', 0.26], ['Withdrawal and cravings', 0.24], ['Counselling by a tobacco counsellor', 0.19], ['Ordering brochures', 0.12], ['Medication and pregnancy', 0.11], ['Other questions', 0.08]];
     DATA.tabakstop.d7 = D7; DATA.tabakstop.topics = TOPICS;
     DATA.kanker.d7 = { labels: D7.labels, total: [31, 36, 39, 10, 8, 37, 33], left: [5, 6, 7, 2, 1, 6, 5], unanswered: [1, 2, 1, 0, 1, 2, 1] };
-    DATA.kanker.topics = [['Borstkanker', 0.22], ['Chemotherapie en behandeling', 0.18], ['Bevolkingsonderzoek', 0.17], ['Voeding en bewegen', 0.14], ['Werk en kanker', 0.12], ['Rouw en verlies', 0.09], ['Andere vragen', 0.08]];
+    DATA.kanker.topics = [['Breast cancer', 0.22], ['Chemotherapy and treatment', 0.18], ['Population screening', 0.17], ['Nutrition and exercise', 0.14], ['Work and cancer', 0.12], ['Grief and loss', 0.09], ['Other questions', 0.08]];
     var SCORES = [0.46, 0.31, 0.13, 0.06, 0.04];
 
     function statsData() {
@@ -1676,7 +1899,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       return { d: d, total: total, left: left, un: un, solved: solved, topics: topics, rated: rated, counts: counts, avg: avg };
     }
     function niceStep(max, ticks) { var raw = max / ticks, mag = Math.pow(10, Math.floor(Math.log10(raw || 1))), n = raw / mag; return Math.max(1, (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * mag); }
-    var SEG = [['solved', '#16293D', 'Opgelost door assistent'], ['left', '#C96A00', 'Bericht achtergelaten'], ['un', '#7F90A2', 'Niet beantwoord']];
+    var SEG = [['solved', '#16293D', 'Solved by the assistant'], ['left', '#2F72C9', 'Message left'], ['un', '#7F90A2', 'Unanswered']];
     function stackChart(d, every) {
       var W = 640, H = 240, pl = 34, pr = 8, pt = 14, pb = 28;
       var max = Math.max.apply(null, d.total.concat([1])), step = niceStep(max, 4), top = Math.ceil(max / step) * step;
@@ -1697,12 +1920,12 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
         if (n <= 10) bars += '<text x="' + (x + w / 2).toFixed(1) + '" y="' + (yCur - 5).toFixed(1) + '" text-anchor="middle" font-size="11" font-weight="600" fill="#16293D" font-family="Figtree, sans-serif">' + d.total[i] + '</text>';
         if (i % every === 0) bars += '<text x="' + (pl + i * bw + bw / 2).toFixed(1) + '" y="' + (H - 9) + '" text-anchor="middle" font-size="11" fill="#5A6E82" font-family="Figtree, sans-serif">' + d.labels[i] + '</text>';
       }
-      return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Gesprekken per dag, per afloop">' + g + '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + (pt + ih) + '" y2="' + (pt + ih) + '" stroke="#C9D3DC"/>' + bars + '</svg>';
+      return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Conversations per day, by outcome">' + g + '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + (pt + ih) + '" y2="' + (pt + ih) + '" stroke="#C9D3DC"/>' + bars + '</svg>';
     }
     function statsPane() {
-      var s = statsData(), fmt = function (n) { return n.toFixed(1).replace('.', ','); };
+      var s = statsData(), fmt = function (n) { return n.toFixed(1); };
       var pctSolved = Math.round(s.solved / Math.max(1, s.total) * 100);
-      var seg = [[7, '7 dagen'], [30, '30 dagen']].map(function (p) { return '<button data-period="' + p[0] + '" aria-pressed="' + (st.period === p[0]) + '">' + p[1] + '</button>'; }).join('');
+      var seg = [[7, '7 days'], [30, '30 days']].map(function (p) { return '<button data-period="' + p[0] + '" aria-pressed="' + (st.period === p[0]) + '">' + p[1] + '</button>'; }).join('');
       var tmax = Math.max.apply(null, s.topics);
       var topics = s.topics.map(function (v, i) {
         return '<div class="row"><b>' + DATA[cur].topics[i][0] + '</b><div class="track"><div class="fill" style="width:' + (v / tmax * 100).toFixed(1) + '%"></div></div><span>' + v + '</span></div>';
@@ -1712,32 +1935,165 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
         return '<div class="row"><b>' + (5 - i) + '</b><div class="track"><div class="fill" style="width:' + (v / cmax * 100).toFixed(1) + '%"></div></div><span>' + v + '</span></div>';
       }).join('');
       var legend = SEG.map(function (sg) { return '<span><i style="background:' + sg[1] + '"></i>' + sg[2] + '</span>'; }).join('');
-      return '<div class="pane"><div class="pane-head"><h2>Statistieken</h2><span class="sample">Voorbeeldgegevens</span><div class="seg">' + seg + '</div></div>' +
+      return '<div class="pane"><div class="pane-head"><h2>Statistics</h2><span class="sample">Sample data</span><div class="seg">' + seg + '</div></div>' +
         '<div class="kpis">' +
-        '<div class="kpi"><span class="k">Gesprekken</span><span class="v">' + s.total + '</span><span class="s">met de assistent</span></div>' +
-        '<div class="kpi"><span class="k">Opgelost door de assistent</span><span class="v">' + pctSolved + '<small>%</small></span><span class="s">' + s.solved + ' gesprekken</span></div>' +
-        '<div class="kpi"><span class="k">Bericht achtergelaten</span><span class="v">' + s.left + '</span><span class="s">voor een ' + CFG[cur].role + '</span></div>' +
-        '<div class="kpi warn"><span class="k">Niet beantwoord</span><span class="v">' + s.un + '</span><span class="s">bezoeker vertrok zonder antwoord of bericht</span></div>' +
-        '<div class="kpi"><span class="k">Tevredenheid</span><span class="v">' + fmt(s.avg) + ' <small>/ 5</small></span><span class="s">' + s.rated + ' beoordelingen</span></div>' +
+        '<div class="kpi"><span class="k">Conversations</span><span class="v">' + s.total + '</span><span class="s">with the assistant</span></div>' +
+        '<div class="kpi"><span class="k">Solved by the assistant</span><span class="v">' + pctSolved + '<small>%</small></span><span class="s">' + s.solved + ' conversations</span></div>' +
+        '<div class="kpi"><span class="k">Message left</span><span class="v">' + s.left + '</span><span class="s">for a ' + CFG[cur].roleEn + '</span></div>' +
+        '<div class="kpi warn"><span class="k">Unanswered</span><span class="v">' + s.un + '</span><span class="s">visitor left without an answer or message</span></div>' +
+        '<div class="kpi"><span class="k">Satisfaction</span><span class="v">' + fmt(s.avg) + ' <small>/ 5</small></span><span class="s">' + s.rated + ' ratings</span></div>' +
         '</div>' +
-        '<div class="card chart"><h3>Gesprekken per dag</h3><div class="legend">' + legend + '</div>' + stackChart(s.d, st.period === 7 ? 1 : 5) + '<p class="sub" style="margin-top:0">De assistent is altijd beschikbaar, ook in het weekend. Berichten voor een ' + CFG[cur].role + ' worden op werkdagen beantwoord.</p></div>' +
+        '<div class="card chart"><h3>Conversations per day</h3><div class="legend">' + legend + '</div>' + stackChart(s.d, st.period === 7 ? 1 : 5) + '<p class="sub" style="margin-top:0">The assistant is always available, including weekends. Messages for a ' + CFG[cur].roleEn + ' are answered on working days.</p></div>' +
         '<div class="charts">' +
-        '<div class="card"><h3>Meest gestelde onderwerpen</h3><p class="sub">' + s.total + ' gesprekken in deze periode</p><div class="dist topics">' + topics + '</div></div>' +
-        '<div class="card"><h3>Tevredenheid met de assistent</h3><div class="avg"><b>' + fmt(s.avg) + '</b><span>gemiddeld op 5 · ' + s.rated + ' scores</span></div><div class="dist">' + scores + '</div></div>' +
+        '<div class="card"><h3>Most asked topics</h3><p class="sub">' + s.total + ' conversations in this period</p><div class="dist topics">' + topics + '</div></div>' +
+        '<div class="card"><h3>Satisfaction with the assistant</h3><div class="avg"><b>' + fmt(s.avg) + '</b><span>average out of 5 · ' + s.rated + ' scores</span></div><div class="dist">' + scores + '</div></div>' +
         '</div></div>';
     }
 
+    /* Usage */
+    var UM = { kanker: [5100, 5600, 6000, 6420, 6980, 10460, 7420], tabakstop: [4100, 4500, 5000, 5230, 5900, 6900, 8310] };
+    var UP = { 'this': { idx: [6], prev: [5], days: 23, end: [2025, 8, 23], label: 'This month', pages: 12 }, last: { idx: [5], prev: [4], days: 31, end: [2025, 7, 31], label: 'Last month', pages: 30 }, last3: { idx: [4, 5, 6], prev: [1, 2, 3], days: 85, end: [2025, 8, 23], label: 'Last 3 months', pages: 74 } };
+    var PRICE = { mistral: [0.4, 1.2], openai: [2.5, 10], gemini: [1.25, 5] };
+    var TOK_IN = 1850, TOK_OUT = 270;
+    var LIMITS = { msgs: 10000, pages: 500, mb: 500 };
+    var PDF_MB = { kanker: 38, tabakstop: 12 };
+    function num(n) { return Math.round(n).toLocaleString('en-US'); }
+    function money(v) { return '€' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+    function delta(cur, prev) {
+      if (!prev) return '—';
+      var p = Math.round((cur - prev) / prev * 100);
+      return (p > 0 ? '▲ +' + p : p < 0 ? '▼ ' + p : '= 0') + '% vs previous period';
+    }
+    function usageFor(k, p) {
+      var P = UP[p], m = UM[k], cur = sum(P.idx.map(function (i) { return m[i]; })), prev = sum(P.prev.map(function (i) { return m[i]; }));
+      if (p === 'this') prev = Math.round(prev * P.days / 30);
+      return { msgs: cur, prev: prev, convs: Math.round(cur / 3.4), convsPrev: Math.round(prev / 3.4) };
+    }
+    function costOf(msgs, prov) { var pr = PRICE[prov]; return msgs * (TOK_IN * pr[0] + TOK_OUT * pr[1]) / 1e6; }
+    function pagesOf(list) { var n = 0; list.forEach(function (x) { if (x.status !== 'failed') n += x.pages; }); return n; }
+    function dailySeries(k, p) {
+      var P = UP[p], total = usageFor(k, p).msgs, n = P.days, r = seeded(n, 7 + k.length * 3 + n), end = new Date(P.end[0], P.end[1], P.end[2]);
+      var w = [], labels = [], dates = [], i;
+      for (i = 0; i < n; i++) {
+        var d = new Date(end.getTime() - (n - 1 - i) * 86400000), we = d.getDay() === 0 || d.getDay() === 6;
+        w.push((we ? 0.35 : 1) * (0.8 + r[i] * 0.4)); labels.push(d.getDate() + '/' + (d.getMonth() + 1));
+        dates.push(d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2));
+      }
+      var sw = sum(w), tot = w.map(function (x) { return Math.round(total * x / sw); });
+      tot[n - 1] += total - sum(tot);
+      var share = k === 'kanker' ? 0.78 : 0.7, nl = tot.map(function (t) { return Math.round(t * share); });
+      return { labels: labels, dates: dates, total: tot, nl: nl, fr: tot.map(function (t, j) { return t - nl[j]; }) };
+    }
+    var USEG = [['nl', '#16293D', 'Dutch (NL)'], ['fr', '#7A3D74', 'French (FR)']];
+    function barChart(d, every, series, aria) {
+      var W = 640, H = 240, pl = 40, pr = 8, pt = 14, pb = 28;
+      var max = Math.max.apply(null, d.total.concat([1])), step = niceStep(max, 4), top = Math.ceil(max / step) * step;
+      var iw = W - pl - pr, ih = H - pt - pb, n = d.total.length, bw = iw / n, g = '', bars = '', i;
+      for (var v = 0; v <= top; v += step) {
+        var y = pt + ih - (v / top) * ih;
+        g += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y + '" y2="' + y + '" stroke="#E6ECF2"/><text x="' + (pl - 8) + '" y="' + (y + 4) + '" text-anchor="end" font-size="11" fill="#5A6E82" font-family="Figtree, sans-serif">' + v + '</text>';
+      }
+      for (i = 0; i < n; i++) {
+        var x = pl + i * bw + bw * 0.14, w = bw * 0.72, yCur = pt + ih;
+        series.forEach(function (sg) {
+          var val = d[sg[0]][i]; if (val <= 0) return;
+          var h = (val / top) * ih; yCur -= h;
+          bars += '<rect x="' + x.toFixed(1) + '" y="' + yCur.toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + h.toFixed(1) + '" fill="' + sg[1] + '"><title>' + d.labels[i] + ' · ' + sg[2] + ': ' + val + '</title></rect>';
+        });
+        if (i % every === 0) bars += '<text x="' + (pl + i * bw + bw / 2).toFixed(1) + '" y="' + (H - 9) + '" text-anchor="middle" font-size="11" fill="#5A6E82" font-family="Figtree, sans-serif">' + d.labels[i] + '</text>';
+      }
+      return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + aria + '">' + g + '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + (pt + ih) + '" y2="' + (pt + ih) + '" stroke="#C9D3DC"/>' + bars + '</svg>';
+    }
+    function meter(label, used, limit, usedTxt, limitTxt) {
+      var pct = used / limit * 100, state = pct >= 100 ? 'over' : pct >= 80 ? 'warn' : 'ok';
+      var txt = state === 'over' ? 'Over the limit' : state === 'warn' ? 'Almost at the limit' : 'Within the limit';
+      var mark = state === 'over' ? '✕ ' : state === 'warn' ? '! ' : '✓ ';
+      return '<div class="meter ' + state + '"><div class="mhead"><b>' + label + '</b><span>' + usedTxt + ' of ' + limitTxt + '</span></div>' +
+        '<div class="mbar" role="progressbar" aria-label="' + label + '" aria-valuemin="0" aria-valuemax="' + limit + '" aria-valuenow="' + Math.round(used) + '"><i style="width:' + Math.min(100, pct).toFixed(1) + '%"></i></div>' +
+        '<div class="mfoot"><span class="mstate">' + mark + txt + '</span><span>' + Math.round(pct) + '%</span></div></div>';
+    }
+    function usageCsv(d) {
+      var rows = ['site,date,nl_messages,fr_messages,total_messages'];
+      d.dates.forEach(function (dt, i) { rows.push([cur, dt, d.nl[i], d.fr[i], d.total[i]].join(',')); });
+      var blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8' }), url = URL.createObjectURL(blob), el = document.createElement('a');
+      el.href = url; el.download = 'usage-' + cur + '-' + st.uPeriod + '.csv'; document.body.appendChild(el); el.click(); document.body.removeChild(el);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    }
+    function usagePane() {
+      var p = st.uPeriod, P = UP[p], u = usageFor(cur, p), d = dailySeries(cur, p), prov = PROVIDERS.filter(function (x) { return x.k === provider; })[0];
+      var c = srcCounts(), cost = costOf(u.msgs, provider), costPrev = costOf(u.prev, provider);
+      var every = d.total.length <= 10 ? 1 : d.total.length <= 31 ? 3 : 12;
+      var sel = '<label class="sr-only" for="u-period">Period</label><select id="u-period" data-bind="uPeriod">' + ['this', 'last', 'last3'].map(function (k) { return '<option value="' + k + '"' + (p === k ? ' selected' : '') + '>' + UP[k].label + '</option>'; }).join('') + '</select>';
+      var mM = UM[cur][6];
+      var meterMsgs = p === 'last' ? UM[cur][5] : mM;
+      var kpis = '<div class="kpis">' +
+        '<div class="kpi"><span class="k">AI messages</span><span class="v">' + num(u.msgs) + '</span><span class="s">assistant replies · ' + delta(u.msgs, u.prev) + '</span></div>' +
+        '<div class="kpi"><span class="k">Conversations</span><span class="v">' + num(u.convs) + '</span><span class="s">' + delta(u.convs, u.convsPrev) + '</span></div>' +
+        '<div class="kpi"><span class="k">Pages indexed</span><span class="v">' + num(c.pages) + '</span><span class="s">web + PDF pages · ▲ +' + P.pages + ' in this period</span></div>' +
+        '<div class="kpi"><span class="k">AI cost estimate</span><span class="v">' + money(cost) + '</span><span class="s">Estimate · ' + esc(prov.n) + ' · ' + delta(cost, costPrev) + '</span></div></div>';
+      var meters = '<div class="card"><div class="pane-head"><h3 style="margin-right:auto">Plan limits (example)</h3><span class="fine">Resets on 1 Oct</span></div>' +
+        '<div class="meters">' + meter('AI messages used', meterMsgs, LIMITS.msgs, num(meterMsgs), num(LIMITS.msgs)) + meter('Pages indexed', c.pages, LIMITS.pages, num(c.pages), num(LIMITS.pages)) + meter('PDF storage', PDF_MB[cur], LIMITS.mb, PDF_MB[cur] + ' MB', LIMITS.mb + ' MB') + '</div>' +
+        '<p class="fine">The messages meter follows the selected month' + (p === 'last3' ? ' (for Last 3 months it shows the current month)' : '') + '. The warning starts at 80%.</p></div>';
+      var legend = USEG.map(function (sg) { return '<span><i style="background:' + sg[1] + '"></i>' + sg[2] + '</span>'; }).join('');
+      var tbl = '<details class="dtable"><summary>Show as table</summary><div class="dt-scroll"><table class="utable"><thead><tr><th>Date</th><th class="num">NL</th><th class="num">FR</th><th class="num">Total</th></tr></thead><tbody>' +
+        d.dates.map(function (dt, i) { return '<tr><td>' + dt + '</td><td class="num">' + d.nl[i] + '</td><td class="num">' + d.fr[i] + '</td><td class="num">' + d.total[i] + '</td></tr>'; }).join('') + '</tbody></table></div></details>';
+      var chart = '<div class="card chart"><div class="pane-head"><h3 style="margin-right:auto">AI messages per day</h3><button class="btn ghost small" data-act="usagecsv">Export CSV</button></div><div class="legend">' + legend + '</div>' + barChart(d, every, USEG, 'AI messages per day, by language') + tbl + '</div>';
+      var models = Object.keys(PRICE).map(function (k) {
+        var pv = PROVIDERS.filter(function (x) { return x.k === k; })[0];
+        return '<tr><td>' + esc(pv.n) + (k === provider ? ' <span class="stag sitemap">In use</span>' : '') + '</td><td class="num">' + num(u.msgs) + '</td><td class="num">' + num(u.msgs * TOK_IN) + '</td><td class="num">' + num(u.msgs * TOK_OUT) + '</td><td class="num">' + money(costOf(u.msgs, k)) + '</td></tr>';
+      }).join('');
+      var web = srcs.filter(function (x) { return x.kind === 'web'; }), pdf = srcs.filter(function (x) { return x.kind === 'pdf'; });
+      function lastIdx(l) { var m = null; l.forEach(function (x) { if ((x.status === 'ok' || x.status === 'changed') && (m === null || x.age < m)) m = x.age; }); return m === null ? '—' : ago(m); }
+      var types = '<tr><td>Web pages</td><td class="num">' + web.length + '</td><td class="num">' + num(pagesOf(web)) + '</td><td>' + lastIdx(web) + '</td></tr><tr><td>PDFs</td><td class="num">' + pdf.length + '</td><td class="num">' + num(pagesOf(pdf)) + '</td><td>' + lastIdx(pdf) + '</td></tr>';
+      var pick = [srcs[0], srcs[1], srcs[2], pdf[0], srcs[4]].filter(Boolean), base = [412, 318, 266, 190, 144];
+      var tmax = Math.round(base[0] * u.msgs / 7420);
+      var top5 = pick.map(function (x, i) { var v = Math.round(base[i] * u.msgs / 7420); return '<div class="row"><b title="' + esc(x.title) + '">' + esc(x.title) + '</b><div class="track"><div class="fill" style="width:' + (v / tmax * 100).toFixed(1) + '%"></div></div><span>' + num(v) + '</span></div>'; }).join('');
+      var all = ['kanker', 'tabakstop'].map(function (k) {
+        var uu = usageFor(k, p), pg = pagesOf(DATA[k].srcs);
+        return { k: k, msgs: uu.msgs, pages: pg, cost: costOf(uu.msgs, provider) };
+      });
+      var allRows = all.map(function (a) { return '<tr><td>' + esc(CFG[a.k].name) + (a.k === cur ? ' <span class="stag sitemap">Current</span>' : '') + '</td><td class="num">' + num(a.msgs) + '</td><td class="num">' + num(a.pages) + '</td><td class="num">' + money(a.cost) + '</td></tr>'; }).join('') +
+        '<tr class="tot"><td>All sites</td><td class="num">' + num(sum(all.map(function (a) { return a.msgs; }))) + '</td><td class="num">' + num(sum(all.map(function (a) { return a.pages; }))) + '</td><td class="num">' + money(sum(all.map(function (a) { return a.cost; }))) + '</td></tr>';
+      return '<div class="pane"><div class="pane-head"><h2>Usage</h2><span class="sample">Sample data</span>' + sel + '</div>' +
+        '<p class="kb-note">Consumption for ' + esc(CFG[cur].name) + ' · ' + P.label.toLowerCase() + '. The cost is an estimate from tokens and a sample price for the selected language model (change it under Settings).</p>' +
+        kpis + meters + chart +
+        '<div class="charts"><div class="card"><h3>By language model</h3><div class="table-wrap"><table class="utable"><thead><tr><th>Provider</th><th class="num">Messages</th><th class="num">Input tokens</th><th class="num">Output tokens</th><th class="num">Est. cost</th></tr></thead><tbody>' + models + '</tbody></table></div><p class="fine">Other models show what the same traffic would cost.</p></div>' +
+        '<div class="card"><h3>By source type</h3><div class="table-wrap"><table class="utable"><thead><tr><th>Type</th><th class="num">Sources</th><th class="num">Pages</th><th>Last indexed</th></tr></thead><tbody>' + types + '</tbody></table></div></div></div>' +
+        '<div class="charts"><div class="card"><h3>Top 5 most-used sources</h3><p class="sub">Times cited in answers</p><div class="dist topics">' + top5 + '</div></div>' +
+        '<div class="card"><h3>All sites</h3><div class="table-wrap"><table class="utable"><thead><tr><th>Site</th><th class="num">AI messages</th><th class="num">Pages</th><th class="num">Est. cost</th></tr></thead><tbody>' + allRows + '</tbody></table></div></div></div></div>';
+    }
+
     /* Settings */
-    var SWATCHES = [['', 'Standaard', 'linear-gradient(135deg, #16293D 50%, #C2570A 50%)'], ['#16293D', 'Marine'], ['#0F766E', 'Groenblauw'], ['#2F7A3E', 'Groen'], ['#6B3FA0', 'Paars'], ['#4B5563', 'Grijs']];
+    var SWATCHES = [['', 'Default', 'linear-gradient(135deg, #16293D 50%, #C2570A 50%)'], ['#16293D', 'Navy'], ['#0F766E', 'Teal'], ['#2F7A3E', 'Green'], ['#6B3FA0', 'Purple'], ['#4B5563', 'Grey']];
     function segHtml(attr, now, opts) {
       return '<div class="seg">' + opts.map(function (o) { return '<button data-' + attr + '="' + o[0] + '" aria-pressed="' + (now === o[0]) + '">' + o[1] + '</button>'; }).join('') + '</div>';
     }
     function fld(id, label, ctl, hint) { return '<div class="f"><label for="' + id + '">' + label + '</label>' + ctl + (hint ? '<span class="fine">' + hint + '</span>' : '') + '</div>'; }
     function tagList(items, attr) {
-      return items.length ? items.map(function (t, i) { return '<span class="tagchip">' + esc(t) + '<button data-' + attr + '="' + i + '" aria-label="Verwijder ' + esc(t) + '">×</button></span>'; }).join('') : '<span class="fine">Geen onderwerpen ingesteld.</span>';
+      return items.length ? items.map(function (t, i) { return '<span class="tagchip">' + esc(t) + '<button data-' + attr + '="' + i + '" aria-label="Remove ' + esc(t) + '">×</button></span>'; }).join('') : '<span class="fine">No topics set.</span>';
     }
-    function switchHtml(on, act, label) {
-      return '<div class="swrow"><span id="lbl-' + act + '">' + label + '</span><button class="switch" role="switch" aria-labelledby="lbl-' + act + '" aria-checked="' + on + '" data-act="' + act + '"></button></div>';
+    function sigById(id) { var l = BEH[cur].signals; for (var i = 0; i < l.length; i++) if (l[i].id === id) return l[i]; return null; }
+    function sigCard(r, i, n) {
+      var id = r.id, p = 'sg-' + id, nKw = r.kw.length;
+      var head = '<div class="sig-head"><button class="sig-tg" data-sigopen="' + id + '" aria-expanded="' + !!r.open + '" aria-controls="' + p + '-body"><span class="chev' + (r.open ? ' open' : '') + '" aria-hidden="true">›</span><b>' + esc(r.name || 'Untitled signal') + '</b><span class="sig-meta">' + plural(nKw, 'keyword', 'keywords') + '</span><span class="status-pill ' + (r.on ? 'ok' : 'off') + '">' + (r.on ? 'On' : 'Off') + '</span></button>' +
+        '<span class="sig-mv"><button class="icon-sq" data-sigmove="' + id + ':-1" aria-label="Move up: ' + esc(r.name) + '"' + (i === 0 ? ' disabled' : '') + '>↑</button><button class="icon-sq" data-sigmove="' + id + ':1" aria-label="Move down: ' + esc(r.name) + '"' + (i === n - 1 ? ' disabled' : '') + '>↓</button></span></div>';
+      if (!r.open) return '<div class="sig">' + head + '</div>';
+      var chips = r.kw.length ? r.kw.map(function (k, j) { return '<span class="tagchip">' + esc(k) + '<button data-sigkwrm="' + id + ':' + j + '" aria-label="Remove ' + esc(k) + '">×</button></span>'; }).join('') : '<span class="fine">No keywords yet.</span>';
+      var ph = 'e.g. the helpline you want to show';
+      var del = st.sigDel === id
+        ? '<span class="why">Delete this signal?</span><span class="btnrow"><button class="btn small" data-sigdelyes="' + id + '">Yes, delete</button><button class="btn ghost small" data-sigdelno="' + id + '">Cancel</button></span>'
+        : '<span class="btnrow"><button class="btn ghost small" data-sigdup="' + id + '">Duplicate</button><button class="btn ghost small" data-sigdel="' + id + '">Delete</button></span>';
+      return '<div class="sig open">' + head + '<div class="sig-body" id="' + p + '-body">' +
+        fld(p + '-name', 'Name', '<input id="' + p + '-name" data-bind="sig:' + id + ':name" value="' + esc(r.name) + '" autocomplete="off">') +
+        '<div class="swrow"><span>Enabled</span><button class="switch" role="switch" aria-checked="' + !!r.on + '" aria-label="Enabled: ' + esc(r.name) + '" data-sigtoggle="' + id + '"></button></div>' +
+        '<div class="f"><label for="' + p + '-kw">Trigger keywords</label><div class="chipwrap">' + chips + '</div>' +
+        '<div class="inline"><input id="' + p + '-kw" data-bind="sig:' + id + ':kwDraft" data-sigkwin="' + id + '" value="' + esc(st.sigKw[id] || '') + '" placeholder="Add a keyword (Dutch or French)" aria-label="Add a keyword"><button class="btn small" data-sigkwadd="' + id + '">Add</button></div>' +
+        '<span class="fine">Dutch and French keywords together. A message matches when it contains any of them.</span></div>' +
+        fld(p + '-nl', 'Message (Dutch)', '<textarea id="' + p + '-nl" rows="3" data-bind="sig:' + id + ':msg.nl" placeholder="' + ph + '">' + esc(r.msg.nl) + '</textarea>') +
+        fld(p + '-fr', 'Message (French)', '<textarea id="' + p + '-fr" rows="3" data-bind="sig:' + id + ':msg.fr" placeholder="' + ph + '">' + esc(r.msg.fr) + '</textarea>') +
+        fld(p + '-ct', 'Phone number or link (optional)', '<input id="' + p + '-ct" data-bind="sig:' + id + ':contact" value="' + esc(r.contact) + '" placeholder="e.g. 0800 15 801" autocomplete="off">', 'Added on a new line below the message, in both languages.') +
+        fld(p + '-act', 'Action', '<select id="' + p + '-act" data-bind="sig:' + id + ':action"><option value="offer"' + (r.action === 'offer' ? ' selected' : '') + '>Show message and offer to leave a message</option><option value="only"' + (r.action === 'only' ? ' selected' : '') + '>Show message only</option></select>') +
+        '<div class="sig-foot">' + del + '</div></div></div>';
     }
 
     function behaviorTab() {
@@ -1745,87 +2101,99 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       var presets = PRESETS[cur].filter(function (p) { return b.topics.indexOf(p) === -1; }).map(function (p) { return '<button class="chipbtn" data-addpreset="' + esc(p) + '">+ ' + esc(p) + '</button>'; }).join('');
       var mails = b.mailTo.split(',').map(function (m) { return m.trim(); }).filter(Boolean);
       var bad = mails.filter(function (m) { return !/^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(m); });
-      var mailErr = !mails.length ? 'Vul minstens één e-mailadres in.' : bad.length ? 'Ongeldig e-mailadres: ' + bad[0] : '';
-      return '<div class="card"><h3>Toon van de assistent</h3>' + segHtml('tone', b.tone, [['neutral', 'Neutraal'], ['friendly', 'Vriendelijk'], ['formal', 'Formeel']]) +
-        '<p class="fine">Voorbeeld: de toon wordt gesimuleerd met een korte aanhef. Probeer het onder Test de assistent.</p></div>' +
-        '<div class="card"><h3>Wat de assistent niet beantwoordt</h3><p class="sub">Bij deze onderwerpen verwijst de assistent door.</p>' +
+      var mailErr = !mails.length ? 'Enter at least one e-mail address.' : bad.length ? 'Invalid e-mail address: ' + bad[0] : '';
+      var n = b.signals.length;
+      return '<div class="card"><h3>Tone of the assistant</h3>' + segHtml('tone', b.tone, [['informal', 'Informal'], ['neutral', 'Neutral'], ['formal', 'Formal']]) +
+        '<p class="fine">Sample: the tone is simulated with a short opener (informal: je/jij in Dutch, tu in French; formal: u in Dutch, vous in French). Try it under Test the assistant.</p></div>' +
+        '<div class="card"><h3>What the assistant does not answer</h3><p class="sub">For these topics the assistant redirects.</p>' +
         '<div class="chipwrap" id="topic-list">' + tagList(b.topics, 'rmtopic') + '</div>' +
-        '<div class="inline"><input id="bh-topic" data-bind="topicDraft" value="' + esc(st.topicDraft) + '" placeholder="Onderwerp toevoegen" aria-label="Onderwerp toevoegen"><button class="btn small" data-act="addtopic">Toevoegen</button></div>' +
-        (presets ? '<div class="chipwrap"><span class="fine">Suggesties:</span>' + presets + '</div>' : '') + '</div>' +
-        '<div class="card"><h3>Antwoord als iets niet in de bronnen staat</h3><p class="sub">Leeg laten gebruikt de standaardtekst.</p>' +
-        fld('bh-fb-nl', 'Nederlands', '<textarea id="bh-fb-nl" rows="3" data-bind="beh:fallback.nl" placeholder="' + esc(d.nl.fallback.text) + '">' + esc(b.fallback.nl) + '</textarea>') +
-        fld('bh-fb-fr', 'Frans', '<textarea id="bh-fb-fr" rows="3" data-bind="beh:fallback.fr" placeholder="' + esc(d.fr.fallback.text) + '">' + esc(b.fallback.fr) + '</textarea>') + '</div>' +
-        '<div class="card"><h3>Doorverwijsbericht</h3><p class="sub">Wordt getoond als de assistent doorverwijst, met de knop om een bericht achter te laten.</p>' +
-        fld('bh-rd-nl', 'Nederlands', '<textarea id="bh-rd-nl" rows="3" data-bind="beh:redirect.nl" placeholder="' + esc(d.nl.medical.text) + '">' + esc(b.redirect.nl) + '</textarea>') +
-        fld('bh-rd-fr', 'Frans', '<textarea id="bh-rd-fr" rows="3" data-bind="beh:redirect.fr" placeholder="' + esc(d.fr.medical.text) + '">' + esc(b.redirect.fr) + '</textarea>') + '</div>' +
-        '<div class="card"><h3>Hulplijn bij signalen van een crisis</h3>' + switchHtml(b.crisisOn, 'crisistoggle', 'Hulplijn tonen bij signalen van een crisis') +
-        (b.crisisOn ? '<div class="f"><label for="bh-kw">Signaalwoorden</label><div class="chipwrap" id="kw-list">' + tagList(b.crisisKw, 'rmkw') + '</div>' +
-          '<div class="inline"><input id="bh-kw" data-bind="kwDraft" value="' + esc(st.kwDraft) + '" placeholder="Signaalwoord toevoegen" aria-label="Signaalwoord toevoegen"><button class="btn small" data-act="addkw">Toevoegen</button></div></div>' +
-          fld('bh-ct-nl', 'Hulplijntekst (Nederlands)', '<textarea id="bh-ct-nl" rows="2" data-bind="beh:crisisText.nl" placeholder="' + esc(CRISIS_TXT.nl) + '">' + esc(b.crisisText.nl) + '</textarea>') +
-          fld('bh-ct-fr', 'Hulplijntekst (Frans)', '<textarea id="bh-ct-fr" rows="2" data-bind="beh:crisisText.fr" placeholder="' + esc(CRISIS_TXT.fr) + '">' + esc(b.crisisText.fr) + '</textarea>') : '<p class="fine">Uit: de assistent toont dan geen hulplijn.</p>') + '</div>' +
-        '<div class="card"><h3>Contactformulier</h3>' +
-        fld('bh-mail', 'Berichten sturen naar', '<input id="bh-mail" data-bind="beh:mailTo" value="' + esc(b.mailTo) + '" inputmode="email" autocomplete="off">', 'Meerdere adressen scheid je met een komma.') +
+        '<div class="inline"><input id="bh-topic" data-bind="topicDraft" value="' + esc(st.topicDraft) + '" placeholder="Add topic" aria-label="Add topic"><button class="btn small" data-act="addtopic">Add</button></div>' +
+        (presets ? '<div class="chipwrap"><span class="fine">Suggestions:</span>' + presets + '</div>' : '') + '</div>' +
+        '<div class="card"><h3>Answer when something is not in the sources</h3><p class="sub">Leave empty to use the default text.</p>' +
+        fld('bh-fb-nl', 'Dutch', '<textarea id="bh-fb-nl" rows="3" data-bind="beh:fallback.nl" placeholder="' + esc(d.nl.fallback.text) + '">' + esc(b.fallback.nl) + '</textarea>') +
+        fld('bh-fb-fr', 'French', '<textarea id="bh-fb-fr" rows="3" data-bind="beh:fallback.fr" placeholder="' + esc(d.fr.fallback.text) + '">' + esc(b.fallback.fr) + '</textarea>') + '</div>' +
+        '<div class="card"><h3>Redirect message</h3><p class="sub">Shown when the assistant redirects, together with the button to leave a message.</p>' +
+        fld('bh-rd-nl', 'Dutch', '<textarea id="bh-rd-nl" rows="3" data-bind="beh:redirect.nl" placeholder="' + esc(d.nl.medical.text) + '">' + esc(b.redirect.nl) + '</textarea>') +
+        fld('bh-rd-fr', 'French', '<textarea id="bh-rd-fr" rows="3" data-bind="beh:redirect.fr" placeholder="' + esc(d.fr.medical.text) + '">' + esc(b.redirect.fr) + '</textarea>') + '</div>' +
+        '<div class="card"><div class="pane-head"><h3 style="margin-right:auto">Signals &amp; responses</h3><button class="btn small" data-act="sigadd">Add signal</button></div>' +
+        '<p class="sub">When a visitor message contains a trigger keyword, the assistant shows that signal\'s message. The first matching signal wins, so the order matters. Disabled signals and signals without a message are skipped; the assistant then uses the normal redirect.</p>' +
+        '<div class="siglist">' + (n ? b.signals.map(function (r, i) { return sigCard(r, i, n); }).join('') : '<p class="fine">No signals yet.</p>') + '</div></div>' +
+        '<div class="card"><h3>Contact form</h3>' +
+        fld('bh-mail', 'Send messages to', '<input id="bh-mail" data-bind="beh:mailTo" value="' + esc(b.mailTo) + '" inputmode="email" autocomplete="off">', 'Separate several addresses with a comma.') +
         (mailErr ? '<p class="err" role="alert">' + esc(mailErr) + '</p>' : '') +
-        fld('bh-subj', 'Onderwerp van de e-mail (optioneel)', '<input id="bh-subj" data-bind="beh:mailSubject" value="' + esc(b.mailSubject) + '" placeholder="Nieuw bericht via de assistent">') +
-        '<p class="fine">Berichten van bezoekers komen in deze inbox terecht. Medewerkers behandelen ze daar; deze app heeft geen inbox. Voorbeeld: er wordt niets echt verstuurd.</p></div>';
+        fld('bh-subj', 'Subject of the e-mail (optional)', '<input id="bh-subj" data-bind="beh:mailSubject" value="' + esc(b.mailSubject) + '" placeholder="New message via the assistant">') +
+        '<p class="fine">Visitor messages arrive in this inbox. Staff handle them there; this app has no inbox. Sample: nothing is actually sent.</p></div>';
     }
 
     function startBlock() {
-      return '<div class="svcols">' + ['nl', 'fr'].map(function (lg) {
-        var arr = APP[cur].starts[lg];
-        return '<div class="sv"><h4>' + (lg === 'nl' ? 'Nederlands' : 'Frans') + '</h4>' + arr.map(function (q, i) {
-          return '<div class="svrow"><input id="sv-' + lg + '-' + i + '" data-bind="app:starts.' + lg + '.' + i + '" value="' + esc(q) + '" placeholder="Vraag ' + (i + 1) + '" aria-label="Startvraag ' + (i + 1) + ' (' + lg.toUpperCase() + ')">' +
-            '<button class="icon-sq" data-svmove="' + lg + ':' + i + ':-1" aria-label="Omhoog"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
-            '<button class="icon-sq" data-svmove="' + lg + ':' + i + ':1" aria-label="Omlaag"' + (i === arr.length - 1 ? ' disabled' : '') + '>↓</button>' +
-            '<button class="icon-sq" data-svrm="' + lg + ':' + i + '" aria-label="Verwijderen">×</button></div>';
-        }).join('') + '<button class="btn ghost small" data-svadd="' + lg + '"' + (arr.length >= 4 ? ' disabled' : '') + '>+ Vraag toevoegen</button></div>';
-      }).join('') + '</div>';
+      var s = APP[cur].starts, n = Math.max(s.nl.length, s.fr.length);
+      while (s.nl.length < n) s.nl.push('');
+      while (s.fr.length < n) s.fr.push('');
+      return '<div class="sqlist">' + s.nl.map(function (q, i) {
+        return '<div class="sqcard"><div class="sqhead"><b>Question ' + (i + 1) + '</b><span class="sqact">' +
+          '<button class="icon-sq" data-svmove="' + i + ':-1" aria-label="Move question ' + (i + 1) + ' up"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+          '<button class="icon-sq" data-svmove="' + i + ':1" aria-label="Move question ' + (i + 1) + ' down"' + (i === n - 1 ? ' disabled' : '') + '>↓</button>' +
+          '<button class="icon-sq" data-svrm="' + i + '" aria-label="Remove question ' + (i + 1) + '">×</button></span></div>' +
+          ['nl', 'fr'].map(function (lg) {
+            return '<div class="sqrow"><label for="sv-' + lg + '-' + i + '">' + (lg === 'nl' ? 'Dutch' : 'French') + '</label><input id="sv-' + lg + '-' + i + '" data-bind="app:starts.' + lg + '.' + i + '" value="' + esc(s[lg][i]) + '" placeholder="Question ' + (i + 1) + ' in ' + (lg === 'nl' ? 'Dutch' : 'French') + '"></div>';
+          }).join('') + '</div>';
+      }).join('') + '</div><div><button class="btn ghost small" data-svadd="1"' + (n >= 4 ? ' disabled' : '') + '>+ Add question</button></div>';
     }
 
     function lookTab() {
       var a = APP[cur], t = a.color ? themeFor(a.color) : null, hex = st.hexDraft != null ? st.hexDraft : a.color, hexBad = hex && !hexNorm(hex);
       var sw = SWATCHES.map(function (s) { return '<button class="swatch" data-swatch="' + s[0] + '" aria-pressed="' + ((a.color || '') === s[0]) + '" aria-label="' + s[1] + '" title="' + s[1] + '" style="background:' + (s[2] || s[0]) + '"></button>'; }).join('');
-      var av = [['ai', 'AI'], ['chat', ICON.chat], ['spark', ICON.spark]].map(function (o) {
-        return '<button data-avatar="' + o[0] + '" aria-pressed="' + (a.avatar === o[0]) + '" aria-label="' + (o[0] === 'ai' ? 'Initialen AI' : o[0] === 'chat' ? 'Chat-icoon' : 'Sparkle-icoon') + '"><span class="avi">' + o[1] + '</span></button>';
+      var ic = [['chat', 'Chat bubble'], ['dots', 'Message dots'], ['spark', 'Sparkle'], ['help', 'Help']].map(function (o) {
+        return '<button data-icon="' + o[0] + '" aria-pressed="' + (a.icon === o[0]) + '" aria-label="' + o[1] + '" title="' + o[1] + '"><span class="avi">' + ICON[o[0]] + '</span></button>';
       }).join('');
       var d = T[cur].nl;
-      var controls = '<div class="card"><h3>Kleur en vorm</h3>' +
-        '<div class="f"><span class="lbl">Hoofdkleur</span><div class="swatches">' + sw + '</div></div>' +
-        fld('ap-hex', 'Hexcode', '<input id="ap-hex" data-bind="app:hex" value="' + esc(hex || '') + '" placeholder="#C2570A" maxlength="7" autocomplete="off" aria-invalid="' + !!hexBad + '">') +
-        (hexBad ? '<p class="err" role="alert">Vul een geldige hexcode in, bijv. #0F766E.</p>' : '') +
-        (t && t.low ? '<p class="warn" role="alert">Lage contrast, kies een donkerdere kleur. (Contrast ' + t.ratio.toFixed(1).replace('.', ',') + ':1; de chat gebruikt tijdelijk een donkerdere tint.)</p>' : '') +
-        '<div class="f"><span class="lbl">Hoekafronding</span>' + segHtml('radius', a.radius, [['sharp', 'Scherp'], ['mid', 'Gemiddeld'], ['round', 'Rond']]) + '</div>' +
-        '<div class="f"><span class="lbl">Positie van de chatknop</span>' + segHtml('pos', a.pos, [['right', 'Rechts'], ['left', 'Links']]) + '</div>' +
-        '<div class="f"><span class="lbl">Avatar</span><div class="seg">' + av + '</div></div></div>' +
-        '<div class="card"><h3>Teksten</h3>' +
-        fld('ap-name', 'Naam van de assistent', '<input id="ap-name" data-bind="app:name" maxlength="24" value="' + esc(a.name) + '" placeholder="' + esc(d.botName) + '">', 'Maximaal 24 tekens.') +
-        fld('ap-label', 'Label van de chatknop', '<input id="ap-label" data-bind="app:label" maxlength="30" value="' + esc(a.label) + '" placeholder="' + esc(d.launcher) + '">') +
-        fld('ap-wnl', 'Welkomstbericht (Nederlands)', '<textarea id="ap-wnl" rows="3" data-bind="app:welcome.nl" placeholder="' + esc(KB[cur].nl.greet.text) + '">' + esc(a.welcome.nl) + '</textarea>') +
-        fld('ap-wfr', 'Welkomstbericht (Frans)', '<textarea id="ap-wfr" rows="3" data-bind="app:welcome.fr" placeholder="' + esc(KB[cur].fr.greet.text) + '">' + esc(a.welcome.fr) + '</textarea>') + '</div>' +
-        '<div class="card"><h3>Startvragen</h3><p class="sub">De knoppen onder het welkomstbericht. Lege rijen worden overgeslagen, maximaal 4 per taal.</p>' + startBlock() + '</div>' +
-        '<div><button class="btn ghost" data-act="resetapp">Terugzetten naar standaard</button></div>';
-      var preview = '<div class="pv"><div class="pane-head"><h3>Voorbeeld (live)</h3><div class="seg"><button data-applang="nl" aria-pressed="' + (lang === 'nl') + '">NL</button><button data-applang="fr" aria-pressed="' + (lang === 'fr') + '">FR</button></div></div>' +
+      var controls = '<div class="card"><h3>Colour and shape</h3>' +
+        '<div class="f"><span class="lbl">Main colour</span><div class="swatches">' + sw + '</div></div>' +
+        fld('ap-hex', 'Hex code', '<input id="ap-hex" data-bind="app:hex" value="' + esc(hex || '') + '" placeholder="#C2570A" maxlength="7" autocomplete="off" aria-invalid="' + !!hexBad + '">') +
+        (hexBad ? '<p class="err" role="alert">Enter a valid hex code, e.g. #0F766E.</p>' : '') +
+        (t && t.low ? '<p class="warn" role="alert">Low contrast, pick a darker colour. (Contrast ' + t.ratio.toFixed(1) + ':1; the chat temporarily uses a darker shade.)</p>' : '') +
+        '<div class="f"><span class="lbl">Corner radius</span>' + segHtml('radius', a.radius, [['none', 'None'], ['mid', 'Medium'], ['round', 'Rounded']]) + '</div></div>' +
+        '<div class="card"><h3>Avatar</h3><p class="sub">The round image in the chat header. Default: the logo of ' + esc(CFG[cur].name) + '.</p>' +
+        '<div class="avrow"><span class="av-prev' + (a.avatarImg ? ' custom' : '') + '"><img src="' + esc(a.avatarImg || logoSrc()) + '" alt="Avatar preview" width="56" height="56"></span>' +
+        '<label class="drop avdrop" for="av-file"><b>Drop an image here</b><span>or click to choose a file · PNG, JPG, SVG or WebP · max 1 MB</span></label>' +
+        '<input class="sr-only" id="av-file" type="file" accept=".png,.jpg,.jpeg,.svg,.webp,image/png,image/jpeg,image/svg+xml,image/webp" data-avfile></div>' +
+        (st.avErr ? '<p class="err" role="alert">' + esc(st.avErr) + '</p>' : '') +
+        '<div><button class="btn ghost small" data-act="avremove"' + (a.avatarImg ? '' : ' disabled') + '>Remove / use default</button></div></div>' +
+        '<div class="card"><h3>Chat button</h3>' +
+        '<div class="f"><span class="lbl">Position</span>' + segHtml('pos', a.pos, [['right', 'Right'], ['left', 'Left']]) + '</div>' +
+        '<div class="f"><span class="lbl">Launcher icon</span><div class="seg" role="group" aria-label="Launcher icon">' + ic + '</div></div>' +
+        fld('ap-label-nl', 'Label (Dutch)', '<input id="ap-label-nl" data-bind="app:label.nl" maxlength="30" value="' + esc(a.label.nl) + '" placeholder="Empty = icon only">') +
+        fld('ap-label-fr', 'Label (French)', '<input id="ap-label-fr" data-bind="app:label.fr" maxlength="30" value="' + esc(a.label.fr) + '" placeholder="Empty = icon only">', 'Optional, maximum 30 characters. With a label the button shows the icon and the text; without one it is a round icon-only button.') + '</div>' +
+        '<div class="card"><h3>Texts</h3>' +
+        fld('ap-name', 'Name of the assistant', '<input id="ap-name" data-bind="app:name" maxlength="24" value="' + esc(a.name) + '" placeholder="' + esc(d.botName) + '">', 'Maximum 24 characters.') +
+        fld('ap-wnl', 'Welcome message (Dutch)', '<textarea id="ap-wnl" rows="3" data-bind="app:welcome.nl" placeholder="' + esc(KB[cur].nl.greet.text) + '">' + esc(a.welcome.nl) + '</textarea>') +
+        fld('ap-wfr', 'Welcome message (French)', '<textarea id="ap-wfr" rows="3" data-bind="app:welcome.fr" placeholder="' + esc(KB[cur].fr.greet.text) + '">' + esc(a.welcome.fr) + '</textarea>') + '</div>' +
+        '<div class="card"><h3>Start questions</h3><p class="sub">The buttons under the welcome message. Empty rows are skipped, up to 4 per language.</p>' + startBlock() + '</div>' +
+        '<div><button class="btn ghost" data-act="resetapp">Reset to default</button></div>';
+      var lab = launcherLabelFor(a);
+      var preview = '<div class="pv"><div class="pane-head"><h3>Preview (live)</h3><div class="seg" role="group" aria-label="Chat language"><button data-applang="nl" aria-pressed="' + (lang === 'nl') + '">NL</button><button data-applang="fr" aria-pressed="' + (lang === 'fr') + '">FR</button></div></div>' +
         '<div class="pv-wrap"><div class="pv-inner" id="pv-slot"></div></div>' +
-        '<div class="pv-launch ' + a.pos + '" style="' + appearanceStyle() + '"><span class="launcher" aria-hidden="true">' + ICON.chat + '<span>' + esc(a.label.trim() || L().launcher) + '</span></span></div>' +
-        '<p class="fine">Voorbeeld, wijzigingen worden niet bewaard. De wijzigingen zijn direct zichtbaar in de tabbladen Ingesloten en Chatknop.</p></div>';
+        '<div class="pv-launch ' + a.pos + '" style="' + appearanceStyle() + '"><span class="launcher' + (lab ? '' : ' round') + '" aria-hidden="true">' + (ICON[a.icon] || ICON.chat) + (lab ? '<span>' + esc(lab) + '</span>' : '') + '</span></div>' +
+        '<p class="fine">Sample, changes are not saved. Changes show immediately in the visitor views of this prototype.</p></div>';
       return '<div class="ap-grid"><div class="ap-controls">' + controls + '</div>' + preview + '</div>';
     }
+    function launcherLabelFor(a) { return (a.label[lang] || '').trim(); }
 
     function privacyTab() {
       var p = PRIV[cur], pr = PROVIDERS.filter(function (x) { return x.k === provider; })[0];
       var policyBad = p.policy.trim() && !/^https?:\/\/\S+\.\S+$/i.test(p.policy.trim());
-      var ret = { '30': '30 dagen', '90': '90 dagen', '365': '1 jaar', never: 'nooit' };
-      return '<div class="card"><h3>Bewaartermijn</h3>' + fld('pr-ret', 'Gesprekken bewaren', '<select id="pr-ret" data-bind="priv:retention">' + [['30', '30 dagen'], ['90', '90 dagen'], ['365', '1 jaar'], ['never', 'Nooit verwijderen']].map(function (o) { return '<option value="' + o[0] + '"' + (p.retention === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select>') +
-        '<p class="fine">' + (p.retention === 'never' ? 'Gesprekken blijven bewaard tot je ze zelf verwijdert.' : 'Gesprekken worden na ' + ret[p.retention] + ' automatisch verwijderd.') + ' Voorbeeld: er wordt niets echt verwijderd.</p></div>' +
-        '<div class="card"><h3>Persoonsgegevens</h3>' + switchHtml(p.mask, 'masktoggle', 'Persoonsgegevens verbergen in opgeslagen gesprekken') +
-        '<p class="fine">E-mailadressen en telefoonnummers worden afgeschermd in de gespreksgeschiedenis en in exports. Bekijk het resultaat onder Gesprekken.</p></div>' +
-        '<div class="card"><h3>Privacybeleid en AI-melding</h3>' +
-        fld('pr-url', 'Link naar het privacybeleid', '<input id="pr-url" data-bind="priv:policy" value="' + esc(p.policy) + '" placeholder="https://www.voorbeeld.be/privacy" inputmode="url">', 'Wordt als link getoond in de voettekst van de chat, zodra je een geldige URL invult.') +
-        (policyBad ? '<p class="err" role="alert">Vul een geldige URL in die begint met http:// of https://.</p>' : '') +
-        fld('pr-dnl', 'AI-melding (Nederlands)', '<input id="pr-dnl" data-bind="priv:disclaimer.nl" value="' + esc(p.disclaimer.nl) + '" placeholder="' + esc(T[cur].nl.aiNote) + '">') +
-        fld('pr-dfr', 'AI-melding (Frans)', '<input id="pr-dfr" data-bind="priv:disclaimer.fr" value="' + esc(p.disclaimer.fr) + '" placeholder="' + esc(T[cur].fr.aiNote) + '">') + '</div>' +
-        '<div class="card"><h3>Waar worden gegevens verwerkt?</h3><p class="summary-line" role="status"><b>' + esc(pr.proc) + '</b><br>' + esc(pr.procNote) + '</p><p class="fine">Dit volgt het gekozen taalmodel. Wijzig het onder <button class="toggle-link" data-settab="model">Taalmodel</button>.</p></div>' +
-        '<div class="card"><h3>Gesprek verwijderen of exporteren</h3><p class="fine">Open <button class="toggle-link" data-page="archive">Gesprekken</button>, kies een gesprek en gebruik <b>Exporteer (.txt)</b> of <b>Verwijderen</b>.</p></div>';
+      var ret = { '30': '30 days', '90': '90 days', '365': '1 year', never: 'never' };
+      return '<div class="card"><h3>Retention</h3>' + fld('pr-ret', 'Keep conversations', '<select id="pr-ret" data-bind="priv:retention">' + [['30', '30 days'], ['90', '90 days'], ['365', '1 year'], ['never', 'Never delete']].map(function (o) { return '<option value="' + o[0] + '"' + (p.retention === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select>') +
+        '<p class="fine">' + (p.retention === 'never' ? 'Conversations are kept until you delete them yourself.' : 'Conversations are deleted automatically after ' + ret[p.retention] + '.') + ' Sample: nothing is actually deleted.</p></div>' +
+        '<div class="card"><h3>Personal data</h3>' + switchHtml(p.mask, 'masktoggle', 'Hide personal data in stored conversations') +
+        '<p class="fine">E-mail addresses and phone numbers are masked in the conversation history and in exports. See the result under Conversations.</p></div>' +
+        '<div class="card"><h3>Privacy policy and AI notice</h3>' +
+        fld('pr-url', 'Link to the privacy policy', '<input id="pr-url" data-bind="priv:policy" value="' + esc(p.policy) + '" placeholder="https://www.voorbeeld.be/privacy" inputmode="url">', 'Shown as a link in the footer of the chat once you enter a valid URL.') +
+        (policyBad ? '<p class="err" role="alert">Enter a valid URL starting with http:// or https://.</p>' : '') +
+        fld('pr-dnl', 'AI notice (Dutch)', '<input id="pr-dnl" data-bind="priv:disclaimer.nl" value="' + esc(p.disclaimer.nl) + '" placeholder="' + esc(T[cur].nl.aiNote) + '">') +
+        fld('pr-dfr', 'AI notice (French)', '<input id="pr-dfr" data-bind="priv:disclaimer.fr" value="' + esc(p.disclaimer.fr) + '" placeholder="' + esc(T[cur].fr.aiNote) + '">') + '</div>' +
+        '<div class="card"><h3>Where is data processed?</h3><p class="summary-line" role="status"><b>' + esc(pr.proc) + '</b><br>' + esc(pr.procNote) + '</p><p class="fine">This follows the chosen language model. Change it under <button class="toggle-link" data-settab="model">Language model</button>.</p></div>' +
+        '<div class="card"><h3>Delete or export a conversation</h3><p class="fine">Open <button class="toggle-link" data-page="archive">Conversations</button>, pick a conversation and use <b>Export .txt</b> or <b>Delete</b>.</p></div>';
     }
 
     function snippet(kind) {
@@ -1833,6 +2201,12 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       if (kind === 'inline') attrs += ' data-mode="inline" data-target="#' + c.mountId + '"';
       else if (a.pos === 'left') attrs += ' data-position="left"';
       if (a.color) attrs += ' data-color="' + a.color + '"';
+      if (a.radius !== 'mid') attrs += ' data-radius="' + a.radius + '"';
+      if (kind !== 'inline') {
+        if (a.icon !== 'chat') attrs += ' data-icon="' + a.icon + '"';
+        attrs += ' data-label="' + esc(a.label.nl.trim()) + '"';
+        if (a.label.fr.trim() !== a.label.nl.trim()) attrs += ' data-label-fr="' + esc(a.label.fr.trim()) + '"';
+      }
       attrs += ' data-lang="auto"';
       var tag = '<script src="https://' + c.adminUrl + '/widget.js"' + attrs + ' async><\/script>';
       return kind === 'inline' ? '<div id="' + c.mountId + '"></div>\n' + tag : tag;
@@ -1849,16 +2223,14 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     }
     function embedTab() {
       var kind = st.snip, copied = st.copied === kind;
-      var expl = kind === 'widget'
-        ? ['Plak dit vlak voor </body> op elke pagina waar de chatknop moet verschijnen.', 'Collez ce code juste avant </body> sur chaque page où le bouton de chat doit apparaître.']
-        : ['Plak dit waar de chat op de pagina moet verschijnen.', 'Collez ce code à l’endroit de la page où le chat doit apparaître.'];
-      return '<div class="card"><h3>Op je site plaatsen</h3>' + segHtml('snip', kind, [['widget', 'Chatknop'], ['inline', 'Ingesloten']]) +
-        '<p>' + esc(expl[0]) + '</p><p class="fine"><span class="chip fr">FR</span> ' + esc(expl[1]) + '</p>' +
-        '<div class="codebox"><div class="codehead"><span>' + (kind === 'widget' ? 'Chatknop (zwevend)' : 'Ingesloten op een pagina') + '</span><button class="btn small" data-copy="' + kind + '">' + (copied ? 'Gekopieerd' : 'Kopieer') + '</button></div><pre class="code" tabindex="0"><code>' + esc(snippet(kind)) + '</code></pre></div>' +
-        '<p class="fine">Voorbeeld: de adressen in de code zijn niet echt actief. De code past zich aan je instellingen bij Uiterlijk aan, zoals de positie van de knop.</p></div>' +
-        '<div class="card"><h3>Toegestane domeinen</h3>' + fld('dom', 'Domeinen', '<input id="dom" data-bind="domains" value="' + esc(st.domains[cur]) + '" autocomplete="off">', 'Scheid domeinen met een komma.') +
-        '<p class="fine">De chat laadt alleen op deze domeinen. Op andere sites blijft hij verborgen.</p></div>' +
-        '<p class="fine">Gebruik je WordPress? Plak de code via een plugin voor headers en footers.</p>';
+      var expl = kind === 'widget' ? 'Paste this just before </body> on every page where the chat button should appear.' : 'Paste this where the chat should appear on the page.';
+      return '<div class="card"><h3>Install on your site</h3>' + segHtml('snip', kind, [['widget', 'Chat button'], ['inline', 'Embedded']]) +
+        '<p>' + esc(expl) + '</p>' +
+        '<div class="codebox"><div class="codehead"><span>' + (kind === 'widget' ? 'Chat button (floating)' : 'Embedded on a page') + '</span><button class="btn small" data-copy="' + kind + '">' + (copied ? 'Copied' : 'Copy') + '</button></div><pre class="code" tabindex="0"><code>' + esc(snippet(kind)) + '</code></pre></div>' +
+        '<p class="fine">Sample: the addresses in the code are not really active. The code follows your Appearance settings, such as the button position, icon and label.</p></div>' +
+        '<div class="card"><h3>Allowed domains</h3>' + fld('dom', 'Domains', '<input id="dom" data-bind="domains" value="' + esc(st.domains[cur]) + '" autocomplete="off">', 'Separate domains with a comma.') +
+        '<p class="fine">The chat only loads on these domains. On other sites it stays hidden.</p></div>' +
+        '<p class="fine">Using WordPress? Paste the code via a plugin for headers and footers.</p>';
     }
 
     function modelTab() {
@@ -1866,16 +2238,16 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       var cards = PROVIDERS.map(function (p) {
         return '<button class="prov" role="radio" aria-checked="' + (provider === p.k) + '" data-prov="' + p.k + '"><span class="nm"><span class="radio" aria-hidden="true"></span><img src="img/' + p.k + '.svg" alt="" width="28" height="28">' + esc(p.n) + (p.reco ? '<span class="reco">' + esc(p.reco) + '</span>' : '') + '</span><span class="note">' + esc(p.note) + '</span></button>';
       }).join('');
-      return '<div class="card"><h3>Taalmodel</h3><p class="sub">Het taalmodel schrijft de antwoorden van de assistent, op basis van de bronnen van ' + esc(CFG[cur].name) + '.</p>' +
-        '<div class="provs" role="radiogroup" aria-label="Taalmodel">' + cards + '</div>' +
-        '<p class="summary-line" role="status">De assistent schrijft nu antwoorden met <b>' + esc(prov.n) + '</b>. ' + esc(prov.note) + '. ' + esc(prov.proc) + '. De ' + c.n + ' bronnen (' + plural(c.pages, 'pagina', 'pagina\'s') + '), goedgekeurde antwoorden en gedragsregels blijven hetzelfde.</p></div>';
+      return '<div class="card"><h3>Language model</h3><p class="sub">The language model writes the assistant\'s answers, based on the sources of ' + esc(CFG[cur].name) + '.</p>' +
+        '<div class="provs" role="radiogroup" aria-label="Language model">' + cards + '</div>' +
+        '<p class="summary-line" role="status">The assistant now writes answers with <b>' + esc(prov.n) + '</b>. ' + esc(prov.note) + '. ' + esc(prov.proc) + '. The ' + c.n + ' sources (' + plural(c.pages, 'page', 'pages') + '), approved answers and behaviour rules stay the same.</p></div>';
     }
 
     function settingsPane() {
-      var tabs = [['behavior', 'Gedrag'], ['look', 'Uiterlijk'], ['privacy', 'Privacy'], ['embed', 'Op je site plaatsen'], ['model', 'Taalmodel']];
+      var tabs = [['behavior', 'Behaviour'], ['look', 'Appearance'], ['privacy', 'Privacy'], ['embed', 'Install on your site'], ['model', 'Language model']];
       var body = st.setTab === 'look' ? lookTab() : st.setTab === 'privacy' ? privacyTab() : st.setTab === 'embed' ? embedTab() : st.setTab === 'model' ? modelTab() : behaviorTab();
-      return '<div class="pane"><div class="pane-head"><h2>Instellingen</h2><span class="sample">Voorbeeld, wijzigingen worden niet bewaard</span></div>' +
-        '<div class="seg wrapseg" role="group" aria-label="Onderdeel van de instellingen">' + tabs.map(function (x) { return '<button data-settab="' + x[0] + '" aria-pressed="' + (st.setTab === x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>' +
+      return '<div class="pane"><div class="pane-head"><h2>Settings</h2><span class="sample">Sample, changes are not saved</span></div>' +
+        '<div class="seg wrapseg" role="group" aria-label="Settings section">' + tabs.map(function (x) { return '<button data-settab="' + x[0] + '" aria-pressed="' + (st.setTab === x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>' +
         '<div class="set-body">' + body + '</div></div>';
     }
 
@@ -1887,10 +2259,20 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       st.toast = { title: title, body: body }; render();
       setTimeout(function () { if (st.toast && st.toast.title === title) { st.toast = null; var el = root.querySelector('.toast'); if (el) el.remove(); } }, 3500);
     }
+    function signedOutHtml() {
+      return '<div class="signedout"><div class="so-card"><span class="so-ring" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>' +
+        '<h2>You have been signed out</h2><p>For your security the admin is closed. Sign in again to continue where you left off.</p>' +
+        '<button class="btn" id="signin-btn" data-act="signin">Sign in again</button></div></div>';
+    }
 
     var lastView = '';
     function render() {
-      var main = st.page === 'sources' ? sourcesPane() : st.page === 'test' ? testPane() : st.page === 'archive' ? archivePane() : st.page === 'stats' ? statsPane() : settingsPane();
+      if (st.signedOut) {
+        root.innerHTML = signedOutHtml();
+        var sb = root.querySelector('#signin-btn'); if (sb) sb.focus();
+        return;
+      }
+      var main = st.page === 'sources' ? sourcesPane() : st.page === 'test' ? testPane() : st.page === 'archive' ? archivePane() : st.page === 'stats' ? statsPane() : st.page === 'usage' ? usagePane() : settingsPane();
       var act = document.activeElement, keep = act && root.contains(act) && act.id && (act.hasAttribute('data-bind') || act.hasAttribute('data-fix')) ? act.id : null;
       var caret = keep ? act.selectionStart : null;
       var oldPane = root.querySelector('.pane'), oldList = root.querySelector('.smlist'), view = st.page + ':' + st.setTab;
@@ -1916,11 +2298,21 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       st.topicDraft = ''; applyChange();
       var el = document.getElementById('bh-topic'); if (el) el.focus();
     }
-    function addKw() {
-      var v = st.kwDraft.trim().toLowerCase();
-      if (v && BEH[cur].crisisKw.indexOf(v) === -1) BEH[cur].crisisKw.push(v);
-      st.kwDraft = ''; applyChange();
-      var el = document.getElementById('bh-kw'); if (el) el.focus();
+    function addSigKw(id) {
+      var r = sigById(id); if (!r) return;
+      var v = (st.sigKw[id] || '').trim().toLowerCase();
+      if (v && r.kw.indexOf(v) === -1) r.kw.push(v);
+      st.sigKw[id] = ''; applyChange();
+      var el = document.getElementById('sg-' + id + '-kw'); if (el) el.focus();
+    }
+    function avatarFile(f) {
+      if (!f) return;
+      if (!/^image\/(png|jpeg|svg\+xml|webp)$/.test(f.type) && !/\.(png|jpe?g|svg|webp)$/i.test(f.name)) { st.avErr = f.name + ': use a PNG, JPG, SVG or WebP image.'; render(); return; }
+      if (f.size > 1048576) { st.avErr = f.name + ': larger than 1 MB.'; render(); return; }
+      var rd = new FileReader(), k = cur;
+      rd.onload = function () { st.avErr = ''; APP[k].avatarImg = String(rd.result); applyChange(); };
+      rd.onerror = function () { st.avErr = 'Could not read the file.'; render(); };
+      rd.readAsDataURL(f);
     }
     function onBind(e) {
       var k = e.target.getAttribute('data-bind');
@@ -1928,7 +2320,14 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       var v = e.target.value;
       if (k === 'q' || k === 'srcQ' || k === 'smFilter') { st[k] = v; if (k === 'srcQ') st.srcPage = 1; render(); }
       else if (k === 'srcPer') { st.srcPer = +v; st.srcPage = 1; render(); }
-      else if (k === 'topicDraft' || k === 'kwDraft' || k === 'webUrls' || k === 'smUrl' || k === 'webAuto' || k === 'pdfLang') st[k] = v;
+      else if (k === 'topicDraft' || k === 'webUrls' || k === 'smUrl' || k === 'pdfLang') st[k] = v;
+      else if (k === 'uPeriod') { st.uPeriod = v; render(); }
+      else if (k.indexOf('sig:') === 0) {
+        var sp = k.split(':'), sg = sigById(+sp[1]); if (!sg) return;
+        if (sp[2] === 'kwDraft') { st.sigKw[sg.id] = v; return; }
+        if (sp[2] === 'msg.nl') sg.msg.nl = v; else if (sp[2] === 'msg.fr') sg.msg.fr = v; else sg[sp[2]] = v;
+        applyChange();
+      }
       else if (k === 'domains') st.domains[cur] = v;
       else if (k === 'app:hex') {
         st.hexDraft = v;
@@ -1937,7 +2336,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
         applyChange();
       } else if (k.indexOf(':') > 0) {
         if (k === 'app:name') v = v.slice(0, 24);
-        if (k === 'app:label') v = v.slice(0, 30);
+        if (k.indexOf('app:label') === 0) v = v.slice(0, 30);
         var pr = k.split(':'); setPath(pr[0], pr[1], v); applyChange();
       }
     }
@@ -1945,6 +2344,16 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     root.addEventListener('click', function (e) {
       var t, v, c0 = e.target;
       function pick(attr) { t = c0.closest('[' + attr + ']'); return t ? t.getAttribute(attr) : null; }
+      var closed = false;
+      if (st.userMenu && !c0.closest('.usr')) { st.userMenu = false; closed = true; }
+      if (st.siteMenu && !c0.closest('.sp')) { st.siteMenu = false; closed = true; }
+      if (closed) render();
+      if ((v = pick('data-sitepick')) !== null) {
+        st.siteMenu = false;
+        if (v !== cur) switchSite(v); else render();
+        var spb = root.querySelector('#sp-btn'); if (spb) spb.focus();
+        return;
+      }
       if ((v = pick('data-page')) !== null) { st.page = v; st.addMenu = false; render(); return; }
       if ((v = pick('data-settab')) !== null) { st.setTab = v; render(); return; }
       if ((v = pick('data-filter')) !== null) { st.filter = v; render(); return; }
@@ -1956,36 +2365,53 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       if ((v = pick('data-webmode')) !== null) { st.webMode = v; render(); return; }
       if ((v = pick('data-srcjump')) !== null) { st.page = 'sources'; st.srcQ = v; st.srcFilter = 'all'; render(); return; }
       if ((v = pick('data-testq')) !== null) { testChat.send(v); return; }
-      if ((v = pick('data-applang')) !== null) { lang = v; widget.relang(); embed.relang(); preview.relang(); testChat.relang(); syncControls(); render(); return; }
+      if ((v = pick('data-applang')) !== null) { setLang(v); return; }
       if ((v = pick('data-tone')) !== null) { BEH[cur].tone = v; applyChange(); return; }
       if ((v = pick('data-swatch')) !== null) { APP[cur].color = v; st.hexDraft = null; applyChange(); return; }
       if ((v = pick('data-radius')) !== null) { APP[cur].radius = v; applyChange(); return; }
       if ((v = pick('data-pos')) !== null) { APP[cur].pos = v; applyChange(); return; }
-      if ((v = pick('data-avatar')) !== null) { APP[cur].avatar = v; applyChange(); return; }
+      if ((v = pick('data-icon')) !== null) { APP[cur].icon = v; applyChange(); return; }
       if ((v = pick('data-snip')) !== null) { st.snip = v; render(); return; }
       if ((v = pick('data-copy')) !== null) {
         copyText(snippet(v), function () { st.copied = v; render(); setTimeout(function () { if (st.copied === v) { st.copied = null; if (st.page === 'settings') render(); } }, 2000); });
         return;
       }
       if ((v = pick('data-prov')) !== null) {
-        if (v !== provider) { provider = v; flash('Voorbeeld: wisselen kan zonder de rest aan te passen', 'Taalmodel: ' + PROVIDERS.filter(function (p) { return p.k === v; })[0].n); }
+        if (v !== provider) { provider = v; flash('Sample: you can switch without changing anything else', 'Language model: ' + PROVIDERS.filter(function (p) { return p.k === v; })[0].n); }
         return;
       }
       if ((v = pick('data-rmtopic')) !== null) { BEH[cur].topics.splice(+v, 1); applyChange(); return; }
       if ((v = pick('data-addpreset')) !== null) { BEH[cur].topics.push(v); applyChange(); return; }
-      if ((v = pick('data-rmkw')) !== null) { BEH[cur].crisisKw.splice(+v, 1); applyChange(); return; }
       if ((v = pick('data-svmove')) !== null) {
-        var m = v.split(':'), arr = APP[cur].starts[m[0]], i = +m[1], j = i + +m[2];
-        if (j >= 0 && j < arr.length) { var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp; }
+        var m = v.split(':'), i = +m[0], j = i + +m[1], sq = APP[cur].starts;
+        if (j >= 0 && j < sq.nl.length) ['nl', 'fr'].forEach(function (lg) { var tmp = sq[lg][i]; sq[lg][i] = sq[lg][j]; sq[lg][j] = tmp; });
         applyChange(); return;
       }
-      if ((v = pick('data-svrm')) !== null) { var r = v.split(':'); APP[cur].starts[r[0]].splice(+r[1], 1); applyChange(); return; }
+      if ((v = pick('data-svrm')) !== null) { APP[cur].starts.nl.splice(+v, 1); APP[cur].starts.fr.splice(+v, 1); applyChange(); return; }
       if ((v = pick('data-svadd')) !== null) {
-        if (APP[cur].starts[v].length < 4) APP[cur].starts[v].push('');
+        var sa = APP[cur].starts;
+        if (Math.max(sa.nl.length, sa.fr.length) < 4) { sa.nl.push(''); sa.fr.push(''); }
         applyChange();
-        var ni = document.getElementById('sv-' + v + '-' + (APP[cur].starts[v].length - 1)); if (ni) ni.focus();
+        var ni = document.getElementById('sv-nl-' + (sa.nl.length - 1)); if (ni) ni.focus();
         return;
       }
+      if ((v = pick('data-sigopen')) !== null) { var sr = sigById(+v); if (sr) sr.open = !sr.open; render(); return; }
+      if ((v = pick('data-sigtoggle')) !== null) { var s2 = sigById(+v); if (s2) s2.on = !s2.on; applyChange(); return; }
+      if ((v = pick('data-sigmove')) !== null) {
+        var m2 = v.split(':'), l2 = BEH[cur].signals, i2 = l2.indexOf(sigById(+m2[0])), j2 = i2 + +m2[1];
+        if (i2 > -1 && j2 >= 0 && j2 < l2.length) { var tp2 = l2[i2]; l2[i2] = l2[j2]; l2[j2] = tp2; }
+        applyChange(); return;
+      }
+      if ((v = pick('data-sigkwadd')) !== null) { addSigKw(+v); return; }
+      if ((v = pick('data-sigkwrm')) !== null) { var q3 = v.split(':'), s3 = sigById(+q3[0]); if (s3) s3.kw.splice(+q3[1], 1); applyChange(); return; }
+      if ((v = pick('data-sigdup')) !== null) {
+        var s4 = sigById(+v), l4 = BEH[cur].signals;
+        if (s4) { var cp = clone(s4); cp.id = ++sigUid; cp.name = s4.name + ' (copy)'; cp.open = true; l4.splice(l4.indexOf(s4) + 1, 0, cp); }
+        applyChange(); return;
+      }
+      if ((v = pick('data-sigdelyes')) !== null) { var s5 = sigById(+v), l5 = BEH[cur].signals; if (s5) l5.splice(l5.indexOf(s5), 1); st.sigDel = null; applyChange(); return; }
+      if ((v = pick('data-sigdelno')) !== null) { st.sigDel = null; render(); return; }
+      if ((v = pick('data-sigdel')) !== null) { st.sigDel = +v; render(); return; }
       if ((v = pick('data-cancel')) !== null) { delete st.editing[+v]; render(); return; }
       if ((v = pick('data-act')) === null) { if (st.addMenu && !c0.closest('.addwrap')) { st.addMenu = false; render(); } return; }
       var sx = t.getAttribute('data-id') ? byId(srcs, +t.getAttribute('data-id')) : null;
@@ -1994,13 +2420,13 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       else if (v === 'closeadd') { st.add = null; render(); }
       else if (v === 'smread') {
         var k0 = cur;
-        if (!validUrl(st.smUrl.trim())) { st.smErr = 'Vul een geldige sitemap-URL in, bijv. ' + SITEMAP[cur].url; render(); return; }
+        if (!validUrl(st.smUrl.trim())) { st.smErr = 'Enter a valid sitemap URL, e.g. ' + SITEMAP[cur].url; render(); return; }
         st.smErr = ''; st.sm = { loading: true }; render();
         setTimeout(function () {
           if (k0 !== cur) return;
           var pages = genSitemap(cur), f = st.smFilter.trim().toLowerCase();
           st.sm = { pages: pages }; st.sel = {};
-          pages.forEach(function (p, ix) { if (p.hint !== 'Overig' && (!f || p.path.toLowerCase().indexOf(f) !== -1)) st.sel[ix] = true; });
+          pages.forEach(function (p, ix) { if (p.hint !== 'Other' && (!f || p.path.toLowerCase().indexOf(f) !== -1)) st.sel[ix] = true; });
           render();
         }, 1100);
       }
@@ -2012,24 +2438,24 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       else if (v === 'addurls') {
         var lines = st.webUrls.split(/\r?\n/).map(function (l) { return l.trim(); }), items = [], bad = 0;
         lines.forEach(function (l, ix) { if (!l) return; if (!validUrl(l) && !bad) bad = ix + 1; items.push(l); });
-        if (!items.length) { st.webErr = 'Vul minstens één URL in.'; render(); return; }
-        if (bad) { st.webErr = 'Regel ' + bad + ' is geen geldige URL. Begin met http:// of https://.'; render(); return; }
+        if (!items.length) { st.webErr = 'Enter at least one URL.'; render(); return; }
+        if (bad) { st.webErr = 'Line ' + bad + ' is not a valid URL. Start with http:// or https://.'; render(); return; }
         var added = 0, skipped = 0;
         items.forEach(function (u) {
           if (srcs.some(function (x) { return x.url === u; })) { skipped++; return; }
-          finishLater(addSource({ kind: 'web', title: titleOf(u), url: u, lang: langHint(pathOf(u)), auto: st.webAuto }), 1500); added++;
+          finishLater(addSource({ kind: 'web', title: titleOf(u), url: u, lang: langHint(pathOf(u)), origin: 'manual' }), 1500); added++;
         });
         st.webUrls = ''; st.webErr = ''; st.add = null;
-        flash(plural(added, 'bron', 'bronnen') + ' toegevoegd', skipped ? plural(skipped, 'bestond al', 'bestonden al') + ', overgeslagen.' : 'De pagina\'s worden nu ingelezen.');
+        flash(plural(added, 'source', 'sources') + ' added', skipped ? plural(skipped, 'already existed', 'already existed') + ', skipped.' : 'The pages are being indexed now.');
       }
       else if (v === 'addsel') {
         var n = 0;
         Object.keys(st.sel).map(Number).sort(function (a, b) { return b - a; }).forEach(function (ix) {
           var p = st.sm.pages[ix]; if (srcs.some(function (x) { return x.url === p.url; })) return;
-          finishLater(addSource({ kind: 'web', title: titleOf(p.url), url: p.url, lang: p.hint, auto: st.webAuto }), 1500); n++;
+          finishLater(addSource({ kind: 'web', title: titleOf(p.url), url: p.url, lang: p.hint, origin: 'sitemap', mod: 2 }), 1500); n++;
         });
         st.sm = null; st.sel = {}; st.add = null;
-        flash(plural(n, 'bron', 'bronnen') + ' toegevoegd', 'De pagina\'s worden nu ingelezen.');
+        flash(plural(n, 'source', 'sources') + ' added', 'The pages are being indexed now.');
       }
       else if (v === 'reread' && sx) { sx.status = 'busy'; sx.reason = ''; render(); finishLater(sx, 1500); }
       else if (v === 'delask' && sx) { st.delSrc = sx.id; render(); }
@@ -2038,21 +2464,50 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       else if (v === 'bulkclear') { st.srcSel = {}; st.bulkDel = false; render(); }
       else if (v === 'bulkdel') { st.bulkDel = true; render(); }
       else if (v === 'bulkdelno') { st.bulkDel = false; render(); }
-      else if (v === 'bulkdelyes') { var nd = Object.keys(st.srcSel).length; srcs = srcs.filter(function (x) { return !st.srcSel[x.id]; }); DATA[cur].srcs = srcs; st.srcSel = {}; st.bulkDel = false; flash(plural(nd, 'bron', 'bronnen') + ' verwijderd', 'De assistent gebruikt ze niet meer.'); }
-      else if (v === 'bulkreread') { var rr = srcs.filter(function (x) { return st.srcSel[x.id] && (x.status === 'ok' || x.status === 'failed'); }); rr.forEach(function (x) { x.status = 'busy'; x.reason = ''; finishLater(x, 1500); }); st.srcSel = {}; render(); }
+      else if (v === 'bulkdelyes') { var nd = Object.keys(st.srcSel).length; srcs = srcs.filter(function (x) { return !st.srcSel[x.id]; }); DATA[cur].srcs = srcs; st.srcSel = {}; st.bulkDel = false; flash(plural(nd, 'source', 'sources') + ' deleted', 'The assistant no longer uses them.'); }
+      else if (v === 'bulkreread') { var rr = srcs.filter(function (x) { return st.srcSel[x.id] && (x.status === 'ok' || x.status === 'changed' || x.status === 'failed'); }); rr.forEach(function (x) { x.status = 'busy'; x.reason = ''; finishLater(x, 1500); }); st.srcSel = {}; render(); }
       else if (v === 'arcexport') { var ea = byId(archive, st.arcSel); if (ea) exportTxt(ea); }
       else if (v === 'arcdelask') { st.delArc = st.arcSel; render(); }
       else if (v === 'arcdelno') { st.delArc = null; render(); }
       else if (v === 'arcdelyes') {
         var da = byId(archive, st.arcSel);
-        if (da) { archive.splice(archive.indexOf(da), 1); st.delArc = null; st.arcSel = archive.length ? archive[0].id : 0; flash('Gesprek verwijderd', 'Het gesprek staat niet meer in het archief.'); }
+        if (da) { archive.splice(archive.indexOf(da), 1); st.delArc = null; st.arcSel = archive.length ? archive[0].id : 0; flash('Conversation deleted', 'The conversation is no longer in the archive.'); }
       }
       else if (v === 'newtest') { testChat.restart(); testLog = []; var lg = root.querySelector('#test-log'); if (lg) lg.innerHTML = logHtml(); }
-      else if (v === 'crisistoggle') { BEH[cur].crisisOn = !BEH[cur].crisisOn; applyChange(); }
+      else if (v === 'usermenu') {
+        st.userMenu = !st.userMenu; st.siteMenu = false; render();
+        var mi = root.querySelector(st.userMenu ? '.usr-menu [data-act="signout"]' : '#usr-btn'); if (mi) mi.focus();
+      }
+      else if (v === 'sitemenu') {
+        st.siteMenu = !st.siteMenu; st.userMenu = false; render();
+        var sm0 = root.querySelector(st.siteMenu ? '.sp-it[aria-checked="true"]' : '#sp-btn'); if (sm0) sm0.focus();
+      }
+      else if (v === 'signout') { st.userMenu = false; st.signedOut = true; render(); }
+      else if (v === 'signin') { st.signedOut = false; render(); var ub = root.querySelector('#usr-btn'); if (ub) ub.focus(); }
+      else if (v === 'sigadd') {
+        var ns = { id: ++sigUid, name: 'New signal', on: true, open: true, action: 'offer', contact: '', kw: [], msg: { nl: '', fr: '' } };
+        BEH[cur].signals.push(ns); applyChange();
+        var ne = document.getElementById('sg-' + ns.id + '-name'); if (ne) { ne.focus(); ne.select(); }
+      }
+      else if (v === 'syncnow') {
+        var ch = srcs.filter(function (x) { return x.status === 'changed'; }), sy = sync, k1 = cur;
+        if (!ch.length) { sy.last = 0; sy.next = 10080; flash('Already up to date', 'No pages changed since the last sync.'); }
+        else {
+          ch.forEach(function (x) { x.status = 'busy'; });
+          st.syncing = true;
+          flash('Sync started', plural(ch.length, 'changed page is', 'changed pages are') + ' being re-indexed.');
+          setTimeout(function () {
+            ch.forEach(function (x) { x.status = 'ok'; x.age = 0; });
+            sy.last = 0; sy.next = 10080; st.syncing = false;
+            if (k1 === cur) flash('Sync finished', plural(ch.length, 'page', 'pages') + ' re-indexed.'); else if (st.started) render();
+          }, 1500);
+        }
+      }
+      else if (v === 'usagecsv') usageCsv(dailySeries(cur, st.uPeriod));
+      else if (v === 'avremove') { APP[cur].avatarImg = ''; st.avErr = ''; applyChange(); }
       else if (v === 'masktoggle') { PRIV[cur].mask = !PRIV[cur].mask; render(); }
       else if (v === 'addtopic') addTopic();
-      else if (v === 'addkw') addKw();
-      else if (v === 'resetapp') { APP[cur] = defApp(cur); st.hexDraft = null; applyChange(); }
+      else if (v === 'resetapp') { APP[cur] = defApp(cur); st.hexDraft = null; st.avErr = ''; applyChange(); }
     });
     root.addEventListener('input', onBind);
     root.addEventListener('change', function (e) {
@@ -2061,24 +2516,37 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       else if (t.hasAttribute('data-pdf')) { handleFiles(t.files); }
       else if (t.hasAttribute('data-srcck')) { var ci = +t.getAttribute('data-srcck'); if (t.checked) st.srcSel[ci] = true; else delete st.srcSel[ci]; st.bulkDel = false; render(); }
       else if (t.hasAttribute('data-srcall')) { var vis = [].map.call(root.querySelectorAll('[data-srcck]'), function (el) { return +el.getAttribute('data-srcck'); }); vis.forEach(function (id) { if (t.checked) st.srcSel[id] = true; else delete st.srcSel[id]; }); st.bulkDel = false; render(); }
-      else if (t.hasAttribute('data-autoid')) { var sx = byId(srcs, +t.getAttribute('data-autoid')); if (sx) sx.auto = t.value; }
+      else if (t.hasAttribute('data-avfile')) { avatarFile(t.files && t.files[0]); }
       else if (t.tagName === 'SELECT' && t.hasAttribute('data-bind')) onBind(e);
     });
     root.addEventListener('dragover', function (e) { if (e.target.closest('.drop')) { e.preventDefault(); if (!st.drag) { st.drag = true; var d = root.querySelector('.drop'); if (d) d.classList.add('over'); } } });
     root.addEventListener('dragleave', function (e) { if (e.target.closest('.drop')) { st.drag = false; var d = root.querySelector('.drop'); if (d) d.classList.remove('over'); } });
-    root.addEventListener('drop', function (e) { if (e.target.closest('.drop')) { e.preventDefault(); st.drag = false; handleFiles(e.dataTransfer.files); } });
+    root.addEventListener('drop', function (e) { if (e.target.closest('.drop')) { e.preventDefault(); st.drag = false; if (e.target.closest('.avdrop')) avatarFile(e.dataTransfer.files[0]); else handleFiles(e.dataTransfer.files); } });
     root.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' && e.target.hasAttribute('data-arc')) { st.arcSel = +e.target.getAttribute('data-arc'); st.delArc = null; render(); }
       else if (e.key === 'Enter' && e.target.id === 'bh-topic') { e.preventDefault(); addTopic(); }
-      else if (e.key === 'Enter' && e.target.id === 'bh-kw') { e.preventDefault(); addKw(); }
+      else if (e.key === 'Enter' && e.target.hasAttribute('data-sigkwin')) { e.preventDefault(); addSigKw(+e.target.getAttribute('data-sigkwin')); }
+      else if (e.key === 'Escape' && (st.userMenu || st.siteMenu)) {
+        var wasSite = st.siteMenu; st.userMenu = false; st.siteMenu = false; render();
+        var fb2 = root.querySelector(wasSite ? '#sp-btn' : '#usr-btn'); if (fb2) fb2.focus();
+      }
+      else if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && e.target.closest('.sp-menu')) {
+        e.preventDefault();
+        var its = [].slice.call(root.querySelectorAll('.sp-menu .sp-it')), ix2 = its.indexOf(e.target.closest('.sp-it'));
+        its[(ix2 + (e.key === 'ArrowDown' ? 1 : -1) + its.length) % its.length].focus();
+      }
+      else if (e.key === 'ArrowDown' && e.target.id === 'sp-btn' && !st.siteMenu) {
+        e.preventDefault(); st.siteMenu = true; st.userMenu = false; render();
+        var f3 = root.querySelector('.sp-it[aria-checked="true"]'); if (f3) f3.focus();
+      }
       else if (e.key === 'Escape' && st.addMenu) { st.addMenu = false; render(); }
     });
 
     function load(k) {
-        cur = k; archive = DATA[k].archive; srcs = DATA[k].srcs;
+        cur = k; archive = DATA[k].archive; srcs = DATA[k].srcs; sync = SYNC[k];
         st.arcSel = DATA[k].arcSel; st.editing = {}; st.q = ''; st.filter = 'all'; st.toast = null; st.hexDraft = null;
         st.add = null; st.addMenu = false; st.sm = null; st.sel = {}; st.smUrl = SITEMAP[k].url; st.smFilter = SITEMAP[k].filter; st.webUrls = ''; st.webErr = ''; st.smErr = ''; st.pdfErrs = [];
-        st.srcQ = ''; st.srcFilter = 'all'; st.srcPage = 1; st.srcSel = {}; st.bulkDel = false; st.delSrc = null; st.delArc = null; st.topicDraft = ''; st.kwDraft = '';
+        st.srcQ = ''; st.srcFilter = 'all'; st.srcPage = 1; st.srcSel = {}; st.bulkDel = false; st.delSrc = null; st.delArc = null; st.topicDraft = ''; st.sigKw = {}; st.sigDel = null; st.avErr = ''; st.siteMenu = false;
         testLog = [];
         if (st.started) render();
     }
@@ -2087,7 +2555,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     return {
       find: function (title) {
         var n = srcNorm(title);
-        for (var i = 0; i < srcs.length; i++) if (srcs[i].status === 'ok' && srcNorm(srcs[i].title) === n) return srcs[i];
+        for (var i = 0; i < srcs.length; i++) if ((srcs[i].status === 'ok' || srcs[i].status === 'changed') && srcNorm(srcs[i].title) === n) return srcs[i];
         return null;
       },
       logAnswer: function (a) {
@@ -2097,11 +2565,12 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       },
       addMessage: function (m) {
         var id = Date.now();
-        archive.unshift({ id: id, date: 'Vandaag, net', name: m.name || 'Anoniem', email: m.email, topic: m.question.length > 40 ? m.question.slice(0, 40) + '…' : m.question, status: 'left', dur: '—', rating: null, lang: m.lang, comment: '',
-          msgs: m.msgs.concat([['sys', 'Bericht achtergelaten voor een medewerker']]) });
+        archive.unshift({ id: id, date: 'Today, just now', name: m.name || 'Anonymous', email: m.email, topic: m.question.length > 40 ? m.question.slice(0, 40) + '…' : m.question, status: 'left', dur: '—', rating: null, lang: m.lang, comment: '',
+          msgs: m.msgs.concat([['sys', 'Message left for a staff member']]) });
         if (st.started && st.page === 'archive') render();
       },
       setSite: load,
+      refresh: function () { if (st.started) render(); },
       start: function () { st.started = true; render(); }
     };
   })();
@@ -2114,7 +2583,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       nav: ['Ik wil stoppen', 'Ik ben gestopt', 'Ik help iemand', 'Info'],
       copy: '<span class="crumb">Home › Contact › Vraag het de assistent</span><h2>Stel je vraag over stoppen met roken</h2>' +
         '<p>Onze digitale assistent antwoordt meteen, dag en nacht, met de informatie van Tabakstop. Kan de assistent een vraag niet beantwoorden, dan laat je een bericht achter. Een tabakoloog antwoordt je per e-mail.</p>' +
-        '<div class="facts" aria-label="Wat kun je verwachten"><div><span>Digitale assistent</span><span>altijd beschikbaar</span></div><div><span>Bericht aan een tabakoloog</span><span>antwoord binnen twee werkdagen</span></div><div><span>Medisch advies</span><span>enkel via een tabakoloog of huisarts</span></div></div>' +
+        '<div class="facts" aria-label="Wat kun je verwachten"><div><span>Digitale assistent</span><span>altijd beschikbaar</span></div><div><span>Bericht aan een tabakoloog</span><span>antwoord binnen twee werkdagen</span></div></div>' +
         '<p>Denk je aan zelfdoding? Bel de Zelfmoordlijn op 1813, dag en nacht bereikbaar.</p>',
       hero: '<h2>Stoppen met roken, je hoeft het niet alleen te doen</h2><p>Een tabakoloog helpt je een plan te maken dat bij jou past. Heb je een vraag? Stel ze rechtsonder aan onze assistent.</p>',
       cards: [['c1', 'Ik wil stoppen', 'Zo begin je eraan'], ['c2', 'Hulp bij stoppen', 'Begeleiding door een tabakoloog'], ['c3', 'Brochures', 'Downloaden of bestellen']]
@@ -2125,14 +2594,14 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       nav: ['Over kanker', 'Preventie', 'Leven met kanker', 'Hulp'],
       copy: '<span class="crumb">Home › Kankerinfo › Stel je vraag</span><h2>Stel je vraag over kanker</h2>' +
         '<p>Onze digitale assistent antwoordt meteen, dag en nacht, met de informatie van Kanker.be. Een diagnose, behandeladvies of uitleg bij klachten en uitslagen geeft de assistent niet. Voor die vragen laat je een bericht achter. Een kankerinfo-medewerker antwoordt je per e-mail.</p>' +
-        '<div class="facts" aria-label="Wat kun je verwachten"><div><span>Digitale assistent</span><span>altijd beschikbaar</span></div><div><span>Bericht aan een medewerker</span><span>antwoord binnen twee werkdagen</span></div><div><span>Medisch advies</span><span>enkel via je huisarts of behandelend arts</span></div></div>' +
-        '<p>Denk je aan zelfdoding? Bel de Zelfmoordlijn op 1813, dag en nacht bereikbaar. Liever bellen over kanker? De Kankerlijn is gratis bereikbaar op 0800 15 801, op werkdagen.</p>',
+        '<div class="facts" aria-label="Wat kun je verwachten"><div><span>Digitale assistent</span><span>altijd beschikbaar</span></div><div><span>Bericht aan een medewerker</span><span>antwoord binnen twee werkdagen</span></div></div>' +
+        '<p>Liever bellen over kanker? De Kankerlijn is gratis bereikbaar op 0800 15 801, op werkdagen.</p>',
       hero: '<h2>Betrouwbare informatie over kanker, voor wie het nodig heeft</h2><p>Lees over soorten kanker, behandelingen en leven met kanker. Heb je een vraag? Stel ze rechtsonder aan onze assistent.</p>',
       cards: [['c1', 'Over kanker', 'Soorten kanker en risicofactoren'], ['c2', 'Leven met kanker', 'Werk, voeding en nazorg'], ['c3', 'Hulp en steun', 'Praten, lotgenoten en rouw']]
     }
   };
   function applyHost() {
-    var h = HOST[site], name = 'AI-assistent voor ' + CFG[site].name;
+    var h = HOST[site];
     ['embed', 'widget'].forEach(function (k) {
       document.getElementById(k + '-brand').innerHTML = h.brand;
       document.getElementById(k + '-nav').innerHTML = h.nav.map(function (x) { return '<span>' + x + '</span>'; }).join('');
@@ -2143,16 +2612,19 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     document.getElementById('widget-hero').innerHTML = h.hero;
     document.getElementById('widget-cards').innerHTML = h.cards.map(function (c) { return '<div class="site-card ' + c[0] + '"><b>' + c[1] + '</b><span>' + c[2] + '</span></div>'; }).join('');
     document.getElementById('admin-url').textContent = CFG[site].adminUrl;
-    document.getElementById('proto-h1').textContent = name;
-    document.title = name;
+    applyChrome();
+  }
+  function switchSite(s) {
+    if (s === site) return;
+    site = s;
+    widget.restart(); embed.restart(); preview.restart(); testChat.restart(); applyHost(); Admin.setSite(site); syncControls();
   }
   document.getElementById('site-seg').addEventListener('click', function (e) {
-    var b = e.target.closest('button'); if (!b || b.getAttribute('data-site') === site) return;
-    site = b.getAttribute('data-site');
-    widget.restart(); embed.restart(); preview.restart(); testChat.restart(); applyHost(); Admin.setSite(site); syncControls();
+    var b = e.target.closest('button'); if (b) switchSite(b.getAttribute('data-site'));
   });
   applyHost();
 
+  document.documentElement.lang = lang;
   var initial = (location.hash || '').replace('#', '');
   show(['widget', 'embed', 'beheer'].indexOf(initial) !== -1 ? initial : 'embed');
 })();
