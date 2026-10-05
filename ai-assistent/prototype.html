@@ -1407,7 +1407,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
   function setLang(l) {
     lang = l;
     try { localStorage.setItem('stk-lang', l); } catch (err) {}
-    refreshChats(); applyChrome(); syncControls(); Admin.refresh();
+    refreshChats(); applyHost(); syncControls(); Admin.refresh();
   }
   document.getElementById('lang-seg').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
@@ -2600,8 +2600,32 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       cards: [['c1', 'Over kanker', 'Soorten kanker en risicofactoren'], ['c2', 'Leven met kanker', 'Werk, voeding en nazorg'], ['c3', 'Hulp en steun', 'Praten, lotgenoten en rouw']]
     }
   };
+  var HOST_FR = {
+    tabakstop: {
+      embedUrl: 'tabacstop.be/fr/page/chat', widgetUrl: 'tabacstop.be/fr/page/arreter-de-fumer',
+      brand: 'Tabacstop <span>· arrêter est possible</span>',
+      nav: ['Je veux arrêter', 'J\'ai arrêté', 'J\'aide quelqu\'un', 'Infos'],
+      copy: '<span class="crumb">Accueil › Contact › Demandez à l\'assistant</span><h2>Posez votre question sur l\'arrêt du tabac</h2>' +
+        '<p>Notre assistant numérique répond tout de suite, jour et nuit, avec les informations de Tabacstop. S\'il ne peut pas répondre, laissez un message. Un tabacologue vous répond par e-mail.</p>' +
+        '<div class="facts" aria-label="À quoi s\'attendre"><div><span>Assistant numérique</span><span>toujours disponible</span></div><div><span>Message à un tabacologue</span><span>réponse sous deux jours ouvrables</span></div></div>' +
+        '<p>Vous pensez au suicide ? Appelez la ligne de prévention du suicide au 1813, joignable jour et nuit.</p>',
+      hero: '<h2>Arrêter de fumer, vous n\'êtes pas seul</h2><p>Un tabacologue vous aide à établir un plan qui vous convient. Une question ? Posez-la en bas à droite à notre assistant.</p>',
+      cards: [['c1', 'Je veux arrêter', 'Comment commencer'], ['c2', 'Aide pour arrêter', 'Accompagnement par un tabacologue'], ['c3', 'Brochures', 'Télécharger ou commander']]
+    },
+    kanker: {
+      embedUrl: 'cancer.be/fr/cancer/poser-une-question', widgetUrl: 'cancer.be/fr/cancer/cancer-du-sein',
+      brand: 'Cancer.be',
+      nav: ['À propos du cancer', 'Prévention', 'Vivre avec le cancer', 'Aide'],
+      copy: '<span class="crumb">Accueil › Infos cancer › Posez votre question</span><h2>Posez votre question sur le cancer</h2>' +
+        '<p>Notre assistant numérique répond tout de suite, jour et nuit, avec les informations de Cancer.be. Il ne donne ni diagnostic, ni conseil de traitement, ni explication de symptômes ou de résultats. Pour ces questions, laissez un message. Un collaborateur de Cancerinfo vous répond par e-mail.</p>' +
+        '<div class="facts" aria-label="À quoi s\'attendre"><div><span>Assistant numérique</span><span>toujours disponible</span></div><div><span>Message à un collaborateur</span><span>réponse sous deux jours ouvrables</span></div></div>' +
+        '<p>Vous préférez appeler ? Notre ligne d\'information gratuite est joignable au 0800 15 801, les jours ouvrables.</p>',
+      hero: '<h2>Des informations fiables sur le cancer, pour qui en a besoin</h2><p>Informez-vous sur les types de cancer, les traitements et la vie avec le cancer. Une question ? Posez-la en bas à droite à notre assistant.</p>',
+      cards: [['c1', 'À propos du cancer', 'Types de cancer et facteurs de risque'], ['c2', 'Vivre avec le cancer', 'Travail, alimentation et suivi'], ['c3', 'Aide et soutien', 'Échanger, pairs et deuil']]
+    }
+  };
   function applyHost() {
-    var h = HOST[site];
+    var h = lang === 'fr' ? HOST_FR[site] : HOST[site];
     ['embed', 'widget'].forEach(function (k) {
       document.getElementById(k + '-brand').innerHTML = h.brand;
       document.getElementById(k + '-nav').innerHTML = h.nav.map(function (x) { return '<span>' + x + '</span>'; }).join('');
