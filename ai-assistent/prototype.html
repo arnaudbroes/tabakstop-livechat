@@ -2170,6 +2170,10 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     }
     function launcherLabelFor(a) { return (a.label[lang] || '').trim(); }
 
+    function switchHtml(on, act, label) {
+      return '<div class="swrow"><span id="lbl-' + act + '">' + label + '</span><button class="switch" role="switch" aria-labelledby="lbl-' + act + '" aria-checked="' + on + '" data-act="' + act + '"></button></div>';
+    }
+
     function privacyTab() {
       var p = PRIV[cur], pr = PROVIDERS.filter(function (x) { return x.k === provider; })[0];
       var policyBad = p.policy.trim() && !/^https?:\/\/\S+\.\S+$/i.test(p.policy.trim());
