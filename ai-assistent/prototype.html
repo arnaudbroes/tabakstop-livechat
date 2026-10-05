@@ -261,6 +261,8 @@ p { margin: 0; }
 .pane { flex: 1; overflow-y: auto; padding: 22px 24px; display: flex; flex-direction: column; gap: 18px; min-height: 0; }
 .pane-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .pane-head h2 { font-size: 22px; font-weight: 700; margin-right: auto; }
+.mockup-note { margin: 12px 4px 4px; font-size: 13px; color: var(--muted); text-align: center; }
+.mockup-note b { color: var(--ink); }
 .sample { font-size: 12px; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); padding: 3px 8px; border-radius: 6px; }
 .search { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 9px; padding: 0 10px; min-width: 0; flex: 1 1 240px; max-width: 360px; }
 .search svg { width: 16px; height: 16px; color: var(--faint); flex: none; }
@@ -325,7 +327,6 @@ tbody tr:last-child td { border-bottom: 0; }
 .avg b { font-family: var(--display); font-size: 30px; font-weight: 700; }
 .avg span { color: var(--muted); font-size: 13px; }
 
-.reviews { display: flex; flex-direction: column; gap: 12px; max-width: 820px; }
 .review { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
 .review .top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .review .flag { font-size: 12.5px; font-weight: 700; color: var(--bad); }
@@ -395,19 +396,41 @@ tbody tr:last-child td { border-bottom: 0; }
 .addmenu button b { font-weight: 600; }
 .addmenu button span { font-size: 12.5px; color: var(--muted); }
 .kpi .v.vs { font-size: 20px; }
-.slist { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
-.srow { display: grid; grid-template-columns: minmax(0, 1fr) 150px 64px 108px 104px 150px; gap: 10px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #EEF2F6; }
-.srow:last-child { border-bottom: 0; }
-.srow-head { font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--surface); }
-.srow .c-src { display: flex; gap: 10px; align-items: flex-start; min-width: 0; }
-.srow .ic { width: 30px; height: 30px; border-radius: 8px; background: var(--sunken); display: grid; place-items: center; flex: none; color: var(--bot); }
-.srow .ic svg { width: 16px; height: 16px; }
-.srow .tt { min-width: 0; display: flex; flex-direction: column; }
-.srow .tt b { font-weight: 600; overflow-wrap: anywhere; }
-.srow .tt .u { font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; }
-.srow .c-st { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; font-size: 12.5px; min-width: 0; }
-.srow .c-ac { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
-.srow .btnrow, .fb .btnrow { display: flex; gap: 6px; flex-wrap: wrap; }
+.stable-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow-x: auto; }
+.stable { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 13px; min-width: 760px; }
+.stable th { text-align: left; font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding: 7px 8px; border-bottom: 1px solid var(--line); background: var(--sunken); white-space: nowrap; }
+.stable th button { border: 0; background: transparent; font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; padding: 0; cursor: pointer; }
+.stable th button:hover, .stable th[aria-sort] button { color: var(--ink); }
+.stable td { padding: 0 8px; height: 34px; border-bottom: 1px solid #EEF2F6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle; }
+.stable tbody tr:last-child td { border-bottom: 0; }
+.stable tbody tr:hover { background: #FAFBFC; }
+.stable tr.sel { background: var(--brand-soft); }
+.stable .ck { width: 34px; padding-left: 12px; }
+.stable .num { text-align: right; font-variant-numeric: tabular-nums; }
+.stable input[type=checkbox] { width: 15px; height: 15px; margin: 0; accent-color: var(--cta); }
+.stable .nm { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.stable .nm .ic { width: 16px; height: 16px; flex: none; color: var(--bot); display: grid; place-items: center; }
+.stable .nm .ic svg { width: 16px; height: 16px; }
+.stable .nm b { font-weight: 600; flex: 0 1 auto; min-width: 0; max-width: 55%; overflow: hidden; text-overflow: ellipsis; }
+.stable .nm .u { color: var(--muted); font-size: 12px; flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.stable .nm .u.err { color: #9A3A22; }
+.stable .status-pill { font-size: 11px; padding: 1px 7px; }
+.stable .mini-sel { font-size: 12px; padding: 2px 4px; max-width: 100%; }
+.stable .ac { text-align: right; padding-right: 8px; }
+.stable .ac .ib { border: 0; background: transparent; width: 26px; height: 26px; border-radius: 6px; color: var(--muted); display: inline-grid; place-items: center; cursor: pointer; vertical-align: middle; }
+.stable .ac .ib:hover { background: var(--sunken); color: var(--ink); }
+.stable .ac .ib svg { width: 15px; height: 15px; }
+.stable .ac .ask { font-size: 12px; color: var(--muted); margin-right: 4px; }
+.stable .ac .lk { border: 0; background: transparent; font: inherit; font-size: 12px; font-weight: 600; color: var(--brand-ink); padding: 2px 4px; cursor: pointer; }
+.stable .ac .lk.del { color: #9A3A22; }
+.sbulk { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: var(--brand-soft); border-radius: 10px; padding: 7px 12px; font-size: 13px; }
+.sbulk b { margin-right: auto; }
+.spager { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.spager .sp { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.spager select { font-size: 13px; padding: 3px 6px; }
+.spager button { border: 1px solid var(--line); background: var(--surface); border-radius: 7px; padding: 4px 10px; font-size: 13px; font-weight: 600; color: var(--ink); cursor: pointer; }
+.spager button:disabled { opacity: .45; cursor: default; }
+@media (max-width: 1180px) { .stable .h-rd, .stable .c-rd { display: none; } .stable { min-width: 640px; } }
 .why { font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; }
 .status-pill.failed { background: var(--bad-soft); color: var(--bad); }
 .bar-mini { display: block; width: 100%; height: 6px; border-radius: 3px; background: #EEF2F6; overflow: hidden; }
@@ -483,12 +506,6 @@ tbody tr:last-child td { border-bottom: 0; }
 .code { margin: 0; background: var(--ink); color: #E6EAF0; padding: 12px 14px; font: 12.5px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
 @media (max-width: 1360px) { .archive-grid { grid-template-columns: 1fr; } .transcript { max-height: none; } }
 @media (max-width: 1180px) {
-  .srow-head { display: none; }
-  .srow { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: flex-start; }
-  .srow .c-src { flex: 1 1 100%; }
-  .srow .c-st { flex: 1 1 160px; }
-  .srow [data-l]::before { content: attr(data-l) ": "; color: var(--muted); }
-  .srow .c-ac { flex-direction: row; flex-wrap: wrap; flex: 1 1 100%; }
 }
 @media (max-width: 1100px) {
   .ap-grid, .test-grid { grid-template-columns: 1fr; }
@@ -580,6 +597,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       <div class="admin" id="admin"></div>
     </div>
   </section>
+  <p class="mockup-note" role="note"><b>Mockup.</b> Dit is een ontwerp ter illustratie en nog niet definitief. Details kunnen nog veranderen.</p>
 </div>
 
 <script>
@@ -602,6 +620,8 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
     doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>',
     page: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>',
+    refresh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 4v5h-5"/></svg>',
+    trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
     up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v11M7 10l4-7a2 2 0 0 1 3 2l-1 5h5.5a2 2 0 0 1 2 2.4l-1.5 7A2 2 0 0 1 17 21H7"/></svg>',
     down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V3M17 14l-4 7a2 2 0 0 1-3-2l1-5H5.5a2 2 0 0 1-2-2.4l1.5-7A2 2 0 0 1 7 3h10"/></svg>'
   };
@@ -1252,19 +1272,6 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
         msgs: [['visitor', 'Comment se passe un accompagnement ?'], ['bot', "Un tabacologue vous aide à établir un plan d'arrêt adapté et vous accompagne pendant les premières semaines."]] }
     ];
 
-    var reviews = [
-      { id: 1, flag: 'Geen antwoord gevonden', times: '5× deze week', lang: 'NL', q: 'Hoeveel kost een sessie bij een tabakoloog?',
-        a: 'Daarover vind ik niets in de informatie van Tabakstop, en ik wil je geen verkeerd antwoord geven.', fix: '' },
-      { id: 2, flag: 'Bezoeker vond dit niet nuttig', times: '2× deze week', lang: 'NL', q: 'Kan ik stoppen met een e-sigaret?',
-        a: 'Op tabakstop.be lees je meer over de e-sigaret en andere nicotineproducten.',
-        fix: 'Sommige mensen gebruiken een e-sigaret als hulpmiddel om te stoppen met roken. Het doel blijft om uiteindelijk ook daarmee te stoppen. Een tabakoloog helpt je kiezen welke aanpak bij jou past.' },
-      { id: 3, flag: 'Bezoeker vond dit niet nuttig', times: '1× deze week', lang: 'NL', q: 'Hoe lang duurt het voor de zin in roken weggaat?',
-        a: 'Ontwenningsverschijnselen zijn het sterkst in de eerste dagen na het stoppen en nemen na enkele weken af.', fix: '' },
-      { id: 4, flag: 'Geen antwoord gevonden', times: '3× deze week', lang: 'FR', q: 'Est-ce que les consultations sont remboursées ?',
-        a: 'Je ne trouve rien à ce sujet dans les informations de Tabacstop.', fix: '' }
-    ];
-
-    var approved = 12;
 
     function W(id, title, url, lang, age, extra) { return Object.assign({ id: id, kind: 'web', title: title, url: url, lang: lang, status: 'ok', pages: 1, age: age, auto: 'weekly', reason: '' }, extra || {}); }
     function P(id, file, mb, lang, pages, age, extra) { return Object.assign({ id: id, kind: 'pdf', title: file, url: '', lang: lang, status: 'ok', pages: pages, age: age, auto: 'off', size: Math.round(mb * 1048576), reason: '' }, extra || {}); }
@@ -1306,10 +1313,23 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       kanker: { url: 'https://www.kanker.be/sitemap.xml', host: 'https://www.kanker.be', nl: '/kankerinfo/', fr: '/fr/cancer/', filter: '/kankerinfo/',
         topics: ['borstkanker', 'longkanker', 'darmkanker', 'huidkanker', 'prostaatkanker', 'baarmoederhalskanker', 'leukemie', 'hersentumor', 'voeding', 'werk', 'rouw', 'chemotherapie'], subs: ['risicofactoren', 'oorzaken', 'onderzoeken', 'behandelingen', 'nazorg', 'vragen'] }
     };
+    (function () {
+      function cap(t) { return t.charAt(0).toUpperCase() + t.slice(1).replace(/-/g, ' '); }
+      [['kanker', 140], ['tabakstop', 45]].forEach(function (c) {
+        var S = SITEMAP[c[0]], list = SRC[c[0]], id = 100, seen = {};
+        list.forEach(function (x) { seen[x.url] = true; });
+        for (var i = 0; i < c[1]; i++) {
+          var tp = S.topics[i % S.topics.length], sb = S.subs[Math.floor(i / S.topics.length) % S.subs.length], url = S.host + S.nl + tp + '/' + sb;
+          if (seen[url]) continue; seen[url] = true;
+          var ex = i % 37 === 5 ? { status: 'failed', reason: 'Pagina niet gevonden (404)' } : i % 19 === 7 ? { auto: 'off' } : i % 11 === 3 ? { auto: 'daily' } : {};
+          list.push(W(id++, cap(tp) + ' - ' + cap(sb).toLowerCase(), url, 'NL', 40 + (i * 997) % 40000, ex));
+        }
+      });
+    })();
     var LEFT_K = 'Bericht achtergelaten voor een kankerinfo-medewerker';
     var DATA = {
-      tabakstop: { archive: archive, reviews: reviews, approved: approved, srcs: SRC.tabakstop, arcSel: 101 },
-      kanker: { arcSel: 201, approved: 9, srcs: SRC.kanker,
+      tabakstop: { archive: archive, srcs: SRC.tabakstop, arcSel: 101 },
+      kanker: { arcSel: 201, srcs: SRC.kanker,
         archive: [
           { id: 201, email: 'els.m@voorbeeld.be', date: 'Vandaag 10:42', name: 'Els', topic: 'Klacht: knobbel in de borst', status: 'left', dur: '3 min', rating: 4, lang: 'NL', comment: '',
             msgs: [['visitor', 'Ik heb een knobbeltje in mijn borst gevoeld. Is dat kanker?'], ['bot', 'Een diagnose stellen of klachten duiden kan ik niet. Dat bespreek je best met je huisarts. Je kunt een bericht voor een kankerinfo-medewerker achterlaten.'], ['visitor', 'Je kunt me bereiken op els.m@voorbeeld.be of 0470 12 34 56.'], ['sys', LEFT_K]] },
@@ -1331,18 +1351,8 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
             msgs: [['visitor', 'Wat is mijn risico op darmkanker?'], ['bot', 'Op kanker.be lees je meer over risicofactoren van dikkedarmkanker.']] },
           { id: 210, date: 'Zo 21 sep 13:10', name: 'Julie', topic: 'Dépistage', status: 'solved', dur: '6 min', rating: 5, lang: 'FR', comment: '',
             msgs: [['visitor', 'Qui est invité au dépistage du cancer du sein ?'], ['bot', "Les autorités invitent la population concernée. Vous trouverez les détails sur la page consacrée au dépistage organisé."]] }
-        ],
-        reviews: [
-          { id: 1, flag: 'Geen antwoord gevonden', times: '5× deze week', lang: 'NL', q: 'Wordt een pruik terugbetaald?',
-            a: 'Daarover vind ik niets in de informatie van Kanker.be, en ik wil je geen verkeerd antwoord geven.', fix: '' },
-          { id: 2, flag: 'Bezoeker vond dit niet nuttig', times: '2× deze week', lang: 'NL', q: 'Wat is mijn risico op darmkanker?',
-            a: 'Op kanker.be lees je meer over risicofactoren van dikkedarmkanker.',
-            fix: 'Het risico op dikkedarmkanker hangt onder meer af van leeftijd, erfelijke aanleg, voeding en beweging. De overheid nodigt de doelgroep uit voor een bevolkingsonderzoek. Heb je klachten of kanker in de familie, bespreek dat dan met je huisarts.' },
-          { id: 3, flag: 'Bezoeker vond dit niet nuttig', times: '1× deze week', lang: 'NL', q: 'Welke steun is er voor kinderen van een zieke ouder?',
-            a: 'Op kanker.be lees je meer over leven met kanker.', fix: '' },
-          { id: 4, flag: 'Geen antwoord gevonden', times: '3× deze week', lang: 'FR', q: 'Une perruque est-elle remboursée ?',
-            a: 'Je ne trouve rien à ce sujet dans les informations de Cancer.be.', fix: '' }
         ]
+
       }
     };
     var cur = 'tabakstop';
@@ -1350,9 +1360,9 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     var nextSrc = 1000;
     var testLog = [];
 
-    var st = { page: 'ai', setTab: 'behavior', editing: {}, q: '', filter: 'all', arcSel: 101, period: 7, toast: null,
+    var st = { page: 'sources', setTab: 'behavior', editing: {}, q: '', filter: 'all', arcSel: 101, period: 7, toast: null,
       add: null, addMenu: false, webMode: 'urls', webUrls: '', webErr: '', smUrl: SITEMAP.tabakstop.url, smErr: '', sm: null, sel: {}, smFilter: SITEMAP.tabakstop.filter,
-      webAuto: 'weekly', pdfLang: 'NL', pdfErrs: [], drag: false, srcQ: '', srcFilter: 'all', delSrc: null, delArc: null,
+      webAuto: 'weekly', pdfLang: 'NL', pdfErrs: [], drag: false, srcQ: '', srcFilter: 'all', srcPage: 1, srcPer: 25, srcSort: 'title', srcDir: 1, srcSel: {}, bulkDel: false, delSrc: null, delArc: null,
       hexDraft: null, snip: 'widget', copied: null, domains: { tabakstop: 'tabakstop.be, tabacstop.be', kanker: 'kanker.be, cancer.be' }, topicDraft: '', kwDraft: '', started: false };
 
     function chip(l) { return '<span class="chip' + (l === 'FR' ? ' fr' : l === 'Overig' ? ' other' : '') + '">' + l + '</span>'; }
@@ -1378,7 +1388,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       }
       return '<aside class="side">' +
         '<div class="brandrow"><b>' + esc(CFG[cur].name) + '</b><span>AI</span></div>' +
-        '<nav aria-label="Beheer">' + nav('ai', 'AI-assistent', ICON.bot, reviews.length) + nav('sources', 'Bronnen', ICON.book) + nav('test', 'Test de assistent', ICON.test) + nav('archive', 'Gesprekken', ICON.chat) + nav('stats', 'Statistieken', ICON.stats) + nav('settings', 'Instellingen', ICON.gear) + '</nav>' +
+        '<nav aria-label="Beheer">' + nav('sources', 'Bronnen', ICON.book) + nav('archive', 'Gesprekken', ICON.chat) + nav('test', 'Test de assistent', ICON.test) + nav('stats', 'Statistieken', ICON.stats) + nav('settings', 'Instellingen', ICON.gear) + '</nav>' +
         '</aside>';
     }
 
@@ -1393,23 +1403,6 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     }
 
     /* AI page */
-    function aiPane() {
-      var c = srcCounts();
-      var inner = '<p class="kb-note">Antwoorden die bezoekers niet nuttig vonden, en vragen waarop de assistent geen antwoord vond. Wat je hier goedkeurt, gebruikt de assistent vanaf dan. Er staan nu <b>' + approved + '</b> goedgekeurde antwoorden in de kennisbank. De bronnen (<b>' + c.n + '</b>, samen ' + plural(c.pages, 'pagina', 'pagina\'s') + ') beheer je onder <button class="toggle-link" data-page="sources">Bronnen</button>.</p>' +
-        (reviews.length ? '<div class="reviews">' + reviews.map(function (r) {
-          var editing = st.editing[r.id] !== undefined;
-          return '<div class="review"><div class="top"><span class="flag">' + esc(r.flag) + '</span>' + chip(r.lang) + '<span class="meta">' + esc(r.times) + '</span></div>' +
-            '<div class="q">“' + esc(r.q) + '”</div>' +
-            '<div class="a"><small>Antwoord van de assistent</small>' + esc(r.a) + '</div>' +
-            (editing
-              ? '<div class="stack"><label for="fix-' + r.id + '">Goedgekeurd antwoord</label><textarea id="fix-' + r.id + '" data-fix="' + r.id + '" placeholder="Schrijf het antwoord dat de assistent voortaan moet geven">' + esc(st.editing[r.id]) + '</textarea>' +
-                '<div class="acts"><button class="btn small" data-save="' + r.id + '">Opslaan in de kennisbank</button><button class="btn ghost small" data-cancel="' + r.id + '">Annuleren</button></div></div>'
-              : '<div class="acts"><button class="btn small" data-edit="' + r.id + '">' + (r.fix || r.a.indexOf('vind ik niets') === -1 && r.a.indexOf('ne trouve rien') === -1 ? 'Verbeter het antwoord' : 'Schrijf een antwoord') + '</button><button class="btn ghost small" data-ok="' + r.id + '">Antwoord klopt</button><button class="btn ghost small" data-ignore="' + r.id + '">Negeren</button></div>') +
-            '</div>';
-        }).join('') + '</div>' : '<div class="card"><p class="no-results">Alles is beoordeeld. Nieuwe meldingen verschijnen hier vanzelf.</p></div>');
-      return '<div class="pane"><div class="pane-head"><h2>AI-assistent</h2><span class="sample">Voorbeeldgegevens</span></div>' + inner + '</div>';
-    }
-
     /* Sources */
     function genSitemap(k) {
       var c = SITEMAP[k], out = [], i;
@@ -1469,24 +1462,59 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     function statusHtml(x) {
       if (x.status === 'ok') return '<span class="status-pill ok">Ingelezen</span>';
       if (x.status === 'busy') return '<span class="status-pill busy">Bezig met inlezen</span>';
-      if (x.status === 'upload') return '<span class="status-pill busy">Uploaden ' + Math.round(x.progress) + '%</span><span class="bar-mini"><i style="width:' + Math.round(x.progress) + '%"></i></span>';
-      return '<span class="status-pill failed">Mislukt</span><span class="why">' + esc(x.reason) + '</span>';
+      if (x.status === 'upload') return '<span class="status-pill busy">Uploaden ' + Math.round(x.progress) + '%</span>';
+      return '<span class="status-pill failed" title="' + esc(x.reason) + '">Mislukt</span>';
     }
     function srcRow(x) {
       var actions;
-      if (st.delSrc === x.id) actions = '<span class="why">Verwijderen?</span><span class="btnrow"><button class="btn small" data-act="delyes" data-id="' + x.id + '">Ja, verwijderen</button><button class="btn ghost small" data-act="delno">Annuleren</button></span>';
-      else actions = (x.status === 'ok' ? '<button class="btn ghost small" data-act="reread" data-id="' + x.id + '">Opnieuw inlezen</button>' : x.status === 'failed' ? '<button class="btn small" data-act="reread" data-id="' + x.id + '">Opnieuw proberen</button>' : '') +
-        '<button class="btn ghost small" data-act="delask" data-id="' + x.id + '" aria-label="Verwijderen: ' + esc(x.title) + '">Verwijderen</button>';
+      if (st.delSrc === x.id) actions = '<span class="ask">Verwijderen?</span><button class="lk del" data-act="delyes" data-id="' + x.id + '">Ja</button><button class="lk" data-act="delno">Nee</button>';
+      else actions = (x.status === 'ok' || x.status === 'failed' ? '<button class="ib" data-act="reread" data-id="' + x.id + '" title="' + (x.status === 'failed' ? 'Opnieuw proberen' : 'Opnieuw inlezen') + '" aria-label="' + (x.status === 'failed' ? 'Opnieuw proberen' : 'Opnieuw inlezen') + ': ' + esc(x.title) + '">' + ICON.refresh + '</button>' : '') +
+        '<button class="ib" data-act="delask" data-id="' + x.id + '" title="Verwijderen" aria-label="Verwijderen: ' + esc(x.title) + '">' + ICON.trash + '</button>';
       var auto = x.kind === 'web'
         ? '<select class="mini-sel" data-autoid="' + x.id + '" aria-label="Automatisch bijwerken: ' + esc(x.title) + '"><option value="off"' + (x.auto === 'off' ? ' selected' : '') + '>Uit</option><option value="daily"' + (x.auto === 'daily' ? ' selected' : '') + '>Dagelijks</option><option value="weekly"' + (x.auto === 'weekly' ? ' selected' : '') + '>Wekelijks</option></select>'
         : '<span class="dash">—</span>';
-      var sub = x.kind === 'web' ? esc(x.url) : 'PDF · ' + fmtSize(x.size);
-      return '<div class="srow" role="row"><div class="c-src" role="cell"><span class="ic" aria-hidden="true">' + (x.kind === 'web' ? ICON.page : ICON.doc) + '</span><span class="tt"><b>' + esc(x.title) + ' ' + chip(x.lang) + '</b><span class="u">' + sub + '</span></span></div>' +
-        '<div class="c-st" role="cell">' + statusHtml(x) + '</div>' +
-        '<div class="c-pg" role="cell" data-l="' + (x.kind === 'pdf' ? 'Pagina\'s' : 'Pagina\'s') + '">' + (x.status === 'failed' || x.status === 'upload' ? '—' : x.pages) + '</div>' +
-        '<div class="c-rd" role="cell" data-l="Gelezen">' + (x.status === 'ok' ? ago(x.age) : '—') + '</div>' +
-        '<div class="c-au" role="cell" data-l="Bijwerken">' + auto + '</div>' +
-        '<div class="c-ac" role="cell">' + actions + '</div></div>';
+      var sub = x.status === 'failed' ? '<span class="u err">' + esc(x.reason) + '</span>' : '<span class="u">' + (x.kind === 'web' ? esc(x.url) : 'PDF · ' + fmtSize(x.size)) + '</span>';
+      return '<tr' + (st.srcSel[x.id] ? ' class="sel"' : '') + '><td class="ck"><input type="checkbox" data-srcck="' + x.id + '"' + (st.srcSel[x.id] ? ' checked' : '') + ' aria-label="Selecteer ' + esc(x.title) + '"></td>' +
+        '<td><div class="nm" title="' + esc(x.title + (x.url ? ' · ' + x.url : '')) + '"><span class="ic" aria-hidden="true">' + (x.kind === 'web' ? ICON.page : ICON.doc) + '</span><b>' + esc(x.title) + '</b>' + sub + '</div></td>' +
+        '<td>' + chip(x.lang) + '</td>' +
+        '<td>' + statusHtml(x) + '</td>' +
+        '<td class="num">' + (x.status === 'failed' || x.status === 'upload' ? '—' : x.pages) + '</td>' +
+        '<td class="c-rd">' + (x.status === 'ok' ? ago(x.age) : '—') + '</td>' +
+        '<td>' + auto + '</td>' +
+        '<td class="ac">' + actions + '</td></tr>';
+    }
+    var STAT_ORDER = { failed: 0, busy: 1, upload: 1, ok: 2 };
+    function sortRows(rows) {
+      var k = st.srcSort, d = st.srcDir;
+      return rows.slice().sort(function (a, b) {
+        var r;
+        if (k === 'pages') r = a.pages - b.pages;
+        else if (k === 'age') r = a.age - b.age;
+        else if (k === 'status') r = STAT_ORDER[a.status] - STAT_ORDER[b.status];
+        else r = a.title.localeCompare(b.title, 'nl');
+        return (r || a.title.localeCompare(b.title, 'nl')) * d;
+      });
+    }
+    function srcTable(rows) {
+      rows = sortRows(rows);
+      var per = st.srcPer, pages = Math.max(1, Math.ceil(rows.length / per));
+      if (st.srcPage > pages) st.srcPage = pages;
+      var from = (st.srcPage - 1) * per, view = rows.slice(from, from + per);
+      var nSel = Object.keys(st.srcSel).length, allOn = view.length && view.every(function (x) { return st.srcSel[x.id]; });
+      function th(k, label, cls) {
+        var on = st.srcSort === k;
+        return '<th' + (cls ? ' class="' + cls + '"' : '') + (on ? ' aria-sort="' + (st.srcDir === 1 ? 'ascending' : 'descending') + '"' : '') + '><button data-srcsort="' + k + '">' + label + (on ? (st.srcDir === 1 ? ' ↑' : ' ↓') : '') + '</button></th>';
+      }
+      var bulk = nSel ? '<div class="sbulk" role="status"><b>' + nSel + ' geselecteerd</b>' + (st.bulkDel
+        ? '<span>' + plural(nSel, 'bron', 'bronnen') + ' verwijderen?</span><button class="btn small" data-act="bulkdelyes">Ja, verwijderen</button><button class="btn ghost small" data-act="bulkdelno">Annuleren</button>'
+        : '<button class="btn ghost small" data-act="bulkreread">Opnieuw inlezen</button><button class="btn ghost small" data-act="bulkdel">Verwijderen</button><button class="btn ghost small" data-act="bulkclear">Selectie opheffen</button>') + '</div>' : '';
+      var table = '<div class="stable-wrap"><table class="stable" aria-label="Bronnen"><colgroup><col style="width:36px"><col><col style="width:64px"><col style="width:118px"><col style="width:74px"><col class="c-rd" style="width:136px"><col style="width:98px"><col style="width:96px"></colgroup>' +
+        '<thead><tr><th class="ck"><input type="checkbox" data-srcall' + (allOn ? ' checked' : '') + ' aria-label="Alles op deze pagina selecteren"></th>' + th('title', 'Bron') + '<th>Taal</th>' + th('status', 'Status') + th('pages', 'Pagina\'s', 'num') + th('age', 'Gelezen', 'h-rd') + '<th>Bijwerken</th><th class="ac"><span class="sr-only">Acties</span></th></tr></thead><tbody>' +
+        view.map(srcRow).join('') + '</tbody></table></div>';
+      var pager = '<div class="spager"><span>' + (rows.length ? (from + 1) + '–' + (from + view.length) + ' van ' + rows.length : '0 bronnen') + '</span><span class="sp"><label for="src-per">Per pagina</label><select id="src-per" data-bind="srcPer">' +
+        [25, 50, 100].map(function (n) { return '<option value="' + n + '"' + (per === n ? ' selected' : '') + '>' + n + '</option>'; }).join('') + '</select>' +
+        '<button data-srcpage="' + (st.srcPage - 1) + '"' + (st.srcPage <= 1 ? ' disabled' : '') + '>Vorige</button><span>Pagina ' + st.srcPage + ' van ' + pages + '</span><button data-srcpage="' + (st.srcPage + 1) + '"' + (st.srcPage >= pages ? ' disabled' : '') + '>Volgende</button></span></div>';
+      return bulk + table + pager;
     }
     function webPanel() {
       var h = '<div class="card addcard"><div class="pane-head"><h3>Webpagina\'s toevoegen</h3><button class="toggle-link" data-act="closeadd">Sluiten</button></div>' +
@@ -1532,10 +1560,10 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       }).join('');
       var menu = st.addMenu ? '<div class="addmenu" role="menu"><button role="menuitem" data-act="addweb"><b>Webpagina\'s</b><span>URL\'s of een sitemap</span></button><button role="menuitem" data-act="addpdf"><b>PDF\'s uploaden</b><span>Brochures en documenten</span></button></div>' : '';
       var list = rows.length
-        ? '<div class="slist" role="table" aria-label="Bronnen"><div class="srow srow-head" role="row"><span>Bron</span><span>Status</span><span>Pagina\'s</span><span>Gelezen</span><span>Bijwerken</span><span>Acties</span></div>' + rows.map(srcRow).join('') + '</div>'
+        ? srcTable(rows)
         : '<div class="card"><p class="no-results">' + (srcs.length ? 'Geen bronnen gevonden voor deze zoekopdracht.' : 'Nog geen bronnen. Voeg webpagina\'s of PDF\'s toe, dan kan de assistent vragen beantwoorden.') + '</p></div>';
       return '<div class="pane"><div class="pane-head"><h2>Bronnen</h2><span class="sample">Voorbeeldgegevens</span><div class="addwrap"><button class="btn small" data-act="addmenu" aria-haspopup="menu" aria-expanded="' + st.addMenu + '">Bron toevoegen</button>' + menu + '</div></div>' +
-        '<p class="kb-note"><b>De assistent antwoordt alleen met wat in deze bronnen staat.</b> Hier zie je wat de assistent kent. Goedgekeurde antwoorden uit het tabblad AI-assistent komen er nog bij.</p>' +
+        '<p class="kb-note"><b>De assistent antwoordt alleen met wat in deze bronnen staat.</b> Hier zie je wat de assistent kent.</p>' +
         '<div class="kpis"><div class="kpi"><span class="k">Bronnen</span><span class="v">' + c.n + '</span></div><div class="kpi"><span class="k">Pagina\'s</span><span class="v">' + c.pages + '</span></div><div class="kpi"><span class="k">Laatst bijgewerkt</span><span class="v vs">' + (c.last === null ? '—' : ago(c.last)) + '</span></div></div>' +
         (st.add === 'web' ? webPanel() : st.add === 'pdf' ? pdfPanel() : '') +
         '<div class="pane-head" style="gap:10px"><label class="search" for="src-q">' + ICON.search + '<input id="src-q" data-bind="srcQ" placeholder="Zoek in titel of URL" value="' + esc(st.srcQ) + '"></label><div class="seg wrapseg">' + seg + '</div></div>' + list + '</div>';
@@ -1573,6 +1601,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     function archiveRows() {
       var q = st.q.trim().toLowerCase();
       return archive.filter(function (a) {
+        if (st.filter === 'open' && a.status === 'solved') return false;
         if (st.filter === 'solved' && a.status !== 'solved') return false;
         if (st.filter === 'left' && a.status !== 'left') return false;
         if (st.filter === 'low' && !(a.rating != null && a.rating <= 3)) return false;
@@ -1592,7 +1621,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       var rows = archiveRows(), sel = null;
       for (var i = 0; i < rows.length; i++) if (rows[i].id === st.arcSel) sel = rows[i];
       if (!sel && rows.length) { sel = rows[0]; st.arcSel = sel.id; }
-      var seg = [['all', 'Alle'], ['solved', 'Opgelost'], ['left', 'Bericht achtergelaten'], ['low', 'Score 3 of lager']].map(function (f) {
+      var seg = [['all', 'Alle'], ['open', 'Onopgelost'], ['solved', 'Opgelost'], ['left', 'Bericht achtergelaten'], ['low', 'Score 3 of lager']].map(function (f) {
         return '<button data-filter="' + f[0] + '" aria-pressed="' + (st.filter === f[0]) + '">' + f[1] + '</button>';
       }).join('');
       var table = rows.length ? '<table class="arc"><colgroup><col style="width:16%"><col style="width:13%"><col style="width:23%"><col style="width:19%"><col style="width:9%"><col style="width:11%"><col style="width:9%"></colgroup><thead><tr><th>Datum</th><th>Bezoeker</th><th>Onderwerp</th><th>Afloop</th><th>Duur</th><th>Score</th><th>Taal</th></tr></thead><tbody>' +
@@ -1861,7 +1890,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
 
     var lastView = '';
     function render() {
-      var main = st.page === 'ai' ? aiPane() : st.page === 'sources' ? sourcesPane() : st.page === 'test' ? testPane() : st.page === 'archive' ? archivePane() : st.page === 'stats' ? statsPane() : settingsPane();
+      var main = st.page === 'sources' ? sourcesPane() : st.page === 'test' ? testPane() : st.page === 'archive' ? archivePane() : st.page === 'stats' ? statsPane() : settingsPane();
       var act = document.activeElement, keep = act && root.contains(act) && act.id && (act.hasAttribute('data-bind') || act.hasAttribute('data-fix')) ? act.id : null;
       var caret = keep ? act.selectionStart : null;
       var oldPane = root.querySelector('.pane'), oldList = root.querySelector('.smlist'), view = st.page + ':' + st.setTab;
@@ -1895,9 +1924,10 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     }
     function onBind(e) {
       var k = e.target.getAttribute('data-bind');
-      if (!k) { if (e.target.hasAttribute('data-fix')) { st.editing[+e.target.getAttribute('data-fix')] = e.target.value; e.target.style.borderColor = ''; } return; }
+      if (!k) return;
       var v = e.target.value;
-      if (k === 'q' || k === 'srcQ' || k === 'smFilter') { st[k] = v; render(); }
+      if (k === 'q' || k === 'srcQ' || k === 'smFilter') { st[k] = v; if (k === 'srcQ') st.srcPage = 1; render(); }
+      else if (k === 'srcPer') { st.srcPer = +v; st.srcPage = 1; render(); }
       else if (k === 'topicDraft' || k === 'kwDraft' || k === 'webUrls' || k === 'smUrl' || k === 'webAuto' || k === 'pdfLang') st[k] = v;
       else if (k === 'domains') st.domains[cur] = v;
       else if (k === 'app:hex') {
@@ -1920,7 +1950,9 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       if ((v = pick('data-filter')) !== null) { st.filter = v; render(); return; }
       if ((v = pick('data-arc')) !== null) { st.arcSel = +v; st.delArc = null; render(); return; }
       if ((v = pick('data-period')) !== null) { st.period = +v; render(); return; }
-      if ((v = pick('data-srcfilter')) !== null) { st.srcFilter = v; render(); return; }
+      if ((v = pick('data-srcfilter')) !== null) { st.srcFilter = v; st.srcPage = 1; render(); return; }
+      if ((v = pick('data-srcsort')) !== null) { if (st.srcSort === v) st.srcDir = -st.srcDir; else { st.srcSort = v; st.srcDir = 1; } st.srcPage = 1; render(); return; }
+      if ((v = pick('data-srcpage')) !== null) { st.srcPage = Math.max(1, +v); render(); return; }
       if ((v = pick('data-webmode')) !== null) { st.webMode = v; render(); return; }
       if ((v = pick('data-srcjump')) !== null) { st.page = 'sources'; st.srcQ = v; st.srcFilter = 'all'; render(); return; }
       if ((v = pick('data-testq')) !== null) { testChat.send(v); return; }
@@ -1954,16 +1986,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
         var ni = document.getElementById('sv-' + v + '-' + (APP[cur].starts[v].length - 1)); if (ni) ni.focus();
         return;
       }
-      if ((v = pick('data-edit')) !== null) { var id = +v, rv = byId(reviews, id); st.editing[id] = rv.fix || ''; render(); var ta = document.getElementById('fix-' + id); if (ta) ta.focus(); return; }
       if ((v = pick('data-cancel')) !== null) { delete st.editing[+v]; render(); return; }
-      if ((v = pick('data-save')) !== null) {
-        var sid = +v;
-        if (!(st.editing[sid] || '').trim()) { var ta2 = document.getElementById('fix-' + sid); if (ta2) { ta2.focus(); ta2.style.borderColor = '#B4462B'; } return; }
-        reviews = reviews.filter(function (x) { return x.id !== sid; }); delete st.editing[sid]; approved++;
-        flash('Toegevoegd aan de kennisbank', 'De assistent gebruikt dit antwoord vanaf nu.'); return;
-      }
-      if ((v = pick('data-ok')) !== null) { var oid = +v; reviews = reviews.filter(function (x) { return x.id !== oid; }); flash('Gemarkeerd als correct', 'Het antwoord blijft ongewijzigd.'); return; }
-      if ((v = pick('data-ignore')) !== null) { var iid = +v; reviews = reviews.filter(function (x) { return x.id !== iid; }); render(); return; }
       if ((v = pick('data-act')) === null) { if (st.addMenu && !c0.closest('.addwrap')) { st.addMenu = false; render(); } return; }
       var sx = t.getAttribute('data-id') ? byId(srcs, +t.getAttribute('data-id')) : null;
       if (v === 'addmenu') { st.addMenu = !st.addMenu; render(); }
@@ -2011,7 +2034,12 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       else if (v === 'reread' && sx) { sx.status = 'busy'; sx.reason = ''; render(); finishLater(sx, 1500); }
       else if (v === 'delask' && sx) { st.delSrc = sx.id; render(); }
       else if (v === 'delno') { st.delSrc = null; render(); }
-      else if (v === 'delyes' && sx) { srcs.splice(srcs.indexOf(sx), 1); st.delSrc = null; render(); }
+      else if (v === 'delyes' && sx) { srcs.splice(srcs.indexOf(sx), 1); delete st.srcSel[sx.id]; st.delSrc = null; render(); }
+      else if (v === 'bulkclear') { st.srcSel = {}; st.bulkDel = false; render(); }
+      else if (v === 'bulkdel') { st.bulkDel = true; render(); }
+      else if (v === 'bulkdelno') { st.bulkDel = false; render(); }
+      else if (v === 'bulkdelyes') { var nd = Object.keys(st.srcSel).length; srcs = srcs.filter(function (x) { return !st.srcSel[x.id]; }); DATA[cur].srcs = srcs; st.srcSel = {}; st.bulkDel = false; flash(plural(nd, 'bron', 'bronnen') + ' verwijderd', 'De assistent gebruikt ze niet meer.'); }
+      else if (v === 'bulkreread') { var rr = srcs.filter(function (x) { return st.srcSel[x.id] && (x.status === 'ok' || x.status === 'failed'); }); rr.forEach(function (x) { x.status = 'busy'; x.reason = ''; finishLater(x, 1500); }); st.srcSel = {}; render(); }
       else if (v === 'arcexport') { var ea = byId(archive, st.arcSel); if (ea) exportTxt(ea); }
       else if (v === 'arcdelask') { st.delArc = st.arcSel; render(); }
       else if (v === 'arcdelno') { st.delArc = null; render(); }
@@ -2031,6 +2059,8 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       var t = e.target;
       if (t.hasAttribute('data-smidx')) { var ix = +t.getAttribute('data-smidx'); if (t.checked) st.sel[ix] = true; else delete st.sel[ix]; render(); }
       else if (t.hasAttribute('data-pdf')) { handleFiles(t.files); }
+      else if (t.hasAttribute('data-srcck')) { var ci = +t.getAttribute('data-srcck'); if (t.checked) st.srcSel[ci] = true; else delete st.srcSel[ci]; st.bulkDel = false; render(); }
+      else if (t.hasAttribute('data-srcall')) { var vis = [].map.call(root.querySelectorAll('[data-srcck]'), function (el) { return +el.getAttribute('data-srcck'); }); vis.forEach(function (id) { if (t.checked) st.srcSel[id] = true; else delete st.srcSel[id]; }); st.bulkDel = false; render(); }
       else if (t.hasAttribute('data-autoid')) { var sx = byId(srcs, +t.getAttribute('data-autoid')); if (sx) sx.auto = t.value; }
       else if (t.tagName === 'SELECT' && t.hasAttribute('data-bind')) onBind(e);
     });
@@ -2045,11 +2075,10 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     });
 
     function load(k) {
-        DATA[cur].reviews = reviews; DATA[cur].approved = approved;
-        cur = k; archive = DATA[k].archive; reviews = DATA[k].reviews; approved = DATA[k].approved; srcs = DATA[k].srcs;
+        cur = k; archive = DATA[k].archive; srcs = DATA[k].srcs;
         st.arcSel = DATA[k].arcSel; st.editing = {}; st.q = ''; st.filter = 'all'; st.toast = null; st.hexDraft = null;
         st.add = null; st.addMenu = false; st.sm = null; st.sel = {}; st.smUrl = SITEMAP[k].url; st.smFilter = SITEMAP[k].filter; st.webUrls = ''; st.webErr = ''; st.smErr = ''; st.pdfErrs = [];
-        st.srcQ = ''; st.srcFilter = 'all'; st.delSrc = null; st.delArc = null; st.topicDraft = ''; st.kwDraft = '';
+        st.srcQ = ''; st.srcFilter = 'all'; st.srcPage = 1; st.srcSel = {}; st.bulkDel = false; st.delSrc = null; st.delArc = null; st.topicDraft = ''; st.kwDraft = '';
         testLog = [];
         if (st.started) render();
     }
