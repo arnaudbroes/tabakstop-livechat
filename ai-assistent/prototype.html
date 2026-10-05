@@ -1953,12 +1953,10 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     /* Usage */
     var UM = { kanker: [5100, 5600, 6000, 6420, 6980, 10460, 7420], tabakstop: [4100, 4500, 5000, 5230, 5900, 6900, 8310] };
     var UP = { 'this': { idx: [6], prev: [5], days: 23, end: [2025, 8, 23], label: 'This month', pages: 12 }, last: { idx: [5], prev: [4], days: 31, end: [2025, 7, 31], label: 'Last month', pages: 30 }, last3: { idx: [4, 5, 6], prev: [1, 2, 3], days: 85, end: [2025, 8, 23], label: 'Last 3 months', pages: 74 } };
-    var PRICE = { mistral: [0.4, 1.2], openai: [2.5, 10], gemini: [1.25, 5] };
     var TOK_IN = 1850, TOK_OUT = 270;
     var LIMITS = { msgs: 10000, pages: 500, mb: 500 };
     var PDF_MB = { kanker: 38, tabakstop: 12 };
     function num(n) { return Math.round(n).toLocaleString('en-US'); }
-    function money(v) { return '€' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
     function delta(cur, prev) {
       if (!prev) return '—';
       var p = Math.round((cur - prev) / prev * 100);
@@ -1969,7 +1967,6 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       if (p === 'this') prev = Math.round(prev * P.days / 30);
       return { msgs: cur, prev: prev, convs: Math.round(cur / 3.4), convsPrev: Math.round(prev / 3.4) };
     }
-    function costOf(msgs, prov) { var pr = PRICE[prov]; return msgs * (TOK_IN * pr[0] + TOK_OUT * pr[1]) / 1e6; }
     function pagesOf(list) { var n = 0; list.forEach(function (x) { if (x.status !== 'failed') n += x.pages; }); return n; }
     function dailySeries(k, p) {
       var P = UP[p], total = usageFor(k, p).msgs, n = P.days, r = seeded(n, 7 + k.length * 3 + n), end = new Date(P.end[0], P.end[1], P.end[2]);
@@ -2021,7 +2018,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     }
     function usagePane() {
       var p = st.uPeriod, P = UP[p], u = usageFor(cur, p), d = dailySeries(cur, p), prov = PROVIDERS.filter(function (x) { return x.k === provider; })[0];
-      var c = srcCounts(), cost = costOf(u.msgs, provider), costPrev = costOf(u.prev, provider);
+      var c = srcCounts();
       var every = d.total.length <= 10 ? 1 : d.total.length <= 31 ? 3 : 12;
       var sel = '<label class="sr-only" for="u-period">Period</label><select id="u-period" data-bind="uPeriod">' + ['this', 'last', 'last3'].map(function (k) { return '<option value="' + k + '"' + (p === k ? ' selected' : '') + '>' + UP[k].label + '</option>'; }).join('') + '</select>';
       var mM = UM[cur][6];
@@ -2030,7 +2027,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
         '<div class="kpi"><span class="k">AI messages</span><span class="v">' + num(u.msgs) + '</span><span class="s">assistant replies · ' + delta(u.msgs, u.prev) + '</span></div>' +
         '<div class="kpi"><span class="k">Conversations</span><span class="v">' + num(u.convs) + '</span><span class="s">' + delta(u.convs, u.convsPrev) + '</span></div>' +
         '<div class="kpi"><span class="k">Pages indexed</span><span class="v">' + num(c.pages) + '</span><span class="s">web + PDF pages · ▲ +' + P.pages + ' in this period</span></div>' +
-        '<div class="kpi"><span class="k">AI cost estimate</span><span class="v">' + money(cost) + '</span><span class="s">Estimate · ' + esc(prov.n) + ' · ' + delta(cost, costPrev) + '</span></div></div>';
+        '</div>';
       var meters = '<div class="card"><div class="pane-head"><h3 style="margin-right:auto">Plan limits (example)</h3><span class="fine">Resets on 1 Oct</span></div>' +
         '<div class="meters">' + meter('AI messages used', meterMsgs, LIMITS.msgs, num(meterMsgs), num(LIMITS.msgs)) + meter('Pages indexed', c.pages, LIMITS.pages, num(c.pages), num(LIMITS.pages)) + meter('PDF storage', PDF_MB[cur], LIMITS.mb, PDF_MB[cur] + ' MB', LIMITS.mb + ' MB') + '</div>' +
         '<p class="fine">The messages meter follows the selected month' + (p === 'last3' ? ' (for Last 3 months it shows the current month)' : '') + '. The warning starts at 80%.</p></div>';
@@ -2038,10 +2035,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       var tbl = '<details class="dtable"><summary>Show as table</summary><div class="dt-scroll"><table class="utable"><thead><tr><th>Date</th><th class="num">NL</th><th class="num">FR</th><th class="num">Total</th></tr></thead><tbody>' +
         d.dates.map(function (dt, i) { return '<tr><td>' + dt + '</td><td class="num">' + d.nl[i] + '</td><td class="num">' + d.fr[i] + '</td><td class="num">' + d.total[i] + '</td></tr>'; }).join('') + '</tbody></table></div></details>';
       var chart = '<div class="card chart"><div class="pane-head"><h3 style="margin-right:auto">AI messages per day</h3><button class="btn ghost small" data-act="usagecsv">Export CSV</button></div><div class="legend">' + legend + '</div>' + barChart(d, every, USEG, 'AI messages per day, by language') + tbl + '</div>';
-      var models = Object.keys(PRICE).map(function (k) {
-        var pv = PROVIDERS.filter(function (x) { return x.k === k; })[0];
-        return '<tr><td>' + esc(pv.n) + (k === provider ? ' <span class="stag sitemap">In use</span>' : '') + '</td><td class="num">' + num(u.msgs) + '</td><td class="num">' + num(u.msgs * TOK_IN) + '</td><td class="num">' + num(u.msgs * TOK_OUT) + '</td><td class="num">' + money(costOf(u.msgs, k)) + '</td></tr>';
-      }).join('');
+      var models = '<tr><td>' + esc(prov.n) + ' <span class="stag sitemap">In use</span></td><td class="num">' + num(u.msgs) + '</td><td class="num">' + num(u.msgs * TOK_IN) + '</td><td class="num">' + num(u.msgs * TOK_OUT) + '</td></tr>';
       var web = srcs.filter(function (x) { return x.kind === 'web'; }), pdf = srcs.filter(function (x) { return x.kind === 'pdf'; });
       function lastIdx(l) { var m = null; l.forEach(function (x) { if ((x.status === 'ok' || x.status === 'changed') && (m === null || x.age < m)) m = x.age; }); return m === null ? '—' : ago(m); }
       var types = '<tr><td>Web pages</td><td class="num">' + web.length + '</td><td class="num">' + num(pagesOf(web)) + '</td><td>' + lastIdx(web) + '</td></tr><tr><td>PDFs</td><td class="num">' + pdf.length + '</td><td class="num">' + num(pagesOf(pdf)) + '</td><td>' + lastIdx(pdf) + '</td></tr>';
@@ -2050,17 +2044,17 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       var top5 = pick.map(function (x, i) { var v = Math.round(base[i] * u.msgs / 7420); return '<div class="row"><b title="' + esc(x.title) + '">' + esc(x.title) + '</b><div class="track"><div class="fill" style="width:' + (v / tmax * 100).toFixed(1) + '%"></div></div><span>' + num(v) + '</span></div>'; }).join('');
       var all = ['kanker', 'tabakstop'].map(function (k) {
         var uu = usageFor(k, p), pg = pagesOf(DATA[k].srcs);
-        return { k: k, msgs: uu.msgs, pages: pg, cost: costOf(uu.msgs, provider) };
+        return { k: k, msgs: uu.msgs, pages: pg };
       });
-      var allRows = all.map(function (a) { return '<tr><td>' + esc(CFG[a.k].name) + (a.k === cur ? ' <span class="stag sitemap">Current</span>' : '') + '</td><td class="num">' + num(a.msgs) + '</td><td class="num">' + num(a.pages) + '</td><td class="num">' + money(a.cost) + '</td></tr>'; }).join('') +
-        '<tr class="tot"><td>All sites</td><td class="num">' + num(sum(all.map(function (a) { return a.msgs; }))) + '</td><td class="num">' + num(sum(all.map(function (a) { return a.pages; }))) + '</td><td class="num">' + money(sum(all.map(function (a) { return a.cost; }))) + '</td></tr>';
+      var allRows = all.map(function (a) { return '<tr><td>' + esc(CFG[a.k].name) + (a.k === cur ? ' <span class="stag sitemap">Current</span>' : '') + '</td><td class="num">' + num(a.msgs) + '</td><td class="num">' + num(a.pages) + '</td></tr>'; }).join('') +
+        '<tr class="tot"><td>All sites</td><td class="num">' + num(sum(all.map(function (a) { return a.msgs; }))) + '</td><td class="num">' + num(sum(all.map(function (a) { return a.pages; }))) + '</td></tr>';
       return '<div class="pane"><div class="pane-head"><h2>Usage</h2><span class="sample">Sample data</span>' + sel + '</div>' +
-        '<p class="kb-note">Consumption for ' + esc(CFG[cur].name) + ' · ' + P.label.toLowerCase() + '. The cost is an estimate from tokens and a sample price for the selected language model (change it under Settings).</p>' +
+        '<p class="kb-note">Consumption for ' + esc(CFG[cur].name) + ' · ' + P.label.toLowerCase() + '.</p>' +
         kpis + meters + chart +
-        '<div class="charts"><div class="card"><h3>By language model</h3><div class="table-wrap"><table class="utable"><thead><tr><th>Provider</th><th class="num">Messages</th><th class="num">Input tokens</th><th class="num">Output tokens</th><th class="num">Est. cost</th></tr></thead><tbody>' + models + '</tbody></table></div><p class="fine">Other models show what the same traffic would cost.</p></div>' +
+        '<div class="charts"><div class="card"><h3>By language model</h3><div class="table-wrap"><table class="utable"><thead><tr><th>Provider</th><th class="num">Messages</th><th class="num">Input tokens</th><th class="num">Output tokens</th></tr></thead><tbody>' + models + '</tbody></table></div><p class="fine">The model in use is set under Settings.</p></div>' +
         '<div class="card"><h3>By source type</h3><div class="table-wrap"><table class="utable"><thead><tr><th>Type</th><th class="num">Sources</th><th class="num">Pages</th><th>Last indexed</th></tr></thead><tbody>' + types + '</tbody></table></div></div></div>' +
         '<div class="charts"><div class="card"><h3>Top 5 most-used sources</h3><p class="sub">Times cited in answers</p><div class="dist topics">' + top5 + '</div></div>' +
-        '<div class="card"><h3>All sites</h3><div class="table-wrap"><table class="utable"><thead><tr><th>Site</th><th class="num">AI messages</th><th class="num">Pages</th><th class="num">Est. cost</th></tr></thead><tbody>' + allRows + '</tbody></table></div></div></div></div>';
+        '<div class="card"><h3>All sites</h3><div class="table-wrap"><table class="utable"><thead><tr><th>Site</th><th class="num">AI messages</th><th class="num">Pages</th></tr></thead><tbody>' + allRows + '</tbody></table></div></div></div></div>';
     }
 
     /* Settings */
