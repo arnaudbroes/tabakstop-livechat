@@ -127,16 +127,16 @@ p { margin: 0; }
   position: absolute; right: 22px; bottom: 22px; z-index: 3;
   display: flex; align-items: center; gap: 10px;
   border: 0; border-radius: 999px; padding: 12px 18px 12px 14px;
-  background: var(--brand); color: var(--ink); font-weight: 600; font-size: 15px;
+  background: var(--launch-bg, var(--brand)); color: var(--launch-ink, var(--ink)); font-weight: 600; font-size: 15px;
   box-shadow: var(--shadow-lg);
 }
-.launcher:hover { background: var(--brand-dark); }
+.launcher:hover { filter: brightness(.94); }
 .launcher svg { width: 22px; height: 22px; flex: none; }
 .launcher.round { padding: 14px; }
 .panel {
   position: absolute; right: 22px; bottom: 92px; z-index: 4;
   width: 370px; height: calc(100% - 116px); max-height: 560px;
-  background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-lg);
+  background: var(--surface); border-radius: var(--rad-panel, 16px); box-shadow: var(--shadow-lg);
   overflow: hidden; display: flex;
   transform-origin: bottom right;
   animation: pop .18s ease-out;
@@ -152,20 +152,20 @@ p { margin: 0; }
 
 /* Chat component */
 .chat { display: flex; flex-direction: column; width: 100%; height: 100%; position: relative; background: var(--surface); }
-.c-head { background: var(--ink); color: #FFFFFF; border-bottom: 3px solid var(--brand); padding: 14px 16px; display: flex; align-items: center; gap: 11px; flex: none; }
+.c-head { background: var(--head-bg, var(--ink)); color: var(--head-ink, #FFFFFF); border-bottom: 3px solid var(--head-border, var(--brand)); padding: 14px 16px; display: flex; align-items: center; gap: 11px; flex: none; }
 .c-head .who { display: flex; flex-direction: column; min-width: 0; flex: 1; }
 .c-head .who b { font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 1.2; }
-.c-head .who span { font-size: 12.5px; color: #D6E1EB; }
-.avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-family: var(--display); font-weight: 600; font-size: 13px; flex: none; background: var(--brand); color: var(--ink); }
-.c-head .hbtn { border: 1px solid rgba(255, 255, 255, .55); background: transparent; color: #FFFFFF; border-radius: 8px; padding: 5px 10px; font-size: 12.5px; font-weight: 600; flex: none; }
-.c-head .hbtn:hover { background: rgba(255, 255, 255, .14); }
-.c-head .icon-btn { border: 0; background: transparent; color: #FFFFFF; width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; flex: none; }
-.c-head .icon-btn:hover { background: rgba(255, 255, 255, .14); }
+.c-head .who span { font-size: 12.5px; color: var(--head-ink, #D6E1EB); }
+.avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-family: var(--display); font-weight: 600; font-size: 13px; flex: none; background: var(--av-bg, var(--brand)); color: var(--av-ink, var(--ink)); }
+.c-head .hbtn { border: 1px solid color-mix(in srgb, currentColor 55%, transparent); background: transparent; color: var(--head-ink, #FFFFFF); border-radius: 8px; padding: 5px 10px; font-size: 12.5px; font-weight: 600; flex: none; }
+.c-head .hbtn:hover { background: color-mix(in srgb, currentColor 14%, transparent); }
+.c-head .icon-btn { border: 0; background: transparent; color: var(--head-ink, #FFFFFF); width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; flex: none; }
+.c-head .icon-btn:hover { background: color-mix(in srgb, currentColor 14%, transparent); }
 .c-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: var(--surface); }
 .c-foot { border-top: 1px solid var(--line); padding: 10px 12px; display: flex; gap: 8px; align-items: flex-end; flex: none; background: var(--surface); }
 .c-foot textarea { flex: 1; resize: none; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; min-height: 40px; max-height: 110px; background: var(--sunken); }
 .c-foot textarea:focus { background: var(--surface); }
-.send { border: 0; background: var(--cta); color: #FFFFFF; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; flex: none; }
+.send { border: 0; background: var(--cta); color: var(--cta-ink, #FFFFFF); width: 40px; height: 40px; border-radius: var(--rad-btn, 10px); display: grid; place-items: center; flex: none; }
 .send:hover { background: var(--cta-dark); }
 .send svg { width: 18px; height: 18px; }
 .ai-note { flex: none; text-align: center; font-size: 11.5px; color: var(--muted); padding: 0 12px 8px; background: var(--surface); }
@@ -177,18 +177,18 @@ p { margin: 0; }
 .f textarea { resize: vertical; }
 .f input:focus, .f select:focus, .f textarea:focus { background: var(--surface); }
 .err { color: var(--bad); font-size: 12.5px; font-weight: 600; }
-.btn { border: 0; border-radius: 10px; padding: 11px 14px; font-weight: 600; background: var(--cta); color: #FFFFFF; }
+.btn { border: 0; border-radius: var(--rad-btn, 10px); padding: 11px 14px; font-weight: 600; background: var(--cta); color: var(--cta-ink, #FFFFFF); }
 .btn:hover { background: var(--cta-dark); }
 .btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
 .btn.ghost:hover { background: var(--sunken); color: var(--ink); }
-.btn.small { padding: 7px 11px; font-size: 13px; border-radius: 8px; }
+.btn.small { padding: 7px 11px; font-size: 13px; border-radius: var(--rad-btn-s, 8px); }
 .stack { display: flex; flex-direction: column; gap: 12px; }
-.msg { max-width: 84%; padding: 9px 12px; border-radius: 14px; font-size: 14px; line-height: 1.45; white-space: pre-wrap; word-wrap: break-word; }
+.msg { max-width: 84%; padding: 9px 12px; border-radius: var(--rad-bub, 14px); font-size: 14px; line-height: 1.45; white-space: pre-wrap; word-wrap: break-word; }
 .msg.me { background: var(--brand-soft); border: 1px solid #F6D3A8; color: var(--ink); border-bottom-right-radius: 4px; align-self: flex-end; }
 .msg.bot { background: var(--bot-soft); border: 1px solid var(--bot-line); color: var(--ink); border-bottom-left-radius: 4px; align-self: flex-start; }
 .msg small { display: block; font-size: 11px; color: #44586C; margin-bottom: 2px; font-weight: 600; }
 .sys { align-self: center; font-size: 12px; color: var(--muted); text-align: center; }
-.thinking { align-self: flex-start; display: flex; gap: 4px; padding: 11px 13px; background: var(--bot-soft); border: 1px solid var(--bot-line); border-radius: 14px; border-bottom-left-radius: 4px; }
+.thinking { align-self: flex-start; display: flex; gap: 4px; padding: 11px 13px; background: var(--bot-soft); border: 1px solid var(--bot-line); border-radius: var(--rad-bub, 14px); border-bottom-left-radius: 4px; }
 .thinking i { width: 6px; height: 6px; border-radius: 50%; background: #5A6E82; display: block; animation: blink 1.2s infinite ease-in-out; }
 .thinking i:nth-child(2) { animation-delay: .15s; }
 .thinking i:nth-child(3) { animation-delay: .3s; }
@@ -200,7 +200,7 @@ p { margin: 0; }
 .scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
 .scale button { aspect-ratio: 1; max-width: 100%; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--muted); }
 .scale button:hover { border-color: var(--brand-ink); color: var(--brand-deep); }
-.scale button[aria-pressed="true"] { background: var(--cta); border-color: var(--cta); color: #FFFFFF; }
+.scale button[aria-pressed="true"] { background: var(--cta); border-color: var(--cta); color: var(--cta-ink, #FFFFFF); }
 .scale-ends { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: -4px; }
 .done { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; margin: auto 0; padding: 12px; }
 .done .ring { width: 56px; height: 56px; border-radius: 50%; background: var(--ok-soft); color: var(--ok); display: grid; place-items: center; }
@@ -237,7 +237,7 @@ p { margin: 0; }
 .facts { border-top: 1px solid var(--line); }
 .facts div { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
 .facts div span:last-child { color: var(--muted); text-align: right; }
-.embed-card { height: 580px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); display: flex; }
+.embed-card { height: 580px; border-radius: var(--rad-panel, 16px); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); display: flex; }
 .embed-site { height: auto; min-height: 660px; }
 @media (max-width: 860px) {
   .page-wrap { grid-template-columns: 1fr; padding: 22px 18px; }
@@ -336,17 +336,7 @@ tbody tr:last-child td { border-bottom: 0; }
 .review .acts { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .review textarea { width: 100%; min-height: 96px; resize: vertical; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; background: var(--sunken); }
 .review label { font-size: 12.5px; font-weight: 600; color: var(--muted); }
-.review.is-done { background: var(--sunken); }
-.review.is-done .q { color: var(--muted); font-weight: 500; }
-.review .who { font-weight: 700; font-size: 14px; }
-.review .attached { background: var(--sunken); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
 .review .attached .msg { font-size: 13px; max-width: 92%; }
-.check-btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 6px 11px 6px 8px; font-weight: 600; font-size: 13px; color: var(--muted); }
-.check-btn:hover { border-color: var(--brand-ink); color: var(--ink); }
-.check-btn .box { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid #6B7F93; display: grid; place-items: center; color: transparent; }
-.check-btn .box svg { width: 13px; height: 13px; }
-.check-btn[aria-pressed="true"] { color: var(--ink); }
-.check-btn[aria-pressed="true"] .box { background: var(--cta); border-color: var(--cta); color: #FFFFFF; }
 .toggle-link { border: 0; background: none; color: var(--brand-deep); font-weight: 600; font-size: 13px; padding: 2px; }
 .toggle-link:hover { text-decoration: underline; }
 .subtabs { display: inline-flex; }
@@ -391,6 +381,130 @@ tbody tr:last-child td { border-bottom: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+.ai-note a { color: var(--brand-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+#widget-mount[data-pos="left"] .launcher { right: auto; left: 22px; }
+#widget-mount[data-pos="left"] .panel { right: auto; left: 22px; transform-origin: bottom left; }
+@media (max-width: 620px) { #widget-mount[data-pos="left"] .panel { left: 8px; right: 8px; } }
+.wrapseg { display: flex; max-width: 100%; }
+.chip.other { background: #EEF2F6; color: #44586C; }
+.addwrap { position: relative; }
+.addmenu { position: absolute; right: 0; top: calc(100% + 6px); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow-lg); padding: 6px; z-index: 5; min-width: 240px; display: flex; flex-direction: column; }
+.addmenu button { border: 0; background: transparent; text-align: left; padding: 8px 10px; border-radius: 6px; display: flex; flex-direction: column; }
+.addmenu button:hover { background: var(--sunken); }
+.addmenu button b { font-weight: 600; }
+.addmenu button span { font-size: 12.5px; color: var(--muted); }
+.kpi .v.vs { font-size: 20px; }
+.slist { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.srow { display: grid; grid-template-columns: minmax(0, 1fr) 150px 64px 108px 104px 150px; gap: 10px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #EEF2F6; }
+.srow:last-child { border-bottom: 0; }
+.srow-head { font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--surface); }
+.srow .c-src { display: flex; gap: 10px; align-items: flex-start; min-width: 0; }
+.srow .ic { width: 30px; height: 30px; border-radius: 8px; background: var(--sunken); display: grid; place-items: center; flex: none; color: var(--bot); }
+.srow .ic svg { width: 16px; height: 16px; }
+.srow .tt { min-width: 0; display: flex; flex-direction: column; }
+.srow .tt b { font-weight: 600; overflow-wrap: anywhere; }
+.srow .tt .u { font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; }
+.srow .c-st { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; font-size: 12.5px; min-width: 0; }
+.srow .c-ac { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+.srow .btnrow, .fb .btnrow { display: flex; gap: 6px; flex-wrap: wrap; }
+.why { font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; }
+.status-pill.failed { background: var(--bad-soft); color: var(--bad); }
+.bar-mini { display: block; width: 100%; height: 6px; border-radius: 3px; background: #EEF2F6; overflow: hidden; }
+.bar-mini i { display: block; height: 100%; background: var(--cta); }
+.mini-sel { border: 1px solid var(--line); border-radius: 6px; background: var(--surface); padding: 3px 4px; font-size: 12.5px; max-width: 100%; }
+.dash { color: var(--muted); }
+.addcard { border-color: var(--brand); }
+.addcard .pane-head h3 { margin-right: auto; }
+.inline { display: flex; gap: 8px; flex-wrap: wrap; }
+.inline input { flex: 1 1 200px; min-width: 0; border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px; background: var(--sunken); }
+.errs { margin: 0; padding-left: 18px; color: var(--bad); font-size: 12.5px; font-weight: 600; }
+.acts { display: flex; gap: 8px; flex-wrap: wrap; }
+.drop { display: flex; flex-direction: column; align-items: center; gap: 4px; border: 2px dashed #6B7F93; border-radius: 12px; padding: 22px; text-align: center; background: var(--sunken); cursor: pointer; }
+.drop span { font-size: 13px; color: var(--muted); }
+.drop.over, .drop:focus-within { border-color: var(--brand-ink); background: var(--brand-soft); }
+.smtools { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.smlist { border: 1px solid var(--line); border-radius: 10px; max-height: 260px; overflow-y: auto; background: var(--surface); }
+.smrow { display: flex; gap: 10px; align-items: center; padding: 7px 12px; border-bottom: 1px solid #EEF2F6; font-size: 13px; }
+.smrow .path { min-width: 0; flex: 1; overflow-wrap: anywhere; }
+.smrow input { accent-color: var(--cta); }
+.chipwrap { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chipbtn { border: 1px solid var(--brand-ink); color: var(--brand-ink); background: #FFFFFF; border-radius: 999px; padding: 5px 11px; font-size: 13px; font-weight: 600; text-align: left; }
+.chipbtn:hover { background: var(--brand-soft); color: var(--brand-deep); }
+.tagchip { display: inline-flex; align-items: center; gap: 4px; background: var(--bot-soft); border: 1px solid var(--bot-line); border-radius: 999px; padding: 3px 4px 3px 11px; font-size: 13px; }
+.tagchip button { border: 0; background: transparent; width: 22px; height: 22px; border-radius: 50%; font-size: 16px; line-height: 1; color: #44586C; padding: 0; }
+.tagchip button:hover { background: #FFFFFF; color: var(--ink); }
+.swrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.switch { width: 38px; height: 22px; border-radius: 11px; border: 0; background: #6B7F93; position: relative; padding: 0; flex: none; }
+.switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #FFFFFF; transition: left .15s; }
+.switch[aria-checked="true"] { background: var(--cta); }
+.switch[aria-checked="true"]::after { left: 19px; }
+.fine { font-size: 12.5px; color: var(--muted); }
+.set-body { display: flex; flex-direction: column; gap: 14px; }
+.f .lbl { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.ap-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 20px; align-items: start; }
+.ap-controls { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.pv { display: flex; flex-direction: column; gap: 10px; position: sticky; top: 0; min-width: 0; }
+.pv .pane-head h3 { margin-right: auto; font-size: 15px; }
+.pv-wrap { width: 315px; max-width: 100%; height: 442px; overflow: hidden; border-radius: 16px; box-shadow: var(--shadow); }
+.pv-inner { width: 370px; height: 520px; transform: scale(.85); transform-origin: top left; }
+.pv-card, .test-card { display: flex; width: 100%; height: 100%; border: 1px solid var(--line); border-radius: var(--rad-panel, 16px); overflow: hidden; background: #FFFFFF; }
+.pv-launch { display: flex; }
+.pv-launch.right { justify-content: flex-end; }
+.pv-launch .launcher { position: static; box-shadow: var(--shadow); }
+.swatches { display: flex; gap: 10px; flex-wrap: wrap; }
+.swatch { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #6B7F93; padding: 0; }
+.swatch[aria-pressed="true"] { box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px var(--ink); }
+.warn { color: #7A3500; background: #FFF3E0; border: 1px solid #E8B77A; border-radius: 8px; padding: 6px 10px; font-size: 12.5px; }
+.avi { display: inline-grid; place-items: center; min-width: 22px; height: 18px; font-weight: 700; font-size: 12.5px; }
+.avi svg { width: 18px; height: 18px; }
+.svcols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.sv { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.sv h4 { margin: 0; font-size: 13px; }
+.svrow { display: flex; gap: 4px; align-items: center; }
+.svrow input { flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: 9px; padding: 8px 10px; background: var(--sunken); }
+.icon-sq { border: 1px solid var(--line); background: var(--surface); border-radius: 6px; width: 28px; height: 32px; padding: 0; color: var(--ink); flex: none; }
+.icon-sq:disabled { color: #5A6E82; background: var(--sunken); cursor: not-allowed; }
+.test-grid { display: grid; grid-template-columns: 380px minmax(0, 1fr); gap: 18px; align-items: start; }
+.test-slot { height: 560px; }
+.test-side { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.tlog { display: flex; flex-direction: column; gap: 12px; max-height: 330px; overflow-y: auto; }
+.tl { display: flex; flex-direction: column; gap: 6px; padding-bottom: 10px; border-bottom: 1px solid #EEF2F6; }
+.tl:last-child { border-bottom: 0; }
+.tq { font-weight: 600; }
+.tpill { font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 6px; }
+.tpill.ok { background: var(--ok-soft); color: #1F6B3E; }
+.tpill.redir { background: var(--brand-soft); color: var(--brand-deep); }
+.tpill.none { background: var(--bad-soft); color: var(--bad); }
+.srcbtn { cursor: pointer; }
+.srcbtn:hover { border-color: var(--brand-ink); }
+.codebox { border-radius: 10px; overflow: hidden; border: 1px solid #2B3F55; }
+.codehead { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #0F1D2C; color: #C3D1DE; padding: 8px 12px; font-size: 12.5px; }
+.code { margin: 0; background: var(--ink); color: #E6EAF0; padding: 12px 14px; font: 12.5px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 1360px) { .archive-grid { grid-template-columns: 1fr; } .transcript { max-height: none; } }
+@media (max-width: 1180px) {
+  .srow-head { display: none; }
+  .srow { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: flex-start; }
+  .srow .c-src { flex: 1 1 100%; }
+  .srow .c-st { flex: 1 1 160px; }
+  .srow [data-l]::before { content: attr(data-l) ": "; color: var(--muted); }
+  .srow .c-ac { flex-direction: row; flex-wrap: wrap; flex: 1 1 100%; }
+}
+@media (max-width: 1100px) {
+  .ap-grid, .test-grid { grid-template-columns: 1fr; }
+  .pv { position: static; }
+}
+@media (max-width: 760px) {
+  table.arc { min-width: 560px; }
+  .svcols { grid-template-columns: 1fr; }
+}
+table.arc { table-layout: fixed; }
+table.arc th, table.arc td { white-space: normal; overflow-wrap: anywhere; }
+table.arc th { letter-spacing: .03em; white-space: nowrap; overflow-wrap: normal; }
+table.arc td:nth-child(n+5) { white-space: nowrap; }
+.chip { white-space: nowrap; }
+.pane > * { flex: none; }
+.f .seg, .card > .seg { align-self: flex-start; }
 </style>
 </head>
 <body>
@@ -481,6 +595,9 @@ tbody tr:last-child td { border-bottom: 0; }
     bot: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M2 13v2M22 13v2"/></svg>',
     mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
     gear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>',
+    book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M9 7h6"/></svg>',
+    test: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 14h9"/></svg>',
+    spark: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>',
     stats: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
     search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
     doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>',
@@ -500,8 +617,8 @@ tbody tr:last-child td { border-bottom: 0; }
   }
 
   var CFG = {
-    tabakstop: { name: 'Tabakstop', domain: 'tabakstop.be', adminUrl: 'assistent.tabakstop.be', role: 'tabakoloog', cms: 'WordPress' },
-    kanker: { name: 'Kanker.be', domain: 'kanker.be', adminUrl: 'assistent.kanker.be', role: 'kankerinfo-medewerker', cms: 'het CMS' }
+    tabakstop: { name: 'Tabakstop', domain: 'tabakstop.be', adminUrl: 'assistent.tabakstop.be', siteId: 'tabakstop-be', mountId: 'tabakstop-assistent', role: 'tabakoloog', cms: 'WordPress' },
+    kanker: { name: 'Kanker.be', domain: 'kanker.be', adminUrl: 'assistent.kanker.be', siteId: 'kanker-be', mountId: 'kanker-assistent', role: 'kankerinfo-medewerker', cms: 'het CMS' }
   };
   var site = 'kanker';
 
@@ -533,7 +650,8 @@ tbody tr:last-child td { border-bottom: 0; }
       emailErr: 'Vul een geldig e-mailadres in.',
       questionErr: 'Schrijf je vraag.',
       sentTitle: 'Bericht ontvangen',
-      sentBody: function (e) { return 'Een tabakoloog antwoordt binnen twee werkdagen per e-mail op ' + e + '.'; },
+      sentBody: function (e) { return 'Een medewerker antwoordt je per e-mail op ' + e + ', binnen twee werkdagen.'; },
+      privacyLink: 'Privacy',
       end: 'Beëindigen',
       endQ: 'Wil je het gesprek beëindigen?',
       endBody: 'Je kunt daarna altijd een nieuw gesprek starten.',
@@ -582,7 +700,8 @@ tbody tr:last-child td { border-bottom: 0; }
       emailErr: 'Indiquez une adresse e-mail valide.',
       questionErr: 'Écrivez votre question.',
       sentTitle: 'Message reçu',
-      sentBody: function (e) { return 'Un tabacologue vous répond par e-mail à ' + e + ', dans les deux jours ouvrables.'; },
+      sentBody: function (e) { return 'Un collaborateur vous répond par e-mail à ' + e + ', dans les deux jours ouvrables.'; },
+      privacyLink: 'Confidentialité',
       end: 'Terminer',
       endQ: 'Voulez-vous terminer la conversation ?',
       endBody: 'Vous pourrez toujours en démarrer une nouvelle.',
@@ -616,7 +735,6 @@ tbody tr:last-child td { border-bottom: 0; }
         leave: 'Laat een bericht achter voor een kankerinfo-medewerker',
         contact: 'Liever bellen? De Kankerlijn is gratis bereikbaar op 0800 15 801, op werkdagen. Of kijk op kanker.be.',
         formTitle: 'Bericht voor een medewerker',
-        sentBody: function (e) { return 'Een kankerinfo-medewerker antwoordt binnen twee werkdagen per e-mail op ' + e + '.'; },
         formNote: 'Je gesprek met de assistent wordt meegestuurd, zodat je niets hoeft te herhalen. Een kankerinfo-medewerker antwoordt je per e-mail, binnen twee werkdagen.',
         hints: {
           bot: 'Kies een voorgestelde vraag of typ er zelf een. Tip: vraag "Ik heb een knobbel, is dat kanker?", of vraag naar een persoon, om het doorverwijzen te zien.',
@@ -630,7 +748,6 @@ tbody tr:last-child td { border-bottom: 0; }
         leave: 'Laisser un message à un conseiller info-cancer',
         contact: "Vous préférez appeler ? La ligne d'information sur le cancer est gratuite : 0800 15 801, les jours ouvrables. Ou consultez cancer.be.",
         formTitle: 'Message pour un conseiller',
-        sentBody: function (e) { return 'Un conseiller info-cancer vous répond par e-mail à ' + e + ', dans les deux jours ouvrables.'; },
         formNote: 'Votre conversation avec l’assistant est jointe, vous ne devez rien répéter. Un conseiller info-cancer vous répond par e-mail, dans les deux jours ouvrables.',
         hints: {
           bot: "Choisissez une question proposée ou tapez la vôtre. Astuce : posez la question « J'ai une boule, est-ce un cancer ? », ou demandez une personne, pour voir l'orientation.",
@@ -653,7 +770,7 @@ tbody tr:last-child td { border-bottom: 0; }
       t3: { text: 'Ontwenningsverschijnselen zijn het sterkst in de eerste dagen na het stoppen en nemen na enkele weken af. Een hevige zin in een sigaret duurt meestal maar een paar minuten. Wat kan helpen: een glas water drinken, even bewegen, diep in- en uitademen of jezelf afleiden.',
         src: [['page', 'Omgaan met ontwenningsverschijnselen'], ['doc', 'Brochure Ik voel me zoveel beter (PDF)']], chips: ['Hoe werkt begeleiding?', 'Welke nicotinevervangers zijn er?'], fb: true },
       medical: { text: 'Over medicatie, dosissen of zwangerschap geef ik geen advies. Dat bespreek je best met een tabakoloog of je huisarts. Je kunt een bericht voor een tabakoloog achterlaten: die antwoordt je per e-mail.', hand: 'med' },
-      distress: { text: 'Het klinkt alsof je het nu heel moeilijk hebt. Je hoeft dit niet alleen te dragen. Hier kan ik je niet verder mee helpen, maar een tabakoloog wel. Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.', hand: 'care' },
+      distress: { text: 'Het klinkt alsof je het nu heel moeilijk hebt. Je hoeft dit niet alleen te dragen. Hier kan ik je niet verder mee helpen, maar een tabakoloog wel.', hand: 'care' },
       person: { text: 'Ik ben een digitale assistent, dus ik kan je niet doorverbinden voor een gesprek. Je kunt wel een bericht achterlaten voor een tabakoloog. Die antwoordt je per e-mail.', hand: 'ask' },
       fallback: { text: 'Daarover vind ik niets in de informatie van Tabakstop, en ik wil je geen verkeerd antwoord geven. Een tabakoloog kan je vraag wel beantwoorden. Laat een bericht achter, dan krijg je antwoord per e-mail.', hand: 'none' }
     },
@@ -667,15 +784,13 @@ tbody tr:last-child td { border-bottom: 0; }
       t3: { text: "Les symptômes de manque sont les plus forts les premiers jours après l'arrêt et diminuent après quelques semaines. Une forte envie de fumer ne dure généralement que quelques minutes. Ce qui peut aider : boire un verre d'eau, bouger un peu, respirer profondément ou vous changer les idées.",
         src: [['page', 'Gérer les symptômes de manque'], ['doc', 'Brochure Je me sens tellement mieux sans tabac (PDF)']], chips: ['Comment se passe un accompagnement ?', 'Quels substituts nicotiniques existent ?'], fb: true },
       medical: { text: 'Je ne donne pas de conseils sur les médicaments, les doses ou la grossesse. Parlez-en plutôt à un tabacologue ou à votre médecin. Vous pouvez laisser un message à un tabacologue : il vous répondra par e-mail.', hand: 'med' },
-      distress: { text: "On dirait que c'est très difficile pour vous en ce moment. Vous n'êtes pas seul(e). Je ne peux pas vous aider davantage, mais un tabacologue le peut. Si vous pensez au suicide, appelez le Centre de Prévention du Suicide au 0800 32 123, joignable 24 h/24.", hand: 'care' },
+      distress: { text: "On dirait que c'est très difficile pour vous en ce moment. Vous n'êtes pas seul(e). Je ne peux pas vous aider davantage, mais un tabacologue le peut.", hand: 'care' },
       person: { text: "Je suis un assistant numérique, je ne peux donc pas vous mettre en relation pour une conversation. Vous pouvez en revanche laisser un message à un tabacologue. Il vous répondra par e-mail.", hand: 'ask' },
       fallback: { text: "Je ne trouve rien à ce sujet dans les informations de Tabacstop, et je ne veux pas vous donner une mauvaise réponse. Un tabacologue peut répondre à votre question. Laissez un message, vous recevrez une réponse par e-mail.", hand: 'none' }
     }
   };
   var RT = {};
   RT.tabakstop = [
-    ['distress', /(niet meer zitten|hopeloos|wanhoop|zelfmoord|zelfdoding|geen zin meer|désespér|suicide|n'en peux plus|plus envie de vivre)/i],
-    ['medical', /(champix|cytisine|varenicline|varénicline|medicat|medicijn|dosis|zwanger|bijwerking|médica|dose|enceinte|grossesse|effet secondaire)/i],
     ['person', /(met iemand|iemand (spreken|praten|bellen)|echt persoon|een mens|medewerker|kan ik bellen|parler à|parler avec|quelqu'un|une personne|un humain|conseiller)/i],
     ['t1', /(begeleid|tabakoloog|coach|hulp bij|accompagn|tabacologue|aide)/i],
     ['t2', /(vervang|pleister|kauwgom|zuigtablet|mondspray|inhalator|substitut|patch|gomme|spray)/i],
@@ -695,7 +810,7 @@ tbody tr:last-child td { border-bottom: 0; }
       t3: { text: 'Een bevolkingsonderzoek is een onderzoek voor mensen zonder klachten, om bepaalde kankers vroeg op te sporen. Voor borstkanker, baarmoederhalskanker en dikkedarmkanker nodigt de overheid de doelgroep uit.',
         src: [['page', 'Bevolkingsonderzoek: wie wordt uitgenodigd (voorbeeld)']], chips: ['Wat zijn de risicofactoren voor borstkanker?', 'Hoe verloopt een chemotherapie?'], fb: true },
       medical: { text: 'Een diagnose stellen, klachten of uitslagen duiden of behandeladvies geven kan ik niet. Dat bespreek je best met je huisarts of behandelend arts. Je kunt een bericht voor een kankerinfo-medewerker achterlaten: die antwoordt je per e-mail.', hand: 'med' },
-      distress: { text: 'Het klinkt alsof je het nu heel zwaar hebt. Je staat er niet alleen voor. Hier kan ik je niet verder mee helpen, maar een kankerinfo-medewerker wel. Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.', hand: 'care' },
+      distress: { text: 'Het klinkt alsof je het nu heel zwaar hebt. Je staat er niet alleen voor. Hier kan ik je niet verder mee helpen, maar een kankerinfo-medewerker wel.', hand: 'care' },
       person: { text: 'Ik ben een digitale assistent, dus ik kan je niet doorverbinden voor een gesprek. Je kunt wel een bericht achterlaten voor een kankerinfo-medewerker. Die antwoordt je per e-mail.', hand: 'ask' },
       fallback: { text: 'Daarover vind ik niets in de informatie van Kanker.be, en ik wil je geen verkeerd antwoord geven. Een kankerinfo-medewerker kan je vraag wel beantwoorden. Laat een bericht achter, dan krijg je antwoord per e-mail.', hand: 'none' }
     },
@@ -710,33 +825,157 @@ tbody tr:last-child td { border-bottom: 0; }
       t3: { text: "Un dépistage organisé est un examen proposé aux personnes sans symptômes, pour détecter certains cancers tôt. Pour le cancer du sein, du col de l'utérus et du côlon, les autorités invitent la population concernée.",
         src: [['page', 'Dépistage organisé : qui est invité (exemple)']], chips: ['Quels sont les facteurs de risque du cancer du sein ?', 'Comment se déroule une chimiothérapie ?'], fb: true },
       medical: { text: "Je ne peux pas poser de diagnostic, interpréter des symptômes ou des résultats, ni donner de conseil de traitement. Parlez-en plutôt à votre médecin traitant. Vous pouvez laisser un message à un conseiller info-cancer : il vous répondra par e-mail.", hand: 'med' },
-      distress: { text: "On dirait que c'est très lourd pour vous en ce moment. Vous n'êtes pas seul(e). Je ne peux pas vous aider davantage, mais un conseiller info-cancer le peut. Si vous pensez au suicide, appelez le Centre de Prévention du Suicide au 0800 32 123, joignable 24 h/24.", hand: 'care' },
+      distress: { text: "On dirait que c'est très lourd pour vous en ce moment. Vous n'êtes pas seul(e). Je ne peux pas vous aider davantage, mais un conseiller info-cancer le peut.", hand: 'care' },
       person: { text: "Je suis un assistant numérique, je ne peux donc pas vous mettre en relation pour une conversation. Vous pouvez en revanche laisser un message à un conseiller info-cancer. Il vous répondra par e-mail.", hand: 'ask' },
       fallback: { text: "Je ne trouve rien à ce sujet dans les informations de Cancer.be, et je ne veux pas vous donner une mauvaise réponse. Un conseiller info-cancer peut répondre à votre question. Laissez un message, vous recevrez une réponse par e-mail.", hand: 'none' }
     }
   };
   var KB = { tabakstop: KBT, kanker: KBK };
   RT.kanker = [
-    ['distress', /(niet meer zitten|hopeloos|wanhoop|zelfmoord|zelfdoding|geen zin meer|niet meer tegen|désespér|suicide|n'en peux plus|plus envie de vivre)/i],
-    ['medical', /(knobbel|bultje|klacht|symptoom|diagnose|uitslag|resultaat|scan|biopt|is dat kanker|heb ik kanker|dosis|medicatie|bijwerking|prognose|overleven|boule|symptôme|diagnostic|résultat|ai-je un cancer|est-ce un cancer|dose|médicament|effet secondaire|pronostic)/i],
     ['person', /(met iemand|iemand (spreken|praten|bellen)|echt persoon|een mens|medewerker|kan ik bellen|parler à|parler avec|quelqu'un|une personne|un humain|conseiller)/i],
     ['t2', /(chemo|chimio)/i],
     ['t1', /(risicofactor|borstkanker|facteur|risque|sein)/i],
     ['t3', /(bevolkingsonderzoek|screening|opsporing|dépistage)/i]
   ];
 
+  /* ---------- Settings state (sample data, not persisted) ---------- */
+  var PROVIDERS = [
+    { k: 'mistral', n: 'Mistral AI', reco: 'Aanbevolen', note: 'Frans bedrijf, gegevens blijven in de EU', proc: 'Verwerking: EU (Mistral AI)', procNote: 'Gegevens blijven binnen de Europese Unie.' },
+    { k: 'openai', n: 'OpenAI', note: 'Amerikaans bedrijf', proc: 'Verwerking: VS (OpenAI)', procNote: 'Gegevens worden buiten de EU verwerkt. Controleer de verwerkersovereenkomst.' },
+    { k: 'gemini', n: 'Google Gemini', note: 'Amerikaans bedrijf', proc: 'Verwerking: VS (Google Gemini)', procNote: 'Gegevens worden buiten de EU verwerkt. Controleer de verwerkersovereenkomst.' }
+  ];
+  var provider = 'mistral';
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  var RADII = { sharp: ['3px', '4px', '6px', '3px'], mid: ['10px', '14px', '16px', '8px'], round: ['999px', '20px', '24px', '999px'] };
+  var TOPIC_KW = {
+    diagnose: ['diagnose', 'diagnostic', 'is dat kanker', 'heb ik kanker', 'ai-je un cancer', 'est-ce un cancer'],
+    symptomen: ['knobbel', 'bultje', 'klacht', 'symptoom', 'symptomen', 'symptôme', 'boule'],
+    uitslagen: ['uitslag', 'resultaat', 'scan', 'biopt', 'résultat'],
+    behandeladvies: ['dosis', 'medicatie', 'bijwerking', 'prognose', 'overleven', 'dose', 'médicament', 'effet secondaire', 'pronostic'],
+    'alternatieve geneeswijzen': ['alternatief', 'alternatieve', 'homeopat', 'kruiden', 'alternatif'],
+    medicatie: ['champix', 'cytisine', 'varenicline', 'varénicline', 'medicat', 'medicijn', 'médica'],
+    dosissen: ['dosis', 'dosissen', 'dose'],
+    zwangerschap: ['zwanger', 'enceinte', 'grossesse'],
+    bijwerkingen: ['bijwerking', 'effet secondaire'],
+    'e-sigaret': ['e-sigaret', 'vape', 'cigarette électronique']
+  };
+  var PRESETS = {
+    tabakstop: ['medicatie', 'dosissen', 'zwangerschap', 'bijwerkingen', 'e-sigaret'],
+    kanker: ['diagnose', 'symptomen', 'uitslagen', 'behandeladvies', 'alternatieve geneeswijzen']
+  };
+  var CRISIS_KW = ['zelfmoord', 'zelfdoding', 'niet meer zitten', 'hopeloos', 'wanhoop', 'geen zin meer', 'niet meer tegen', 'suicide', 'désespér', "n'en peux plus", 'plus envie de vivre'];
+  var CRISIS_TXT = {
+    nl: 'Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.',
+    fr: 'Si vous pensez au suicide, appelez le Centre de Prévention du Suicide au 0800 32 123, joignable 24 h/24.'
+  };
+  var TONE = { neutral: { nl: '', fr: '' }, friendly: { nl: 'Goede vraag! ', fr: 'Bonne question ! ' }, formal: { nl: 'Geachte bezoeker,\n', fr: 'Cher visiteur,\n' } };
+  function defApp(k) {
+    return { color: '', radius: 'mid', pos: 'right', name: '', label: '', avatar: 'ai', welcome: { nl: '', fr: '' },
+      starts: { nl: KB[k].nl.greet.chips.slice(), fr: KB[k].fr.greet.chips.slice() } };
+  }
+  function defBeh(k) {
+    return { tone: 'neutral', topics: PRESETS[k].slice(0, k === 'kanker' ? 4 : 4), fallback: { nl: '', fr: '' }, redirect: { nl: '', fr: '' },
+      crisisOn: true, crisisKw: CRISIS_KW.slice(), crisisText: { nl: '', fr: '' },
+      mailTo: k === 'kanker' ? 'kankerinfo@voorbeeld.be' : 'info@voorbeeld.be', mailSubject: '' };
+  }
+  function defPriv() { return { retention: '90', mask: true, policy: '', disclaimer: { nl: '', fr: '' } }; }
+  var APP = { tabakstop: defApp('tabakstop'), kanker: defApp('kanker') };
+  var BEH = { tabakstop: defBeh('tabakstop'), kanker: defBeh('kanker') };
+  var PRIV = { tabakstop: defPriv(), kanker: defPriv() };
+
+  function hexNorm(h) {
+    h = String(h).trim().replace(/^#/, '');
+    if (/^[0-9a-f]{3}$/i.test(h)) h = h.replace(/(.)/g, '$1$1');
+    return /^[0-9a-f]{6}$/i.test(h) ? '#' + h.toUpperCase() : null;
+  }
+  function rgb(h) { return [1, 3, 5].map(function (i) { return parseInt(h.substr(i, 2), 16); }); }
+  function relLum(h) {
+    var c = rgb(h).map(function (v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); });
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  }
+  function contrast(a, b) { var x = relLum(a), y = relLum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+  function darken(h, f) { return '#' + rgb(h).map(function (v) { return ('0' + Math.round(v * f).toString(16)).slice(-2); }).join(''); }
+  function themeFor(hex) {
+    var w = contrast(hex, '#FFFFFF'), n = contrast(hex, '#16293D'), ratio = Math.max(w, n);
+    var bg = hex, ink = w >= n ? '#FFFFFF' : '#16293D';
+    if (ratio < 4.5) {
+      var f = 1;
+      while (f > 0.2 && contrast(bg, '#FFFFFF') < 4.5) { f -= 0.04; bg = darken(hex, f); }
+      ink = '#FFFFFF';
+    }
+    return { bg: bg, ink: ink, ratio: ratio, low: ratio < 4.5 };
+  }
+  function appearanceStyle() {
+    var a = APP[site], r = RADII[a.radius], s = '';
+    if (a.color) {
+      var t = themeFor(a.color);
+      s += '--cta:' + t.bg + ';--cta-dark:' + darken(t.bg, 0.88) + ';--cta-ink:' + t.ink + ';--head-bg:' + t.bg + ';--head-ink:' + t.ink + ';--head-border:' + t.bg +
+        ';--av-bg:' + t.ink + ';--av-ink:' + t.bg + ';--launch-bg:' + t.bg + ';--launch-ink:' + t.ink + ';';
+    }
+    return s + '--rad-btn:' + r[0] + ';--rad-bub:' + r[1] + ';--rad-panel:' + r[2] + ';--rad-btn-s:' + r[3] + ';';
+  }
+  function avatarInner() {
+    var v = APP[site].avatar;
+    if (v === 'chat') return ICON.chat.replace('<svg ', '<svg width="18" height="18" ');
+    if (v === 'spark') return ICON.spark.replace('<svg ', '<svg width="18" height="18" ');
+    return 'AI';
+  }
+
+  function L() { return T[site][lang]; }
+  function K() {
+    var base = KB[site][lang], a = APP[site], b = BEH[site], out = Object.assign({}, base), w = a.welcome[lang].trim();
+    var g = Object.assign({}, base.greet);
+    if (w) g.text = w;
+    g.chips = a.starts[lang].map(function (c) { return c.trim(); }).filter(Boolean);
+    out.greet = g;
+    var pre = TONE[b.tone][lang];
+    ['t1', 't2', 't3'].forEach(function (k) { out[k] = Object.assign({}, base[k], { text: pre + base[k].text }); });
+    var red = b.redirect[lang].trim();
+    if (red) out.medical = Object.assign({}, base.medical, { text: red });
+    var fb = b.fallback[lang].trim();
+    if (fb) out.fallback = Object.assign({}, base.fallback, { text: fb });
+    var ct = b.crisisText[lang].trim() || CRISIS_TXT[lang];
+    out.distress = Object.assign({}, base.distress, { text: base.distress.text + (b.crisisOn ? ' ' + ct : '') });
+    return out;
+  }
+
+  function srcNorm(t) {
+    return String(t).toLowerCase().replace(/\([^)]*\)/g, '').replace(/\.pdf$/, '').replace(/\s*-\s*brochure\s*$/, '').replace(/^brochure\s+/, '').replace(/\s+/g, ' ').trim();
+  }
+  function findSource(title) { return typeof Admin === 'undefined' || !Admin ? { title: title } : Admin.find(title); }
+  function usedSources(key) {
+    var e = K()[key], out = [];
+    (e && e.src || []).forEach(function (x) { var f = findSource(x[1]); if (f && out.indexOf(f) === -1) out.push(f); });
+    return out;
+  }
+  function topicHit(t) {
+    var list = BEH[site].topics;
+    for (var i = 0; i < list.length; i++) {
+      var lab = list[i].toLowerCase(), kws = TOPIC_KW[lab] || [lab, lab.length > 6 ? lab.slice(0, lab.length - 2) : lab];
+      if (kws.some(function (k) { return t.indexOf(k) !== -1; })) return list[i];
+    }
+    return null;
+  }
   function route(text) {
+    var b = BEH[site], t = String(text).toLowerCase();
+    if (b.crisisOn && b.crisisKw.some(function (k) { k = k.toLowerCase().trim(); return k && t.indexOf(k) !== -1; })) return { key: 'distress', reason: 'crisis-signaal' };
+    var tp = topicHit(t);
+    if (tp) return { key: 'medical', reason: 'onderwerp: ' + tp };
     var R = RT[site];
-    for (var i = 0; i < R.length; i++) if (R[i][1].test(text)) return R[i][0];
-    return 'fallback';
+    for (var i = 0; i < R.length; i++) {
+      if (!R[i][1].test(text)) continue;
+      var key = R[i][0];
+      if (key === 'person') return { key: key, reason: 'vraag naar een persoon' };
+      if (!usedSources(key).length) return { key: 'fallback', reason: 'geen bron gevonden (bron verwijderd of niet ingelezen)' };
+      return { key: key, reason: 'beantwoord met bronnen' };
+    }
+    return { key: 'fallback', reason: 'geen bron gevonden' };
   }
 
   var lang = 'nl';
-  function L() { return T[site][lang]; }
-  function K() { return KB[site][lang]; }
 
   /* ---------- Visitor chat ---------- */
-  function Chat(mount, mode) {
+  function Chat(mount, mode, onAnswer) {
     var s = { phase: 'bot', msgs: [], draft: '', thinking: false, name: '', email: '', question: '',
       rating: 0, comment: '', confirm: false, err: '', open: mode === 'embed', sentTo: '' };
     var timers = [];
@@ -745,7 +984,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
     function botMsg(key) {
       var e = K()[key];
-      return { from: 'bot', key: key, text: e.text, src: e.src || [], chips: e.chips || [], hand: e.hand || null, fb: e.fb ? null : undefined };
+      return { from: 'bot', key: key, text: e.text, src: (e.src || []).filter(function (x) { return !!findSource(x[1]); }), chips: e.chips || [], hand: e.hand || null, fb: e.fb ? null : undefined };
     }
     function reset() {
       s.msgs = [botMsg('greet')];
@@ -756,10 +995,15 @@ tbody tr:last-child td { border-bottom: 0; }
       return '';
     }
 
+    function aiNote() {
+      var l = L(), p = PRIV[site], d = p.disclaimer[lang].trim() || l.aiNote, link = '';
+      if (/^https?:\/\/\S+\.\S+$/i.test(p.policy.trim())) link = ' · <a href="' + esc(p.policy.trim()) + '" target="_blank" rel="noopener">' + esc(l.privacyLink) + '</a>';
+      return '<div class="ai-note">' + esc(d) + link + '</div>';
+    }
     function head() {
       var l = L(), who;
       if (s.phase === 'form') who = '<div class="avatar">' + ICON.mail.replace('<svg ', '<svg width="18" height="18" ') + '</div><div class="who"><b>' + esc(l.formTitle) + '</b><span>' + esc(l.formSub) + '</span></div>';
-      else who = '<div class="avatar">AI</div><div class="who"><b>' + esc(l.botName) + '</b><span>' + esc(l.botSub) + '</span></div>';
+      else who = '<div class="avatar">' + avatarInner() + '</div><div class="who"><b>' + esc(APP[site].name.trim() || l.botName) + '</b><span>' + esc(l.botSub) + '</span></div>';
       var endBtn = s.phase === 'bot' ? '<button class="hbtn" data-act="end">' + esc(l.end) + '</button>' : '';
       var minBtn = mode === 'widget' ? '<button class="icon-btn" data-act="min" aria-label="Chatvenster verkleinen">' + ICON.minus + '</button>' : '';
       return '<div class="c-head">' + who + endBtn + minBtn + '</div>';
@@ -794,7 +1038,7 @@ tbody tr:last-child td { border-bottom: 0; }
           '<div class="c-assist"><button class="linkbtn" data-act="leave">' + esc(l.leave) + '</button><span>' + esc(l.noMed) + '</span></div>' +
           '<form class="c-foot" data-form="send"><textarea id="' + mode + '-draft" rows="1" data-bind="draft" placeholder="' + esc(l.placeholder) + '" aria-label="' + esc(l.placeholder) + '">' + esc(s.draft) + '</textarea>' +
           '<button class="send" type="submit" aria-label="Versturen">' + ICON.send + '</button></form>' +
-          '<div class="ai-note">' + esc(l.aiNote) + '</div>';
+          aiNote();
       }
       if (s.phase === 'form') {
         return '<div class="c-body"><form class="stack" data-form="leave" novalidate>' +
@@ -808,7 +1052,7 @@ tbody tr:last-child td { border-bottom: 0; }
           '<p class="fine">' + esc(l.privacy) + '</p>' +
           '<p class="contact-line">' + esc(l.contact) + '</p>' +
           '</form></div>' +
-          '<div class="ai-note">' + esc(l.aiNote) + '</div>';
+          aiNote();
       }
       if (s.phase === 'rate') {
         var btns = [1, 2, 3, 4, 5].map(function (n) { return '<button type="button" data-rate="' + n + '" aria-pressed="' + (s.rating === n) + '">' + n + '</button>'; }).join('');
@@ -836,15 +1080,17 @@ tbody tr:last-child td { border-bottom: 0; }
     }
 
     function render(focusDraft) {
-      var l = L(), html = '';
+      var l = L(), html = '', lab = APP[site].label.trim() || l.launcher;
       if (mode === 'widget') {
         if (s.open) html += '<div class="panel"><div class="chat">' + head() + body() + dialog() + '</div></div>';
-        html += '<button class="launcher' + (s.open ? ' round' : '') + '" data-act="toggle" aria-label="' + esc(s.open ? 'Chat sluiten' : l.launcher) + '">' +
-          (s.open ? ICON.close : ICON.chat + '<span>' + esc(l.launcher) + '</span>') + '</button>';
+        html += '<button class="launcher' + (s.open ? ' round' : '') + '" data-act="toggle" aria-label="' + esc(s.open ? 'Chat sluiten' : lab) + '">' +
+          (s.open ? ICON.close : ICON.chat + '<span>' + esc(lab) + '</span>') + '</button>';
       } else {
         html = '<div class="chat">' + head() + body() + dialog() + '</div>';
       }
       mount.innerHTML = html;
+      mount.style.cssText = appearanceStyle();
+      if (mode === 'widget') mount.setAttribute('data-pos', APP[site].pos);
       var sc = mount.querySelector('[data-scroll]');
       if (sc) sc.scrollTop = sc.scrollHeight;
       if (focusDraft) { var d = mount.querySelector('[data-bind="draft"]'); if (d) d.focus(); }
@@ -855,7 +1101,9 @@ tbody tr:last-child td { border-bottom: 0; }
       s.thinking = true; render(true);
       later(function () {
         s.thinking = false;
-        s.msgs.push(botMsg(route(text)));
+        var r = route(text);
+        s.msgs.push(botMsg(r.key));
+        if (onAnswer) onAnswer({ q: text, key: r.key, reason: r.reason, used: usedSources(r.key) });
         render(true);
       }, 1300);
     }
@@ -884,7 +1132,7 @@ tbody tr:last-child td { border-bottom: 0; }
         if (!/\S+@\S+\.\S+/.test(s.email.trim())) { s.err = l.emailErr; render(); mount.querySelector('[data-bind="email"]').focus(); return; }
         if (!s.question.trim()) { s.err = l.questionErr; render(); mount.querySelector('[data-bind="question"]').focus(); return; }
         s.err = ''; s.sentTo = s.email.trim(); s.phase = 'sent';
-        Admin.addMessage({ name: s.name.trim(), email: s.sentTo, lang: lang.toUpperCase(), question: s.question.trim(), msgs: transcript() });
+        if (mode === 'embed' || mode === 'widget') Admin.addMessage({ name: s.name.trim(), email: s.sentTo, lang: lang.toUpperCase(), question: s.question.trim(), msgs: transcript() });
         render(); syncControls();
       } else if (f === 'rate') {
         if (!s.rating) { s.err = l.rateReq; render(); return; }
@@ -926,6 +1174,7 @@ tbody tr:last-child td { border-bottom: 0; }
         s.msgs = s.msgs.map(function (m) { return m.from === 'bot' ? Object.assign(botMsg(m.key), { fb: m.fb }) : m; });
         render();
       },
+      send: function (t) { if (s.phase !== 'bot') s.phase = 'bot'; s.confirm = false; ask(t); },
       restart: function () { clearTimers(); s.confirm = false; reset(); render(); },
       render: render
     };
@@ -933,6 +1182,13 @@ tbody tr:last-child td { border-bottom: 0; }
 
   var widget = Chat(document.getElementById('widget-mount'), 'widget');
   var embed = Chat(document.getElementById('embed-mount'), 'embed');
+  var previewMount = document.createElement('div');
+  previewMount.className = 'pv-card';
+  var testMount = document.createElement('div');
+  testMount.className = 'test-card';
+  var preview = Chat(previewMount, 'preview');
+  var testChat = Chat(testMount, 'test', function (a) { Admin.logAnswer(a); });
+  function refreshChats() { widget.relang(); embed.relang(); preview.relang(); testChat.relang(); }
   widget.setPhase('bot');
   embed.render();
 
@@ -952,7 +1208,7 @@ tbody tr:last-child td { border-bottom: 0; }
   });
   document.getElementById('lang-seg').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
-    lang = b.getAttribute('data-lang'); widget.relang(); embed.relang(); syncControls();
+    lang = b.getAttribute('data-lang'); refreshChats(); syncControls();
   });
 
   function show(v) {
@@ -973,15 +1229,9 @@ tbody tr:last-child td { border-bottom: 0; }
   var Admin = (function () {
     var root = document.getElementById('admin');
     var STATUS = { solved: 'Opgelost', left: 'Bericht achtergelaten', unanswered: 'Niet beantwoord' };
-    var PROVIDERS = [
-      { k: 'mistral', n: 'Mistral AI', reco: 'Aanbevolen', note: 'Frans bedrijf, gegevens blijven in de EU' },
-      { k: 'openai', n: 'OpenAI', note: 'Amerikaans bedrijf' },
-      { k: 'gemini', n: 'Google Gemini', note: 'Amerikaans bedrijf' }
-    ];
-
     var archive = [
-      { id: 101, date: 'Vandaag 10:42', name: 'Els', topic: 'Medicatie en zwangerschap', status: 'left', dur: '3 min', rating: 4, lang: 'NL', comment: '',
-        msgs: [['visitor', 'Mag ik nicotinepleisters gebruiken als ik zwanger ben?'], ['bot', 'Over medicatie, dosissen of zwangerschap geef ik geen advies. Dat bespreek je best met een tabakoloog of je huisarts. Je kunt een bericht voor een tabakoloog achterlaten.'], ['sys', 'Bericht achtergelaten voor een tabakoloog']] },
+      { id: 101, email: 'els.m@voorbeeld.be', date: 'Vandaag 10:42', name: 'Els', topic: 'Medicatie en zwangerschap', status: 'left', dur: '3 min', rating: 4, lang: 'NL', comment: '',
+        msgs: [['visitor', 'Mag ik nicotinepleisters gebruiken als ik zwanger ben?'], ['bot', 'Over medicatie, dosissen of zwangerschap geef ik geen advies. Dat bespreek je best met een tabakoloog of je huisarts. Je kunt een bericht voor een tabakoloog achterlaten.'], ['visitor', 'Je kunt me bereiken op els.m@voorbeeld.be of 0470 12 34 56.'], ['sys', 'Bericht achtergelaten voor een tabakoloog']] },
       { id: 102, date: 'Vandaag 10:15', name: 'Anoniem', topic: 'Nicotinevervangers', status: 'solved', dur: '3 min', rating: 4, lang: 'NL', comment: '',
         msgs: [['visitor', 'Welke nicotinevervangers zijn er?'], ['bot', 'Er zijn pleisters, kauwgom, zuigtabletten, een inhalator en een mondspray. Ze werken het best samen met begeleiding.'], ['visitor', 'Dank je!']] },
       { id: 103, date: 'Vandaag 09:58', name: 'Luc', topic: 'Brochures', status: 'solved', dur: '2 min', rating: 5, lang: 'NL', comment: '',
@@ -990,23 +1240,16 @@ tbody tr:last-child td { border-bottom: 0; }
         msgs: [['visitor', 'Hoeveel kost een sessie bij een tabakoloog?'], ['bot', 'Daarover vind ik niets in de informatie van Tabakstop, en ik wil je geen verkeerd antwoord geven. Laat een bericht achter, dan krijg je antwoord per e-mail.'], ['sys', 'Bezoeker verliet het gesprek zonder bericht achter te laten']] },
       { id: 105, date: 'Vandaag 02:14', name: 'Anoniem', topic: 'Ontwenning', status: 'solved', dur: '5 min', rating: 4, lang: 'NL', comment: '',
         msgs: [['visitor', 'Ik kan niet slapen sinds ik gestopt ben.'], ['bot', 'Slaapproblemen komen vaak voor in de eerste weken na het stoppen en gaan meestal vanzelf over.'], ['visitor', 'Oké, dat stelt me gerust.']] },
-      { id: 106, date: 'Gisteren 16:20', name: 'Camille', topic: 'Remboursement', status: 'left', dur: '4 min', rating: 3, lang: 'FR', comment: 'Pas de réponse immédiate.',
+      { id: 106, email: 'camille.r@exemple.be', date: 'Gisteren 16:20', name: 'Camille', topic: 'Remboursement', status: 'left', dur: '4 min', rating: 3, lang: 'FR', comment: 'Pas de réponse immédiate.',
         msgs: [['visitor', 'Est-ce que les consultations sont remboursées ?'], ['bot', 'Je ne trouve rien à ce sujet dans les informations de Tabacstop. Laissez un message, vous recevrez une réponse par e-mail.'], ['sys', 'Bericht achtergelaten voor een tabakoloog']] },
-      { id: 107, date: 'Gisteren 21:47', name: 'Anoniem', topic: 'Moeilijke situatie', status: 'left', dur: '2 min', rating: null, lang: 'NL', comment: '',
+      { id: 107, email: 'anoniem@voorbeeld.be', date: 'Gisteren 21:47', name: 'Anoniem', topic: 'Moeilijke situatie', status: 'left', dur: '2 min', rating: null, lang: 'NL', comment: '',
         msgs: [['visitor', 'Ik zie het echt niet meer zitten.'], ['bot', 'Het klinkt alsof je het nu heel moeilijk hebt. Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.'], ['sys', 'Bericht achtergelaten voor een tabakoloog']] },
-      { id: 108, date: 'Gisteren 15:02', name: 'Tom', topic: 'Aankomen na het stoppen', status: 'left', dur: '5 min', rating: 3, lang: 'NL', comment: 'Ik had meer concrete tips verwacht.',
+      { id: 108, email: 'tom.v@voorbeeld.be', date: 'Gisteren 15:02', name: 'Tom', topic: 'Aankomen na het stoppen', status: 'left', dur: '5 min', rating: 3, lang: 'NL', comment: 'Ik had meer concrete tips verwacht.',
         msgs: [['visitor', 'Ik ben aangekomen sinds ik gestopt ben.'], ['bot', 'Daarover vind ik weinig in de informatie van Tabakstop. Laat een bericht achter, dan antwoordt een tabakoloog per e-mail.'], ['sys', 'Bericht achtergelaten voor een tabakoloog']] },
       { id: 109, date: 'Zo 21 sep 14:33', name: 'Anoniem', topic: 'E-sigaret', status: 'solved', dur: '4 min', rating: 2, lang: 'NL', comment: 'Geen duidelijk antwoord.',
         msgs: [['visitor', 'Kan ik stoppen met een e-sigaret?'], ['bot', 'Op tabakstop.be lees je meer over de e-sigaret en andere nicotineproducten.']] },
       { id: 110, date: 'Zo 21 sep 13:10', name: 'Julie', topic: 'Arrêter de fumer', status: 'solved', dur: '6 min', rating: 5, lang: 'FR', comment: '',
         msgs: [['visitor', 'Comment se passe un accompagnement ?'], ['bot', "Un tabacologue vous aide à établir un plan d'arrêt adapté et vous accompagne pendant les premières semaines."]] }
-    ];
-
-    var messages = [
-      { id: 1, arc: 101, date: 'Vandaag 10:42', name: 'Els', email: 'els.m@voorbeeld.be', lang: 'NL', question: 'Mag ik nicotinepleisters gebruiken als ik zwanger ben?', done: false },
-      { id: 2, arc: 106, date: 'Gisteren 16:20', name: 'Camille', email: 'camille.r@exemple.be', lang: 'FR', question: 'Est-ce que les consultations sont remboursées ?', done: false },
-      { id: 3, arc: 107, date: 'Gisteren 21:47', name: '', email: 'anoniem@voorbeeld.be', lang: 'NL', question: 'Ik zie het echt niet meer zitten.', done: true },
-      { id: 4, arc: 108, date: 'Gisteren 15:02', name: 'Tom', email: 'tom.v@voorbeeld.be', lang: 'NL', question: 'Ik ben aangekomen sinds ik gestopt ben. Wat kan ik doen?', done: true }
     ];
 
     var reviews = [
@@ -1021,30 +1264,55 @@ tbody tr:last-child td { border-bottom: 0; }
         a: 'Je ne trouve rien à ce sujet dans les informations de Tabacstop.', fix: '' }
     ];
 
-    var sources = [
-      { t: 'Stoppen met roken is mogelijk', k: 'page', lang: 'NL', upd: '3 dagen geleden', st: 'ok' },
-      { t: 'Stoppen met begeleiding', k: 'page', lang: 'NL', upd: '2 weken geleden', st: 'ok' },
-      { t: 'Omgaan met ontwenningsverschijnselen', k: 'page', lang: 'NL', upd: '1 maand geleden', st: 'ok' },
-      { t: 'Zwanger en roken', k: 'page', lang: 'NL', upd: 'net gewijzigd in WordPress', st: 'busy' },
-      { t: 'Nicotine en nicotineproducten', k: 'page', lang: 'NL', upd: '2 weken geleden', st: 'ok' },
-      { t: 'Brochure Nicotinevervangers', k: 'doc', lang: 'NL', upd: 'maart 2025', st: 'ok' },
-      { t: 'Brochure Ik voel me zoveel beter', k: 'doc', lang: 'NL', upd: 'maart 2025', st: 'ok' },
-      { t: 'Arrêter avec un accompagnement', k: 'page', lang: 'FR', upd: '2 weken geleden', st: 'ok' },
-      { t: 'Gérer les symptômes de manque', k: 'page', lang: 'FR', upd: '1 maand geleden', st: 'ok' },
-      { t: 'Brochure Substituts nicotiniques', k: 'doc', lang: 'FR', upd: 'maart 2025', st: 'ok' },
-      { t: 'Brochure Je me sens tellement mieux sans tabac', k: 'doc', lang: 'FR', upd: 'maart 2025', st: 'ok' },
-      { t: 'Goedgekeurde antwoorden', k: 'kb', lang: 'NL + FR', upd: '12 antwoorden', st: 'ok' }
-    ];
     var approved = 12;
 
+    function W(id, title, url, lang, age, extra) { return Object.assign({ id: id, kind: 'web', title: title, url: url, lang: lang, status: 'ok', pages: 1, age: age, auto: 'weekly', reason: '' }, extra || {}); }
+    function P(id, file, mb, lang, pages, age, extra) { return Object.assign({ id: id, kind: 'pdf', title: file, url: '', lang: lang, status: 'ok', pages: pages, age: age, auto: 'off', size: Math.round(mb * 1048576), reason: '' }, extra || {}); }
+    var SRC = {
+      tabakstop: [
+        W(1, 'Stoppen met roken is mogelijk', 'https://www.tabakstop.be/pagina/stoppen-met-roken', 'NL', 4320),
+        W(2, 'Stoppen met begeleiding', 'https://www.tabakstop.be/pagina/begeleiding', 'NL', 20160),
+        W(3, 'Omgaan met ontwenningsverschijnselen', 'https://www.tabakstop.be/pagina/ontwenning', 'NL', 43200),
+        W(4, 'Zwanger en roken', 'https://www.tabakstop.be/pagina/zwanger', 'NL', 0, { status: 'busy' }),
+        W(5, 'Nicotine en nicotineproducten', 'https://www.tabakstop.be/pagina/nicotine', 'NL', 20160, { auto: 'daily' }),
+        W(6, 'Arrêter avec un accompagnement', 'https://www.tabacstop.be/fr/page/accompagnement', 'FR', 20160),
+        W(7, 'Gérer les symptômes de manque', 'https://www.tabacstop.be/fr/page/sevrage', 'FR', 43200),
+        W(8, 'Hulp bij e-sigaret', 'https://www.tabakstop.be/pagina/e-sigaret', 'NL', 1440, { status: 'failed', reason: 'Time-out bij het ophalen van de pagina' }),
+        P(9, 'Brochure Nicotinevervangers.pdf', 2.4, 'NL', 24, 172800),
+        P(10, 'Brochure Ik voel me zoveel beter.pdf', 3.1, 'NL', 32, 172800),
+        P(11, 'Brochure Substituts nicotiniques.pdf', 2.4, 'FR', 24, 172800),
+        P(12, 'Brochure Je me sens tellement mieux sans tabac.pdf', 3.1, 'FR', 32, 172800)
+      ],
+      kanker: [
+        W(1, 'Borstkanker: risicofactoren', 'https://www.kanker.be/kankerinfo/borstkanker/risicofactoren', 'NL', 4320),
+        W(2, 'Chemotherapie: wat kun je verwachten', 'https://www.kanker.be/kankerinfo/behandelingen/chemotherapie', 'NL', 20160),
+        W(3, 'Bevolkingsonderzoek: wie wordt uitgenodigd', 'https://www.kanker.be/kankerinfo/preventie/bevolkingsonderzoek', 'NL', 43200),
+        W(4, 'Voeding en kanker', 'https://www.kanker.be/kankerinfo/leven-met-kanker/voeding', 'NL', 20160, { auto: 'daily' }),
+        W(5, 'Werk en kanker', 'https://www.kanker.be/kankerinfo/leven-met-kanker/werk', 'NL', 43200),
+        W(6, 'Rouw en verlies', 'https://www.kanker.be/kankerinfo/leven-met-kanker/rouw', 'NL', 0, { status: 'busy' }),
+        W(7, 'Cancer du sein : facteurs de risque', 'https://www.cancer.be/fr/cancer-du-sein/facteurs-de-risque', 'FR', 20160),
+        W(8, 'Dépistage organisé : qui est invité', 'https://www.cancer.be/fr/depistage', 'FR', 43200),
+        W(9, 'Steun voor kinderen van een zieke ouder', 'https://www.kanker.be/kankerinfo/steun/kinderen', 'NL', 1440, { status: 'failed', reason: 'Pagina niet gevonden (404)' }),
+        P(10, 'Borstkanker - brochure.pdf', 3.4, 'NL', 28, 172800),
+        P(11, 'Chemotherapie - brochure.pdf', 2.1, 'NL', 20, 172800),
+        P(12, 'Leven na kanker - brochure.pdf', 4.8, 'NL', 44, 172800),
+        P(13, 'Chimiothérapie - brochure.pdf', 2, 'FR', 20, 172800),
+        P(14, 'Rouw - brochure.pdf', 1.2, 'NL', 0, 2880, { status: 'failed', reason: 'Bestand is beveiligd met een wachtwoord' })
+      ]
+    };
+    var SITEMAP = {
+      tabakstop: { url: 'https://www.tabakstop.be/sitemap.xml', host: 'https://www.tabakstop.be', nl: '/pagina/', fr: '/fr/page/', filter: '/pagina/',
+        topics: ['stoppen', 'nicotinevervangers', 'ontwenning', 'begeleiding', 'gestopt', 'iemand-helpen', 'brochures', 'medicatie'], subs: ['uitleg', 'tips', 'vragen', 'verhalen', 'hulp', 'meer-info'] },
+      kanker: { url: 'https://www.kanker.be/sitemap.xml', host: 'https://www.kanker.be', nl: '/kankerinfo/', fr: '/fr/cancer/', filter: '/kankerinfo/',
+        topics: ['borstkanker', 'longkanker', 'darmkanker', 'huidkanker', 'prostaatkanker', 'baarmoederhalskanker', 'leukemie', 'hersentumor', 'voeding', 'werk', 'rouw', 'chemotherapie'], subs: ['risicofactoren', 'oorzaken', 'onderzoeken', 'behandelingen', 'nazorg', 'vragen'] }
+    };
     var LEFT_K = 'Bericht achtergelaten voor een kankerinfo-medewerker';
     var DATA = {
-      tabakstop: { archive: archive, messages: messages, reviews: reviews, sources: sources, approved: approved, arcSel: 101 },
-      kanker: {
-        arcSel: 201, approved: 9,
+      tabakstop: { archive: archive, reviews: reviews, approved: approved, srcs: SRC.tabakstop, arcSel: 101 },
+      kanker: { arcSel: 201, approved: 9, srcs: SRC.kanker,
         archive: [
-          { id: 201, date: 'Vandaag 10:42', name: 'Els', topic: 'Klacht: knobbel in de borst', status: 'left', dur: '3 min', rating: 4, lang: 'NL', comment: '',
-            msgs: [['visitor', 'Ik heb een knobbeltje in mijn borst gevoeld. Is dat kanker?'], ['bot', 'Een diagnose stellen of klachten duiden kan ik niet. Dat bespreek je best met je huisarts. Je kunt een bericht voor een kankerinfo-medewerker achterlaten.'], ['sys', LEFT_K]] },
+          { id: 201, email: 'els.m@voorbeeld.be', date: 'Vandaag 10:42', name: 'Els', topic: 'Klacht: knobbel in de borst', status: 'left', dur: '3 min', rating: 4, lang: 'NL', comment: '',
+            msgs: [['visitor', 'Ik heb een knobbeltje in mijn borst gevoeld. Is dat kanker?'], ['bot', 'Een diagnose stellen of klachten duiden kan ik niet. Dat bespreek je best met je huisarts. Je kunt een bericht voor een kankerinfo-medewerker achterlaten.'], ['visitor', 'Je kunt me bereiken op els.m@voorbeeld.be of 0470 12 34 56.'], ['sys', LEFT_K]] },
           { id: 202, date: 'Vandaag 10:15', name: 'Anoniem', topic: 'Bevolkingsonderzoek', status: 'solved', dur: '3 min', rating: 4, lang: 'NL', comment: '',
             msgs: [['visitor', 'Wat is een bevolkingsonderzoek?'], ['bot', 'Een bevolkingsonderzoek is een onderzoek voor mensen zonder klachten, om bepaalde kankers vroeg op te sporen. De overheid nodigt de doelgroep uit.'], ['visitor', 'Dank je!']] },
           { id: 203, date: 'Vandaag 09:58', name: 'Luc', topic: 'Chemotherapie', status: 'solved', dur: '2 min', rating: 5, lang: 'NL', comment: '',
@@ -1053,22 +1321,16 @@ tbody tr:last-child td { border-bottom: 0; }
             msgs: [['visitor', 'Is de brochure over rouw ook in het Arabisch beschikbaar?'], ['bot', 'Daarover vind ik niets in de informatie van Kanker.be. Laat een bericht achter, dan krijg je antwoord per e-mail.'], ['sys', 'Bezoeker verliet het gesprek zonder bericht achter te laten']] },
           { id: 205, date: 'Vandaag 02:14', name: 'Anoniem', topic: 'Voeding', status: 'solved', dur: '4 min', rating: 4, lang: 'NL', comment: '',
             msgs: [['visitor', 'Welke voeding past bij een gezonde levensstijl?'], ['bot', 'Een gevarieerd voedingspatroon met veel groenten en fruit en weinig alcohol en bewerkt vlees is een goede basis.'], ['visitor', 'Oké, bedankt.']] },
-          { id: 206, date: 'Gisteren 16:20', name: 'Camille', topic: 'Remboursement d’une perruque', status: 'left', dur: '4 min', rating: 3, lang: 'FR', comment: 'Pas de réponse immédiate.',
+          { id: 206, email: 'camille.r@exemple.be', date: 'Gisteren 16:20', name: 'Camille', topic: 'Remboursement d’une perruque', status: 'left', dur: '4 min', rating: 3, lang: 'FR', comment: 'Pas de réponse immédiate.',
             msgs: [['visitor', 'Une perruque est-elle remboursée ?'], ['bot', 'Je ne trouve rien à ce sujet dans les informations de Cancer.be. Laissez un message, vous recevrez une réponse par e-mail.'], ['sys', LEFT_K]] },
-          { id: 207, date: 'Gisteren 21:47', name: 'Anoniem', topic: 'Rouw', status: 'left', dur: '2 min', rating: null, lang: 'NL', comment: '',
+          { id: 207, email: 'anoniem@voorbeeld.be', date: 'Gisteren 21:47', name: 'Anoniem', topic: 'Rouw', status: 'left', dur: '2 min', rating: null, lang: 'NL', comment: '',
             msgs: [['visitor', 'Mijn man is overleden aan kanker en ik zie het echt niet meer zitten.'], ['bot', 'Het klinkt alsof je het nu heel zwaar hebt. Denk je aan zelfdoding? Bel dan de Zelfmoordlijn op 1813, dag en nacht bereikbaar.'], ['sys', LEFT_K]] },
-          { id: 208, date: 'Gisteren 15:02', name: 'Tom', topic: 'Werk en kanker', status: 'left', dur: '5 min', rating: 3, lang: 'NL', comment: 'Ik had meer concrete tips verwacht.',
+          { id: 208, email: 'tom.v@voorbeeld.be', date: 'Gisteren 15:02', name: 'Tom', topic: 'Werk en kanker', status: 'left', dur: '5 min', rating: 3, lang: 'NL', comment: 'Ik had meer concrete tips verwacht.',
             msgs: [['visitor', 'Moet ik mijn werkgever zeggen dat ik kanker heb?'], ['bot', 'Daarover vind ik weinig in de informatie van Kanker.be. Laat een bericht achter, dan antwoordt een kankerinfo-medewerker per e-mail.'], ['sys', LEFT_K]] },
           { id: 209, date: 'Zo 21 sep 14:33', name: 'Anoniem', topic: 'Risicofactoren', status: 'solved', dur: '4 min', rating: 2, lang: 'NL', comment: 'Geen duidelijk antwoord.',
             msgs: [['visitor', 'Wat is mijn risico op darmkanker?'], ['bot', 'Op kanker.be lees je meer over risicofactoren van dikkedarmkanker.']] },
           { id: 210, date: 'Zo 21 sep 13:10', name: 'Julie', topic: 'Dépistage', status: 'solved', dur: '6 min', rating: 5, lang: 'FR', comment: '',
             msgs: [['visitor', 'Qui est invité au dépistage du cancer du sein ?'], ['bot', "Les autorités invitent la population concernée. Vous trouverez les détails sur la page consacrée au dépistage organisé."]] }
-        ],
-        messages: [
-          { id: 1, arc: 201, date: 'Vandaag 10:42', name: 'Els', email: 'els.m@voorbeeld.be', lang: 'NL', question: 'Ik heb een knobbeltje in mijn borst gevoeld. Is dat kanker?', done: false },
-          { id: 2, arc: 206, date: 'Gisteren 16:20', name: 'Camille', email: 'camille.r@exemple.be', lang: 'FR', question: 'Une perruque est-elle remboursée ?', done: false },
-          { id: 3, arc: 207, date: 'Gisteren 21:47', name: '', email: 'anoniem@voorbeeld.be', lang: 'NL', question: 'Mijn man is overleden aan kanker en ik zie het echt niet meer zitten.', done: true },
-          { id: 4, arc: 208, date: 'Gisteren 15:02', name: 'Tom', email: 'tom.v@voorbeeld.be', lang: 'NL', question: 'Moet ik mijn werkgever zeggen dat ik kanker heb? Welke rechten heb ik?', done: true }
         ],
         reviews: [
           { id: 1, flag: 'Geen antwoord gevonden', times: '5× deze week', lang: 'NL', q: 'Wordt een pruik terugbetaald?',
@@ -1080,31 +1342,35 @@ tbody tr:last-child td { border-bottom: 0; }
             a: 'Op kanker.be lees je meer over leven met kanker.', fix: '' },
           { id: 4, flag: 'Geen antwoord gevonden', times: '3× deze week', lang: 'FR', q: 'Une perruque est-elle remboursée ?',
             a: 'Je ne trouve rien à ce sujet dans les informations de Cancer.be.', fix: '' }
-        ],
-        sources: [
-          { t: 'Borstkanker: risicofactoren', k: 'page', lang: 'NL', upd: '3 dagen geleden', st: 'ok' },
-          { t: 'Chemotherapie: wat kun je verwachten', k: 'page', lang: 'NL', upd: '2 weken geleden', st: 'ok' },
-          { t: 'Bevolkingsonderzoek: wie wordt uitgenodigd', k: 'page', lang: 'NL', upd: '1 maand geleden', st: 'ok' },
-          { t: 'Voeding en kanker', k: 'page', lang: 'NL', upd: '2 weken geleden', st: 'ok' },
-          { t: 'Werk en kanker', k: 'page', lang: 'NL', upd: '1 maand geleden', st: 'ok' },
-          { t: 'Rouw en verlies', k: 'page', lang: 'NL', upd: 'net gewijzigd in het CMS', st: 'busy' },
-          { t: 'Brochure Borstkanker', k: 'doc', lang: 'NL', upd: 'maart 2025', st: 'ok' },
-          { t: 'Brochure Chemotherapie', k: 'doc', lang: 'NL', upd: 'maart 2025', st: 'ok' },
-          { t: 'Brochure Leven na kanker', k: 'doc', lang: 'NL', upd: 'maart 2025', st: 'ok' },
-          { t: 'Cancer du sein : facteurs de risque', k: 'page', lang: 'FR', upd: '2 weken geleden', st: 'ok' },
-          { t: 'Dépistage organisé', k: 'page', lang: 'FR', upd: '1 maand geleden', st: 'ok' },
-          { t: 'Brochure Chimiothérapie', k: 'doc', lang: 'FR', upd: 'maart 2025', st: 'ok' },
-          { t: 'Goedgekeurde antwoorden', k: 'kb', lang: 'NL + FR', upd: '9 antwoorden', st: 'ok' }
         ]
       }
     };
     var cur = 'tabakstop';
+    var srcs = DATA.tabakstop.srcs;
+    var nextSrc = 1000;
+    var testLog = [];
 
-    var st = { page: 'ai', aiTab: 'review', editing: {}, q: '', filter: 'all', arcSel: 101, period: 7, toast: null, shown: {}, provider: 'mistral', started: false };
+    var st = { page: 'ai', setTab: 'behavior', editing: {}, q: '', filter: 'all', arcSel: 101, period: 7, toast: null,
+      add: null, addMenu: false, webMode: 'urls', webUrls: '', webErr: '', smUrl: SITEMAP.tabakstop.url, smErr: '', sm: null, sel: {}, smFilter: SITEMAP.tabakstop.filter,
+      webAuto: 'weekly', pdfLang: 'NL', pdfErrs: [], drag: false, srcQ: '', srcFilter: 'all', delSrc: null, delArc: null,
+      hexDraft: null, snip: 'widget', copied: null, domains: { tabakstop: 'tabakstop.be, tabacstop.be', kanker: 'kanker.be, cancer.be' }, topicDraft: '', kwDraft: '', started: false };
 
-    function chip(l) { return '<span class="chip' + (l === 'FR' ? ' fr' : '') + '">' + l + '</span>'; }
-    function openMessages() { return messages.filter(function (m) { return !m.done; }).length; }
+    function chip(l) { return '<span class="chip' + (l === 'FR' ? ' fr' : l === 'Overig' ? ' other' : '') + '">' + l + '</span>'; }
     function byId(list, id) { for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i]; return null; }
+    function ago(m) {
+      if (m < 1) return 'zonet';
+      if (m < 60) return Math.round(m) + ' min geleden';
+      if (m < 1440) return Math.round(m / 60) + ' uur geleden';
+      if (m < 10080) return Math.round(m / 1440) + ' dagen geleden';
+      return Math.round(m / 10080) + ' weken geleden';
+    }
+    function fmtSize(b) { return (b / 1048576).toFixed(1).replace('.', ',') + ' MB'; }
+    function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+    function srcCounts() {
+      var pages = 0, last = null;
+      srcs.forEach(function (x) { if (x.status !== 'failed') pages += x.pages; if (x.status === 'ok' && (last === null || x.age < last)) last = x.age; });
+      return { n: srcs.length, pages: pages, last: last };
+    }
 
     function side() {
       function nav(k, label, icon, badge) {
@@ -1112,42 +1378,190 @@ tbody tr:last-child td { border-bottom: 0; }
       }
       return '<aside class="side">' +
         '<div class="brandrow"><b>' + esc(CFG[cur].name) + '</b><span>AI</span></div>' +
-        '<nav aria-label="Beheer">' + nav('ai', 'AI-assistent', ICON.bot, reviews.length) + nav('archive', 'Gesprekken', ICON.chat) + nav('messages', 'Berichten', ICON.mail, openMessages()) + nav('stats', 'Statistieken', ICON.stats) + nav('settings', 'Instellingen', ICON.gear) + '</nav>' +
+        '<nav aria-label="Beheer">' + nav('ai', 'AI-assistent', ICON.bot, reviews.length) + nav('sources', 'Bronnen', ICON.book) + nav('test', 'Test de assistent', ICON.test) + nav('archive', 'Gesprekken', ICON.chat) + nav('stats', 'Statistieken', ICON.stats) + nav('settings', 'Instellingen', ICON.gear) + '</nav>' +
         '</aside>';
     }
 
     function tmsg(m) {
       if (m[0] === 'sys') return '<div class="sys">' + esc(m[1]) + '</div>';
-      if (m[0] === 'bot') return '<div class="msg bot"><small>AI-assistent</small>' + esc(m[1]) + '</div>';
-      return '<div class="msg me">' + esc(m[1]) + '</div>';
+      if (m[0] === 'bot') return '<div class="msg bot"><small>AI-assistent</small>' + esc(mask(m[1])) + '</div>';
+      return '<div class="msg me">' + esc(mask(m[1])) + '</div>';
+    }
+    function mask(t) {
+      if (!PRIV[cur].mask) return t;
+      return String(t).replace(/([\w.+-])[\w.+-]*@([\w-]+\.[\w.-]+)/g, '$1***@$2').replace(/\+?\d[\d\s\/.-]{7,}\d/g, '[telefoon verborgen]');
     }
 
     /* AI page */
     function aiPane() {
-      var seg = '<div class="seg subtabs"><button data-aitab="review" aria-pressed="' + (st.aiTab === 'review') + '">Te beoordelen (' + reviews.length + ')</button><button data-aitab="sources" aria-pressed="' + (st.aiTab === 'sources') + '">Bronnen (' + sources.length + ')</button></div>';
-      var inner;
-      if (st.aiTab === 'review') {
-        inner = '<p class="kb-note">Antwoorden die bezoekers niet nuttig vonden, en vragen waarop de assistent geen antwoord vond. Wat je hier goedkeurt, gebruikt de assistent vanaf dan. Er staan nu <b>' + approved + '</b> goedgekeurde antwoorden in de kennisbank.</p>' +
-          (reviews.length ? '<div class="reviews">' + reviews.map(function (r) {
-            var editing = st.editing[r.id] !== undefined;
-            return '<div class="review"><div class="top"><span class="flag">' + esc(r.flag) + '</span>' + chip(r.lang) + '<span class="meta">' + esc(r.times) + '</span></div>' +
-              '<div class="q">“' + esc(r.q) + '”</div>' +
-              '<div class="a"><small>Antwoord van de assistent</small>' + esc(r.a) + '</div>' +
-              (editing
-                ? '<div class="stack"><label for="fix-' + r.id + '">Goedgekeurd antwoord</label><textarea id="fix-' + r.id + '" data-fix="' + r.id + '" placeholder="Schrijf het antwoord dat de assistent voortaan moet geven">' + esc(st.editing[r.id]) + '</textarea>' +
-                  '<div class="acts"><button class="btn small" data-save="' + r.id + '">Opslaan in de kennisbank</button><button class="btn ghost small" data-cancel="' + r.id + '">Annuleren</button></div></div>'
-                : '<div class="acts"><button class="btn small" data-edit="' + r.id + '">' + (r.fix || r.a.indexOf('vind ik niets') === -1 && r.a.indexOf('ne trouve rien') === -1 ? 'Verbeter het antwoord' : 'Schrijf een antwoord') + '</button><button class="btn ghost small" data-ok="' + r.id + '">Antwoord klopt</button><button class="btn ghost small" data-ignore="' + r.id + '">Negeren</button></div>') +
-              '</div>';
-          }).join('') + '</div>' : '<div class="card"><p class="no-results">Alles is beoordeeld. Nieuwe meldingen verschijnen hier vanzelf.</p></div>');
+      var c = srcCounts();
+      var inner = '<p class="kb-note">Antwoorden die bezoekers niet nuttig vonden, en vragen waarop de assistent geen antwoord vond. Wat je hier goedkeurt, gebruikt de assistent vanaf dan. Er staan nu <b>' + approved + '</b> goedgekeurde antwoorden in de kennisbank. De bronnen (<b>' + c.n + '</b>, samen ' + plural(c.pages, 'pagina', 'pagina\'s') + ') beheer je onder <button class="toggle-link" data-page="sources">Bronnen</button>.</p>' +
+        (reviews.length ? '<div class="reviews">' + reviews.map(function (r) {
+          var editing = st.editing[r.id] !== undefined;
+          return '<div class="review"><div class="top"><span class="flag">' + esc(r.flag) + '</span>' + chip(r.lang) + '<span class="meta">' + esc(r.times) + '</span></div>' +
+            '<div class="q">“' + esc(r.q) + '”</div>' +
+            '<div class="a"><small>Antwoord van de assistent</small>' + esc(r.a) + '</div>' +
+            (editing
+              ? '<div class="stack"><label for="fix-' + r.id + '">Goedgekeurd antwoord</label><textarea id="fix-' + r.id + '" data-fix="' + r.id + '" placeholder="Schrijf het antwoord dat de assistent voortaan moet geven">' + esc(st.editing[r.id]) + '</textarea>' +
+                '<div class="acts"><button class="btn small" data-save="' + r.id + '">Opslaan in de kennisbank</button><button class="btn ghost small" data-cancel="' + r.id + '">Annuleren</button></div></div>'
+              : '<div class="acts"><button class="btn small" data-edit="' + r.id + '">' + (r.fix || r.a.indexOf('vind ik niets') === -1 && r.a.indexOf('ne trouve rien') === -1 ? 'Verbeter het antwoord' : 'Schrijf een antwoord') + '</button><button class="btn ghost small" data-ok="' + r.id + '">Antwoord klopt</button><button class="btn ghost small" data-ignore="' + r.id + '">Negeren</button></div>') +
+            '</div>';
+        }).join('') + '</div>' : '<div class="card"><p class="no-results">Alles is beoordeeld. Nieuwe meldingen verschijnen hier vanzelf.</p></div>');
+      return '<div class="pane"><div class="pane-head"><h2>AI-assistent</h2><span class="sample">Voorbeeldgegevens</span></div>' + inner + '</div>';
+    }
+
+    /* Sources */
+    function genSitemap(k) {
+      var c = SITEMAP[k], out = [], i;
+      c.topics.forEach(function (t) { c.subs.forEach(function (s) { out.push(c.nl + t + '/' + s); }); });
+      c.topics.forEach(function (t) { c.subs.forEach(function (s) { out.push(c.fr + t + '/' + s); }); });
+      for (i = 1; out.length < 212; i++) out.push(i % 3 ? '/nieuws/bericht-' + i : (i % 2 ? '/evenementen/activiteit-' + i : '/en/page-' + i));
+      return out.slice(0, 212).map(function (p) { return { url: c.host + p, path: p, hint: langHint(p) }; });
+    }
+    function langHint(p) { return /^\/fr\//.test(p) ? 'FR' : /^\/(en|nieuws|evenementen)\//.test(p) ? 'Overig' : 'NL'; }
+    function validUrl(u) { return /^https?:\/\/[a-z0-9-]+(\.[a-z0-9-]+)+(:\d+)?(\/\S*)?$/i.test(u); }
+    function pathOf(u) { var m = u.match(/^https?:\/\/[^\/]+(\/[^?#]*)?/i); return (m && m[1]) || '/'; }
+    function titleOf(u) {
+      var seg = pathOf(u).split('/').filter(Boolean).pop() || u.replace(/^https?:\/\//i, '');
+      seg = decodeURIComponent(seg).replace(/[-_]+/g, ' ');
+      return seg.charAt(0).toUpperCase() + seg.slice(1);
+    }
+    function rerender() { if (st.page === 'sources') render(); }
+    function addSource(o) {
+      var x = Object.assign({ id: nextSrc++, status: 'busy', pages: 1, age: 0, auto: 'off', reason: '' }, o);
+      srcs.unshift(x);
+      return x;
+    }
+    function finishLater(x, ms) {
+      setTimeout(function () { x.status = 'ok'; x.reason = ''; x.age = 0; rerender(); }, ms);
+    }
+    function simulateUpload(x) {
+      x.status = 'upload'; x.progress = 0;
+      var iv = setInterval(function () {
+        x.progress = Math.min(100, x.progress + 12 + Math.random() * 18);
+        if (x.progress >= 100) {
+          clearInterval(iv); x.status = 'busy'; x.pages = Math.max(1, Math.round(x.size / 90000));
+          finishLater(x, 1200);
+        }
+        rerender();
+      }, 250);
+    }
+    function handleFiles(files) {
+      var errs = [], list = [].slice.call(files || []);
+      list.forEach(function (f) {
+        if (!/\.pdf$/i.test(f.name) && f.type !== 'application/pdf') { errs.push(f.name + ': geen PDF-bestand.'); return; }
+        if (f.size > 25 * 1048576) { errs.push(f.name + ': groter dan 25 MB (' + fmtSize(f.size) + ').'); return; }
+        simulateUpload(addSource({ kind: 'pdf', title: f.name, url: '', lang: st.pdfLang === 'Beide' ? 'NL + FR' : st.pdfLang, size: f.size, pages: 0 }));
+      });
+      st.pdfErrs = errs;
+      if (list.length && !errs.length) st.add = null;
+      render();
+    }
+    function srcRows() {
+      var q = st.srcQ.trim().toLowerCase();
+      return srcs.filter(function (x) {
+        if (st.srcFilter === 'web' && x.kind !== 'web') return false;
+        if (st.srcFilter === 'pdf' && x.kind !== 'pdf') return false;
+        if (st.srcFilter === 'failed' && x.status !== 'failed') return false;
+        return !q || (x.title + ' ' + x.url).toLowerCase().indexOf(q) !== -1;
+      });
+    }
+    function statusHtml(x) {
+      if (x.status === 'ok') return '<span class="status-pill ok">Ingelezen</span>';
+      if (x.status === 'busy') return '<span class="status-pill busy">Bezig met inlezen</span>';
+      if (x.status === 'upload') return '<span class="status-pill busy">Uploaden ' + Math.round(x.progress) + '%</span><span class="bar-mini"><i style="width:' + Math.round(x.progress) + '%"></i></span>';
+      return '<span class="status-pill failed">Mislukt</span><span class="why">' + esc(x.reason) + '</span>';
+    }
+    function srcRow(x) {
+      var actions;
+      if (st.delSrc === x.id) actions = '<span class="why">Verwijderen?</span><span class="btnrow"><button class="btn small" data-act="delyes" data-id="' + x.id + '">Ja, verwijderen</button><button class="btn ghost small" data-act="delno">Annuleren</button></span>';
+      else actions = (x.status === 'ok' ? '<button class="btn ghost small" data-act="reread" data-id="' + x.id + '">Opnieuw inlezen</button>' : x.status === 'failed' ? '<button class="btn small" data-act="reread" data-id="' + x.id + '">Opnieuw proberen</button>' : '') +
+        '<button class="btn ghost small" data-act="delask" data-id="' + x.id + '" aria-label="Verwijderen: ' + esc(x.title) + '">Verwijderen</button>';
+      var auto = x.kind === 'web'
+        ? '<select class="mini-sel" data-autoid="' + x.id + '" aria-label="Automatisch bijwerken: ' + esc(x.title) + '"><option value="off"' + (x.auto === 'off' ? ' selected' : '') + '>Uit</option><option value="daily"' + (x.auto === 'daily' ? ' selected' : '') + '>Dagelijks</option><option value="weekly"' + (x.auto === 'weekly' ? ' selected' : '') + '>Wekelijks</option></select>'
+        : '<span class="dash">—</span>';
+      var sub = x.kind === 'web' ? esc(x.url) : 'PDF · ' + fmtSize(x.size);
+      return '<div class="srow" role="row"><div class="c-src" role="cell"><span class="ic" aria-hidden="true">' + (x.kind === 'web' ? ICON.page : ICON.doc) + '</span><span class="tt"><b>' + esc(x.title) + ' ' + chip(x.lang) + '</b><span class="u">' + sub + '</span></span></div>' +
+        '<div class="c-st" role="cell">' + statusHtml(x) + '</div>' +
+        '<div class="c-pg" role="cell" data-l="' + (x.kind === 'pdf' ? 'Pagina\'s' : 'Pagina\'s') + '">' + (x.status === 'failed' || x.status === 'upload' ? '—' : x.pages) + '</div>' +
+        '<div class="c-rd" role="cell" data-l="Gelezen">' + (x.status === 'ok' ? ago(x.age) : '—') + '</div>' +
+        '<div class="c-au" role="cell" data-l="Bijwerken">' + auto + '</div>' +
+        '<div class="c-ac" role="cell">' + actions + '</div></div>';
+    }
+    function webPanel() {
+      var h = '<div class="card addcard"><div class="pane-head"><h3>Webpagina\'s toevoegen</h3><button class="toggle-link" data-act="closeadd">Sluiten</button></div>' +
+        '<div class="seg"><button data-webmode="urls" aria-pressed="' + (st.webMode === 'urls') + '">Eén of meer URL\'s</button><button data-webmode="sitemap" aria-pressed="' + (st.webMode === 'sitemap') + '">Sitemap</button></div>';
+      if (st.webMode === 'urls') {
+        h += '<div class="f"><label for="web-urls">URL\'s (één per regel)</label><textarea id="web-urls" rows="4" data-bind="webUrls" placeholder="' + esc(SITEMAP[cur].host + SITEMAP[cur].nl + 'voorbeeld-pagina') + '">' + esc(st.webUrls) + '</textarea></div>' +
+          (st.webErr ? '<p class="err" role="alert">' + esc(st.webErr) + '</p>' : '');
       } else {
-        inner = '<div class="pane-head" style="gap:10px"><p class="kb-note" style="margin-right:auto">Alle pagina\'s en brochures van ' + CFG[cur].domain + ' die de assistent gebruikt. Een pagina wordt automatisch opnieuw ingelezen zodra een redacteur ze opslaat in ' + CFG[cur].cms + '.</p><button class="btn ghost small" data-act="reindex">Alles opnieuw inlezen</button></div>' +
-          '<div class="table-wrap"><table class="ops"><thead><tr><th>Bron</th><th>Soort</th><th>Taal</th><th>Laatst bijgewerkt</th><th>Status</th></tr></thead><tbody>' +
-          sources.map(function (x) {
-            return '<tr><td style="white-space:normal;min-width:220px"><span class="src" style="font-size:13px;border:0;padding:0;background:none;color:var(--ink)">' + (x.k === 'doc' ? ICON.doc : x.k === 'kb' ? ICON.check : ICON.page) + esc(x.t) + '</span></td><td>' + (x.k === 'doc' ? 'Brochure (PDF)' : x.k === 'kb' ? 'Kennisbank' : 'Pagina') + '</td><td>' + esc(x.lang) + '</td><td>' + esc(x.upd) + '</td><td>' +
-              (x.st === 'ok' ? '<span class="status-pill ok">Ingelezen</span>' : '<span class="status-pill busy">Wordt ingelezen</span>') + '</td></tr>';
-          }).join('') + '</tbody></table></div>';
+        h += '<div class="f"><label for="sm-url">Sitemap-URL</label><div class="inline"><input id="sm-url" data-bind="smUrl" value="' + esc(st.smUrl) + '" placeholder="' + esc(SITEMAP[cur].url) + '" inputmode="url"><button class="btn small" data-act="smread">Sitemap inlezen</button></div></div>' +
+          (st.smErr ? '<p class="err" role="alert">' + esc(st.smErr) + '</p>' : '');
+        if (st.sm && st.sm.loading) h += '<p class="why" role="status"><span class="status-pill busy">Sitemap wordt ingelezen…</span></p>';
+        else if (st.sm) {
+          var pages = st.sm.pages, f = st.smFilter.trim().toLowerCase(), shown = [], i;
+          for (i = 0; i < pages.length; i++) if (!f || pages[i].path.toLowerCase().indexOf(f) !== -1) shown.push(i);
+          var rows = shown.slice(0, 100).map(function (ix) {
+            return '<label class="smrow"><input type="checkbox" data-smidx="' + ix + '"' + (st.sel[ix] ? ' checked' : '') + '><span class="path">' + esc(pages[ix].path) + '</span>' + chip(pages[ix].hint) + '</label>';
+          }).join('');
+          h += '<p class="kb-note"><b>' + pages.length + ' pagina\'s</b> gevonden in de sitemap. Taalhint per pagina: NL, FR of overig.</p>' +
+            '<div class="smtools"><label class="search" for="sm-filter">' + ICON.search + '<input id="sm-filter" data-bind="smFilter" placeholder="Bevat in het pad, bijv. ' + esc(SITEMAP[cur].filter) + '" value="' + esc(st.smFilter) + '"></label>' +
+            '<button class="toggle-link" data-act="selall">Alles selecteren</button><button class="toggle-link" data-act="selnone">Niets selecteren</button></div>' +
+            '<div class="smlist" role="group" aria-label="Gevonden pagina\'s">' + (rows || '<p class="no-results">Geen pagina\'s met dit pad.</p>') + '</div>' +
+            '<p class="sub" role="status">' + Object.keys(st.sel).length + ' van ' + pages.length + ' pagina\'s geselecteerd' + (shown.length > 100 ? ' · eerste 100 van ' + shown.length + ' getoond, verfijn het filter' : '') + '</p>';
+        }
       }
-      return '<div class="pane"><div class="pane-head"><h2>AI-assistent</h2><span class="sample">Voorbeeldgegevens</span>' + seg + '</div>' + inner + '</div>';
+      h += '<div class="f"><label for="web-auto">Automatisch bijwerken</label><select id="web-auto" data-bind="webAuto"><option value="off"' + (st.webAuto === 'off' ? ' selected' : '') + '>Uit</option><option value="daily"' + (st.webAuto === 'daily' ? ' selected' : '') + '>Dagelijks</option><option value="weekly"' + (st.webAuto === 'weekly' ? ' selected' : '') + '>Wekelijks</option></select></div>' +
+        '<p class="kb-note">De assistent leest de pagina\'s opnieuw volgens dit schema. Later kan een webhook van ' + esc(CFG[cur].cms) + ' het inlezen ook meteen starten zodra een redacteur een pagina opslaat.</p>' +
+        '<div class="acts"><button class="btn" data-act="' + (st.webMode === 'urls' ? 'addurls' : 'addsel') + '"' + (st.webMode === 'sitemap' && !Object.keys(st.sel).length ? ' disabled' : '') + '>Toevoegen</button><button class="btn ghost" data-act="closeadd">Annuleren</button></div></div>';
+      return h;
+    }
+    function pdfPanel() {
+      return '<div class="card addcard"><div class="pane-head"><h3>PDF\'s uploaden</h3><button class="toggle-link" data-act="closeadd">Sluiten</button></div>' +
+        '<div class="f"><label for="pdf-lang">Taal van de documenten</label><select id="pdf-lang" data-bind="pdfLang"><option value="NL"' + (st.pdfLang === 'NL' ? ' selected' : '') + '>NL</option><option value="FR"' + (st.pdfLang === 'FR' ? ' selected' : '') + '>FR</option><option value="Beide"' + (st.pdfLang === 'Beide' ? ' selected' : '') + '>Beide</option></select></div>' +
+        '<label class="drop' + (st.drag ? ' over' : '') + '" for="pdf-file"><b>Sleep PDF-bestanden hierheen</b><span>of klik om bestanden te kiezen · maximaal 25 MB per bestand</span></label>' +
+        '<input class="sr-only" id="pdf-file" type="file" accept=".pdf,application/pdf" multiple data-pdf>' +
+        (st.pdfErrs.length ? '<ul class="errs" role="alert">' + st.pdfErrs.map(function (e) { return '<li>' + esc(e) + '</li>'; }).join('') + '</ul>' : '') +
+        '<p class="kb-note">Voorbeeld: de bestanden worden niet echt gelezen, alleen de naam en grootte worden gebruikt.</p></div>';
+    }
+    function sourcesPane() {
+      var c = srcCounts(), rows = srcRows();
+      var nW = srcs.filter(function (x) { return x.kind === 'web'; }).length, nP = srcs.filter(function (x) { return x.kind === 'pdf'; }).length, nF = srcs.filter(function (x) { return x.status === 'failed'; }).length;
+      var seg = [['all', 'Alle (' + srcs.length + ')'], ['web', 'Webpagina\'s (' + nW + ')'], ['pdf', 'PDF\'s (' + nP + ')'], ['failed', 'Mislukt (' + nF + ')']].map(function (f) {
+        return '<button data-srcfilter="' + f[0] + '" aria-pressed="' + (st.srcFilter === f[0]) + '">' + f[1] + '</button>';
+      }).join('');
+      var menu = st.addMenu ? '<div class="addmenu" role="menu"><button role="menuitem" data-act="addweb"><b>Webpagina\'s</b><span>URL\'s of een sitemap</span></button><button role="menuitem" data-act="addpdf"><b>PDF\'s uploaden</b><span>Brochures en documenten</span></button></div>' : '';
+      var list = rows.length
+        ? '<div class="slist" role="table" aria-label="Bronnen"><div class="srow srow-head" role="row"><span>Bron</span><span>Status</span><span>Pagina\'s</span><span>Gelezen</span><span>Bijwerken</span><span>Acties</span></div>' + rows.map(srcRow).join('') + '</div>'
+        : '<div class="card"><p class="no-results">' + (srcs.length ? 'Geen bronnen gevonden voor deze zoekopdracht.' : 'Nog geen bronnen. Voeg webpagina\'s of PDF\'s toe, dan kan de assistent vragen beantwoorden.') + '</p></div>';
+      return '<div class="pane"><div class="pane-head"><h2>Bronnen</h2><span class="sample">Voorbeeldgegevens</span><div class="addwrap"><button class="btn small" data-act="addmenu" aria-haspopup="menu" aria-expanded="' + st.addMenu + '">Bron toevoegen</button>' + menu + '</div></div>' +
+        '<p class="kb-note"><b>De assistent antwoordt alleen met wat in deze bronnen staat.</b> Hier zie je wat de assistent kent. Goedgekeurde antwoorden uit het tabblad AI-assistent komen er nog bij.</p>' +
+        '<div class="kpis"><div class="kpi"><span class="k">Bronnen</span><span class="v">' + c.n + '</span></div><div class="kpi"><span class="k">Pagina\'s</span><span class="v">' + c.pages + '</span></div><div class="kpi"><span class="k">Laatst bijgewerkt</span><span class="v vs">' + (c.last === null ? '—' : ago(c.last)) + '</span></div></div>' +
+        (st.add === 'web' ? webPanel() : st.add === 'pdf' ? pdfPanel() : '') +
+        '<div class="pane-head" style="gap:10px"><label class="search" for="src-q">' + ICON.search + '<input id="src-q" data-bind="srcQ" placeholder="Zoek in titel of URL" value="' + esc(st.srcQ) + '"></label><div class="seg wrapseg">' + seg + '</div></div>' + list + '</div>';
+    }
+
+    /* Test de assistent */
+    var TESTQ = {
+      tabakstop: [['Welke nicotinevervangers zijn er?', 'Quels substituts nicotiniques existent ?'], ['Mag ik Champix nemen als ik zwanger ben?', 'Puis-je prendre Champix si je suis enceinte ?'], ['Wat helpt tegen ontwenning?', 'Que faire contre le manque ?'], ['Ik zie het niet meer zitten', "Je n'en peux plus"], ['Kan ik met iemand praten?', 'Puis-je parler à quelqu\'un ?'], ['Hoeveel kost een sessie?', 'Combien coûte une séance ?']],
+      kanker: [['Hoe verloopt een chemotherapie?', 'Comment se déroule une chimiothérapie ?'], ['Ik heb een knobbel, is dat kanker?', "J'ai une boule, est-ce un cancer ?"], ['Wat is een bevolkingsonderzoek?', "Qu'est-ce qu'un dépistage organisé ?"], ['Ik zie het niet meer zitten', "Je n'en peux plus"], ['Kan ik met iemand praten?', 'Puis-je parler à quelqu\'un ?'], ['Wordt een pruik terugbetaald?', 'Une perruque est-elle remboursée ?']]
+    };
+    function logHtml() {
+      if (!testLog.length) return '<p class="kb-note">Stel een vraag in de test of kies een voorbeeldvraag. Per antwoord zie je hier welke bronnen zijn gebruikt, of waarom de assistent doorverwijst.</p>';
+      return testLog.map(function (e) {
+        var kind = /^t\d$/.test(e.key) ? 'ok' : e.key === 'fallback' ? 'none' : 'redir';
+        var label = kind === 'ok' ? 'Beantwoord met bronnen' : kind === 'none' ? 'Geen antwoord' : 'Doorverwezen';
+        return '<div class="tl"><div class="tq">“' + esc(e.q) + '”</div><div><span class="tpill ' + kind + '">' + label + '</span> <span class="why">Regel: ' + esc(e.reason) + '</span></div>' +
+          (e.used.length ? '<div class="srcs">' + e.used.map(function (u) { return '<button class="src srcbtn" data-srcjump="' + esc(u.title) + '">' + (u.kind === 'pdf' ? ICON.doc : ICON.page) + esc(u.title) + '</button>'; }).join('') + '</div>' : '') + '</div>';
+      }).join('');
+    }
+    function testPane() {
+      var p = PROVIDERS.filter(function (x) { return x.k === provider; })[0];
+      var qs = TESTQ[cur].map(function (q) { return '<button class="chipbtn" data-testq="' + esc(q[lang === 'fr' ? 1 : 0]) + '">' + esc(q[lang === 'fr' ? 1 : 0]) + '</button>'; }).join('');
+      var langSeg = '<div class="seg"><button data-applang="nl" aria-pressed="' + (lang === 'nl') + '">NL</button><button data-applang="fr" aria-pressed="' + (lang === 'fr') + '">FR</button></div>';
+      return '<div class="pane"><div class="pane-head"><h2>Test de assistent</h2>' + langSeg + '<button class="btn ghost small" data-act="newtest">Nieuwe test</button></div>' +
+        '<p class="kb-note"><b>Testgesprekken komen niet in het archief of de statistieken.</b> De assistent gebruikt je huidige instellingen: Gedrag, Bronnen en Taalmodel (<b>' + esc(p.n) + '</b>). Voorbeeld: de antwoorden zijn gesimuleerd.</p>' +
+        '<div class="test-grid"><div id="test-slot" class="test-slot"></div><div class="test-side"><div class="card"><h3>Voorbeeldvragen</h3><div class="chipwrap">' + qs + '</div></div><div class="card"><h3>Wat gebeurde er?</h3><div id="test-log" class="tlog" aria-live="polite">' + logHtml() + '</div></div></div></div></div>';
     }
 
     /* Conversations archive */
@@ -1166,6 +1580,14 @@ tbody tr:last-child td { border-bottom: 0; }
         return [a.name, a.topic, a.comment].concat(a.msgs.map(function (m) { return m[1]; })).join(' ').toLowerCase().indexOf(q) !== -1;
       });
     }
+    function exportTxt(a) {
+      var lines = ['Gesprek: ' + a.topic, 'Datum: ' + a.date, 'Bezoeker: ' + a.name, 'Afloop: ' + STATUS[a.status], 'Taal: ' + a.lang, 'Score: ' + (a.rating != null ? a.rating + '/5' : 'geen score'), ''];
+      a.msgs.forEach(function (m) { lines.push((m[0] === 'visitor' ? 'Bezoeker' : m[0] === 'bot' ? 'Assistent' : 'Info') + ': ' + mask(m[1])); });
+      if (a.email) lines.push('', 'Antwoord per e-mail naar: ' + mask(a.email));
+      var blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' }), url = URL.createObjectURL(blob), el = document.createElement('a');
+      el.href = url; el.download = 'gesprek-' + a.id + '.txt'; document.body.appendChild(el); el.click(); document.body.removeChild(el);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    }
     function archivePane() {
       var rows = archiveRows(), sel = null;
       for (var i = 0; i < rows.length; i++) if (rows[i].id === st.arcSel) sel = rows[i];
@@ -1173,33 +1595,22 @@ tbody tr:last-child td { border-bottom: 0; }
       var seg = [['all', 'Alle'], ['solved', 'Opgelost'], ['left', 'Bericht achtergelaten'], ['low', 'Score 3 of lager']].map(function (f) {
         return '<button data-filter="' + f[0] + '" aria-pressed="' + (st.filter === f[0]) + '">' + f[1] + '</button>';
       }).join('');
-      var table = rows.length ? '<table><thead><tr><th>Datum</th><th>Bezoeker</th><th>Onderwerp</th><th>Afloop</th><th>Duur</th><th>Score</th><th>Taal</th></tr></thead><tbody>' +
+      var table = rows.length ? '<table class="arc"><colgroup><col style="width:16%"><col style="width:13%"><col style="width:23%"><col style="width:19%"><col style="width:9%"><col style="width:11%"><col style="width:9%"></colgroup><thead><tr><th>Datum</th><th>Bezoeker</th><th>Onderwerp</th><th>Afloop</th><th>Duur</th><th>Score</th><th>Taal</th></tr></thead><tbody>' +
         rows.map(function (a) {
           return '<tr data-arc="' + a.id + '" aria-selected="' + (sel && sel.id === a.id) + '" tabindex="0"><td>' + esc(a.date) + '</td><td>' + esc(a.name) + '</td><td class="wrap">' + esc(a.topic) + '</td><td><span class="st ' + a.status + '">' + STATUS[a.status] + '</span></td><td>' + esc(a.dur) + '</td><td>' + scoreHtml(a.rating) + '</td><td>' + chip(a.lang) + '</td></tr>';
         }).join('') + '</tbody></table>' : '<p class="no-results">Geen gesprekken gevonden' + (st.q ? ' voor “' + esc(st.q) + '”' : '') + '.</p>';
-      var tr = sel ? '<div class="transcript"><div class="th"><b>' + esc(sel.name) + '</b><span>' + esc(sel.date) + ' · ' + esc(sel.topic) + ' · ' + STATUS[sel.status] + '</span></div>' +
-        '<div class="tb">' + sel.msgs.map(tmsg).join('') + '</div>' +
-        '<div class="fb"><span>Tevredenheid: ' + (sel.rating != null ? '<b>' + sel.rating + '/5</b>' : 'geen score') + '</span>' + (sel.comment ? '<span>Opmerking: <b>“' + esc(sel.comment) + '”</b></span>' : '') + '</div></div>' : '';
+      var tr = '';
+      if (sel) {
+        var del = st.delArc === sel.id
+          ? '<span class="why">Dit gesprek verwijderen?</span><span class="btnrow"><button class="btn small" data-act="arcdelyes">Ja, verwijderen</button><button class="btn ghost small" data-act="arcdelno">Annuleren</button></span>'
+          : '<span class="btnrow"><button class="btn ghost small" data-act="arcexport">Exporteer (.txt)</button><button class="btn ghost small" data-act="arcdelask">Verwijderen</button></span>';
+        tr = '<div class="transcript"><div class="th"><b>' + esc(sel.name) + '</b><span>' + esc(sel.date) + ' · ' + esc(sel.topic) + ' · ' + STATUS[sel.status] + '</span></div>' +
+          '<div class="tb">' + sel.msgs.map(tmsg).join('') + '</div>' +
+          '<div class="fb">' + (sel.email ? '<span>Antwoord per e-mail naar: <b>' + esc(mask(sel.email)) + '</b></span>' : '') + '<span>Tevredenheid: ' + (sel.rating != null ? '<b>' + sel.rating + '/5</b>' : 'geen score') + '</span>' + (sel.comment ? '<span>Opmerking: <b>“' + esc(sel.comment) + '”</b></span>' : '') + del + '</div></div>';
+      }
       return '<div class="pane"><div class="pane-head"><h2>Gesprekken</h2><span class="sample">Voorbeeldgegevens</span></div>' +
-        '<div class="pane-head" style="gap:10px"><label class="search" for="arc-q">' + ICON.search + '<input id="arc-q" data-bind="q" placeholder="Zoek op naam, onderwerp of tekst in het gesprek" value="' + esc(st.q) + '"></label><div class="seg">' + seg + '</div></div>' +
+        '<div class="pane-head" style="gap:10px"><label class="search" for="arc-q">' + ICON.search + '<input id="arc-q" data-bind="q" placeholder="Zoek op naam, onderwerp of tekst in het gesprek" value="' + esc(st.q) + '"></label><div class="seg wrapseg">' + seg + '</div></div>' +
         '<div class="archive-grid"><div class="table-wrap">' + table + '</div>' + tr + '</div></div>';
-    }
-
-    /* Left-behind messages */
-    function messagesPane() {
-      var list = messages.slice().sort(function (a, b) { return a.done - b.done; });
-      var open = openMessages();
-      var cards = list.map(function (m) {
-        var arc = byId(archive, m.arc), shown = !!st.shown[m.id];
-        return '<div class="review' + (m.done ? ' is-done' : '') + '"><div class="top"><span class="who">' + esc(m.name || 'Anoniem') + '</span>' + chip(m.lang) + '<span class="meta">' + esc(m.date) + ' · ' + esc(m.email) + '</span></div>' +
-          '<div class="q">“' + esc(m.question) + '”</div>' +
-          '<div class="acts"><button class="check-btn" data-done="' + m.id + '" aria-pressed="' + m.done + '"><span class="box">' + ICON.check + '</span>Beantwoord</button>' +
-          (arc ? '<button class="toggle-link" data-showconv="' + m.id + '" aria-expanded="' + shown + '">' + (shown ? 'Verberg' : 'Toon') + ' het gesprek met de assistent (' + arc.msgs.length + ' berichten)</button>' : '') + '</div>' +
-          (arc && shown ? '<div class="attached">' + arc.msgs.map(tmsg).join('') + '</div>' : '') + '</div>';
-      }).join('');
-      return '<div class="pane"><div class="pane-head"><h2>Berichten</h2><span class="sample">Voorbeeldgegevens</span></div>' +
-        '<p class="kb-note">Bezoekers laten een bericht achter als de assistent niet kan of mag antwoorden. Een ' + CFG[cur].role + ' antwoordt per e-mail, binnen twee werkdagen. Vink <b>Beantwoord</b> aan als dat gebeurd is. Nu te beantwoorden: <b>' + open + '</b>.</p>' +
-        (cards ? '<div class="reviews">' + cards + '</div>' : '<div class="card"><p class="no-results">Er zijn nog geen berichten.</p></div>') + '</div>';
     }
 
     /* Stats */
@@ -1288,15 +1699,155 @@ tbody tr:last-child td { border-bottom: 0; }
     }
 
     /* Settings */
-    function settingsPane() {
-      var prov = PROVIDERS.filter(function (p) { return p.k === st.provider; })[0];
-      var cards = PROVIDERS.map(function (p) {
-        return '<button class="prov" role="radio" aria-checked="' + (st.provider === p.k) + '" data-prov="' + p.k + '"><span class="nm"><span class="radio" aria-hidden="true"></span><img src="img/' + p.k + '.svg" alt="" width="28" height="28">' + esc(p.n) + (p.reco ? '<span class="reco">' + esc(p.reco) + '</span>' : '') + '</span><span class="note">' + esc(p.note) + '</span></button>';
+    var SWATCHES = [['', 'Standaard', 'linear-gradient(135deg, #16293D 50%, #C2570A 50%)'], ['#16293D', 'Marine'], ['#0F766E', 'Groenblauw'], ['#2F7A3E', 'Groen'], ['#6B3FA0', 'Paars'], ['#4B5563', 'Grijs']];
+    function segHtml(attr, now, opts) {
+      return '<div class="seg">' + opts.map(function (o) { return '<button data-' + attr + '="' + o[0] + '" aria-pressed="' + (now === o[0]) + '">' + o[1] + '</button>'; }).join('') + '</div>';
+    }
+    function fld(id, label, ctl, hint) { return '<div class="f"><label for="' + id + '">' + label + '</label>' + ctl + (hint ? '<span class="fine">' + hint + '</span>' : '') + '</div>'; }
+    function tagList(items, attr) {
+      return items.length ? items.map(function (t, i) { return '<span class="tagchip">' + esc(t) + '<button data-' + attr + '="' + i + '" aria-label="Verwijder ' + esc(t) + '">×</button></span>'; }).join('') : '<span class="fine">Geen onderwerpen ingesteld.</span>';
+    }
+    function switchHtml(on, act, label) {
+      return '<div class="swrow"><span id="lbl-' + act + '">' + label + '</span><button class="switch" role="switch" aria-labelledby="lbl-' + act + '" aria-checked="' + on + '" data-act="' + act + '"></button></div>';
+    }
+
+    function behaviorTab() {
+      var b = BEH[cur], d = KB[cur];
+      var presets = PRESETS[cur].filter(function (p) { return b.topics.indexOf(p) === -1; }).map(function (p) { return '<button class="chipbtn" data-addpreset="' + esc(p) + '">+ ' + esc(p) + '</button>'; }).join('');
+      var mails = b.mailTo.split(',').map(function (m) { return m.trim(); }).filter(Boolean);
+      var bad = mails.filter(function (m) { return !/^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(m); });
+      var mailErr = !mails.length ? 'Vul minstens één e-mailadres in.' : bad.length ? 'Ongeldig e-mailadres: ' + bad[0] : '';
+      return '<div class="card"><h3>Toon van de assistent</h3>' + segHtml('tone', b.tone, [['neutral', 'Neutraal'], ['friendly', 'Vriendelijk'], ['formal', 'Formeel']]) +
+        '<p class="fine">Voorbeeld: de toon wordt gesimuleerd met een korte aanhef. Probeer het onder Test de assistent.</p></div>' +
+        '<div class="card"><h3>Wat de assistent niet beantwoordt</h3><p class="sub">Bij deze onderwerpen verwijst de assistent door.</p>' +
+        '<div class="chipwrap" id="topic-list">' + tagList(b.topics, 'rmtopic') + '</div>' +
+        '<div class="inline"><input id="bh-topic" data-bind="topicDraft" value="' + esc(st.topicDraft) + '" placeholder="Onderwerp toevoegen" aria-label="Onderwerp toevoegen"><button class="btn small" data-act="addtopic">Toevoegen</button></div>' +
+        (presets ? '<div class="chipwrap"><span class="fine">Suggesties:</span>' + presets + '</div>' : '') + '</div>' +
+        '<div class="card"><h3>Antwoord als iets niet in de bronnen staat</h3><p class="sub">Leeg laten gebruikt de standaardtekst.</p>' +
+        fld('bh-fb-nl', 'Nederlands', '<textarea id="bh-fb-nl" rows="3" data-bind="beh:fallback.nl" placeholder="' + esc(d.nl.fallback.text) + '">' + esc(b.fallback.nl) + '</textarea>') +
+        fld('bh-fb-fr', 'Frans', '<textarea id="bh-fb-fr" rows="3" data-bind="beh:fallback.fr" placeholder="' + esc(d.fr.fallback.text) + '">' + esc(b.fallback.fr) + '</textarea>') + '</div>' +
+        '<div class="card"><h3>Doorverwijsbericht</h3><p class="sub">Wordt getoond als de assistent doorverwijst, met de knop om een bericht achter te laten.</p>' +
+        fld('bh-rd-nl', 'Nederlands', '<textarea id="bh-rd-nl" rows="3" data-bind="beh:redirect.nl" placeholder="' + esc(d.nl.medical.text) + '">' + esc(b.redirect.nl) + '</textarea>') +
+        fld('bh-rd-fr', 'Frans', '<textarea id="bh-rd-fr" rows="3" data-bind="beh:redirect.fr" placeholder="' + esc(d.fr.medical.text) + '">' + esc(b.redirect.fr) + '</textarea>') + '</div>' +
+        '<div class="card"><h3>Hulplijn bij signalen van een crisis</h3>' + switchHtml(b.crisisOn, 'crisistoggle', 'Hulplijn tonen bij signalen van een crisis') +
+        (b.crisisOn ? '<div class="f"><label for="bh-kw">Signaalwoorden</label><div class="chipwrap" id="kw-list">' + tagList(b.crisisKw, 'rmkw') + '</div>' +
+          '<div class="inline"><input id="bh-kw" data-bind="kwDraft" value="' + esc(st.kwDraft) + '" placeholder="Signaalwoord toevoegen" aria-label="Signaalwoord toevoegen"><button class="btn small" data-act="addkw">Toevoegen</button></div></div>' +
+          fld('bh-ct-nl', 'Hulplijntekst (Nederlands)', '<textarea id="bh-ct-nl" rows="2" data-bind="beh:crisisText.nl" placeholder="' + esc(CRISIS_TXT.nl) + '">' + esc(b.crisisText.nl) + '</textarea>') +
+          fld('bh-ct-fr', 'Hulplijntekst (Frans)', '<textarea id="bh-ct-fr" rows="2" data-bind="beh:crisisText.fr" placeholder="' + esc(CRISIS_TXT.fr) + '">' + esc(b.crisisText.fr) + '</textarea>') : '<p class="fine">Uit: de assistent toont dan geen hulplijn.</p>') + '</div>' +
+        '<div class="card"><h3>Contactformulier</h3>' +
+        fld('bh-mail', 'Berichten sturen naar', '<input id="bh-mail" data-bind="beh:mailTo" value="' + esc(b.mailTo) + '" inputmode="email" autocomplete="off">', 'Meerdere adressen scheid je met een komma.') +
+        (mailErr ? '<p class="err" role="alert">' + esc(mailErr) + '</p>' : '') +
+        fld('bh-subj', 'Onderwerp van de e-mail (optioneel)', '<input id="bh-subj" data-bind="beh:mailSubject" value="' + esc(b.mailSubject) + '" placeholder="Nieuw bericht via de assistent">') +
+        '<p class="fine">Berichten van bezoekers komen in deze inbox terecht. Medewerkers behandelen ze daar; deze app heeft geen inbox. Voorbeeld: er wordt niets echt verstuurd.</p></div>';
+    }
+
+    function startBlock() {
+      return '<div class="svcols">' + ['nl', 'fr'].map(function (lg) {
+        var arr = APP[cur].starts[lg];
+        return '<div class="sv"><h4>' + (lg === 'nl' ? 'Nederlands' : 'Frans') + '</h4>' + arr.map(function (q, i) {
+          return '<div class="svrow"><input id="sv-' + lg + '-' + i + '" data-bind="app:starts.' + lg + '.' + i + '" value="' + esc(q) + '" placeholder="Vraag ' + (i + 1) + '" aria-label="Startvraag ' + (i + 1) + ' (' + lg.toUpperCase() + ')">' +
+            '<button class="icon-sq" data-svmove="' + lg + ':' + i + ':-1" aria-label="Omhoog"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+            '<button class="icon-sq" data-svmove="' + lg + ':' + i + ':1" aria-label="Omlaag"' + (i === arr.length - 1 ? ' disabled' : '') + '>↓</button>' +
+            '<button class="icon-sq" data-svrm="' + lg + ':' + i + '" aria-label="Verwijderen">×</button></div>';
+        }).join('') + '<button class="btn ghost small" data-svadd="' + lg + '"' + (arr.length >= 4 ? ' disabled' : '') + '>+ Vraag toevoegen</button></div>';
+      }).join('') + '</div>';
+    }
+
+    function lookTab() {
+      var a = APP[cur], t = a.color ? themeFor(a.color) : null, hex = st.hexDraft != null ? st.hexDraft : a.color, hexBad = hex && !hexNorm(hex);
+      var sw = SWATCHES.map(function (s) { return '<button class="swatch" data-swatch="' + s[0] + '" aria-pressed="' + ((a.color || '') === s[0]) + '" aria-label="' + s[1] + '" title="' + s[1] + '" style="background:' + (s[2] || s[0]) + '"></button>'; }).join('');
+      var av = [['ai', 'AI'], ['chat', ICON.chat], ['spark', ICON.spark]].map(function (o) {
+        return '<button data-avatar="' + o[0] + '" aria-pressed="' + (a.avatar === o[0]) + '" aria-label="' + (o[0] === 'ai' ? 'Initialen AI' : o[0] === 'chat' ? 'Chat-icoon' : 'Sparkle-icoon') + '"><span class="avi">' + o[1] + '</span></button>';
       }).join('');
-      return '<div class="pane"><div class="pane-head"><h2>Instellingen</h2><span class="sample">Voorbeeldgegevens</span></div>' +
-        '<div class="card"><h3>Taalmodel</h3><p class="sub">Het taalmodel schrijft de antwoorden van de assistent, op basis van de bronnen van ' + CFG[cur].name + '.</p>' +
+      var d = T[cur].nl;
+      var controls = '<div class="card"><h3>Kleur en vorm</h3>' +
+        '<div class="f"><span class="lbl">Hoofdkleur</span><div class="swatches">' + sw + '</div></div>' +
+        fld('ap-hex', 'Hexcode', '<input id="ap-hex" data-bind="app:hex" value="' + esc(hex || '') + '" placeholder="#C2570A" maxlength="7" autocomplete="off" aria-invalid="' + !!hexBad + '">') +
+        (hexBad ? '<p class="err" role="alert">Vul een geldige hexcode in, bijv. #0F766E.</p>' : '') +
+        (t && t.low ? '<p class="warn" role="alert">Lage contrast, kies een donkerdere kleur. (Contrast ' + t.ratio.toFixed(1).replace('.', ',') + ':1; de chat gebruikt tijdelijk een donkerdere tint.)</p>' : '') +
+        '<div class="f"><span class="lbl">Hoekafronding</span>' + segHtml('radius', a.radius, [['sharp', 'Scherp'], ['mid', 'Gemiddeld'], ['round', 'Rond']]) + '</div>' +
+        '<div class="f"><span class="lbl">Positie van de chatknop</span>' + segHtml('pos', a.pos, [['right', 'Rechts'], ['left', 'Links']]) + '</div>' +
+        '<div class="f"><span class="lbl">Avatar</span><div class="seg">' + av + '</div></div></div>' +
+        '<div class="card"><h3>Teksten</h3>' +
+        fld('ap-name', 'Naam van de assistent', '<input id="ap-name" data-bind="app:name" maxlength="24" value="' + esc(a.name) + '" placeholder="' + esc(d.botName) + '">', 'Maximaal 24 tekens.') +
+        fld('ap-label', 'Label van de chatknop', '<input id="ap-label" data-bind="app:label" maxlength="30" value="' + esc(a.label) + '" placeholder="' + esc(d.launcher) + '">') +
+        fld('ap-wnl', 'Welkomstbericht (Nederlands)', '<textarea id="ap-wnl" rows="3" data-bind="app:welcome.nl" placeholder="' + esc(KB[cur].nl.greet.text) + '">' + esc(a.welcome.nl) + '</textarea>') +
+        fld('ap-wfr', 'Welkomstbericht (Frans)', '<textarea id="ap-wfr" rows="3" data-bind="app:welcome.fr" placeholder="' + esc(KB[cur].fr.greet.text) + '">' + esc(a.welcome.fr) + '</textarea>') + '</div>' +
+        '<div class="card"><h3>Startvragen</h3><p class="sub">De knoppen onder het welkomstbericht. Lege rijen worden overgeslagen, maximaal 4 per taal.</p>' + startBlock() + '</div>' +
+        '<div><button class="btn ghost" data-act="resetapp">Terugzetten naar standaard</button></div>';
+      var preview = '<div class="pv"><div class="pane-head"><h3>Voorbeeld (live)</h3><div class="seg"><button data-applang="nl" aria-pressed="' + (lang === 'nl') + '">NL</button><button data-applang="fr" aria-pressed="' + (lang === 'fr') + '">FR</button></div></div>' +
+        '<div class="pv-wrap"><div class="pv-inner" id="pv-slot"></div></div>' +
+        '<div class="pv-launch ' + a.pos + '" style="' + appearanceStyle() + '"><span class="launcher" aria-hidden="true">' + ICON.chat + '<span>' + esc(a.label.trim() || L().launcher) + '</span></span></div>' +
+        '<p class="fine">Voorbeeld, wijzigingen worden niet bewaard. De wijzigingen zijn direct zichtbaar in de tabbladen Ingesloten en Chatknop.</p></div>';
+      return '<div class="ap-grid"><div class="ap-controls">' + controls + '</div>' + preview + '</div>';
+    }
+
+    function privacyTab() {
+      var p = PRIV[cur], pr = PROVIDERS.filter(function (x) { return x.k === provider; })[0];
+      var policyBad = p.policy.trim() && !/^https?:\/\/\S+\.\S+$/i.test(p.policy.trim());
+      var ret = { '30': '30 dagen', '90': '90 dagen', '365': '1 jaar', never: 'nooit' };
+      return '<div class="card"><h3>Bewaartermijn</h3>' + fld('pr-ret', 'Gesprekken bewaren', '<select id="pr-ret" data-bind="priv:retention">' + [['30', '30 dagen'], ['90', '90 dagen'], ['365', '1 jaar'], ['never', 'Nooit verwijderen']].map(function (o) { return '<option value="' + o[0] + '"' + (p.retention === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select>') +
+        '<p class="fine">' + (p.retention === 'never' ? 'Gesprekken blijven bewaard tot je ze zelf verwijdert.' : 'Gesprekken worden na ' + ret[p.retention] + ' automatisch verwijderd.') + ' Voorbeeld: er wordt niets echt verwijderd.</p></div>' +
+        '<div class="card"><h3>Persoonsgegevens</h3>' + switchHtml(p.mask, 'masktoggle', 'Persoonsgegevens verbergen in opgeslagen gesprekken') +
+        '<p class="fine">E-mailadressen en telefoonnummers worden afgeschermd in de gespreksgeschiedenis en in exports. Bekijk het resultaat onder Gesprekken.</p></div>' +
+        '<div class="card"><h3>Privacybeleid en AI-melding</h3>' +
+        fld('pr-url', 'Link naar het privacybeleid', '<input id="pr-url" data-bind="priv:policy" value="' + esc(p.policy) + '" placeholder="https://www.voorbeeld.be/privacy" inputmode="url">', 'Wordt als link getoond in de voettekst van de chat, zodra je een geldige URL invult.') +
+        (policyBad ? '<p class="err" role="alert">Vul een geldige URL in die begint met http:// of https://.</p>' : '') +
+        fld('pr-dnl', 'AI-melding (Nederlands)', '<input id="pr-dnl" data-bind="priv:disclaimer.nl" value="' + esc(p.disclaimer.nl) + '" placeholder="' + esc(T[cur].nl.aiNote) + '">') +
+        fld('pr-dfr', 'AI-melding (Frans)', '<input id="pr-dfr" data-bind="priv:disclaimer.fr" value="' + esc(p.disclaimer.fr) + '" placeholder="' + esc(T[cur].fr.aiNote) + '">') + '</div>' +
+        '<div class="card"><h3>Waar worden gegevens verwerkt?</h3><p class="summary-line" role="status"><b>' + esc(pr.proc) + '</b><br>' + esc(pr.procNote) + '</p><p class="fine">Dit volgt het gekozen taalmodel. Wijzig het onder <button class="toggle-link" data-settab="model">Taalmodel</button>.</p></div>' +
+        '<div class="card"><h3>Gesprek verwijderen of exporteren</h3><p class="fine">Open <button class="toggle-link" data-page="archive">Gesprekken</button>, kies een gesprek en gebruik <b>Exporteer (.txt)</b> of <b>Verwijderen</b>.</p></div>';
+    }
+
+    function snippet(kind) {
+      var c = CFG[cur], a = APP[cur], attrs = ' data-site="' + c.siteId + '"';
+      if (kind === 'inline') attrs += ' data-mode="inline" data-target="#' + c.mountId + '"';
+      else if (a.pos === 'left') attrs += ' data-position="left"';
+      if (a.color) attrs += ' data-color="' + a.color + '"';
+      attrs += ' data-lang="auto"';
+      var tag = '<script src="https://' + c.adminUrl + '/widget.js"' + attrs + ' async><\/script>';
+      return kind === 'inline' ? '<div id="' + c.mountId + '"></div>\n' + tag : tag;
+    }
+    function copyText(t, done) {
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = t; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (err) {}
+        document.body.removeChild(ta); done();
+      }
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).then(done, fallback); else fallback();
+    }
+    function embedTab() {
+      var kind = st.snip, copied = st.copied === kind;
+      var expl = kind === 'widget'
+        ? ['Plak dit vlak voor </body> op elke pagina waar de chatknop moet verschijnen.', 'Collez ce code juste avant </body> sur chaque page où le bouton de chat doit apparaître.']
+        : ['Plak dit waar de chat op de pagina moet verschijnen.', 'Collez ce code à l’endroit de la page où le chat doit apparaître.'];
+      return '<div class="card"><h3>Op je site plaatsen</h3>' + segHtml('snip', kind, [['widget', 'Chatknop'], ['inline', 'Ingesloten']]) +
+        '<p>' + esc(expl[0]) + '</p><p class="fine"><span class="chip fr">FR</span> ' + esc(expl[1]) + '</p>' +
+        '<div class="codebox"><div class="codehead"><span>' + (kind === 'widget' ? 'Chatknop (zwevend)' : 'Ingesloten op een pagina') + '</span><button class="btn small" data-copy="' + kind + '">' + (copied ? 'Gekopieerd' : 'Kopieer') + '</button></div><pre class="code" tabindex="0"><code>' + esc(snippet(kind)) + '</code></pre></div>' +
+        '<p class="fine">Voorbeeld: de adressen in de code zijn niet echt actief. De code past zich aan je instellingen bij Uiterlijk aan, zoals de positie van de knop.</p></div>' +
+        '<div class="card"><h3>Toegestane domeinen</h3>' + fld('dom', 'Domeinen', '<input id="dom" data-bind="domains" value="' + esc(st.domains[cur]) + '" autocomplete="off">', 'Scheid domeinen met een komma.') +
+        '<p class="fine">De chat laadt alleen op deze domeinen. Op andere sites blijft hij verborgen.</p></div>' +
+        '<p class="fine">Gebruik je WordPress? Plak de code via een plugin voor headers en footers.</p>';
+    }
+
+    function modelTab() {
+      var prov = PROVIDERS.filter(function (p) { return p.k === provider; })[0], c = srcCounts();
+      var cards = PROVIDERS.map(function (p) {
+        return '<button class="prov" role="radio" aria-checked="' + (provider === p.k) + '" data-prov="' + p.k + '"><span class="nm"><span class="radio" aria-hidden="true"></span><img src="img/' + p.k + '.svg" alt="" width="28" height="28">' + esc(p.n) + (p.reco ? '<span class="reco">' + esc(p.reco) + '</span>' : '') + '</span><span class="note">' + esc(p.note) + '</span></button>';
+      }).join('');
+      return '<div class="card"><h3>Taalmodel</h3><p class="sub">Het taalmodel schrijft de antwoorden van de assistent, op basis van de bronnen van ' + esc(CFG[cur].name) + '.</p>' +
         '<div class="provs" role="radiogroup" aria-label="Taalmodel">' + cards + '</div>' +
-        '<p class="summary-line" role="status">De assistent schrijft nu antwoorden met <b>' + esc(prov.n) + '</b>. ' + esc(prov.note) + '. Bronnen, goedgekeurde antwoorden en veiligheidsregels blijven hetzelfde.</p></div></div>';
+        '<p class="summary-line" role="status">De assistent schrijft nu antwoorden met <b>' + esc(prov.n) + '</b>. ' + esc(prov.note) + '. ' + esc(prov.proc) + '. De ' + c.n + ' bronnen (' + plural(c.pages, 'pagina', 'pagina\'s') + '), goedgekeurde antwoorden en gedragsregels blijven hetzelfde.</p></div>';
+    }
+
+    function settingsPane() {
+      var tabs = [['behavior', 'Gedrag'], ['look', 'Uiterlijk'], ['privacy', 'Privacy'], ['embed', 'Op je site plaatsen'], ['model', 'Taalmodel']];
+      var body = st.setTab === 'look' ? lookTab() : st.setTab === 'privacy' ? privacyTab() : st.setTab === 'embed' ? embedTab() : st.setTab === 'model' ? modelTab() : behaviorTab();
+      return '<div class="pane"><div class="pane-head"><h2>Instellingen</h2><span class="sample">Voorbeeld, wijzigingen worden niet bewaard</span></div>' +
+        '<div class="seg wrapseg" role="group" aria-label="Onderdeel van de instellingen">' + tabs.map(function (x) { return '<button data-settab="' + x[0] + '" aria-pressed="' + (st.setTab === x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>' +
+        '<div class="set-body">' + body + '</div></div>';
     }
 
     function toastHtml() {
@@ -1308,67 +1859,220 @@ tbody tr:last-child td { border-bottom: 0; }
       setTimeout(function () { if (st.toast && st.toast.title === title) { st.toast = null; var el = root.querySelector('.toast'); if (el) el.remove(); } }, 3500);
     }
 
+    var lastView = '';
     function render() {
-      var main = st.page === 'ai' ? aiPane() : st.page === 'archive' ? archivePane() : st.page === 'messages' ? messagesPane() : st.page === 'stats' ? statsPane() : settingsPane();
-      var act = document.activeElement, keep = act && root.contains(act) && (act.id === 'arc-q' || act.hasAttribute('data-fix')) ? act.id : null;
+      var main = st.page === 'ai' ? aiPane() : st.page === 'sources' ? sourcesPane() : st.page === 'test' ? testPane() : st.page === 'archive' ? archivePane() : st.page === 'stats' ? statsPane() : settingsPane();
+      var act = document.activeElement, keep = act && root.contains(act) && act.id && (act.hasAttribute('data-bind') || act.hasAttribute('data-fix')) ? act.id : null;
       var caret = keep ? act.selectionStart : null;
+      var oldPane = root.querySelector('.pane'), oldList = root.querySelector('.smlist'), view = st.page + ':' + st.setTab;
+      var paneTop = oldPane && view === lastView ? oldPane.scrollTop : 0, listTop = oldList ? oldList.scrollTop : 0;
+      lastView = view;
       root.innerHTML = side() + '<div class="main">' + main + '</div>' + toastHtml();
+      var pane = root.querySelector('.pane'); if (pane) pane.scrollTop = paneTop;
+      var list = root.querySelector('.smlist'); if (list) list.scrollTop = listTop;
+      var s1 = root.querySelector('#pv-slot'); if (s1) { s1.appendChild(previewMount); preview.render(); }
+      var s2 = root.querySelector('#test-slot'); if (s2) { s2.appendChild(testMount); testChat.render(); }
       if (keep) { var k = document.getElementById(keep); if (k) { k.focus(); try { k.setSelectionRange(caret, caret); } catch (e) {} } }
     }
 
+    function setPath(prefix, path, v) {
+      var o = prefix === 'app' ? APP[cur] : prefix === 'beh' ? BEH[cur] : PRIV[cur], p = path.split('.');
+      for (var i = 0; i < p.length - 1; i++) o = o[p[i]];
+      o[p[p.length - 1]] = v;
+    }
+    function applyChange() { refreshChats(); render(); }
+    function addTopic() {
+      var v = st.topicDraft.trim().toLowerCase();
+      if (v && BEH[cur].topics.indexOf(v) === -1) BEH[cur].topics.push(v);
+      st.topicDraft = ''; applyChange();
+      var el = document.getElementById('bh-topic'); if (el) el.focus();
+    }
+    function addKw() {
+      var v = st.kwDraft.trim().toLowerCase();
+      if (v && BEH[cur].crisisKw.indexOf(v) === -1) BEH[cur].crisisKw.push(v);
+      st.kwDraft = ''; applyChange();
+      var el = document.getElementById('bh-kw'); if (el) el.focus();
+    }
+    function onBind(e) {
+      var k = e.target.getAttribute('data-bind');
+      if (!k) { if (e.target.hasAttribute('data-fix')) { st.editing[+e.target.getAttribute('data-fix')] = e.target.value; e.target.style.borderColor = ''; } return; }
+      var v = e.target.value;
+      if (k === 'q' || k === 'srcQ' || k === 'smFilter') { st[k] = v; render(); }
+      else if (k === 'topicDraft' || k === 'kwDraft' || k === 'webUrls' || k === 'smUrl' || k === 'webAuto' || k === 'pdfLang') st[k] = v;
+      else if (k === 'domains') st.domains[cur] = v;
+      else if (k === 'app:hex') {
+        st.hexDraft = v;
+        var h = hexNorm(v);
+        if (h) APP[cur].color = h; else if (!v.trim()) APP[cur].color = '';
+        applyChange();
+      } else if (k.indexOf(':') > 0) {
+        if (k === 'app:name') v = v.slice(0, 24);
+        if (k === 'app:label') v = v.slice(0, 30);
+        var pr = k.split(':'); setPath(pr[0], pr[1], v); applyChange();
+      }
+    }
+
     root.addEventListener('click', function (e) {
-      var t;
-      if ((t = e.target.closest('[data-page]'))) { st.page = t.getAttribute('data-page'); render(); return; }
-      if ((t = e.target.closest('[data-filter]'))) { st.filter = t.getAttribute('data-filter'); render(); return; }
-      if ((t = e.target.closest('[data-arc]'))) { st.arcSel = +t.getAttribute('data-arc'); render(); return; }
-      if ((t = e.target.closest('[data-period]'))) { st.period = +t.getAttribute('data-period'); render(); return; }
-      if ((t = e.target.closest('[data-aitab]'))) { st.aiTab = t.getAttribute('data-aitab'); render(); return; }
-      if ((t = e.target.closest('[data-done]'))) { var dm = byId(messages, +t.getAttribute('data-done')); dm.done = !dm.done; render(); return; }
-      if ((t = e.target.closest('[data-showconv]'))) { var sid0 = +t.getAttribute('data-showconv'); st.shown[sid0] = !st.shown[sid0]; render(); return; }
-      if ((t = e.target.closest('[data-prov]'))) {
-        var pk = t.getAttribute('data-prov');
-        if (pk !== st.provider) { st.provider = pk; flash('Voorbeeld: wisselen kan zonder de rest aan te passen', 'Taalmodel: ' + PROVIDERS.filter(function (p) { return p.k === pk; })[0].n); }
+      var t, v, c0 = e.target;
+      function pick(attr) { t = c0.closest('[' + attr + ']'); return t ? t.getAttribute(attr) : null; }
+      if ((v = pick('data-page')) !== null) { st.page = v; st.addMenu = false; render(); return; }
+      if ((v = pick('data-settab')) !== null) { st.setTab = v; render(); return; }
+      if ((v = pick('data-filter')) !== null) { st.filter = v; render(); return; }
+      if ((v = pick('data-arc')) !== null) { st.arcSel = +v; st.delArc = null; render(); return; }
+      if ((v = pick('data-period')) !== null) { st.period = +v; render(); return; }
+      if ((v = pick('data-srcfilter')) !== null) { st.srcFilter = v; render(); return; }
+      if ((v = pick('data-webmode')) !== null) { st.webMode = v; render(); return; }
+      if ((v = pick('data-srcjump')) !== null) { st.page = 'sources'; st.srcQ = v; st.srcFilter = 'all'; render(); return; }
+      if ((v = pick('data-testq')) !== null) { testChat.send(v); return; }
+      if ((v = pick('data-applang')) !== null) { lang = v; widget.relang(); embed.relang(); preview.relang(); testChat.relang(); syncControls(); render(); return; }
+      if ((v = pick('data-tone')) !== null) { BEH[cur].tone = v; applyChange(); return; }
+      if ((v = pick('data-swatch')) !== null) { APP[cur].color = v; st.hexDraft = null; applyChange(); return; }
+      if ((v = pick('data-radius')) !== null) { APP[cur].radius = v; applyChange(); return; }
+      if ((v = pick('data-pos')) !== null) { APP[cur].pos = v; applyChange(); return; }
+      if ((v = pick('data-avatar')) !== null) { APP[cur].avatar = v; applyChange(); return; }
+      if ((v = pick('data-snip')) !== null) { st.snip = v; render(); return; }
+      if ((v = pick('data-copy')) !== null) {
+        copyText(snippet(v), function () { st.copied = v; render(); setTimeout(function () { if (st.copied === v) { st.copied = null; if (st.page === 'settings') render(); } }, 2000); });
         return;
       }
-      if ((t = e.target.closest('[data-edit]'))) { var id = +t.getAttribute('data-edit'), r = byId(reviews, id); st.editing[id] = r.fix || ''; render(); var ta = document.getElementById('fix-' + id); if (ta) ta.focus(); return; }
-      if ((t = e.target.closest('[data-cancel]'))) { delete st.editing[+t.getAttribute('data-cancel')]; render(); return; }
-      if ((t = e.target.closest('[data-save]'))) {
-        var sid = +t.getAttribute('data-save');
+      if ((v = pick('data-prov')) !== null) {
+        if (v !== provider) { provider = v; flash('Voorbeeld: wisselen kan zonder de rest aan te passen', 'Taalmodel: ' + PROVIDERS.filter(function (p) { return p.k === v; })[0].n); }
+        return;
+      }
+      if ((v = pick('data-rmtopic')) !== null) { BEH[cur].topics.splice(+v, 1); applyChange(); return; }
+      if ((v = pick('data-addpreset')) !== null) { BEH[cur].topics.push(v); applyChange(); return; }
+      if ((v = pick('data-rmkw')) !== null) { BEH[cur].crisisKw.splice(+v, 1); applyChange(); return; }
+      if ((v = pick('data-svmove')) !== null) {
+        var m = v.split(':'), arr = APP[cur].starts[m[0]], i = +m[1], j = i + +m[2];
+        if (j >= 0 && j < arr.length) { var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp; }
+        applyChange(); return;
+      }
+      if ((v = pick('data-svrm')) !== null) { var r = v.split(':'); APP[cur].starts[r[0]].splice(+r[1], 1); applyChange(); return; }
+      if ((v = pick('data-svadd')) !== null) {
+        if (APP[cur].starts[v].length < 4) APP[cur].starts[v].push('');
+        applyChange();
+        var ni = document.getElementById('sv-' + v + '-' + (APP[cur].starts[v].length - 1)); if (ni) ni.focus();
+        return;
+      }
+      if ((v = pick('data-edit')) !== null) { var id = +v, rv = byId(reviews, id); st.editing[id] = rv.fix || ''; render(); var ta = document.getElementById('fix-' + id); if (ta) ta.focus(); return; }
+      if ((v = pick('data-cancel')) !== null) { delete st.editing[+v]; render(); return; }
+      if ((v = pick('data-save')) !== null) {
+        var sid = +v;
         if (!(st.editing[sid] || '').trim()) { var ta2 = document.getElementById('fix-' + sid); if (ta2) { ta2.focus(); ta2.style.borderColor = '#B4462B'; } return; }
         reviews = reviews.filter(function (x) { return x.id !== sid; }); delete st.editing[sid]; approved++;
-        sources[sources.length - 1].upd = approved + ' antwoorden';
         flash('Toegevoegd aan de kennisbank', 'De assistent gebruikt dit antwoord vanaf nu.'); return;
       }
-      if ((t = e.target.closest('[data-ok]'))) { var oid = +t.getAttribute('data-ok'); reviews = reviews.filter(function (x) { return x.id !== oid; }); flash('Gemarkeerd als correct', 'Het antwoord blijft ongewijzigd.'); return; }
-      if ((t = e.target.closest('[data-ignore]'))) { var iid = +t.getAttribute('data-ignore'); reviews = reviews.filter(function (x) { return x.id !== iid; }); render(); return; }
-      if ((t = e.target.closest('[data-act]')) && t.getAttribute('data-act') === 'reindex') {
-        sources.forEach(function (x) { x.st = 'busy'; }); render();
-        setTimeout(function () { sources.forEach(function (x) { x.st = 'ok'; if (x.k !== 'kb') x.upd = 'zonet'; }); if (st.page === 'ai') render(); }, 2600);
+      if ((v = pick('data-ok')) !== null) { var oid = +v; reviews = reviews.filter(function (x) { return x.id !== oid; }); flash('Gemarkeerd als correct', 'Het antwoord blijft ongewijzigd.'); return; }
+      if ((v = pick('data-ignore')) !== null) { var iid = +v; reviews = reviews.filter(function (x) { return x.id !== iid; }); render(); return; }
+      if ((v = pick('data-act')) === null) { if (st.addMenu && !c0.closest('.addwrap')) { st.addMenu = false; render(); } return; }
+      var sx = t.getAttribute('data-id') ? byId(srcs, +t.getAttribute('data-id')) : null;
+      if (v === 'addmenu') { st.addMenu = !st.addMenu; render(); }
+      else if (v === 'addweb' || v === 'addpdf') { st.add = v === 'addweb' ? 'web' : 'pdf'; st.addMenu = false; st.webErr = ''; st.smErr = ''; st.pdfErrs = []; render(); }
+      else if (v === 'closeadd') { st.add = null; render(); }
+      else if (v === 'smread') {
+        var k0 = cur;
+        if (!validUrl(st.smUrl.trim())) { st.smErr = 'Vul een geldige sitemap-URL in, bijv. ' + SITEMAP[cur].url; render(); return; }
+        st.smErr = ''; st.sm = { loading: true }; render();
+        setTimeout(function () {
+          if (k0 !== cur) return;
+          var pages = genSitemap(cur), f = st.smFilter.trim().toLowerCase();
+          st.sm = { pages: pages }; st.sel = {};
+          pages.forEach(function (p, ix) { if (p.hint !== 'Overig' && (!f || p.path.toLowerCase().indexOf(f) !== -1)) st.sel[ix] = true; });
+          render();
+        }, 1100);
       }
+      else if (v === 'selall' || v === 'selnone') {
+        var f2 = st.smFilter.trim().toLowerCase();
+        st.sm.pages.forEach(function (p, ix) { if (!f2 || p.path.toLowerCase().indexOf(f2) !== -1) { if (v === 'selall') st.sel[ix] = true; else delete st.sel[ix]; } });
+        render();
+      }
+      else if (v === 'addurls') {
+        var lines = st.webUrls.split(/\r?\n/).map(function (l) { return l.trim(); }), items = [], bad = 0;
+        lines.forEach(function (l, ix) { if (!l) return; if (!validUrl(l) && !bad) bad = ix + 1; items.push(l); });
+        if (!items.length) { st.webErr = 'Vul minstens één URL in.'; render(); return; }
+        if (bad) { st.webErr = 'Regel ' + bad + ' is geen geldige URL. Begin met http:// of https://.'; render(); return; }
+        var added = 0, skipped = 0;
+        items.forEach(function (u) {
+          if (srcs.some(function (x) { return x.url === u; })) { skipped++; return; }
+          finishLater(addSource({ kind: 'web', title: titleOf(u), url: u, lang: langHint(pathOf(u)), auto: st.webAuto }), 1500); added++;
+        });
+        st.webUrls = ''; st.webErr = ''; st.add = null;
+        flash(plural(added, 'bron', 'bronnen') + ' toegevoegd', skipped ? plural(skipped, 'bestond al', 'bestonden al') + ', overgeslagen.' : 'De pagina\'s worden nu ingelezen.');
+      }
+      else if (v === 'addsel') {
+        var n = 0;
+        Object.keys(st.sel).map(Number).sort(function (a, b) { return b - a; }).forEach(function (ix) {
+          var p = st.sm.pages[ix]; if (srcs.some(function (x) { return x.url === p.url; })) return;
+          finishLater(addSource({ kind: 'web', title: titleOf(p.url), url: p.url, lang: p.hint, auto: st.webAuto }), 1500); n++;
+        });
+        st.sm = null; st.sel = {}; st.add = null;
+        flash(plural(n, 'bron', 'bronnen') + ' toegevoegd', 'De pagina\'s worden nu ingelezen.');
+      }
+      else if (v === 'reread' && sx) { sx.status = 'busy'; sx.reason = ''; render(); finishLater(sx, 1500); }
+      else if (v === 'delask' && sx) { st.delSrc = sx.id; render(); }
+      else if (v === 'delno') { st.delSrc = null; render(); }
+      else if (v === 'delyes' && sx) { srcs.splice(srcs.indexOf(sx), 1); st.delSrc = null; render(); }
+      else if (v === 'arcexport') { var ea = byId(archive, st.arcSel); if (ea) exportTxt(ea); }
+      else if (v === 'arcdelask') { st.delArc = st.arcSel; render(); }
+      else if (v === 'arcdelno') { st.delArc = null; render(); }
+      else if (v === 'arcdelyes') {
+        var da = byId(archive, st.arcSel);
+        if (da) { archive.splice(archive.indexOf(da), 1); st.delArc = null; st.arcSel = archive.length ? archive[0].id : 0; flash('Gesprek verwijderd', 'Het gesprek staat niet meer in het archief.'); }
+      }
+      else if (v === 'newtest') { testChat.restart(); testLog = []; var lg = root.querySelector('#test-log'); if (lg) lg.innerHTML = logHtml(); }
+      else if (v === 'crisistoggle') { BEH[cur].crisisOn = !BEH[cur].crisisOn; applyChange(); }
+      else if (v === 'masktoggle') { PRIV[cur].mask = !PRIV[cur].mask; render(); }
+      else if (v === 'addtopic') addTopic();
+      else if (v === 'addkw') addKw();
+      else if (v === 'resetapp') { APP[cur] = defApp(cur); st.hexDraft = null; applyChange(); }
     });
-    root.addEventListener('input', function (e) {
-      var k = e.target.getAttribute('data-bind');
-      if (k === 'q') { st.q = e.target.value; render(); }
-      else if (e.target.hasAttribute('data-fix')) { st.editing[+e.target.getAttribute('data-fix')] = e.target.value; e.target.style.borderColor = ''; }
+    root.addEventListener('input', onBind);
+    root.addEventListener('change', function (e) {
+      var t = e.target;
+      if (t.hasAttribute('data-smidx')) { var ix = +t.getAttribute('data-smidx'); if (t.checked) st.sel[ix] = true; else delete st.sel[ix]; render(); }
+      else if (t.hasAttribute('data-pdf')) { handleFiles(t.files); }
+      else if (t.hasAttribute('data-autoid')) { var sx = byId(srcs, +t.getAttribute('data-autoid')); if (sx) sx.auto = t.value; }
+      else if (t.tagName === 'SELECT' && t.hasAttribute('data-bind')) onBind(e);
     });
+    root.addEventListener('dragover', function (e) { if (e.target.closest('.drop')) { e.preventDefault(); if (!st.drag) { st.drag = true; var d = root.querySelector('.drop'); if (d) d.classList.add('over'); } } });
+    root.addEventListener('dragleave', function (e) { if (e.target.closest('.drop')) { st.drag = false; var d = root.querySelector('.drop'); if (d) d.classList.remove('over'); } });
+    root.addEventListener('drop', function (e) { if (e.target.closest('.drop')) { e.preventDefault(); st.drag = false; handleFiles(e.dataTransfer.files); } });
     root.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' && e.target.hasAttribute('data-arc')) { st.arcSel = +e.target.getAttribute('data-arc'); render(); }
+      if (e.key === 'Enter' && e.target.hasAttribute('data-arc')) { st.arcSel = +e.target.getAttribute('data-arc'); st.delArc = null; render(); }
+      else if (e.key === 'Enter' && e.target.id === 'bh-topic') { e.preventDefault(); addTopic(); }
+      else if (e.key === 'Enter' && e.target.id === 'bh-kw') { e.preventDefault(); addKw(); }
+      else if (e.key === 'Escape' && st.addMenu) { st.addMenu = false; render(); }
     });
 
+    function load(k) {
+        DATA[cur].reviews = reviews; DATA[cur].approved = approved;
+        cur = k; archive = DATA[k].archive; reviews = DATA[k].reviews; approved = DATA[k].approved; srcs = DATA[k].srcs;
+        st.arcSel = DATA[k].arcSel; st.editing = {}; st.q = ''; st.filter = 'all'; st.toast = null; st.hexDraft = null;
+        st.add = null; st.addMenu = false; st.sm = null; st.sel = {}; st.smUrl = SITEMAP[k].url; st.smFilter = SITEMAP[k].filter; st.webUrls = ''; st.webErr = ''; st.smErr = ''; st.pdfErrs = [];
+        st.srcQ = ''; st.srcFilter = 'all'; st.delSrc = null; st.delArc = null; st.topicDraft = ''; st.kwDraft = '';
+        testLog = [];
+        if (st.started) render();
+    }
+    if (site !== cur) load(site);
+
     return {
+      find: function (title) {
+        var n = srcNorm(title);
+        for (var i = 0; i < srcs.length; i++) if (srcs[i].status === 'ok' && srcNorm(srcs[i].title) === n) return srcs[i];
+        return null;
+      },
+      logAnswer: function (a) {
+        testLog.push(a);
+        var lg = root.querySelector('#test-log');
+        if (lg) { lg.innerHTML = logHtml(); lg.scrollTop = lg.scrollHeight; }
+      },
       addMessage: function (m) {
         var id = Date.now();
-        archive.unshift({ id: id, date: 'Vandaag, net', name: m.name || 'Anoniem', topic: m.question.length > 40 ? m.question.slice(0, 40) + '…' : m.question, status: 'left', dur: '—', rating: null, lang: m.lang, comment: '',
-          msgs: m.msgs.concat([['sys', 'Bericht achtergelaten voor een ' + CFG[cur].role]]) });
-        messages.unshift({ id: id, arc: id, date: 'Vandaag, net', name: m.name, email: m.email, lang: m.lang, question: m.question, done: false });
-        if (st.started) render();
+        archive.unshift({ id: id, date: 'Vandaag, net', name: m.name || 'Anoniem', email: m.email, topic: m.question.length > 40 ? m.question.slice(0, 40) + '…' : m.question, status: 'left', dur: '—', rating: null, lang: m.lang, comment: '',
+          msgs: m.msgs.concat([['sys', 'Bericht achtergelaten voor een medewerker']]) });
+        if (st.started && st.page === 'archive') render();
       },
-      setSite: function (k) {
-        DATA[cur].reviews = reviews; DATA[cur].approved = approved;
-        cur = k; archive = DATA[k].archive; messages = DATA[k].messages; reviews = DATA[k].reviews; sources = DATA[k].sources; approved = DATA[k].approved;
-        st.arcSel = DATA[k].arcSel; st.editing = {}; st.shown = {}; st.q = ''; st.filter = 'all'; st.toast = null; st.aiTab = 'review';
-        if (st.started) render();
-      },
+      setSite: load,
       start: function () { st.started = true; render(); }
     };
   })();
@@ -1416,7 +2120,7 @@ tbody tr:last-child td { border-bottom: 0; }
   document.getElementById('site-seg').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b || b.getAttribute('data-site') === site) return;
     site = b.getAttribute('data-site');
-    widget.restart(); embed.restart(); applyHost(); Admin.setSite(site); syncControls();
+    widget.restart(); embed.restart(); preview.restart(); testChat.restart(); applyHost(); Admin.setSite(site); syncControls();
   });
   applyHost();
 
