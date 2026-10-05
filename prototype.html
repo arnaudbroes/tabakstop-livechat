@@ -111,18 +111,20 @@ p { margin: 0; }
 .launcher {
   position: absolute; right: 22px; bottom: 22px; z-index: 3;
   display: flex; align-items: center; gap: 10px;
-  border: 0; border-radius: 999px; padding: 12px 18px 12px 14px;
-  background: var(--brand); color: #FFFFFF; font-weight: 600; font-size: 15px;
+  border: 0; border-radius: var(--rad-launch, 999px); padding: 12px 18px 12px 14px;
+  background: var(--brand); color: var(--on-brand, #FFFFFF); font-weight: 600; font-size: 15px;
   box-shadow: var(--shadow-lg);
 }
 .launcher:hover { background: var(--brand-dark); }
 .launcher svg { width: 22px; height: 22px; flex: none; }
 .launcher.round { padding: 14px; }
+.launcher.left { left: 22px; right: auto; }
+.panel.left { left: 22px; right: auto; transform-origin: bottom left; }
 .launcher .unread { position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: var(--sun); color: #3A2A00; font-size: 12px; font-weight: 700; display: grid; place-items: center; }
 .panel {
   position: absolute; right: 22px; bottom: 92px; z-index: 4;
   width: 370px; height: calc(100% - 116px); max-height: 560px;
-  background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-lg);
+  background: var(--surface); border-radius: var(--rad-panel, 16px); box-shadow: var(--shadow-lg);
   overflow: hidden; display: flex;
   transform-origin: bottom right;
   animation: pop .18s ease-out;
@@ -133,47 +135,47 @@ p { margin: 0; }
   .site-hero h2 { font-size: 28px; }
   .site-cards { grid-template-columns: 1fr; }
   .site-card { min-height: 90px; }
-  .panel { left: 8px; right: 8px; width: auto; bottom: 84px; height: calc(100% - 96px); }
+  .panel, .panel.left { left: 8px; right: 8px; width: auto; bottom: 84px; height: calc(100% - 96px); }
 }
 
 /* Chat component */
 .chat { display: flex; flex-direction: column; width: 100%; height: 100%; position: relative; background: var(--surface); }
-.c-head { background: var(--brand); color: #FFFFFF; padding: 14px 16px; display: flex; align-items: center; gap: 11px; flex: none; }
+.c-head { background: var(--brand); color: var(--on-brand, #FFFFFF); padding: 14px 16px; display: flex; align-items: center; gap: 11px; flex: none; }
 .c-head .who { display: flex; flex-direction: column; min-width: 0; flex: 1; }
 .c-head .who b { font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 1.2; }
 .c-head .who span { font-size: 12.5px; opacity: .88; display: flex; align-items: center; gap: 6px; }
 .c-head .who span i { width: 7px; height: 7px; border-radius: 50%; background: #7BE09B; display: inline-block; }
 .c-head .who span i.off { background: #C9D3DC; }
 .avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-family: var(--display); font-weight: 600; font-size: 15px; flex: none; background: #FFFFFF; color: var(--brand); }
-.c-head .hbtn { border: 1px solid rgba(255, 255, 255, .45); background: transparent; color: #FFFFFF; border-radius: 8px; padding: 5px 10px; font-size: 12.5px; font-weight: 600; flex: none; }
-.c-head .hbtn:hover { background: rgba(255, 255, 255, .14); }
-.c-head .icon-btn { border: 0; background: transparent; color: #FFFFFF; width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; flex: none; }
-.c-head .icon-btn:hover { background: rgba(255, 255, 255, .14); }
+.c-head .hbtn { border: 1px solid currentColor; background: transparent; color: var(--on-brand, #FFFFFF); border-radius: 8px; padding: 5px 10px; font-size: 12.5px; font-weight: 600; flex: none; }
+.c-head .hbtn:hover { background: color-mix(in srgb, currentColor 16%, transparent); }
+.c-head .icon-btn { border: 0; background: transparent; color: var(--on-brand, #FFFFFF); width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; flex: none; }
+.c-head .icon-btn:hover { background: color-mix(in srgb, currentColor 16%, transparent); }
 .c-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: var(--surface); }
 .c-foot { border-top: 1px solid var(--line); padding: 10px 12px; display: flex; gap: 8px; align-items: flex-end; flex: none; background: var(--surface); }
-.c-foot textarea { flex: 1; resize: none; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; min-height: 40px; max-height: 110px; background: var(--sunken); }
+.c-foot textarea { flex: 1; resize: none; border: 1px solid var(--line); border-radius: var(--rad-field, 10px); padding: 9px 11px; min-height: 40px; max-height: 110px; background: var(--sunken); }
 .c-foot textarea:focus { background: var(--surface); }
-.send { border: 0; background: var(--brand); color: #FFFFFF; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; flex: none; }
+.send { border: 0; background: var(--brand); color: var(--on-brand, #FFFFFF); width: 40px; height: 40px; border-radius: var(--rad-btn, 10px); display: grid; place-items: center; flex: none; }
 .send:hover { background: var(--brand-dark); }
 .send svg { width: 18px; height: 18px; }
 .intro { color: var(--muted); font-size: 13.5px; }
 .f { display: flex; flex-direction: column; gap: 5px; }
 .f label { font-size: 12.5px; font-weight: 600; color: var(--muted); }
-.f input, .f select, .f textarea { border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px; background: var(--sunken); width: 100%; }
+.f input, .f select, .f textarea { border: 1px solid var(--line); border-radius: var(--rad-field, 9px); padding: 9px 11px; background: var(--sunken); width: 100%; }
 .f input:focus, .f select:focus, .f textarea:focus { background: var(--surface); }
 .check { display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; color: var(--muted); }
 .check input { margin-top: 3px; accent-color: var(--brand); }
 .err { color: var(--bad); font-size: 12.5px; font-weight: 600; }
-.btn { border: 0; border-radius: 10px; padding: 11px 14px; font-weight: 600; background: var(--brand); color: #FFFFFF; }
+.btn { border: 0; border-radius: var(--rad-btn, 10px); padding: 11px 14px; font-weight: 600; background: var(--brand); color: var(--on-brand, #FFFFFF); }
 .btn:hover { background: var(--brand-dark); }
 .btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
 .btn.ghost:hover { background: var(--sunken); color: var(--ink); }
-.btn.small { padding: 7px 11px; font-size: 13px; border-radius: 8px; }
+.btn.small { padding: 7px 11px; font-size: 13px; border-radius: var(--rad-btn-s, 8px); }
 .stack { display: flex; flex-direction: column; gap: 12px; }
 .spacer { flex: 1; }
-.msg { max-width: 84%; padding: 9px 12px; border-radius: 14px; font-size: 14px; line-height: 1.45; white-space: pre-wrap; word-wrap: break-word; }
-.msg.them { background: #EEF3F8; color: var(--ink); border-bottom-left-radius: 4px; align-self: flex-start; }
-.msg.me { background: var(--brand); color: #FFFFFF; border-bottom-right-radius: 4px; align-self: flex-end; }
+.msg { max-width: 84%; padding: 9px 12px; border-radius: var(--rad-bub, 14px); font-size: 14px; line-height: 1.45; white-space: pre-wrap; word-wrap: break-word; }
+.msg.them { background: #EEF3F8; color: var(--ink); border-bottom-left-radius: var(--rad-tail, 4px); align-self: flex-start; }
+.msg.me { background: var(--brand); color: var(--on-brand, #FFFFFF); border-bottom-right-radius: var(--rad-tail, 4px); align-self: flex-end; }
 .msg small { display: block; font-size: 11px; opacity: .7; margin-bottom: 2px; font-weight: 600; }
 .sys { align-self: center; font-size: 12px; color: var(--faint); text-align: center; }
 .typing { align-self: flex-start; display: flex; gap: 4px; padding: 11px 13px; background: #EEF3F8; border-radius: 14px; border-bottom-left-radius: 4px; }
@@ -197,6 +199,7 @@ p { margin: 0; }
 .done p { color: var(--muted); font-size: 13.5px; max-width: 30ch; }
 .offline-note { background: var(--sunken); border-radius: 10px; padding: 11px 12px; font-size: 13px; color: var(--muted); }
 .offline-note b { color: var(--ink); display: block; margin-bottom: 2px; }
+.offline-note .hrs { display: block; margin-top: 6px; font-size: 12.5px; }
 
 /* Embed page */
 .page-wrap { padding: 30px 32px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 32px; align-items: start; max-width: 1100px; }
@@ -209,7 +212,7 @@ p { margin: 0; }
 .hours div span:last-child { font-variant-numeric: tabular-nums; color: var(--muted); }
 .hours div.today { font-weight: 600; }
 .hours div.today span:last-child { color: var(--ok); }
-.embed-card { height: 580px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); display: flex; }
+.embed-card { height: 580px; border-radius: var(--rad-panel, 16px); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); display: flex; }
 .embed-site { height: auto; min-height: 660px; }
 @media (max-width: 860px) {
   .page-wrap { grid-template-columns: 1fr; padding: 22px 18px; }
@@ -218,7 +221,7 @@ p { margin: 0; }
 
 /* Admin */
 .admin { display: grid; grid-template-columns: 216px minmax(0, 1fr); height: 760px; background: var(--sunken); position: relative; }
-.side { background: #16293D; color: #D6E1EB; display: flex; flex-direction: column; padding: 16px 12px; gap: 18px; min-height: 0; }
+.side { background: #16293D; color: #D6E1EB; display: flex; flex-direction: column; padding: 14px 12px; gap: 14px; min-height: 0; overflow-y: auto; }
 .side .brandrow { display: flex; align-items: center; gap: 9px; padding: 2px 6px; }
 .side .brandrow b { font-family: var(--display); font-weight: 700; font-size: 16px; color: #FFFFFF; }
 .side .brandrow span { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #8FA6BC; }
@@ -229,12 +232,13 @@ p { margin: 0; }
 .side nav button[aria-current="page"] { background: rgba(255, 255, 255, .1); color: #FFFFFF; font-weight: 600; }
 .side nav .badge { margin-left: auto; background: var(--sun); color: #3A2A00; font-size: 11.5px; font-weight: 700; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; display: grid; place-items: center; }
 .side .team { display: flex; flex-direction: column; gap: 8px; padding: 0 8px; }
-.side .team .lbl { font-size: 11px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: #7F97AE; }
+.side .team .lbl { font-size: 11px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: #9FB3C6; }
 .side .team div { display: flex; align-items: center; gap: 8px; font-size: 13px; }
 .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: none; background: var(--ok); }
 .dot.away { background: #E2A13B; }
 .dot.off { background: #6E8297; }
 .side .me { margin-top: auto; background: rgba(255, 255, 255, .06); border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+.side .me small { font-size: 12px; color: #B4C5D5; }
 .side .me .row { display: flex; align-items: center; gap: 9px; }
 .side .me .avatar { width: 32px; height: 32px; font-size: 13px; background: #2B6490; color: #FFFFFF; }
 .side .me b { color: #FFFFFF; font-weight: 600; font-size: 13.5px; display: block; line-height: 1.2; }
@@ -386,6 +390,12 @@ tbody tr:last-child td { border-bottom: 0; }
   .side nav { flex-direction: row; flex-wrap: wrap; }
   .side .team { display: none; }
   .side .me { margin-top: 0; flex: 1 1 100%; }
+  .sp { flex: 1 1 220px; }
+  .usr { margin-top: 0; margin-left: auto; flex: 1 1 220px; }
+  .usr-menu { bottom: auto; top: calc(100% + 6px); }
+  .topright { width: 100%; }
+  .side { overflow: visible; }
+  .kpis3 { grid-template-columns: 1fr; }
   .inbox { grid-template-columns: 1fr; grid-template-areas: "list" "conv" "details"; grid-template-rows: auto; }
   .list { max-height: 280px; border-right: 0; border-bottom: 1px solid var(--line); }
   .conv { height: 520px; }
@@ -402,26 +412,151 @@ html, body { margin: 0; }
 [hidden] { display: none !important; }
 .back { font-size: 13px; font-weight: 600; color: var(--brand); text-decoration: none; margin-bottom: 4px; }
 .back:hover { text-decoration: underline; }
+.topright { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.mockup-note { margin: 12px 4px 4px; font-size: 13px; color: var(--muted); text-align: center; }
+.mockup-note b { color: var(--ink); }
+.avatar.logo { width: 38px; height: 38px; padding: 4px; background: #FFFFFF; overflow: hidden; }
+.avatar.logo img { width: 30px; height: 30px; object-fit: contain; display: block; }
+.avatar.logo.custom { padding: 0; }
+.avatar.logo.custom img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.c-legal { flex: none; margin: 0; padding: 8px 14px 10px; border-top: 1px solid var(--line); background: var(--surface); font-size: 11.5px; line-height: 1.4; color: var(--muted); text-align: center; }
+.c-legal a { color: var(--brand); font-weight: 600; }
+.pane > * { flex: none; }
+.fine { font-size: 12.5px; color: var(--muted); }
+.kb-note { font-size: 13px; color: var(--muted); max-width: 70ch; }
+.toggle-link { border: 0; background: transparent; padding: 0; font: inherit; font-weight: 600; color: var(--brand); text-decoration: underline; }
+.topsel { border: 1px solid var(--line); border-radius: 9px; padding: 7px 10px; background: var(--surface); }
+.err { color: var(--bad); }
+.f .lbl { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.f .seg, .card > .seg { align-self: flex-start; }
+.btnrow { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.transcript .fb { padding-right: 18px; }
+.transcript .fb .why { margin-top: 6px; }
+.swrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.set-body .switch { width: 38px; height: 22px; border-radius: 11px; background: #6B7F93; flex: none; }
+.set-body .switch::after { width: 16px; height: 16px; }
+.set-body .switch[aria-checked="true"] { background: var(--ok); }
+.set-body .switch[aria-checked="true"]::after { left: 19px; }
+.set-body { display: flex; flex-direction: column; gap: 14px; }
+.ap-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 20px; align-items: start; }
+.ap-controls { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.pv { display: flex; flex-direction: column; gap: 10px; position: sticky; top: 0; min-width: 0; }
+.pv .pane-head h3 { margin-right: auto; font-size: 15px; }
+.pv-wrap { width: 315px; max-width: 100%; height: 442px; overflow: hidden; border-radius: 16px; box-shadow: var(--shadow); }
+.pv-inner { width: 370px; height: 520px; transform: scale(.85); transform-origin: top left; }
+.pv-card { display: flex; width: 100%; height: 100%; border: 1px solid var(--line); border-radius: var(--rad-panel, 16px); overflow: hidden; background: #FFFFFF; }
+.pv-launch { display: flex; }
+.pv-launch.right { justify-content: flex-end; }
+.pv-launch .launcher { position: static; box-shadow: var(--shadow); }
+.swatches { display: flex; gap: 10px; flex-wrap: wrap; }
+.swatch { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #6B7F93; padding: 0; }
+.swatch[aria-pressed="true"] { box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px var(--ink); }
+p.warn { color: #7A3500; background: #FFF3E0; border: 1px solid #E8B77A; border-radius: 8px; padding: 6px 10px; font-size: 12.5px; }
+.avi { display: inline-grid; place-items: center; min-width: 22px; height: 18px; font-weight: 700; font-size: 12.5px; }
+.avi svg { width: 18px; height: 18px; }
+.avrow { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.av-prev { width: 56px; height: 56px; border-radius: 50%; background: #FFFFFF; border: 1px solid var(--line); overflow: hidden; display: grid; place-items: center; flex: none; }
+.av-prev img { width: 44px; height: 44px; object-fit: contain; }
+.av-prev.custom img { width: 100%; height: 100%; object-fit: cover; }
+.drop { display: flex; flex-direction: column; align-items: center; gap: 4px; border: 2px dashed #6B7F93; border-radius: 12px; padding: 14px; text-align: center; background: var(--sunken); cursor: pointer; }
+.drop span { font-size: 13px; color: var(--muted); }
+.drop.over, .drop:focus-within { border-color: var(--brand); background: var(--brand-soft); }
+.avdrop { flex: 1 1 220px; }
+.codebox { border-radius: 10px; overflow: hidden; border: 1px solid #2B3F55; }
+.codehead { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #0F1D2C; color: #C3D1DE; padding: 8px 12px; font-size: 12.5px; }
+.code { margin: 0; background: var(--ink); color: #E6EAF0; padding: 12px 14px; font: 12.5px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+.meters { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.meter { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.mhead { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+.mhead span { color: var(--muted); }
+.mbar { height: 10px; background: #E6ECF2; border-radius: 5px; overflow: hidden; }
+.mbar i { display: block; height: 100%; background: #2A8A50; }
+.meter.warn .mbar i { background: #C96A00; }
+.meter.over .mbar i { background: #B4462B; }
+.mfoot { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 600; color: #1F6B3E; }
+.meter.warn .mfoot { color: #7A3500; }
+.meter.over .mfoot { color: #9A3A22; }
+.kpis3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.utable { width: 100%; border-collapse: collapse; font-size: 13px; }
+.utable th { text-align: left; font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding: 7px 8px; border-bottom: 1px solid var(--line); background: var(--sunken); white-space: nowrap; }
+.utable td { padding: 7px 8px; border-bottom: 1px solid #EEF2F6; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.utable .num { text-align: right; }
+.utable tbody tr { cursor: default; }
+.utable tbody tr:hover { background: transparent; }
+.utable tr.tot td { font-weight: 700; border-top: 1px solid var(--line); }
+.dtable summary { cursor: pointer; font-size: 13px; color: var(--brand); font-weight: 600; margin-top: 6px; }
+.dt-scroll { max-height: 240px; overflow: auto; margin-top: 8px; border: 1px solid var(--line); border-radius: 8px; }
+.sp { position: relative; }
+.sp-btn { display: flex; align-items: center; gap: 10px; width: 100%; border: 1px solid rgba(255, 255, 255, .16); background: rgba(255, 255, 255, .05); color: #FFFFFF; padding: 7px 9px; border-radius: 10px; text-align: left; }
+.sp-btn:hover, .sp-btn[aria-expanded="true"] { background: rgba(255, 255, 255, .11); }
+.sp-btn > svg { margin-left: auto; flex: none; color: #C3D1DE; }
+.sp-logo { width: 30px; height: 30px; border-radius: 50%; background: #FFFFFF; display: grid; place-items: center; flex: none; overflow: hidden; }
+.sp-logo img { width: 24px; height: 24px; object-fit: contain; display: block; }
+.sp-txt { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+.sp-txt b { font-family: var(--display); font-weight: 700; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sp-txt span { font-size: 12px; color: #B4C5D5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sp-menu { position: absolute; top: calc(100% + 6px); left: 0; right: 0; min-width: 220px; background: #FFFFFF; color: var(--ink); border-radius: 10px; box-shadow: var(--shadow-lg); padding: 4px; z-index: 30; }
+.sp-it { display: flex; align-items: center; gap: 10px; width: 100%; border: 0; background: transparent; padding: 7px 8px; border-radius: 8px; text-align: left; color: var(--ink); }
+.sp-it .sp-txt b { color: var(--ink); }
+.sp-it .sp-txt span { color: var(--muted); }
+.sp-it:hover, .sp-it:focus-visible { background: var(--sunken); }
+.sp-check { margin-left: auto; color: var(--brand); display: grid; flex: none; }
+.sp-check svg { width: 16px; height: 16px; }
+.sp-sep { height: 1px; background: var(--line); margin: 4px 2px; }
+.sp-add { cursor: not-allowed; }
+.sp-add .sp-txt b { color: #5A6E82; }
+.sp-plus { width: 30px; height: 30px; border-radius: 50%; border: 1px dashed #8A9BAC; display: grid; place-items: center; color: #5A6E82; flex: none; font-size: 18px; }
+.usr { position: relative; }
+.usr-btn { display: flex; align-items: center; gap: 10px; width: 100%; border: 0; background: transparent; color: #C3D1DE; padding: 8px; border-radius: 10px; text-align: left; }
+.usr-btn:hover, .usr-btn[aria-expanded="true"] { background: rgba(255, 255, 255, .09); }
+.usr-av { width: 34px; height: 34px; border-radius: 50%; background: #2E4A66; color: #FFFFFF; display: grid; place-items: center; font-weight: 700; font-size: 13px; flex: none; }
+.usr-txt { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+.usr-txt b { color: #FFFFFF; font-size: 13px; font-weight: 600; }
+.usr-role { font-size: 12px; color: #C3D1DE; }
+.usr-mail { font-size: 11.5px; color: #B4C5D5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.usr-menu { position: absolute; left: 0; right: 0; bottom: calc(100% + 6px); min-width: 200px; background: #FFFFFF; color: var(--ink); border-radius: 10px; box-shadow: var(--shadow-lg); padding: 4px; z-index: 30; display: flex; flex-direction: column; }
+.usr-it { border: 0; background: transparent; padding: 9px 10px; text-align: left; border-radius: 8px; color: var(--ink); font-weight: 500; }
+.usr-it:hover:not(:disabled), .usr-it:focus-visible { background: var(--sunken); }
+.usr-it:disabled { color: #5A6E82; cursor: not-allowed; }
+.signedout { grid-column: 1 / -1; display: grid; place-items: center; background: var(--sunken); padding: 24px; min-height: 420px; }
+.so-card { background: #FFFFFF; border: 1px solid var(--line); border-radius: 14px; padding: 32px 28px; max-width: 380px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; box-shadow: var(--shadow); }
+.so-card h2 { font-size: 20px; }
+.so-card p { color: var(--muted); font-size: 14px; }
+.so-ring { width: 52px; height: 52px; border-radius: 50%; background: var(--brand-soft); color: var(--brand-dark); display: grid; place-items: center; }
+@media (max-width: 1180px) {
+  .ap-grid { grid-template-columns: 1fr; }
+  .pv { position: static; }
+}
+@media (max-width: 760px) {
+  .search { max-width: none; }
+}
 </style>
 </head>
 <body>
 <div class="shell">
   <div class="topbar">
     <div class="proto-label">
-      <a class="back" href="./">&larr; Terug naar het voorstel</a>
-      <h1>Livechat voor Tabakstop</h1>
-      <span>Klikbaar prototype · alle gesprekken en cijfers zijn voorbeelden</span>
+      <a class="back" id="proto-back" href="./">&larr; <span id="proto-back-t">Terug naar het voorstel</span></a>
+      <h1 id="proto-h1">Livechat voor Tabakstop</h1>
+      <span id="proto-sub">Klikbaar prototype · alle gesprekken en cijfers zijn voorbeelden</span>
     </div>
-    <div class="tabs" role="tablist" aria-label="Onderdeel">
-      <button role="tab" id="tab-embed" aria-selected="true" data-view="embed">Ingesloten op een pagina</button>
-      <button role="tab" id="tab-widget" aria-selected="false" data-view="widget">Chatknop op de site</button>
-      <button role="tab" id="tab-beheer" aria-selected="false" data-view="beheer">Beheer voor medewerkers</button>
+    <div class="topright">
+      <div class="seg" id="lang-seg" role="group" aria-label="Taal">
+        <button data-lang="nl" aria-pressed="true">NL</button>
+        <button data-lang="fr" aria-pressed="false">FR</button>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Onderdeel">
+        <button role="tab" id="tab-embed" aria-selected="true" data-view="embed">Ingesloten op een pagina</button>
+        <button role="tab" id="tab-widget" aria-selected="false" data-view="widget">Chatknop op de site</button>
+        <button role="tab" id="tab-beheer" aria-selected="false" data-view="beheer">Beheer voor medewerkers</button>
+      </div>
     </div>
   </div>
 
   <div class="controls" id="visitor-controls">
     <div class="grp">
-      <span class="lbl">Stap</span>
+      <span class="lbl" id="lbl-step">Stap</span>
       <div class="seg" id="state-seg">
         <button data-state="form" aria-pressed="true">Formulier</button>
         <button data-state="chat" aria-pressed="false">Gesprek</button>
@@ -429,35 +564,28 @@ html, body { margin: 0; }
         <button data-state="offline" aria-pressed="false">Niemand beschikbaar</button>
       </div>
     </div>
-    <div class="grp">
-      <span class="lbl">Taal</span>
-      <div class="seg" id="lang-seg">
-        <button data-lang="nl" aria-pressed="true">NL</button>
-        <button data-lang="fr" aria-pressed="false">FR</button>
-      </div>
-    </div>
-    <span class="hint" id="controls-hint">Vul het formulier in en start een gesprek. De medewerker antwoordt automatisch.</span>
+    <span class="hint" id="controls-hint"></span>
   </div>
 
   <section id="view-embed" role="tabpanel" aria-labelledby="tab-embed">
     <div class="browser">
-      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">tabakstop.be/pagina/chat</div></div>
+      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url" data-h="embedUrl">tabakstop.be/pagina/chat</div></div>
       <div class="site embed-site">
         <div class="site-nav">
-          <div class="wordmark">Tabakstop <span>· stoppen is mogelijk</span></div>
-          <nav><span>Ik wil stoppen</span><span>Ik ben gestopt</span><span>Ik help iemand</span><span>Info</span></nav>
+          <div class="wordmark" data-h="brand"></div>
+          <nav data-h="nav"></nav>
         </div>
         <div class="page-wrap">
           <div class="page-copy">
-            <span class="crumb">Home › Contact › Chat</span>
-            <h2>Chat met een tabakoloog</h2>
-            <p>Stel je vraag over stoppen met roken rechtstreeks aan een tabakoloog. Je hoeft je naam niet te geven: een voornaam of bijnaam volstaat.</p>
-            <div class="hours" aria-label="Openingsuren van de chat">
-              <div class="today"><span>Vandaag</span><span>9:00 – 17:00 · nu open</span></div>
-              <div><span>Maandag – vrijdag</span><span>9:00 – 17:00</span></div>
-              <div><span>Zaterdag en zondag</span><span>gesloten</span></div>
+            <span class="crumb" data-h="crumb"></span>
+            <h2 data-h="embedH"></h2>
+            <p data-h="embedP1"></p>
+            <div class="hours" id="hours-table">
+              <div class="today"><span data-h="hToday"></span><span data-h="hTodayV"></span></div>
+              <div><span data-h="hWeek"></span><span data-h="hWeekV"></span></div>
+              <div><span data-h="hWe"></span><span data-h="hWeV"></span></div>
             </div>
-            <p>Buiten de openingsuren kun je een bericht achterlaten. We antwoorden per e-mail.</p>
+            <p data-h="embedP2"></p>
           </div>
           <div class="embed-card" id="embed-mount"></div>
         </div>
@@ -467,20 +595,20 @@ html, body { margin: 0; }
 
   <section id="view-widget" role="tabpanel" aria-labelledby="tab-widget" hidden>
     <div class="browser">
-      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">tabakstop.be/pagina/stoppen-met-roken</div></div>
+      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url" data-h="widgetUrl">tabakstop.be/pagina/stoppen-met-roken</div></div>
       <div class="site" id="site-widget">
         <div class="site-nav">
-          <div class="wordmark">Tabakstop <span>· stoppen is mogelijk</span></div>
-          <nav><span>Ik wil stoppen</span><span>Ik ben gestopt</span><span>Ik help iemand</span><span>Info</span></nav>
+          <div class="wordmark" data-h="brand"></div>
+          <nav data-h="nav"></nav>
         </div>
         <div class="site-hero">
-          <h2>Stoppen met roken, je hoeft het niet alleen te doen</h2>
-          <p>Een tabakoloog helpt je een plan te maken dat bij jou past. Heb je een vraag? Start rechtsonder een gesprek.</p>
+          <h2 data-h="heroH"></h2>
+          <p data-h="heroP"></p>
         </div>
         <div class="site-cards">
-          <div class="site-card c1"><b>Ik wil stoppen</b><span>Zo begin je eraan</span></div>
-          <div class="site-card c2"><b>Hulp bij stoppen</b><span>Begeleiding door een tabakoloog</span></div>
-          <div class="site-card c3"><b>Brochures</b><span>Downloaden of bestellen</span></div>
+          <div class="site-card c1"><b data-h="c1b"></b><span data-h="c1s"></span></div>
+          <div class="site-card c2"><b data-h="c2b"></b><span data-h="c2s"></span></div>
+          <div class="site-card c3"><b data-h="c3b"></b><span data-h="c3s"></span></div>
         </div>
         <div class="skel"><i style="width:92%"></i><i style="width:78%"></i><i style="width:85%"></i><i style="width:60%"></i></div>
         <div id="widget-mount"></div>
@@ -494,6 +622,7 @@ html, body { margin: 0; }
       <div class="admin" id="admin"></div>
     </div>
   </section>
+  <p class="mockup-note" id="mockup-note" role="note"><b>Mockup.</b> Dit is een ontwerp ter illustratie en nog niet definitief. Details kunnen nog veranderen.</p>
 </div>
 
 <script>
@@ -502,6 +631,9 @@ html, body { margin: 0; }
 
   var ICON = {
     chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12Z"/></svg>',
+    dots: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01" stroke-width="2.6"/></svg>',
+    square: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/></svg>',
+    help: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1.1.9-1.1 1.7M12 17h.01"/></svg>',
     close: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
     minus: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 12h12"/></svg>',
     send: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>',
@@ -509,8 +641,12 @@ html, body { margin: 0; }
     inbox: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12Z"/></svg>',
     archive: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1.5"/><path d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M10 13h4"/></svg>',
     stats: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+    usage: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18a8 8 0 1 1 16 0"/><path d="m12 18 4-5"/></svg>',
+    sliders: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.5"/><circle cx="8" cy="17" r="2.5"/></svg>',
     search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
-    bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 1 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>'
+    bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 1 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>',
+    chev: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>',
+    lock: '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>'
   };
 
   function esc(s) {
@@ -518,21 +654,91 @@ html, body { margin: 0; }
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  function validEmail(e) { return /^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(e); }
+  function validUrl(u) { return /^https?:\/\/\S+\.\S+$/i.test(u); }
+  function download(name, text, type) {
+    var blob = new Blob([text], { type: type }), url = URL.createObjectURL(blob), el = document.createElement('a');
+    el.href = url; el.download = name; document.body.appendChild(el); el.click(); document.body.removeChild(el);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
+  /* ---------- Language ---------- */
+  function initLang() {
+    var m = /[?&]lang=(nl|fr)\b/.exec(location.search);
+    if (m) { try { localStorage.setItem('stk-lang', m[1]); } catch (err) {} return m[1]; }
+    try { var v = localStorage.getItem('stk-lang'); if (v === 'nl' || v === 'fr') return v; } catch (err) {}
+    return 'nl';
+  }
+  var lang = initLang();
+
+  /* Prototype chrome (outside the product itself) */
+  var PC = {
+    nl: {
+      back: 'Terug naar het voorstel', title: 'Livechat voor Tabakstop',
+      sub: 'Klikbaar prototype · alle gesprekken en cijfers zijn voorbeelden',
+      tabsLabel: 'Onderdeel', tabEmbed: 'Ingesloten op een pagina', tabWidget: 'Chatknop op de site', tabAdmin: 'Beheer voor medewerkers',
+      langLabel: 'Taal', lblStep: 'Stap', stForm: 'Formulier', stChat: 'Gesprek', stRate: 'Tevredenheid', stOff: 'Niemand beschikbaar',
+      note: '<b>Mockup.</b> Dit is een ontwerp ter illustratie en nog niet definitief. Details kunnen nog veranderen.'
+    },
+    fr: {
+      back: 'Retour à la proposition', title: 'Chat en direct pour Tabacstop',
+      sub: 'Prototype cliquable · toutes les conversations et tous les chiffres sont des exemples',
+      tabsLabel: 'Section', tabEmbed: 'Intégré dans une page', tabWidget: 'Bouton de chat sur le site', tabAdmin: 'Administration pour les collaborateurs',
+      langLabel: 'Langue', lblStep: 'Étape', stForm: 'Formulaire', stChat: 'Conversation', stRate: 'Satisfaction', stOff: 'Personne de disponible',
+      note: '<b>Maquette.</b> Ceci est une conception à titre d’illustration et n’est pas encore définitive. Des détails peuvent encore changer.'
+    }
+  };
+
+  /* Mocked host pages around the widget */
+  var HOST = {
+    nl: {
+      embedUrl: 'tabakstop.be/pagina/chat', widgetUrl: 'tabakstop.be/pagina/stoppen-met-roken',
+      brand: 'Tabakstop <span>· stoppen is mogelijk</span>',
+      nav: '<span>Ik wil stoppen</span><span>Ik ben gestopt</span><span>Ik help iemand</span><span>Info</span>',
+      crumb: 'Home › Contact › Chat', embedH: 'Chat met een tabakoloog',
+      embedP1: 'Stel je vraag over stoppen met roken rechtstreeks aan een tabakoloog. Je hoeft je naam niet te geven: een voornaam of bijnaam volstaat.',
+      hToday: 'Vandaag', hTodayV: '9:00 – 17:00 · nu open', hWeek: 'Maandag – vrijdag', hWeekV: '9:00 – 17:00', hWe: 'Zaterdag en zondag', hWeV: 'gesloten',
+      embedP2: 'Buiten de openingsuren kun je een bericht achterlaten. We antwoorden per e-mail.',
+      heroH: 'Stoppen met roken, je hoeft het niet alleen te doen',
+      heroP: 'Een tabakoloog helpt je een plan te maken dat bij jou past. Heb je een vraag? Gebruik de chatknop.',
+      c1b: 'Ik wil stoppen', c1s: 'Zo begin je eraan', c2b: 'Hulp bij stoppen', c2s: 'Begeleiding door een tabakoloog', c3b: 'Brochures', c3s: 'Downloaden of bestellen'
+    },
+    fr: {
+      embedUrl: 'tabacstop.be/fr/page/chat', widgetUrl: 'tabacstop.be/fr/page/arreter-de-fumer',
+      brand: 'Tabacstop <span>· arrêter est possible</span>',
+      nav: '<span>Je veux arrêter</span><span>J’ai arrêté</span><span>J’aide quelqu’un</span><span>Infos</span>',
+      crumb: 'Accueil › Contact › Chat', embedH: 'Chattez avec un tabacologue',
+      embedP1: 'Posez votre question sur l’arrêt du tabac directement à un tabacologue. Vous n’avez pas besoin de donner votre nom : un prénom ou un pseudo suffit.',
+      hToday: 'Aujourd’hui', hTodayV: '9 h – 17 h · ouvert maintenant', hWeek: 'Lundi – vendredi', hWeekV: '9 h – 17 h', hWe: 'Samedi et dimanche', hWeV: 'fermé',
+      embedP2: 'En dehors des heures d’ouverture, vous pouvez laisser un message. Nous répondons par e-mail.',
+      heroH: 'Arrêter de fumer, vous n’avez pas à le faire seul(e)',
+      heroP: 'Un tabacologue vous aide à établir un plan qui vous convient. Une question ? Utilisez le bouton de chat.',
+      c1b: 'Je veux arrêter', c1s: 'Comment commencer', c2b: 'Aide pour arrêter', c2s: 'Accompagnement par un tabacologue', c3b: 'Brochures', c3s: 'Télécharger ou commander'
+    }
+  };
 
   /* ---------- Visitor strings ---------- */
   var T = {
     nl: {
       launcher: 'Chat met ons',
+      closeChat: 'Chat sluiten',
+      minimize: 'Chatvenster verkleinen',
+      sendAria: 'Versturen',
+      typingAria: 'aan het typen',
       title: 'Chat met een tabakoloog',
       online: 'Een tabakoloog is beschikbaar',
       offline: 'Nu niet bemand',
       role: 'Tabakoloog',
       intro: 'Stel je vraag anoniem. Een tabakoloog antwoordt meestal binnen een paar minuten.',
       name: 'Voornaam of bijnaam',
+      nameOpt: 'Voornaam of bijnaam (optioneel)',
       topic: 'Waarover wil je praten?',
       topics: ['Ik wil stoppen met roken', 'Ik ben gestopt en heb het moeilijk', 'Ik wil iemand helpen stoppen', 'Iets anders'],
       email: 'E-mailadres (optioneel)',
+      emailMust: 'E-mailadres',
       emailPh: 'naam@voorbeeld.be',
+      emailBad: 'Vul een geldig e-mailadres in.',
       consent: 'Ik ga akkoord met de privacyverklaring.',
       start: 'Start gesprek',
       required: 'Vul een voornaam of bijnaam in.',
@@ -557,21 +763,25 @@ html, body { margin: 0; }
       again: 'Nieuw gesprek',
       offTitle: 'Momenteel is niemand beschikbaar',
       offBody: 'De chat is bemand op werkdagen van 9 tot 17 uur. Laat een bericht achter, dan antwoorden we per e-mail.',
+      hoursLbl: 'Openingsuren',
+      hours: 'Maandag – vrijdag, 9:00 – 17:00',
       emailReq: 'E-mailadres',
       message: 'Je bericht',
       sendMsg: 'Bericht versturen',
       offErr: 'Vul je e-mailadres en je bericht in.',
       sentTitle: 'Bericht ontvangen',
       sentBody: 'We antwoorden binnen twee werkdagen per e-mail.',
-      operator: 'Lies',
-      greet: function (n) { return 'Hallo ' + n + ', ik ben Lies, tabakoloog bij Tabakstop. Fijn dat je contact opneemt. Waarmee kan ik je helpen?'; },
+      notice: 'Vertrouwelijk gesprek. Deel geen gevoelige gegevens zoals je rijksregisternummer.',
+      privacyLink: 'Privacybeleid',
+      operator: 'Anna',
+      greet: function (n) { return 'Hallo' + (n ? ' ' + n : '') + ', ik ben Anna, tabakoloog bij Tabakstop. Fijn dat je contact opneemt. Waarmee kan ik je helpen?'; },
       replies: [
         'Dat begrijp ik goed. Hoe lang rook je al, en ongeveer hoeveel per dag?',
         'Dank je om dat te delen. Veel mensen hebben meer dan één poging nodig, dat is heel normaal.',
         'Een tabakoloog kan je stap voor stap begeleiden. Zal ik uitleggen hoe dat werkt?'
       ],
       sample: [
-        { from: 'op', text: 'Hallo Sarah, ik ben Lies, tabakoloog bij Tabakstop. Waarmee kan ik je helpen?' },
+        { from: 'op', text: 'Hallo Sarah, ik ben Anna, tabakoloog bij Tabakstop. Waarmee kan ik je helpen?' },
         { from: 'me', text: 'Ik wil stoppen, maar ik weet niet goed waar ik moet beginnen.' },
         { from: 'op', text: 'Goed dat je de stap zet. Rook je al lang?' }
       ],
@@ -584,16 +794,23 @@ html, body { margin: 0; }
     },
     fr: {
       launcher: 'Chattez avec nous',
+      closeChat: 'Fermer le chat',
+      minimize: 'Réduire la fenêtre de chat',
+      sendAria: 'Envoyer',
+      typingAria: 'en train d’écrire',
       title: 'Chattez avec un tabacologue',
       online: 'Un tabacologue est disponible',
       offline: 'Hors ligne',
       role: 'Tabacologue',
       intro: 'Posez votre question de façon anonyme. Un tabacologue répond généralement en quelques minutes.',
       name: 'Prénom ou pseudo',
+      nameOpt: 'Prénom ou pseudo (facultatif)',
       topic: 'De quoi voulez-vous parler ?',
       topics: ['Je veux arrêter de fumer', "J'ai arrêté et c'est difficile", "Je veux aider quelqu'un à arrêter", 'Autre chose'],
       email: 'Adresse e-mail (facultatif)',
+      emailMust: 'Adresse e-mail',
       emailPh: 'nom@exemple.be',
+      emailBad: 'Indiquez une adresse e-mail valide.',
       consent: "J'accepte la déclaration de confidentialité.",
       start: 'Commencer la conversation',
       required: 'Indiquez un prénom ou un pseudo.',
@@ -618,14 +835,18 @@ html, body { margin: 0; }
       again: 'Nouvelle conversation',
       offTitle: "Personne n'est disponible pour le moment",
       offBody: 'Le chat est ouvert les jours ouvrables de 9 h à 17 h. Laissez un message, nous vous répondrons par e-mail.',
+      hoursLbl: 'Heures d’ouverture',
+      hours: 'Lundi – vendredi, 9 h – 17 h',
       emailReq: 'Adresse e-mail',
       message: 'Votre message',
       sendMsg: 'Envoyer le message',
       offErr: 'Indiquez votre adresse e-mail et votre message.',
       sentTitle: 'Message reçu',
       sentBody: 'Nous vous répondons par e-mail dans les deux jours ouvrables.',
+      notice: 'Conversation confidentielle. Ne partagez pas de données sensibles comme votre numéro de registre national.',
+      privacyLink: 'Politique de confidentialité',
       operator: 'Sophie',
-      greet: function (n) { return 'Bonjour ' + n + ", je suis Sophie, tabacologue chez Tabacstop. Merci de nous contacter. Comment puis-je vous aider ?"; },
+      greet: function (n) { return 'Bonjour' + (n ? ' ' + n : '') + ", je suis Sophie, tabacologue chez Tabacstop. Merci de nous contacter. Comment puis-je vous aider ?"; },
       replies: [
         'Je comprends tout à fait. Depuis combien de temps fumez-vous, et combien par jour environ ?',
         "Merci de le partager. Beaucoup de personnes ont besoin de plusieurs tentatives, c'est tout à fait normal.",
@@ -644,16 +865,66 @@ html, body { margin: 0; }
       }
     }
   };
-
-  var lang = 'nl';
   function L() { return T[lang]; }
+
+  /* ---------- Settings state (sample, not saved) ---------- */
+  var RADII = {
+    none: ['0px', '0px', '0px', '0px', '0px', '0px', '0px'],
+    mid: ['16px', '10px', '14px', '4px', '9px', '999px', '8px'],
+    round: ['24px', '999px', '20px', '6px', '14px', '999px', '999px']
+  };
+  function defApp() {
+    return { color: '', radius: 'mid', pos: 'right', icon: 'chat', label: { nl: T.nl.launcher, fr: T.fr.launcher }, welcome: { nl: '', fr: '' }, avatarImg: '' };
+  }
+  function defChat() {
+    return { nameReq: true, email: 'optional', topic: true, survey: true, mailTo: 'info@tabakstop.be', offText: { nl: '', fr: '' }, hours: { nl: '', fr: '' } };
+  }
+  function defPriv() { return { retention: '90', mask: true, policy: '', notice: { nl: '', fr: '' } }; }
+  var APP = defApp(), CHAT = defChat(), PRIV = defPriv();
+  var BRAND = '#2B6490';
+
+  function hexNorm(h) {
+    h = String(h).trim().replace(/^#/, '');
+    if (/^[0-9a-f]{3}$/i.test(h)) h = h.replace(/(.)/g, '$1$1');
+    return /^[0-9a-f]{6}$/i.test(h) ? '#' + h.toUpperCase() : null;
+  }
+  function rgb(h) { return [1, 3, 5].map(function (i) { return parseInt(h.substr(i, 2), 16); }); }
+  function relLum(h) {
+    var c = rgb(h).map(function (v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); });
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  }
+  function contrast(a, b) { var x = relLum(a), y = relLum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+  function darken(h, f) { return '#' + rgb(h).map(function (v) { return ('0' + Math.round(v * f).toString(16)).slice(-2); }).join(''); }
+  function themeFor(hex) {
+    var w = contrast(hex, '#FFFFFF'), n = contrast(hex, '#16293D'), ratio = Math.max(w, n);
+    var bg = hex, ink = w >= n ? '#FFFFFF' : '#16293D';
+    if (ratio < 4.5) {
+      var f = 1;
+      while (f > 0.2 && contrast(bg, '#FFFFFF') < 4.5) { f -= 0.04; bg = darken(hex, f); }
+      ink = '#FFFFFF';
+    }
+    return { bg: bg, ink: ink, ratio: ratio, low: ratio < 4.5 };
+  }
+  function appearanceStyle() {
+    var r = RADII[APP.radius], s = '';
+    if (APP.color) {
+      var t = themeFor(APP.color);
+      s += '--brand:' + t.bg + ';--brand-dark:' + darken(t.bg, 0.88) + ';--on-brand:' + t.ink + ';';
+    }
+    return s + '--rad-panel:' + r[0] + ';--rad-btn:' + r[1] + ';--rad-bub:' + r[2] + ';--rad-tail:' + r[3] + ';--rad-field:' + r[4] + ';--rad-launch:' + r[5] + ';--rad-btn-s:' + r[6] + ';';
+  }
+  function logoSrc() { return APP.avatarImg || 'img/tabakstop.png'; }
+  function avatarHtml() {
+    return '<div class="avatar logo' + (APP.avatarImg ? ' custom' : '') + '"><img src="' + esc(logoSrc()) + '" alt="" width="30" height="30"></div>';
+  }
+  function launcherLabel() { return (APP.label[lang] || '').trim(); }
 
   /* ---------- Visitor chat component ---------- */
   function Chat(mount, mode) {
     var s = {
       state: 'form', msgs: [], name: '', topic: 0, email: '', consent: false,
       draft: '', typing: false, rating: 0, comment: '', confirm: false, err: '',
-      replyIdx: 0, offEmail: '', offMsg: '', open: mode === 'embed'
+      replyIdx: 0, offEmail: '', offMsg: '', open: mode !== 'widget'
     };
     var timers = [];
     function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
@@ -662,23 +933,32 @@ html, body { margin: 0; }
     function head() {
       var l = L();
       var isChat = s.state === 'chat';
+      var off = s.state === 'offline' || s.state === 'offsent';
       var who = isChat
-        ? '<div class="avatar">' + esc(l.operator.charAt(0)) + '</div><div class="who"><b>' + esc(l.operator) + '</b><span>' + esc(l.role) + '</span></div>'
-        : '<div class="who"><b>' + esc(l.title) + '</b><span><i class="' + (s.state === 'offline' || s.state === 'offsent' ? 'off' : '') + '"></i>' + esc(s.state === 'offline' || s.state === 'offsent' ? l.offline : l.online) + '</span></div>';
+        ? '<div class="who"><b>' + esc(l.operator) + '</b><span>' + esc(l.role) + '</span></div>'
+        : '<div class="who"><b>' + esc(l.title) + '</b><span><i class="' + (off ? 'off' : '') + '"></i>' + esc(off ? l.offline : l.online) + '</span></div>';
       var endBtn = isChat ? '<button class="hbtn" data-act="end">' + esc(l.end) + '</button>' : '';
-      var minBtn = mode === 'widget' ? '<button class="icon-btn" data-act="min" aria-label="Chatvenster verkleinen">' + ICON.minus + '</button>' : '';
-      return '<div class="c-head">' + who + endBtn + minBtn + '</div>';
+      var minBtn = mode === 'widget' ? '<button class="icon-btn" data-act="min" aria-label="' + esc(l.minimize) + '">' + ICON.minus + '</button>' : '';
+      return '<div class="c-head">' + avatarHtml() + who + endBtn + minBtn + '</div>';
+    }
+
+    function legal() {
+      var l = L(), n = (PRIV.notice[lang] || '').trim() || l.notice, url = PRIV.policy.trim();
+      var link = validUrl(url) ? ' <a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(l.privacyLink) + '</a>' : '';
+      return '<p class="c-legal">' + esc(n) + link + '</p>';
     }
 
     function body() {
       var l = L();
       if (s.state === 'form') {
         var opts = l.topics.map(function (t, i) { return '<option value="' + i + '"' + (i === s.topic ? ' selected' : '') + '>' + esc(t) + '</option>'; }).join('');
+        var intro = (APP.welcome[lang] || '').trim() || l.intro;
+        var emailLbl = CHAT.email === 'required' ? l.emailMust : l.email;
         return '<div class="c-body"><form class="stack" data-form="start" novalidate>' +
-          '<p class="intro">' + esc(l.intro) + '</p>' +
-          '<div class="f"><label for="' + mode + '-name">' + esc(l.name) + '</label><input id="' + mode + '-name" data-bind="name" value="' + esc(s.name) + '" autocomplete="off"></div>' +
-          '<div class="f"><label for="' + mode + '-topic">' + esc(l.topic) + '</label><select id="' + mode + '-topic" data-bind="topic">' + opts + '</select></div>' +
-          '<div class="f"><label for="' + mode + '-email">' + esc(l.email) + '</label><input id="' + mode + '-email" type="email" data-bind="email" placeholder="' + esc(l.emailPh) + '" value="' + esc(s.email) + '"></div>' +
+          '<p class="intro">' + esc(intro) + '</p>' +
+          '<div class="f"><label for="' + mode + '-name">' + esc(CHAT.nameReq ? l.name : l.nameOpt) + '</label><input id="' + mode + '-name" data-bind="name" value="' + esc(s.name) + '" autocomplete="off"></div>' +
+          (CHAT.topic ? '<div class="f"><label for="' + mode + '-topic">' + esc(l.topic) + '</label><select id="' + mode + '-topic" data-bind="topic">' + opts + '</select></div>' : '') +
+          '<div class="f"><label for="' + mode + '-email">' + esc(emailLbl) + '</label><input id="' + mode + '-email" type="email" data-bind="email" placeholder="' + esc(l.emailPh) + '" value="' + esc(s.email) + '"></div>' +
           '<label class="check"><input type="checkbox" id="' + mode + '-consent" data-bind="consent"' + (s.consent ? ' checked' : '') + '><span>' + esc(l.consent) + '</span></label>' +
           (s.err ? '<p class="err" role="alert">' + esc(s.err) + '</p>' : '') +
           '<button class="btn" type="submit">' + esc(l.start) + '</button>' +
@@ -690,10 +970,10 @@ html, body { margin: 0; }
           if (m.from === 'op') return '<div class="msg them"><small>' + esc(L().operator) + '</small>' + esc(m.text) + '</div>';
           return '<div class="msg me">' + esc(m.text) + '</div>';
         }).join('');
-        if (s.typing) h += '<div class="typing" aria-label="aan het typen"><i></i><i></i><i></i></div>';
+        if (s.typing) h += '<div class="typing" aria-label="' + esc(l.typingAria) + '"><i></i><i></i><i></i></div>';
         return '<div class="c-body" data-scroll>' + h + '</div>' +
           '<form class="c-foot" data-form="send"><textarea id="' + mode + '-draft" rows="1" data-bind="draft" placeholder="' + esc(l.placeholder) + '" aria-label="' + esc(l.placeholder) + '">' + esc(s.draft) + '</textarea>' +
-          '<button class="send" type="submit" aria-label="Versturen">' + ICON.send + '</button></form>';
+          '<button class="send" type="submit" aria-label="' + esc(l.sendAria) + '">' + ICON.send + '</button></form>';
       }
       if (s.state === 'rate') {
         var btns = [1, 2, 3, 4, 5].map(function (n) { return '<button type="button" data-rate="' + n + '" aria-pressed="' + (s.rating === n) + '">' + n + '</button>'; }).join('');
@@ -711,8 +991,9 @@ html, body { margin: 0; }
         return '<div class="c-body"><div class="done"><div class="ring">' + ICON.check + '</div><b>' + esc(l.thanks) + '</b><p>' + esc(l.thanksBody) + '</p><button class="btn small" data-act="again">' + esc(l.again) + '</button></div></div>';
       }
       if (s.state === 'offline') {
+        var offText = (CHAT.offText[lang] || '').trim() || l.offBody, hrs = (CHAT.hours[lang] || '').trim() || l.hours;
         return '<div class="c-body"><form class="stack" data-form="offline" novalidate>' +
-          '<div class="offline-note"><b>' + esc(l.offTitle) + '</b>' + esc(l.offBody) + '</div>' +
+          '<div class="offline-note"><b>' + esc(l.offTitle) + '</b>' + esc(offText) + '<span class="hrs">' + esc(l.hoursLbl + ': ' + hrs) + '</span></div>' +
           '<div class="f"><label for="' + mode + '-offemail">' + esc(l.emailReq) + '</label><input id="' + mode + '-offemail" type="email" data-bind="offEmail" placeholder="' + esc(l.emailPh) + '" value="' + esc(s.offEmail) + '"></div>' +
           '<div class="f"><label for="' + mode + '-offmsg">' + esc(l.message) + '</label><textarea id="' + mode + '-offmsg" rows="5" data-bind="offMsg">' + esc(s.offMsg) + '</textarea></div>' +
           (s.err ? '<p class="err" role="alert">' + esc(s.err) + '</p>' : '') +
@@ -732,12 +1013,14 @@ html, body { margin: 0; }
     function render(focusDraft) {
       var l = L();
       var html = '';
+      mount.setAttribute('style', appearanceStyle());
       if (mode === 'widget') {
-        if (s.open) html += '<div class="panel"><div class="chat">' + head() + body() + dialog() + '</div></div>';
-        html += '<button class="launcher' + (s.open ? ' round' : '') + '" data-act="toggle" aria-label="' + esc(s.open ? 'Chat sluiten' : l.launcher) + '">' +
-          (s.open ? ICON.close : ICON.chat + '<span>' + esc(l.launcher) + '</span>') + '</button>';
+        var lab = launcherLabel();
+        if (s.open) html += '<div class="panel' + (APP.pos === 'left' ? ' left' : '') + '"><div class="chat">' + head() + body() + legal() + dialog() + '</div></div>';
+        html += '<button class="launcher' + (s.open || !lab ? ' round' : '') + (APP.pos === 'left' ? ' left' : '') + '" data-act="toggle" aria-label="' + esc(s.open ? l.closeChat : (lab || l.launcher)) + '">' +
+          (s.open ? ICON.close : (ICON[APP.icon] || ICON.chat) + (lab ? '<span>' + esc(lab) + '</span>' : '')) + '</button>';
       } else {
-        html = '<div class="chat">' + head() + body() + dialog() + '</div>';
+        html = '<div class="chat">' + head() + body() + legal() + dialog() + '</div>';
       }
       mount.innerHTML = html;
       var sc = mount.querySelector('[data-scroll]');
@@ -760,7 +1043,7 @@ html, body { margin: 0; }
       var l = L();
       s.state = 'chat'; s.err = ''; s.msgs = [];
       render(true);
-      later(function () { s.msgs.push({ from: 'sys', text: l.joined(l.operator) }); render(true); }, 600);
+      later(function () { s.msgs.push({ from: 'sys', text: L().joined(L().operator) }); render(true); }, 600);
       later(function () { s.typing = true; render(true); }, 1200);
       later(function () { s.typing = false; s.msgs.push({ from: 'op', text: L().greet(s.name.trim()) }); render(true); }, 2600);
     }
@@ -788,7 +1071,9 @@ html, body { margin: 0; }
       var f = e.target.getAttribute('data-form');
       var l = L();
       if (f === 'start') {
-        if (!s.name.trim()) { s.err = l.required; render(); mount.querySelector('[data-bind="name"]').focus(); return; }
+        var em = s.email.trim();
+        if (CHAT.nameReq && !s.name.trim()) { s.err = l.required; render(); mount.querySelector('[data-bind="name"]').focus(); return; }
+        if ((CHAT.email === 'required' && !em) || (em && !validEmail(em))) { s.err = l.emailBad; render(); mount.querySelector('[data-bind="email"]').focus(); return; }
         if (!s.consent) { s.err = l.consentReq; render(); return; }
         startChat();
       } else if (f === 'send') {
@@ -801,7 +1086,7 @@ html, body { margin: 0; }
         if (!s.rating) { s.err = l.rateReq; render(); return; }
         s.err = ''; s.state = 'thanks'; render();
       } else if (f === 'offline') {
-        if (!/\S+@\S+\.\S+/.test(s.offEmail) || !s.offMsg.trim()) { s.err = l.offErr; render(); return; }
+        if (!validEmail(s.offEmail.trim()) || !s.offMsg.trim()) { s.err = l.offErr; render(); return; }
         s.err = ''; s.state = 'offsent'; render();
       }
     });
@@ -815,7 +1100,7 @@ html, body { margin: 0; }
       else if (act === 'min') { s.open = false; render(); }
       else if (act === 'end') { s.confirm = true; render(); var y = mount.querySelector('[data-act="endyes"]'); if (y) y.focus(); }
       else if (act === 'endno') { s.confirm = false; render(true); }
-      else if (act === 'endyes') { clearTimers(); s.confirm = false; s.typing = false; s.state = 'rate'; s.rating = 0; s.err = ''; render(); syncControls(); }
+      else if (act === 'endyes') { clearTimers(); s.confirm = false; s.typing = false; s.state = CHAT.survey ? 'rate' : 'thanks'; s.rating = 0; s.err = ''; render(); syncControls(); }
       else if (act === 'skip') { s.state = 'thanks'; s.err = ''; render(); }
       else if (act === 'again') { s.state = 'form'; s.msgs = []; s.rating = 0; s.comment = ''; render(); syncControls(); }
     });
@@ -826,6 +1111,7 @@ html, body { margin: 0; }
         clearTimers();
         s.confirm = false; s.typing = false; s.err = '';
         if (mode === 'widget') s.open = true;
+        if (st === 'rate' && !CHAT.survey) st = 'thanks';
         if (st === 'chat') {
           if (!s.name.trim()) s.name = 'Sarah';
           s.msgs = L().sample.map(function (m) { return { from: m.from, text: m.text }; });
@@ -840,8 +1126,13 @@ html, body { margin: 0; }
 
   var widget = Chat(document.getElementById('widget-mount'), 'widget');
   var embed = Chat(document.getElementById('embed-mount'), 'embed');
+  var previewMount = document.createElement('div');
+  previewMount.className = 'pv-card';
+  var preview = Chat(previewMount, 'preview');
   widget.setState('form');
   embed.render();
+  preview.render();
+  function refreshChats() { widget.render(); embed.render(); preview.render(); }
 
   /* ---------- Views + controls ---------- */
   var view = 'embed';
@@ -857,10 +1148,39 @@ html, body { margin: 0; }
     var b = e.target.closest('button'); if (!b) return;
     active().setState(b.getAttribute('data-state')); syncControls();
   });
+
+  function applyChrome() {
+    var c = PC[lang], h = HOST[lang], el = function (id) { return document.getElementById(id); };
+    document.documentElement.lang = lang;
+    el('proto-back-t').textContent = c.back;
+    el('proto-back').setAttribute('href', './?lang=' + lang);
+    el('proto-h1').textContent = c.title;
+    el('proto-sub').textContent = c.sub;
+    el('tab-embed').textContent = c.tabEmbed; el('tab-widget').textContent = c.tabWidget; el('tab-beheer').textContent = c.tabAdmin;
+    document.querySelector('.tabs').setAttribute('aria-label', c.tabsLabel);
+    el('lang-seg').setAttribute('aria-label', c.langLabel);
+    el('lbl-step').textContent = c.lblStep;
+    var seg = el('state-seg');
+    seg.querySelector('[data-state="form"]').textContent = c.stForm;
+    seg.querySelector('[data-state="chat"]').textContent = c.stChat;
+    seg.querySelector('[data-state="rate"]').textContent = c.stRate;
+    seg.querySelector('[data-state="offline"]').textContent = c.stOff;
+    el('mockup-note').innerHTML = c.note;
+    [].forEach.call(document.querySelectorAll('[data-h]'), function (n) { n.innerHTML = h[n.getAttribute('data-h')]; });
+    el('hours-table').setAttribute('aria-label', lang === 'fr' ? 'Heures d’ouverture du chat' : 'Openingsuren van de chat');
+    baseTitle = c.title + ' · prototype';
+    document.title = baseTitle;
+  }
+  var baseTitle = '';
+  function setLang(l) {
+    lang = l;
+    try { localStorage.setItem('stk-lang', l); } catch (err) {}
+    applyChrome(); refreshChats(); syncControls();
+    if (Admin) Admin.refresh();
+  }
   document.getElementById('lang-seg').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
-    lang = b.getAttribute('data-lang');
-    widget.render(); embed.render(); syncControls();
+    setLang(b.getAttribute('data-lang'));
   });
 
   function show(v) {
@@ -877,10 +1197,10 @@ html, body { margin: 0; }
     var b = e.target.closest('[data-view]'); if (b) show(b.getAttribute('data-view'));
   });
 
-  /* ---------- Admin ---------- */
+  /* ---------- Admin (English) ---------- */
   var Admin = (function () {
     var root = document.getElementById('admin');
-    var ME = 'Lies Peeters';
+    var ME = 'Anna Peeters';
     var TEAM = [{ n: 'An Claes', s: 'online' }, { n: 'Karim Haddad', s: 'away' }, { n: 'Sophie Lambert', s: 'off' }];
     var now = Date.now();
     function ago(min) { return now - min * 60000; }
@@ -894,7 +1214,7 @@ html, body { margin: 0; }
       { id: 3, name: 'Jan', topic: 'Ik ben gestopt en heb het moeilijk', lang: 'NL', email: 'jan.v@voorbeeld.be', page: '/traject/gestopt', started: ago(11), taken: ago(10), status: 'mine', operator: ME,
         msgs: [
           { from: 'visitor', text: 'Ik ben drie weken geleden gestopt, maar vandaag heb ik echt heel veel zin.' },
-          { from: 'sys', text: 'Lies Peeters heeft het gesprek aangenomen' },
+          { from: 'sys', text: ME + ' took the conversation' },
           { from: 'op', text: 'Hallo Jan, drie weken is al een mooie prestatie. Wat maakt het vandaag moeilijk?' },
           { from: 'visitor', text: 'Stress op het werk. Vroeger nam ik dan altijd een sigaret in de pauze.' },
           { from: 'op', text: 'Dat is heel herkenbaar. Die pauze is een gewoonte geworden. Heb je al iets anders geprobeerd om die momenten op te vangen?' },
@@ -903,76 +1223,106 @@ html, body { margin: 0; }
       { id: 4, name: 'Nadia', topic: 'Ik wil iemand helpen stoppen', lang: 'NL', email: '', page: '/pagina/iemand-helpen', started: ago(6), taken: ago(5), status: 'theirs', operator: 'An Claes',
         msgs: [
           { from: 'visitor', text: 'Mijn vader wil stoppen. Hoe kan ik hem het best steunen?' },
-          { from: 'sys', text: 'An Claes heeft het gesprek aangenomen' },
+          { from: 'sys', text: 'An Claes took the conversation' },
           { from: 'op', text: 'Mooi dat je hem wilt steunen, Nadia. Weet hij al hoe hij het wil aanpakken?' }
         ] }
     ];
 
     var archive = [
-      { id: 101, date: 'Vandaag 10:42', name: 'Els', topic: 'Ik wil stoppen met roken', op: 'Lies Peeters', dur: '14 min', rating: 5, lang: 'NL', outcome: 'ok', comment: 'Heel vriendelijk en duidelijk, bedankt!',
-        msgs: [['visitor', 'Hallo, ik wil stoppen voor mijn zwangerschap.'], ['op', 'Wat fijn dat je contact opneemt, Els. Hoe ver ben je?'], ['visitor', 'Twaalf weken.'], ['op', 'Een tabakoloog kan je daar goed bij begeleiden. Ik stuur je de gegevens door.']] },
-      { id: 102, date: 'Vandaag 09:58', name: 'Luc', topic: 'Iets anders', op: 'An Claes', dur: '6 min', rating: 4, lang: 'NL', outcome: 'ok', comment: '',
+      { id: 101, date: 'Today 10:42', name: 'Els', topic: 'Ik wil stoppen met roken', op: ME, dur: '14 min', rating: 5, lang: 'NL', outcome: 'ok', comment: 'Heel vriendelijk en duidelijk, bedankt!', email: 'els.vermeulen@voorbeeld.be',
+        msgs: [['visitor', 'Hallo, ik wil stoppen voor mijn zwangerschap.'], ['op', 'Wat fijn dat je contact opneemt, Els. Hoe ver ben je?'], ['visitor', 'Twaalf weken. Je kunt me mailen op els.vermeulen@voorbeeld.be of bellen op 0472 12 34 56.'], ['op', 'Een tabakoloog kan je daar goed bij begeleiden. Ik stuur je de gegevens door.']] },
+      { id: 102, date: 'Today 09:58', name: 'Luc', topic: 'Iets anders', op: 'An Claes', dur: '6 min', rating: 4, lang: 'NL', outcome: 'ok', comment: '', email: '',
         msgs: [['visitor', 'Kan ik de brochure over nicotinevervangers ook op papier krijgen?'], ['op', 'Zeker, Luc. Je kunt ze gratis bestellen via de pagina Brochures.']] },
-      { id: 103, date: 'Vandaag 09:31', name: 'Anonieme bezoeker', topic: 'Ik wil stoppen met roken', op: '—', dur: '—', rating: null, lang: 'NL', outcome: 'miss', comment: '',
-        msgs: [['visitor', 'Is er iemand?'], ['sys', 'Bezoeker vertrok na 4 min wachten']] },
-      { id: 104, date: 'Gisteren 16:20', name: 'Camille', topic: 'Je veux arrêter de fumer', op: 'Sophie Lambert', dur: '18 min', rating: 5, lang: 'FR', outcome: 'ok', comment: 'Très utile.',
+      { id: 103, date: 'Today 09:31', name: 'Anonymous visitor', topic: 'Ik wil stoppen met roken', op: '—', dur: '—', rating: null, lang: 'NL', outcome: 'miss', comment: '', email: '',
+        msgs: [['visitor', 'Is er iemand?'], ['sys', 'Visitor left after waiting 4 min']] },
+      { id: 104, date: 'Yesterday 16:20', name: 'Camille', topic: 'Je veux arrêter de fumer', op: 'Sophie Lambert', dur: '18 min', rating: 5, lang: 'FR', outcome: 'ok', comment: 'Très utile.', email: 'camille.l@exemple.be',
         msgs: [['visitor', "J'ai déjà essayé trois fois."], ['op', "C'est courageux de réessayer, Camille. Qu'est-ce qui a été le plus difficile ?"]] },
-      { id: 105, date: 'Gisteren 15:02', name: 'Tom', topic: 'Ik ben gestopt en heb het moeilijk', op: 'Karim Haddad', dur: '11 min', rating: 3, lang: 'NL', outcome: 'ok', comment: 'Ik had meer concrete tips verwacht.',
+      { id: 105, date: 'Yesterday 15:02', name: 'Tom', topic: 'Ik ben gestopt en heb het moeilijk', op: 'Karim Haddad', dur: '11 min', rating: 3, lang: 'NL', outcome: 'ok', comment: 'Ik had meer concrete tips verwacht.', email: '',
         msgs: [['visitor', 'Ik ben aangekomen sinds ik gestopt ben.'], ['op', 'Dat komt vaak voor, Tom. Wil je daar samen naar kijken?']] },
-      { id: 106, date: 'Gisteren 11:47', name: 'Ines', topic: 'Ik wil iemand helpen stoppen', op: 'Lies Peeters', dur: '9 min', rating: 5, lang: 'NL', outcome: 'ok', comment: '',
+      { id: 106, date: 'Yesterday 11:47', name: 'Ines', topic: 'Ik wil iemand helpen stoppen', op: ME, dur: '9 min', rating: 5, lang: 'NL', outcome: 'ok', comment: '', email: '',
         msgs: [['visitor', 'Mijn partner rookt en wil stoppen.'], ['op', 'Fijn dat je hem wilt steunen. Heeft hij al een stopdatum gekozen?']] },
-      { id: 107, date: 'Gisteren 10:05', name: 'Anonieme bezoeker', topic: 'Iets anders', op: '—', dur: '—', rating: null, lang: 'FR', outcome: 'miss', comment: '',
-        msgs: [['visitor', 'Bonjour ?'], ['sys', 'Le visiteur est parti après 3 min']] },
-      { id: 108, date: 'Ma 22 sep 14:33', name: 'Peter', topic: 'Ik wil stoppen met roken', op: 'An Claes', dur: '21 min', rating: 4, lang: 'NL', outcome: 'ok', comment: '',
+      { id: 107, date: 'Yesterday 10:05', name: 'Anonymous visitor', topic: 'Iets anders', op: '—', dur: '—', rating: null, lang: 'FR', outcome: 'miss', comment: '', email: '',
+        msgs: [['visitor', 'Bonjour ?'], ['sys', 'Visitor left after waiting 3 min']] },
+      { id: 108, date: 'Mon 22 Sep 14:33', name: 'Peter', topic: 'Ik wil stoppen met roken', op: 'An Claes', dur: '21 min', rating: 4, lang: 'NL', outcome: 'ok', comment: '', email: '',
         msgs: [['visitor', 'Werkt de e-sigaret om te stoppen?'], ['op', 'Goede vraag, Peter. Voor sommige mensen kan het helpen, maar er zijn ook andere opties.']] },
-      { id: 109, date: 'Ma 22 sep 13:10', name: 'Julie', topic: 'Je veux arrêter de fumer', op: 'Sophie Lambert', dur: '12 min', rating: 5, lang: 'FR', outcome: 'ok', comment: '',
+      { id: 109, date: 'Mon 22 Sep 13:10', name: 'Julie', topic: 'Je veux arrêter de fumer', op: 'Sophie Lambert', dur: '12 min', rating: 5, lang: 'FR', outcome: 'ok', comment: '', email: '',
         msgs: [['visitor', "Est-ce que les consultations sont remboursées ?"], ['op', 'Bonne question, Julie. Je vous explique comment cela fonctionne.']] },
-      { id: 110, date: 'Ma 22 sep 10:21', name: 'Bram', topic: 'Ik ben gestopt en heb het moeilijk', op: 'Karim Haddad', dur: '8 min', rating: 2, lang: 'NL', outcome: 'ok', comment: 'Moest lang wachten.',
+      { id: 110, date: 'Mon 22 Sep 10:21', name: 'Bram', topic: 'Ik ben gestopt en heb het moeilijk', op: 'Karim Haddad', dur: '8 min', rating: 2, lang: 'NL', outcome: 'ok', comment: 'Moest lang wachten.', email: '',
         msgs: [['visitor', 'Ik heb gisteren weer gerookt.'], ['op', 'Een uitschuiver betekent niet dat alles verloren is, Bram.']] }
     ];
 
-    var st = { page: 'inbox', sel: 3, drafts: {}, status: 'online', sound: true, menu: false, q: '', filter: 'all', arcSel: 101, period: 7, toast: null, typing: {}, started: false, notes: {} };
+    var st = {
+      page: 'inbox', sel: 3, drafts: {}, status: 'online', sound: true, menu: false, q: '', filter: 'all', arcSel: 101, period: 7, toast: null, typing: {}, started: false, notes: {},
+      userMenu: false, siteMenu: false, signedOut: false, delArc: null,
+      setTab: 'look', hexDraft: null, avErr: '', snip: 'widget', copied: null, domains: 'tabakstop.be, tabacstop.be',
+      uPeriod: 'this', uStack: 'outcome'
+    };
 
     function mins(t) { var m = Math.max(0, Math.round((Date.now() - t) / 60000)); return m < 1 ? '<1 min' : m + ' min'; }
     function waitLong(t) { var sec = Math.max(0, Math.round((Date.now() - t) / 1000)); return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0'); }
     function conv(id) { for (var i = 0; i < convs.length; i++) if (convs[i].id === id) return convs[i]; return null; }
     function chip(l) { return '<span class="chip' + (l === 'FR' ? ' fr' : '') + '">' + l + '</span>'; }
-    function initials(n) { return n.split(' ').map(function (p) { return p.charAt(0); }).join('').slice(0, 2); }
+    function mask(t) {
+      if (!PRIV.mask) return t;
+      return String(t).replace(/([\w.+-])[\w.+-]*@([\w-]+\.[\w.-]+)/g, '$1***@$2').replace(/\+?\d[\d\s\/.-]{7,}\d/g, '[phone hidden]');
+    }
+    function sum(a) { return a.reduce(function (x, y) { return x + y; }, 0); }
+    function num(n) { return Math.round(n).toLocaleString('en-US'); }
+    function dotCls(s) { return s === 'online' ? '' : s === 'away' ? 'away' : 'off'; }
 
+    /* Shell: site picker, nav, user block */
+    function sitePicker() {
+      var logo = '<span class="sp-logo"><img src="img/tabakstop.png" alt="" width="24" height="24"></span><span class="sp-txt"><b>Tabakstop</b><span>tabakstop.be</span></span>';
+      var btn = '<button class="sp-btn" id="sp-btn" data-act="sitemenu" aria-haspopup="menu" aria-expanded="' + st.siteMenu + '">' + logo + ICON.chev + '</button>';
+      var menu = st.siteMenu ? '<div class="sp-menu" role="menu" aria-label="Sites">' +
+        '<button class="sp-it" role="menuitemradio" aria-checked="true" data-sitepick="tabakstop">' + logo + '<span class="sp-check">' + ICON.check + '</span></button>' +
+        '<div class="sp-sep" role="separator"></div>' +
+        '<button class="sp-it sp-add" role="menuitem" aria-disabled="true" title="Not in this prototype"><span class="sp-plus" aria-hidden="true">+</span><span class="sp-txt"><b>Add site</b><span>Not in this prototype</span></span></button></div>' : '';
+      return '<div class="sp">' + btn + menu + '</div>';
+    }
+    function userBlock() {
+      var menu = st.userMenu ? '<div class="usr-menu" role="menu" aria-label="Account"><button class="usr-it" role="menuitem" disabled title="Not in this prototype">Account settings</button><button class="usr-it" role="menuitem" data-act="signout">Sign out</button></div>' : '';
+      return '<div class="usr">' + menu + '<button class="usr-btn" id="usr-btn" data-act="usermenu" aria-haspopup="menu" aria-expanded="' + st.userMenu + '"><span class="usr-av" aria-hidden="true">AP</span><span class="usr-txt"><b>' + ME + '</b><span class="usr-role">Administrator</span><span class="usr-mail">anna.peeters@tabakstop.be</span></span></button></div>';
+    }
     function side() {
       var waiting = convs.filter(function (c) { return c.status === 'waiting'; }).length;
       function nav(k, label, icon, badge) {
         return '<button data-page="' + k + '"' + (st.page === k ? ' aria-current="page"' : '') + '>' + icon + '<span>' + label + '</span>' + (badge ? '<span class="badge">' + badge + '</span>' : '') + '</button>';
       }
       var team = TEAM.map(function (m) {
-        return '<div><span class="dot ' + (m.s === 'online' ? '' : m.s === 'away' ? 'away' : 'off') + '"></span>' + esc(m.n) + '</div>';
+        return '<div><span class="dot ' + dotCls(m.s) + '"></span>' + esc(m.n) + '</div>';
       }).join('');
-      return '<aside class="side">' +
-        '<div class="brandrow"><b>Tabakstop</b><span>Chat</span></div>' +
-        '<nav aria-label="Beheer">' + nav('inbox', 'Gesprekken', ICON.inbox, waiting) + nav('archive', 'Archief', ICON.archive) + nav('stats', 'Statistieken', ICON.stats) + '</nav>' +
-        '<div class="team"><span class="lbl">Collega\'s</span>' + team + '</div>' +
-        '<div class="me"><div class="row"><div class="avatar">LP</div><div><b>' + ME + '</b><small>' + (st.status === 'online' ? 'Beschikbaar voor nieuwe gesprekken' : 'Krijgt geen nieuwe gesprekken') + '</small></div></div>' +
-        '<div class="status-toggle" role="group" aria-label="Jouw status"><button data-status="online" aria-pressed="' + (st.status === 'online') + '"><span class="dot"></span>Beschikbaar</button><button data-status="away" aria-pressed="' + (st.status === 'away') + '"><span class="dot away"></span>Afwezig</button></div>' +
-        '<div class="sound"><span id="sound-lbl">Geluid bij nieuw gesprek</span><button class="switch" role="switch" aria-labelledby="sound-lbl" aria-checked="' + st.sound + '" data-act="sound"></button></div>' +
-        '</div></aside>';
+      return '<aside class="side">' + sitePicker() +
+        '<nav aria-label="Admin">' + nav('inbox', 'Inbox', ICON.inbox, waiting) + nav('archive', 'Archive', ICON.archive) + nav('stats', 'Statistics', ICON.stats) + nav('usage', 'Usage', ICON.usage) + nav('settings', 'Settings', ICON.sliders) + '</nav>' +
+        '<div class="team"><span class="lbl">Colleagues</span>' + team + '</div>' +
+        '<div class="me"><small>' + (st.status === 'online' ? 'You get new conversations' : 'You get no new conversations') + '</small>' +
+        '<div class="status-toggle" role="group" aria-label="Your status"><button data-status="online" aria-pressed="' + (st.status === 'online') + '"><span class="dot"></span>Available</button><button data-status="away" aria-pressed="' + (st.status === 'away') + '"><span class="dot away"></span>Away</button></div>' +
+        '<div class="sound"><span id="sound-lbl">Sound for new conversation</span><button class="switch" role="switch" aria-labelledby="sound-lbl" aria-checked="' + st.sound + '" data-act="sound"></button></div>' +
+        '</div>' + userBlock() + '</aside>';
+    }
+    function signedOutHtml() {
+      return '<div class="signedout"><div class="so-card"><span class="so-ring" aria-hidden="true">' + ICON.lock + '</span>' +
+        '<h2>You have been signed out</h2><p>For your security the admin is closed. Sign in again to continue where you left off.</p>' +
+        '<button class="btn" id="signin-btn" data-act="signin">Sign in again</button></div></div>';
     }
 
+    /* Inbox */
     function listItem(c) {
       var cls = 'item' + (c.status === 'waiting' ? ' waiting' : '') + (c.status === 'theirs' ? ' theirs' : '');
       var last = c.msgs.filter(function (m) { return m.from !== 'sys'; }).slice(-1)[0];
-      var right = c.status === 'waiting' ? mins(c.started) : c.status === 'theirs' ? esc(c.operator.split(' ')[0]) : mins(c.started);
+      var right = c.status === 'theirs' ? esc(c.operator.split(' ')[0]) : mins(c.started);
       return '<button class="' + cls + '" data-conv="' + c.id + '" aria-current="' + (st.sel === c.id) + '">' +
         '<span class="r1"><b>' + esc(c.name) + '</b>' + chip(c.lang) + '<span class="t">' + right + '</span></span>' +
         '<span class="r2">' + esc(c.topic) + '</span>' +
-        '<span class="r2">' + (last ? (last.from === 'op' ? 'Jij: ' : '') + esc(last.text) : '') + '</span></button>';
+        '<span class="r2">' + (last ? (last.from === 'op' ? 'You: ' : '') + esc(last.text) : '') + '</span></button>';
     }
 
     function listPane() {
-      var groups = [['waiting', 'Wachtend'], ['mine', 'Mijn gesprekken'], ['theirs', 'Bij collega\'s']];
+      var groups = [['waiting', 'Waiting'], ['mine', 'My conversations'], ['theirs', 'With colleagues']];
       return '<div class="list">' + groups.map(function (g) {
         var items = convs.filter(function (c) { return c.status === g[0]; });
         return '<h3><span>' + g[1] + '</span><span>' + items.length + '</span></h3>' +
-          (items.length ? items.map(listItem).join('') : '<p class="empty-list">' + (g[0] === 'waiting' ? 'Niemand wacht op dit moment.' : 'Geen gesprekken.') + '</p>');
+          (items.length ? items.map(listItem).join('') : '<p class="empty-list">' + (g[0] === 'waiting' ? 'Nobody is waiting right now.' : 'No conversations.') + '</p>');
       }).join('') + '</div>';
     }
 
@@ -984,29 +1334,29 @@ html, body { margin: 0; }
 
     function convPane() {
       var c = conv(st.sel);
-      if (!c) return '<div class="conv"><div class="take"><p>Kies een gesprek in de lijst.</p></div></div>';
+      if (!c) return '<div class="conv"><div class="take"><p>Pick a conversation from the list.</p></div></div>';
       var headActions = '';
       if (c.status === 'mine') {
-        var menu = st.menu ? '<div class="menu" role="menu"><span class="lbl">Doorgeven aan</span>' + TEAM.map(function (m) {
-          return '<button role="menuitem" data-transfer="' + esc(m.n) + '"' + (m.s === 'off' ? ' disabled' : '') + '><span class="dot ' + (m.s === 'online' ? '' : m.s === 'away' ? 'away' : 'off') + '"></span>' + esc(m.n) + (m.s === 'off' ? ' · offline' : m.s === 'away' ? ' · afwezig' : '') + '</button>';
+        var menu = st.menu ? '<div class="menu" role="menu"><span class="lbl">Transfer to</span>' + TEAM.map(function (m) {
+          return '<button role="menuitem" data-transfer="' + esc(m.n) + '"' + (m.s === 'off' ? ' disabled' : '') + '><span class="dot ' + dotCls(m.s) + '"></span>' + esc(m.n) + (m.s === 'off' ? ' · offline' : m.s === 'away' ? ' · away' : '') + '</button>';
         }).join('') + '</div>' : '';
-        headActions = '<div class="conv-actions"><button class="btn ghost small" data-act="menu" aria-expanded="' + st.menu + '">Doorgeven</button><button class="btn small" data-act="close">Afsluiten</button>' + menu + '</div>';
+        headActions = '<div class="conv-actions"><button class="btn ghost small" data-act="menu" aria-expanded="' + st.menu + '">Transfer</button><button class="btn small" data-act="close">Close</button>' + menu + '</div>';
       }
-      var sub = c.status === 'waiting' ? 'Wacht op een medewerker' : c.status === 'theirs' ? 'In gesprek met ' + esc(c.operator) : 'In gesprek met jou · gestart ' + mins(c.started) + ' geleden';
+      var sub = c.status === 'waiting' ? 'Waiting for an operator' : c.status === 'theirs' ? 'With ' + esc(c.operator) : 'With you · started ' + mins(c.started) + ' ago';
       var head = '<div class="conv-head"><div class="who"><b>' + esc(c.name) + ' ' + chip(c.lang) + '</b><span>' + sub + '</span></div>' + headActions + '</div>';
 
       var bodyHtml, foot;
       if (c.status === 'waiting') {
-        bodyHtml = '<div class="conv-body"><div class="take"><span class="wait" data-wait="' + c.id + '">' + waitLong(c.started) + '</span><p>' + esc(c.name) + ' wacht op een antwoord</p>' +
+        bodyHtml = '<div class="conv-body"><div class="take"><span class="wait" data-wait="' + c.id + '">' + waitLong(c.started) + '</span><p>' + esc(c.name) + ' is waiting for an answer</p>' +
           '<div class="first">' + esc(c.msgs[0].text) + '</div>' +
-          '<button class="btn" data-act="take">Gesprek aannemen</button></div></div>';
+          '<button class="btn" data-act="take">Take conversation</button></div></div>';
         foot = '';
       } else {
         bodyHtml = '<div class="conv-body" data-scroll>' + c.msgs.map(function (m) { return msgHtml(m, c); }).join('') +
-          (st.typing[c.id] ? '<div class="typing" aria-label="aan het typen"><i></i><i></i><i></i></div>' : '') + '</div>';
+          (st.typing[c.id] ? '<div class="typing" aria-label="Typing"><i></i><i></i><i></i></div>' : '') + '</div>';
         foot = c.status === 'mine'
-          ? '<form class="composer" data-form="reply"><div style="flex:1;display:flex;flex-direction:column;gap:4px"><textarea id="reply-' + c.id + '" rows="2" data-bind="draft" placeholder="Typ je antwoord aan ' + esc(c.name) + '…" aria-label="Antwoord">' + esc(st.drafts[c.id] || '') + '</textarea><span class="hint">Enter om te versturen · Shift+Enter voor een nieuwe regel</span></div><button class="send" type="submit" aria-label="Versturen">' + ICON.send + '</button></form>'
-          : '<div class="readonly">Dit gesprek wordt gevoerd door ' + esc(c.operator) + '. Je kunt meelezen.</div>';
+          ? '<form class="composer" data-form="reply"><div style="flex:1;display:flex;flex-direction:column;gap:4px"><textarea id="reply-' + c.id + '" rows="2" data-bind="draft" placeholder="Type your reply to ' + esc(c.name) + '…" aria-label="Reply">' + esc(st.drafts[c.id] || '') + '</textarea><span class="hint">Enter to send · Shift+Enter for a new line</span></div><button class="send" type="submit" aria-label="Send">' + ICON.send + '</button></form>'
+          : '<div class="readonly">This conversation is handled by ' + esc(c.operator) + '. You can read along.</div>';
       }
       return '<div class="conv">' + head + bodyHtml + foot + '</div>';
     }
@@ -1014,16 +1364,17 @@ html, body { margin: 0; }
     function detailsPane() {
       var c = conv(st.sel);
       if (!c) return '<div class="details"></div>';
-      function kv(k, v) { return '<div><dt>' + k + '</dt><dd' + (v ? '' : ' class="none"') + '>' + (v ? esc(v) : 'niet ingevuld') + '</dd></div>'; }
+      function kv(k, v) { return '<div><dt>' + k + '</dt><dd' + (v ? '' : ' class="none"') + '>' + (v ? esc(v) : 'Not filled in') + '</dd></div>'; }
       return '<div class="details">' +
-        '<section class="stack"><h4>Formulier vóór de chat</h4><dl class="kv">' + kv('Voornaam', c.name) + kv('Onderwerp', c.topic) + kv('E-mailadres', c.email) + '</dl></section>' +
-        '<section class="stack"><h4>Sessie</h4><dl class="kv">' + kv('Taal', c.lang === 'FR' ? 'Frans' : 'Nederlands') + kv('Gestart vanaf', c.page) + kv('Wachttijd', c.taken ? Math.max(1, Math.round((c.taken - c.started) / 60000)) + ' min' : 'wacht nog') + '</dl></section>' +
-        '<section class="stack"><h4>Interne notitie</h4><label for="note-' + c.id + '" style="font-size:12px;color:var(--muted)">Enkel zichtbaar voor medewerkers</label><textarea class="note-area" id="note-' + c.id + '" data-bind="note" placeholder="Bijvoorbeeld: doorverwezen naar tabakoloog in Gent">' + esc(st.notes[c.id] || '') + '</textarea></section>' +
+        '<section class="stack"><h4>Pre-chat form</h4><dl class="kv">' + kv('First name', c.name) + kv('Topic', c.topic) + kv('E-mail address', c.email) + '</dl></section>' +
+        '<section class="stack"><h4>Session</h4><dl class="kv">' + kv('Language', c.lang === 'FR' ? 'French' : 'Dutch') + kv('Started from', c.page) + kv('Wait time', c.taken ? Math.max(1, Math.round((c.taken - c.started) / 60000)) + ' min' : 'Still waiting') + '</dl></section>' +
+        '<section class="stack"><h4>Internal note</h4><label for="note-' + c.id + '" style="font-size:12px;color:var(--muted)">Only visible to operators</label><textarea class="note-area" id="note-' + c.id + '" data-bind="note" placeholder="For example: referred to a tobacco counsellor in Ghent">' + esc(st.notes[c.id] || '') + '</textarea></section>' +
         '</div>';
     }
 
     function inbox() { return '<div class="inbox">' + listPane() + convPane() + detailsPane() + '</div>'; }
 
+    /* Archive */
     function scoreHtml(r) {
       if (r == null) return '<span style="color:var(--faint)">—</span>';
       var col = r >= 4 ? '#2E9E5B' : r === 3 ? '#E2A13B' : '#B4462B';
@@ -1041,27 +1392,40 @@ html, body { margin: 0; }
       });
     }
 
+    function exportTxt(a) {
+      var lines = ['Conversation: ' + a.topic, 'Date: ' + a.date, 'Visitor: ' + a.name, 'Operator: ' + a.op, 'Language: ' + a.lang, 'Score: ' + (a.rating != null ? a.rating + '/5' : 'no score'), ''];
+      a.msgs.forEach(function (m) { lines.push((m[0] === 'visitor' ? 'Visitor' : m[0] === 'op' ? 'Operator' : 'Info') + ': ' + mask(m[1])); });
+      if (a.email) lines.push('', 'E-mail: ' + mask(a.email));
+      download('conversation-' + a.id + '.txt', lines.join('\n'), 'text/plain;charset=utf-8');
+    }
+
     function archivePane() {
       var rows = archiveRows();
       var sel = null;
       for (var i = 0; i < rows.length; i++) if (rows[i].id === st.arcSel) sel = rows[i];
       if (!sel && rows.length) { sel = rows[0]; st.arcSel = sel.id; }
-      var seg = [['all', 'Alle'], ['miss', 'Gemist'], ['low', 'Score 3 of lager']].map(function (f) {
+      var seg = [['all', 'All'], ['miss', 'Missed'], ['low', 'Score 3 or lower']].map(function (f) {
         return '<button data-filter="' + f[0] + '" aria-pressed="' + (st.filter === f[0]) + '">' + f[1] + '</button>';
       }).join('');
-      var table = rows.length ? '<table><thead><tr><th>Datum</th><th>Bezoeker</th><th>Onderwerp</th><th>Medewerker</th><th>Duur</th><th>Score</th><th>Taal</th></tr></thead><tbody>' +
+      var table = rows.length ? '<table><thead><tr><th>Date</th><th>Visitor</th><th>Topic</th><th>Operator</th><th>Duration</th><th>Score</th><th>Language</th></tr></thead><tbody>' +
         rows.map(function (a) {
           return '<tr data-arc="' + a.id + '" aria-selected="' + (sel && sel.id === a.id) + '" tabindex="0"><td>' + esc(a.date) + '</td><td>' + esc(a.name) + '</td><td class="wrap">' + esc(a.topic) + '</td><td>' +
-            (a.outcome === 'miss' ? '<span class="pill miss">Gemist</span>' : esc(a.op)) + '</td><td>' + esc(a.dur) + '</td><td>' + scoreHtml(a.rating) + '</td><td>' + chip(a.lang) + '</td></tr>';
-        }).join('') + '</tbody></table>' : '<p class="no-results">Geen gesprekken gevonden voor “' + esc(st.q) + '”.</p>';
-      var tr = sel ? '<div class="transcript"><div class="th"><b>' + esc(sel.name) + '</b><span>' + esc(sel.date) + ' · ' + esc(sel.topic) + (sel.outcome === 'miss' ? '' : ' · ' + esc(sel.op) + ' · ' + esc(sel.dur)) + '</span></div>' +
-        '<div class="tb">' + sel.msgs.map(function (m) {
-          if (m[0] === 'sys') return '<div class="sys">' + esc(m[1]) + '</div>';
-          return '<div class="msg ' + (m[0] === 'visitor' ? 'them' : 'me') + '">' + (m[0] === 'visitor' ? '<small>' + esc(sel.name) + '</small>' : '') + esc(m[1]) + '</div>';
-        }).join('') + '</div>' +
-        '<div class="fb"><span>Tevredenheid: ' + (sel.rating != null ? '<b>' + sel.rating + '/5</b>' : 'geen score') + '</span>' + (sel.comment ? '<span>Opmerking: <b>“' + esc(sel.comment) + '”</b></span>' : '') + '</div></div>' : '';
-      return '<div class="pane"><div class="pane-head"><h2>Archief</h2><span class="sample">Voorbeeldgegevens</span></div>' +
-        '<div class="pane-head" style="gap:10px"><label class="search" for="arc-q">' + ICON.search + '<input id="arc-q" data-bind="q" placeholder="Zoek op naam, onderwerp of tekst in het gesprek" value="' + esc(st.q) + '"></label><div class="seg" id="arc-filter">' + seg + '</div></div>' +
+            (a.outcome === 'miss' ? '<span class="pill miss">Missed</span>' : esc(a.op)) + '</td><td>' + esc(a.dur) + '</td><td>' + scoreHtml(a.rating) + '</td><td>' + chip(a.lang) + '</td></tr>';
+        }).join('') + '</tbody></table>' : '<p class="no-results">No conversations found' + (st.q ? ' for “' + esc(st.q) + '”' : '') + '.</p>';
+      var tr = '';
+      if (sel) {
+        var del = st.delArc === sel.id
+          ? '<span class="why">Delete this conversation? This cannot be undone.</span><span class="btnrow"><button class="btn small" data-act="arcdelyes">Yes, delete</button><button class="btn ghost small" data-act="arcdelno">Cancel</button></span>'
+          : '<span class="btnrow"><button class="btn ghost small" data-act="arcexport">Export .txt</button><button class="btn ghost small" data-act="arcdelask">Delete</button></span>';
+        tr = '<div class="transcript"><div class="th"><b>' + esc(sel.name) + '</b><span>' + esc(sel.date) + ' · ' + esc(sel.topic) + (sel.outcome === 'miss' ? '' : ' · ' + esc(sel.op) + ' · ' + esc(sel.dur)) + '</span></div>' +
+          '<div class="tb">' + sel.msgs.map(function (m) {
+            if (m[0] === 'sys') return '<div class="sys">' + esc(m[1]) + '</div>';
+            return '<div class="msg ' + (m[0] === 'visitor' ? 'them' : 'me') + '">' + (m[0] === 'visitor' ? '<small>' + esc(sel.name) + '</small>' : '') + esc(mask(m[1])) + '</div>';
+          }).join('') + '</div>' +
+          '<div class="fb">' + (sel.email ? '<span>E-mail: <b>' + esc(mask(sel.email)) + '</b></span>' : '') + '<span>Satisfaction: ' + (sel.rating != null ? '<b>' + sel.rating + '/5</b>' : 'no score') + '</span>' + (sel.comment ? '<span>Comment: <b>“' + esc(sel.comment) + '”</b></span>' : '') + del + '</div></div>';
+      }
+      return '<div class="pane"><div class="pane-head"><h2>Archive</h2><span class="sample">Sample data</span></div>' +
+        '<div class="pane-head" style="gap:10px"><label class="search" for="arc-q">' + ICON.search + '<input id="arc-q" data-bind="q" placeholder="Search by name, topic or text in the conversation" value="' + esc(st.q) + '"></label><div class="seg" id="arc-filter" role="group" aria-label="Filter">' + seg + '</div></div>' +
         '<div class="archive-grid"><div class="table-wrap">' + table + '</div>' + tr + '</div></div>';
     }
 
@@ -1071,13 +1435,13 @@ html, body { margin: 0; }
       for (var i = 0; i < n; i++) { x = (x * 9301 + 49297) % 233280; out.push(x / 233280); }
       return out;
     }
-    var DAYS7 = ['wo 17', 'do 18', 'vr 19', 'za 20', 'zo 21', 'ma 22', 'di 23'];
+    var DAYS7 = ['Wed 17', 'Thu 18', 'Fri 19', 'Sat 20', 'Sun 21', 'Mon 22', 'Tue 23'];
     var S7 = { chats: [16, 18, 21, 0, 0, 19, 15], missed: [1, 2, 2, 0, 0, 1, 1] };
     var S30 = (function () {
       var r = seeded(30, 7), chats = [], missed = [], labels = [];
-      var start = new Date(2026, 7, 25);
+      var start = new Date(2025, 7, 25);
       for (var i = 0; i < 30; i++) {
-        var d = new Date(start.getTime() + i * 86400000);
+        var d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
         var wd = d.getDay();
         var c = (wd === 0 || wd === 6) ? 0 : Math.round(12 + r[i] * 11);
         chats.push(c); missed.push(c ? Math.round(c * (0.04 + r[(i + 3) % 30] * 0.08)) : 0);
@@ -1085,7 +1449,6 @@ html, body { margin: 0; }
       }
       return { chats: chats, missed: missed, labels: labels };
     })();
-    function sum(a) { return a.reduce(function (x, y) { return x + y; }, 0); }
 
     function statsData() {
       var d = st.period === 7 ? { chats: S7.chats, missed: S7.missed, labels: DAYS7 } : S30;
@@ -1098,7 +1461,7 @@ html, body { margin: 0; }
       var hw = [0.07, 0.12, 0.15, 0.1, 0.08, 0.13, 0.14, 0.13, 0.08];
       var hours = hw.map(function (w) { return Math.round(total * w); });
       hours[2] += total - sum(hours);
-      var opsShare = [['Lies Peeters', 0.36, 4.6], ['An Claes', 0.3, 4.4], ['Sophie Lambert', 0.2, 4.5], ['Karim Haddad', 0.14, 4.0]];
+      var opsShare = [[ME, 0.36, 4.6], ['An Claes', 0.3, 4.4], ['Sophie Lambert', 0.2, 4.5], ['Karim Haddad', 0.14, 4.0]];
       var ops = opsShare.map(function (o) { return { n: o[0], c: Math.round(answered * o[1]), r: o[2] }; });
       ops[0].c += answered - sum(ops.map(function (o) { return o.c; }));
       return { d: d, total: total, missed: missed, answered: answered, rated: rated, dist: dist, avg: avg, hours: hours, ops: ops,
@@ -1120,7 +1483,7 @@ html, body { margin: 0; }
       for (var v = 0; v <= top; v += step) {
         var y = pt + ih - (v / top) * ih;
         g += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y + '" y2="' + y + '" stroke="#E6ECF2" stroke-width="1"/>' +
-          '<text x="' + (pl - 8) + '" y="' + (y + 4) + '" text-anchor="end" font-size="11" fill="#8A9BAC" font-family="Figtree, sans-serif">' + v + '</text>';
+          '<text x="' + (pl - 8) + '" y="' + (y + 4) + '" text-anchor="end" font-size="11" fill="#5A6E82" font-family="Figtree, sans-serif">' + v + '</text>';
       }
       var bars = '';
       vals.forEach(function (val, i) {
@@ -1128,13 +1491,13 @@ html, body { margin: 0; }
         var hAns = ((val - missed[i]) / top) * ih, hMiss = (missed[i] / top) * ih;
         var yAns = pt + ih - hAns - hMiss;
         if (val > 0) {
-          bars += '<rect x="' + x.toFixed(1) + '" y="' + (pt + ih - hMiss - hAns).toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + hAns.toFixed(1) + '" rx="3" fill="#2B6490"><title>' + labels[i] + ': ' + val + ' gesprekken, ' + missed[i] + ' gemist</title></rect>';
+          bars += '<rect x="' + x.toFixed(1) + '" y="' + (pt + ih - hMiss - hAns).toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + hAns.toFixed(1) + '" rx="3" fill="#2B6490"><title>' + labels[i] + ': ' + val + ' conversations, ' + missed[i] + ' missed</title></rect>';
           if (hMiss > 0) bars += '<rect x="' + x.toFixed(1) + '" y="' + (pt + ih - hMiss).toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + hMiss.toFixed(1) + '" fill="#E07A5F"/>';
           if (n <= 10) bars += '<text x="' + (x + w / 2).toFixed(1) + '" y="' + (yAns - 5).toFixed(1) + '" text-anchor="middle" font-size="11" font-weight="600" fill="#16293D" font-family="Figtree, sans-serif">' + val + '</text>';
         }
         if (i % labelEvery === 0) bars += '<text x="' + (pl + i * bw + bw / 2).toFixed(1) + '" y="' + (H - 9) + '" text-anchor="middle" font-size="11" fill="#5A6E82" font-family="Figtree, sans-serif">' + labels[i] + '</text>';
       });
-      return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Gesprekken per dag">' + g + '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + (pt + ih) + '" y2="' + (pt + ih) + '" stroke="#C9D3DC"/>' + bars + '</svg>';
+      return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Conversations per day">' + g + '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + (pt + ih) + '" y2="' + (pt + ih) + '" stroke="#C9D3DC"/>' + bars + '</svg>';
     }
 
     function hourChart(hours) {
@@ -1145,60 +1508,315 @@ html, body { margin: 0; }
       hours.forEach(function (v, i) {
         var h = (v / max) * ih, x = pl + i * bw + bw * 0.15, w = bw * 0.7, y = pt + ih - h;
         var peak = v === max;
-        out += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + h.toFixed(1) + '" rx="3" fill="' + (peak ? '#FDB913' : '#A9C6DE') + '"><title>' + (9 + i) + ':00 – ' + (10 + i) + ':00: ' + v + ' gesprekken</title></rect>' +
+        out += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + h.toFixed(1) + '" rx="3" fill="' + (peak ? '#FDB913' : '#A9C6DE') + '"><title>' + (9 + i) + ':00 – ' + (10 + i) + ':00: ' + v + ' conversations</title></rect>' +
           '<text x="' + (x + w / 2).toFixed(1) + '" y="' + (y - 5).toFixed(1) + '" text-anchor="middle" font-size="10.5" font-weight="600" fill="#16293D" font-family="Figtree, sans-serif">' + v + '</text>' +
-          '<text x="' + (x + w / 2).toFixed(1) + '" y="' + (H - 7) + '" text-anchor="middle" font-size="10.5" fill="#5A6E82" font-family="Figtree, sans-serif">' + (9 + i) + 'u</text>';
+          '<text x="' + (x + w / 2).toFixed(1) + '" y="' + (H - 7) + '" text-anchor="middle" font-size="10.5" fill="#5A6E82" font-family="Figtree, sans-serif">' + (9 + i) + ':00</text>';
       });
-      return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Gesprekken per uur">' + '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + (pt + ih) + '" y2="' + (pt + ih) + '" stroke="#C9D3DC"/>' + out + '</svg>';
+      return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Conversations per hour">' + '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + (pt + ih) + '" y2="' + (pt + ih) + '" stroke="#C9D3DC"/>' + out + '</svg>';
     }
 
     function statsPane() {
       var s = statsData();
-      var fmt = function (n) { return n.toFixed(1).replace('.', ','); };
+      var fmt = function (n) { return n.toFixed(1); };
       var pct = Math.round((s.missed / Math.max(1, s.total)) * 100);
       var perDay = (s.total / Math.max(1, s.d.chats.filter(function (c) { return c > 0; }).length)).toFixed(0);
-      var seg = [[7, '7 dagen'], [30, '30 dagen']].map(function (p) { return '<button data-period="' + p[0] + '" aria-pressed="' + (st.period === p[0]) + '">' + p[1] + '</button>'; }).join('');
+      var seg = [[7, '7 days'], [30, '30 days']].map(function (p) { return '<button data-period="' + p[0] + '" aria-pressed="' + (st.period === p[0]) + '">' + p[1] + '</button>'; }).join('');
       var distMax = Math.max.apply(null, s.dist);
       var distColors = ['#2E9E5B', '#7CC49A', '#E2A13B', '#E07A5F', '#B4462B'];
       var dist = [5, 4, 3, 2, 1].map(function (score, i) {
         return '<div class="row"><b>' + score + '</b><div class="track"><div class="fill" style="width:' + (s.dist[i] / distMax * 100).toFixed(1) + '%;background:' + distColors[i] + '"></div></div><span>' + s.dist[i] + '</span></div>';
       }).join('');
-      var ops = '<table class="ops"><thead><tr><th>Medewerker</th><th>Gesprekken</th><th>Gem. score</th></tr></thead><tbody>' + s.ops.map(function (o) {
+      var ops = '<table class="ops"><thead><tr><th>Operator</th><th>Conversations</th><th>Avg. score</th></tr></thead><tbody>' + s.ops.map(function (o) {
         return '<tr><td>' + esc(o.n) + '</td><td>' + o.c + '</td><td>' + fmt(o.r) + '</td></tr>';
       }).join('') + '</tbody></table>';
       var every = st.period === 7 ? 1 : 5;
-      return '<div class="pane"><div class="pane-head"><h2>Statistieken</h2><span class="sample">Voorbeeldgegevens</span><div class="seg">' + seg + '</div></div>' +
+      return '<div class="pane"><div class="pane-head"><h2>Statistics</h2><span class="sample">Sample data</span><div class="seg" role="group" aria-label="Period">' + seg + '</div></div>' +
         '<div class="kpis">' +
-        '<div class="kpi"><span class="k">Gesprekken</span><span class="v">' + s.total + '</span><span class="s">gemiddeld ' + perDay + ' per werkdag</span></div>' +
-        '<div class="kpi"><span class="k">Gemiddelde wachttijd</span><span class="v">' + s.wait + ' <small>min</small></span><span class="s">tot een medewerker antwoordt</span></div>' +
-        '<div class="kpi warn"><span class="k">Gemiste gesprekken</span><span class="v">' + s.missed + ' <small>(' + pct + '%)</small></span><span class="s">bezoeker vertrok voor een antwoord</span></div>' +
-        '<div class="kpi"><span class="k">Tevredenheid</span><span class="v">' + fmt(s.avg) + ' <small>/ 5</small></span><span class="s">' + s.rated + ' beoordelingen</span></div>' +
+        '<div class="kpi"><span class="k">Conversations</span><span class="v">' + s.total + '</span><span class="s">average ' + perDay + ' per working day</span></div>' +
+        '<div class="kpi"><span class="k">Average wait time</span><span class="v">' + s.wait + ' <small>min</small></span><span class="s">until an operator answers</span></div>' +
+        '<div class="kpi warn"><span class="k">Missed conversations</span><span class="v">' + s.missed + ' <small>(' + pct + '%)</small></span><span class="s">visitor left before an answer</span></div>' +
+        '<div class="kpi"><span class="k">Satisfaction</span><span class="v">' + fmt(s.avg) + ' <small>/ 5</small></span><span class="s">' + s.rated + ' ratings</span></div>' +
         '</div>' +
-        '<div class="card chart"><h3>Gesprekken per dag</h3><div class="legend"><span><i style="background:#2B6490"></i>Beantwoord</span><span><i style="background:#E07A5F"></i>Gemist</span><span>Weekend: chat gesloten</span></div>' + barChart(s.d.chats, s.d.missed, s.d.labels, every) + '</div>' +
+        '<div class="card chart"><h3>Conversations per day</h3><div class="legend"><span><i style="background:#2B6490"></i>Answered</span><span><i style="background:#E07A5F"></i>Missed</span><span>Weekend: chat closed</span></div>' + barChart(s.d.chats, s.d.missed, s.d.labels, every) + '</div>' +
         '<div class="charts">' +
-        '<div class="card chart"><h3>Drukste uren</h3><p class="sub">Alle gesprekken in deze periode, per uur</p>' + hourChart(s.hours) + '</div>' +
-        '<div class="card"><h3>Tevredenheid</h3><div class="avg"><b>' + fmt(s.avg) + '</b><span>gemiddeld op ' + s.rated + ' beoordelingen</span></div><div class="dist">' + dist + '</div></div>' +
+        '<div class="card chart"><h3>Busiest hours</h3><p class="sub">All conversations in this period, by hour</p>' + hourChart(s.hours) + '</div>' +
+        '<div class="card"><h3>Satisfaction</h3><div class="avg"><b>' + fmt(s.avg) + '</b><span>average over ' + s.rated + ' ratings</span></div><div class="dist">' + dist + '</div></div>' +
         '</div>' +
-        '<div class="card"><h3>Per medewerker</h3><div class="table-wrap" style="border:0">' + ops + '</div></div>' +
+        '<div class="card"><h3>By operator</h3><div class="table-wrap" style="border:0">' + ops + '</div></div>' +
         '</div>';
+    }
+
+    /* Usage */
+    var UM = [142, 156, 171, 163, 149, 261, 207];
+    var UP = {
+      'this': { idx: [6], prev: [5], days: 23, end: [2025, 8, 23], label: 'This month' },
+      last: { idx: [5], prev: [4], days: 31, end: [2025, 7, 31], label: 'Last month' },
+      last3: { idx: [4, 5, 6], prev: [1, 2, 3], days: 85, end: [2025, 8, 23], label: 'Last 3 months' }
+    };
+    var PLAN = 250;
+    var UOPS = [[ME, 0.36, '0:48'], ['An Claes', 0.3, '1:05'], ['Sophie Lambert', 0.2, '0:57'], ['Karim Haddad', 0.14, '1:31']];
+    var USEG = {
+      outcome: [['answered', '#2B6490', 'Answered'], ['missed', '#E07A5F', 'Missed']],
+      lang: [['nl', '#2B6490', 'Dutch (NL)'], ['fr', '#7A3D74', 'French (FR)']]
+    };
+    function usageFor(p) {
+      var P = UP[p], cur = sum(P.idx.map(function (i) { return UM[i]; })), prev = sum(P.prev.map(function (i) { return UM[i]; }));
+      if (p === 'this') prev = Math.round(prev * P.days / 30);
+      return { convs: cur, prev: prev };
+    }
+    function pad2(n) { return ('0' + n).slice(-2); }
+    function dailySeries(p) {
+      var P = UP[p], total = usageFor(p).convs, n = P.days, r = seeded(n, 7 + n), r2 = seeded(n, 31 + n);
+      var w = [], labels = [], dates = [], i, last = 0;
+      for (i = 0; i < n; i++) {
+        var d = new Date(P.end[0], P.end[1], P.end[2] - (n - 1 - i)), we = d.getDay() === 0 || d.getDay() === 6;
+        w.push(we ? 0 : 0.75 + r[i] * 0.5);
+        if (!we) last = i;
+        labels.push(d.getDate() + '/' + (d.getMonth() + 1));
+        dates.push(d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()));
+      }
+      var sw = sum(w), tot = w.map(function (x) { return Math.round(total * x / sw); });
+      tot[last] += total - sum(tot);
+      var missed = tot.map(function (t, j) { return Math.round(t * (0.04 + r2[j] * 0.08)); });
+      var nl = tot.map(function (t) { return Math.round(t * 0.72); });
+      return {
+        labels: labels, dates: dates, total: tot, missed: missed, nl: nl,
+        answered: tot.map(function (t, j) { return t - missed[j]; }),
+        fr: tot.map(function (t, j) { return t - nl[j]; })
+      };
+    }
+    function stackChart(d, every, series, aria) {
+      var W = 640, H = 240, pl = 40, pr = 8, pt = 14, pb = 28;
+      var max = Math.max.apply(null, d.total.concat([1])), step = niceStep(max, 4), top = Math.ceil(max / step) * step;
+      var iw = W - pl - pr, ih = H - pt - pb, n = d.total.length, bw = iw / n, g = '', bars = '', i;
+      for (var v = 0; v <= top; v += step) {
+        var y = pt + ih - (v / top) * ih;
+        g += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y + '" y2="' + y + '" stroke="#E6ECF2"/><text x="' + (pl - 8) + '" y="' + (y + 4) + '" text-anchor="end" font-size="11" fill="#5A6E82" font-family="Figtree, sans-serif">' + v + '</text>';
+      }
+      for (i = 0; i < n; i++) {
+        var x = pl + i * bw + bw * 0.14, w = bw * 0.72, yCur = pt + ih;
+        series.forEach(function (sg) {
+          var val = d[sg[0]][i]; if (val <= 0) return;
+          var h = (val / top) * ih; yCur -= h;
+          bars += '<rect x="' + x.toFixed(1) + '" y="' + yCur.toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + h.toFixed(1) + '" fill="' + sg[1] + '"><title>' + d.labels[i] + ' · ' + sg[2] + ': ' + val + '</title></rect>';
+        });
+        if (i % every === 0) bars += '<text x="' + (pl + i * bw + bw / 2).toFixed(1) + '" y="' + (H - 9) + '" text-anchor="middle" font-size="11" fill="#5A6E82" font-family="Figtree, sans-serif">' + d.labels[i] + '</text>';
+      }
+      return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + aria + '">' + g + '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + (pt + ih) + '" y2="' + (pt + ih) + '" stroke="#C9D3DC"/>' + bars + '</svg>';
+    }
+    function meter(label, used, limit) {
+      var pct = used / limit * 100, state = pct >= 100 ? 'over' : pct >= 80 ? 'warn' : 'ok';
+      var txt = state === 'over' ? 'Over the included amount' : state === 'warn' ? 'Almost at the included amount' : 'Within the included amount';
+      var mark = state === 'over' ? '✕ ' : state === 'warn' ? '! ' : '✓ ';
+      return '<div class="meter ' + state + '"><div class="mhead"><b>' + label + '</b><span>' + num(used) + ' of ' + num(limit) + '</span></div>' +
+        '<div class="mbar" role="progressbar" aria-label="' + label + '" aria-valuemin="0" aria-valuemax="' + limit + '" aria-valuenow="' + Math.round(used) + '"><i style="width:' + Math.min(100, pct).toFixed(1) + '%"></i></div>' +
+        '<div class="mfoot"><span class="mstate">' + mark + txt + '</span><span>' + Math.round(pct) + '%</span></div></div>';
+    }
+    function delta(cur, prev) {
+      if (!prev) return '—';
+      var p = Math.round((cur - prev) / prev * 100);
+      return (p > 0 ? '▲ +' + p : p < 0 ? '▼ ' + p : '= 0') + '% vs previous period';
+    }
+    function usageCsv(d) {
+      var rows = ['date,answered,missed,total,dutch,french'];
+      d.dates.forEach(function (dt, i) { rows.push([dt, d.answered[i], d.missed[i], d.total[i], d.nl[i], d.fr[i]].join(',')); });
+      download('usage-tabakstop-' + st.uPeriod + '.csv', rows.join('\n'), 'text/csv;charset=utf-8');
+    }
+    function usagePane() {
+      var p = st.uPeriod, P = UP[p], u = usageFor(p), d = dailySeries(p), series = USEG[st.uStack];
+      var every = d.total.length <= 10 ? 1 : d.total.length <= 31 ? 3 : 12;
+      var sel = '<label class="sr-only" for="u-period">Period</label><select class="topsel" id="u-period" data-bind="uPeriod">' + ['this', 'last', 'last3'].map(function (k) { return '<option value="' + k + '"' + (p === k ? ' selected' : '') + '>' + UP[k].label + '</option>'; }).join('') + '</select>';
+      var meterConvs = p === 'last' ? UM[5] : UM[6], left = Math.max(0, PLAN - meterConvs);
+      var missed = sum(d.missed), pct = Math.round(missed / Math.max(1, u.convs) * 100);
+      var kpis = '<div class="kpis kpis3">' +
+        '<div class="kpi"><span class="k">Conversations</span><span class="v">' + num(u.convs) + '</span><span class="s">' + delta(u.convs, u.prev) + '</span></div>' +
+        '<div class="kpi"><span class="k">Included conversations left</span><span class="v">' + num(left) + '</span><span class="s">of ' + num(PLAN) + ' per month</span></div>' +
+        '<div class="kpi warn"><span class="k">Missed conversations</span><span class="v">' + num(missed) + ' <small>(' + pct + '%)</small></span><span class="s">visitor left before an answer</span></div></div>';
+      var meters = '<div class="card"><div class="pane-head"><h3 style="margin-right:auto">Plan (example)</h3><span class="fine">Counts per calendar month</span></div>' +
+        '<div class="meters">' + meter(p === 'last' ? 'Conversations used, last month' : 'Conversations used, this month', meterConvs, PLAN) + '</div>' +
+        '<p class="fine">The plan includes ' + PLAN + ' conversations per month. A warning shows from 80%.' + (p === 'last3' ? ' For Last 3 months the meter shows the current month.' : '') + '</p></div>';
+      var legend = series.map(function (sg) { return '<span><i style="background:' + sg[1] + '"></i>' + sg[2] + '</span>'; }).join('');
+      var tbl = '<details class="dtable"><summary>Show as table</summary><div class="dt-scroll"><table class="utable"><thead><tr><th>Date</th><th class="num">' + series[0][2] + '</th><th class="num">' + series[1][2] + '</th><th class="num">Total</th></tr></thead><tbody>' +
+        d.dates.map(function (dt, i) { return '<tr><td>' + dt + '</td><td class="num">' + d[series[0][0]][i] + '</td><td class="num">' + d[series[1][0]][i] + '</td><td class="num">' + d.total[i] + '</td></tr>'; }).join('') + '</tbody></table></div></details>';
+      var stack = '<div class="seg" role="group" aria-label="Stack by">' + [['outcome', 'By outcome'], ['lang', 'By language']].map(function (o) { return '<button data-stack="' + o[0] + '" aria-pressed="' + (st.uStack === o[0]) + '">' + o[1] + '</button>'; }).join('') + '</div>';
+      var chart = '<div class="card chart"><div class="pane-head"><h3 style="margin-right:auto">Conversations per day</h3>' + stack + '<button class="btn ghost small" data-act="usagecsv">Export CSV</button></div><div class="legend">' + legend + '<span>Weekend: chat closed</span></div>' + stackChart(d, every, series, 'Conversations per day, ' + (st.uStack === 'lang' ? 'by language' : 'by outcome')) + tbl + '</div>';
+      var answered = u.convs - missed, ops = UOPS.map(function (o) { return { n: o[0], c: Math.round(answered * o[1]), f: o[2] }; });
+      ops[0].c += answered - sum(ops.map(function (o) { return o.c; }));
+      var opsTable = '<div class="card"><h3>By operator</h3><div class="table-wrap" style="border:0"><table class="utable"><thead><tr><th>Operator</th><th class="num">Conversations handled</th><th class="num">Avg. first response</th></tr></thead><tbody>' +
+        ops.map(function (o) { return '<tr><td>' + esc(o.n) + '</td><td class="num">' + num(o.c) + '</td><td class="num">' + o.f + ' min</td></tr>'; }).join('') +
+        '<tr class="tot"><td>All operators</td><td class="num">' + num(answered) + '</td><td class="num"></td></tr></tbody></table></div></div>';
+      return '<div class="pane"><div class="pane-head"><h2>Usage</h2><span class="sample">Sample data</span>' + sel + '</div>' +
+        '<p class="kb-note">Chat usage for Tabakstop · ' + P.label.toLowerCase() + '.</p>' + kpis + meters + chart + opsTable + '</div>';
+    }
+
+    /* Settings */
+    var SWATCHES = [['', 'Default blue', BRAND], ['#1F4E73', 'Dark blue'], ['#0F766E', 'Teal'], ['#2F7A3E', 'Green'], ['#6B3FA0', 'Purple'], ['#B4462B', 'Brick'], ['#FDB913', 'Yellow'], ['#4B5563', 'Grey']];
+    function segHtml(attr, now, opts) {
+      return '<div class="seg" role="group">' + opts.map(function (o) { return '<button data-' + attr + '="' + o[0] + '" aria-pressed="' + (now === o[0]) + '">' + o[1] + '</button>'; }).join('') + '</div>';
+    }
+    function fld(id, label, ctl, hint) { return '<div class="f"><label for="' + id + '">' + label + '</label>' + ctl + (hint ? '<span class="fine">' + hint + '</span>' : '') + '</div>'; }
+    function switchHtml(on, act, label) {
+      return '<div class="swrow"><span id="lbl-' + act + '">' + label + '</span><button class="switch" role="switch" aria-labelledby="lbl-' + act + '" aria-checked="' + on + '" data-act="' + act + '"></button></div>';
+    }
+    function langPair(idBase, bind, labelBase, obj, ph, type) {
+      var out = '';
+      [['nl', 'Dutch'], ['fr', 'French']].forEach(function (lg) {
+        var id = idBase + '-' + lg[0], val = obj[lg[0]], phv = esc(ph[lg[0]]);
+        out += fld(id, labelBase + ' (' + lg[1] + ')', type === 'area'
+          ? '<textarea id="' + id + '" rows="3" data-bind="' + bind + '.' + lg[0] + '" placeholder="' + phv + '">' + esc(val) + '</textarea>'
+          : '<input id="' + id + '" data-bind="' + bind + '.' + lg[0] + '" value="' + esc(val) + '" placeholder="' + phv + '">');
+      });
+      return out;
+    }
+
+    function lookTab() {
+      var a = APP, eff = a.color || BRAND, t = themeFor(eff), hex = st.hexDraft != null ? st.hexDraft : a.color, hexBad = hex && !hexNorm(hex);
+      var sw = SWATCHES.map(function (s) { return '<button class="swatch" data-swatch="' + s[0] + '" aria-pressed="' + ((a.color || '') === s[0]) + '" aria-label="' + s[1] + '" title="' + s[1] + '" style="background:' + (s[2] || s[0]) + '"></button>'; }).join('');
+      var ic = [['chat', 'Chat bubble'], ['dots', 'Message dots'], ['square', 'Speech box'], ['help', 'Help']].map(function (o) {
+        return '<button data-icon="' + o[0] + '" aria-pressed="' + (a.icon === o[0]) + '" aria-label="' + o[1] + '" title="' + o[1] + '"><span class="avi">' + ICON[o[0]] + '</span></button>';
+      }).join('');
+      var controls = '<div class="card"><h3>Colour and shape</h3>' +
+        '<div class="f"><span class="lbl">Main colour</span><div class="swatches">' + sw + '</div></div>' +
+        fld('ap-hex', 'Hex code', '<input id="ap-hex" data-bind="app:hex" value="' + esc(hex || '') + '" placeholder="' + BRAND + '" maxlength="7" autocomplete="off" aria-invalid="' + !!hexBad + '">', 'Empty = the default blue. The text colour (' + (t.ink === '#FFFFFF' ? 'white' : 'dark') + ') is chosen automatically.') +
+        (hexBad ? '<p class="err" role="alert">Enter a valid hex code, e.g. #0F766E.</p>' : '') +
+        (a.color && t.low ? '<p class="warn" role="alert">Low contrast (' + t.ratio.toFixed(1) + ':1, minimum 4.5:1). Pick a darker or lighter colour. The chat temporarily uses a darker shade.</p>' : '') +
+        '<div class="f"><span class="lbl">Corner radius</span>' + segHtml('radius', a.radius, [['none', 'None'], ['mid', 'Medium'], ['round', 'Rounded']]) + '</div></div>' +
+        '<div class="card"><h3>Avatar</h3><p class="sub">The round image in the chat header, next to the operator name. Default: the Tabakstop logo.</p>' +
+        '<div class="avrow"><span class="av-prev' + (a.avatarImg ? ' custom' : '') + '"><img src="' + esc(logoSrc()) + '" alt="Avatar preview" width="56" height="56"></span>' +
+        '<label class="drop avdrop" for="av-file"><b>Drop an image here</b><span>or click to choose a file · PNG, JPG, SVG or WebP · max 1 MB</span></label>' +
+        '<input class="sr-only" id="av-file" type="file" accept=".png,.jpg,.jpeg,.svg,.webp,image/png,image/jpeg,image/svg+xml,image/webp" data-avfile></div>' +
+        (st.avErr ? '<p class="err" role="alert">' + esc(st.avErr) + '</p>' : '') +
+        '<div><button class="btn ghost small" data-act="avremove"' + (a.avatarImg ? '' : ' disabled') + '>Remove / use default</button></div></div>' +
+        '<div class="card"><h3>Chat button</h3>' +
+        '<div class="f"><span class="lbl">Position</span>' + segHtml('pos', a.pos, [['right', 'Right'], ['left', 'Left']]) + '</div>' +
+        '<div class="f"><span class="lbl">Launcher icon</span><div class="seg" role="group" aria-label="Launcher icon">' + ic + '</div></div>' +
+        langPair('ap-label', 'app:label', 'Label', a.label, { nl: 'Empty = icon only', fr: 'Empty = icon only' }) +
+        '<span class="fine">Optional, maximum 30 characters. With a label the button shows the icon and the text; without one it is a round icon-only button.</span></div>' +
+        '<div class="card"><h3>Welcome message</h3><p class="sub">Shown at the start of the chat, above the form.</p>' +
+        langPair('ap-w', 'app:welcome', 'Welcome message', a.welcome, { nl: T.nl.intro, fr: T.fr.intro }, 'area') + '</div>' +
+        '<div><button class="btn ghost" data-act="resetapp">Reset to default</button></div>';
+      var lab = launcherLabel();
+      var preview = '<div class="pv"><div class="pane-head"><h3>Preview (live)</h3><div class="seg" role="group" aria-label="Chat language"><button data-applang="nl" aria-pressed="' + (lang === 'nl') + '">NL</button><button data-applang="fr" aria-pressed="' + (lang === 'fr') + '">FR</button></div></div>' +
+        '<div class="pv-wrap"><div class="pv-inner" id="pv-slot"></div></div>' +
+        '<div class="pv-launch ' + a.pos + '" style="' + appearanceStyle() + '"><span class="launcher' + (lab ? '' : ' round') + '" aria-hidden="true">' + (ICON[a.icon] || ICON.chat) + (lab ? '<span>' + esc(lab) + '</span>' : '') + '</span></div>' +
+        '<p class="fine">Sample, changes are not saved. Changes show immediately in the Embedded and Chat button views.</p></div>';
+      return '<div class="ap-grid"><div class="ap-controls">' + controls + '</div>' + preview + '</div>';
+    }
+
+    function mailsOf(v) { return v.split(',').map(function (m) { return m.trim(); }).filter(Boolean); }
+    function chatTab() {
+      var mails = mailsOf(CHAT.mailTo), bad = mails.filter(function (m) { return !validEmail(m); }), mailBad = !mails.length || bad.length;
+      return '<div class="card"><h3>Pre-chat form</h3><p class="sub">The fields visitors fill in before a conversation starts.</p>' +
+        switchHtml(CHAT.nameReq, 'nametoggle', 'First name or nickname is required') +
+        '<div class="f"><span class="lbl">E-mail address</span>' + segHtml('emailmode', CHAT.email, [['optional', 'Optional'], ['required', 'Required']]) + '</div>' +
+        switchHtml(CHAT.topic, 'topictoggle', 'Ask what the visitor wants to talk about (topic)') + '</div>' +
+        '<div class="card"><h3>After the chat</h3>' + switchHtml(CHAT.survey, 'surveytoggle', 'Ask for a satisfaction score (1 to 5)') +
+        '<p class="fine">When off, visitors go straight to the thank-you screen.</p></div>' +
+        '<div class="card"><h3>Offline messages</h3><p class="sub">When nobody is available, the chat becomes a message form.</p>' +
+        fld('ch-mail', 'Offline messages are sent to', '<input id="ch-mail" data-bind="chat:mailTo" value="' + esc(CHAT.mailTo) + '" placeholder="info@tabakstop.be" inputmode="email" aria-invalid="' + !!mailBad + '">', 'Separate several addresses with a comma.') +
+        (mailBad ? '<p class="err" role="alert">' + (!mails.length ? 'Enter at least one e-mail address.' : 'Not a valid e-mail address: ' + esc(bad.join(', ')) + '.') + '</p>' : '') +
+        langPair('ch-off', 'chat:offText', 'Offline message text', CHAT.offText, { nl: T.nl.offBody, fr: T.fr.offBody }, 'area') + '</div>' +
+        '<div class="card"><h3>Opening hours</h3>' +
+        langPair('ch-hrs', 'chat:hours', 'Opening hours text', CHAT.hours, { nl: T.nl.hours, fr: T.fr.hours }) +
+        '<span class="fine">Shown to visitors in the offline message. Display text only, the chat does not follow a schedule in this prototype.</span></div>' +
+        '<p class="fine">Sample, changes are not saved. Changes show immediately in the Embedded and Chat button views.</p>';
+    }
+
+    function snippet(kind) {
+      var a = APP, attrs = ' data-site="tabakstop"';
+      if (kind === 'inline') attrs += ' data-mode="inline" data-target="#tabakstop-chat"';
+      else if (a.pos === 'left') attrs += ' data-position="left"';
+      if (a.color) attrs += ' data-color="' + a.color + '"';
+      if (a.radius !== 'mid') attrs += ' data-radius="' + a.radius + '"';
+      if (kind !== 'inline') {
+        if (a.icon !== 'chat') attrs += ' data-icon="' + a.icon + '"';
+        attrs += ' data-label="' + esc(a.label.nl.trim()) + '"';
+        if (a.label.fr.trim() !== a.label.nl.trim()) attrs += ' data-label-fr="' + esc(a.label.fr.trim()) + '"';
+      }
+      attrs += ' data-lang="auto"';
+      var tag = '<script src="https://chat.tabakstop.be/widget.js"' + attrs + ' async><\/script>';
+      return kind === 'inline' ? '<div id="tabakstop-chat"></div>\n' + tag : tag;
+    }
+    function copyText(t, done) {
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = t; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (err) {}
+        document.body.removeChild(ta); done();
+      }
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).then(done, fallback); else fallback();
+    }
+    function embedTab() {
+      var kind = st.snip, copied = st.copied === kind;
+      var expl = kind === 'widget' ? 'Paste this just before </body> on every page where the chat button should appear.' : 'Paste this where the chat should appear on the page.';
+      var doms = st.domains.split(',').map(function (x) { return x.trim(); }).filter(Boolean);
+      var domBad = !doms.length || doms.some(function (x) { return !/^([a-z0-9-]+\.)+[a-z]{2,}$/i.test(x); });
+      return '<div class="card"><h3>Install on your site</h3>' + segHtml('snip', kind, [['widget', 'Chat button'], ['inline', 'Embedded']]) +
+        '<p>' + esc(expl) + '</p>' +
+        '<div class="codebox"><div class="codehead"><span>' + (kind === 'widget' ? 'Chat button (floating)' : 'Embedded on a page') + '</span><button class="btn small" data-copy="' + kind + '">' + (copied ? 'Copied' : 'Copy') + '</button></div><pre class="code" tabindex="0"><code>' + esc(snippet(kind)) + '</code></pre></div>' +
+        '<p class="fine">Example: the addresses in the code are not active. The code follows your Appearance settings: position, icon, label, colour and corner radius.</p></div>' +
+        '<div class="card"><h3>Allowed domains</h3>' + fld('dom', 'Domains', '<input id="dom" data-bind="domains" value="' + esc(st.domains) + '" autocomplete="off" aria-invalid="' + domBad + '">', 'Separate domains with a comma.') +
+        (domBad ? '<p class="err" role="alert">Enter valid domains such as tabakstop.be.</p>' : '') +
+        '<p class="fine">The chat only loads on these domains. On other sites it stays hidden.</p></div>' +
+        '<p class="fine">Using WordPress? Paste the code with a plugin for headers and footers, or in the theme footer.</p>';
+    }
+
+    function privacyTab() {
+      var p = PRIV, policyBad = p.policy.trim() && !validUrl(p.policy.trim());
+      var ret = { '30': '30 days', '90': '90 days', '365': '1 year', never: 'never' };
+      return '<div class="card"><h3>Retention</h3>' + fld('pr-ret', 'Keep conversations', '<select id="pr-ret" data-bind="priv:retention">' + [['30', '30 days'], ['90', '90 days'], ['365', '1 year'], ['never', 'Never delete']].map(function (o) { return '<option value="' + o[0] + '"' + (p.retention === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select>') +
+        '<p class="fine">' + (p.retention === 'never' ? 'Conversations are kept until you delete them yourself.' : 'Conversations are deleted automatically after ' + ret[p.retention] + '.') + ' Sample: nothing is actually deleted.</p></div>' +
+        '<div class="card"><h3>Personal data</h3>' + switchHtml(p.mask, 'masktoggle', 'Hide personal data in stored conversations') +
+        '<p class="fine">E-mail addresses and phone numbers are masked in the archive and in exports. See the result under <button class="toggle-link" data-page="archive">Archive</button> (for example the conversation with Els).</p></div>' +
+        '<div class="card"><h3>Privacy policy and footer notice</h3>' +
+        fld('pr-url', 'Link to the privacy policy', '<input id="pr-url" data-bind="priv:policy" value="' + esc(p.policy) + '" placeholder="https://www.tabakstop.be/privacy" inputmode="url">', 'Shown as a link in the footer of the chat once you enter a valid URL.') +
+        (policyBad ? '<p class="err" role="alert">Enter a valid URL starting with http:// or https://.</p>' : '') +
+        langPair('pr-n', 'priv:notice', 'Footer notice', p.notice, { nl: T.nl.notice, fr: T.fr.notice }) + '</div>' +
+        '<div class="card"><h3>Delete or export a conversation</h3><p class="fine">Open the <button class="toggle-link" data-page="archive">Archive</button>, pick a conversation and use <b>Export .txt</b> or <b>Delete</b>.</p></div>' +
+        '<p class="fine">Sample, changes are not saved.</p>';
+    }
+
+    function settingsPane() {
+      var tabs = [['look', 'Appearance'], ['chat', 'Chat'], ['embed', 'Install on your site'], ['privacy', 'Privacy']];
+      var body = st.setTab === 'chat' ? chatTab() : st.setTab === 'embed' ? embedTab() : st.setTab === 'privacy' ? privacyTab() : lookTab();
+      return '<div class="pane"><div class="pane-head"><h2>Settings</h2><span class="sample">Sample, changes are not saved</span></div>' +
+        '<div class="seg wrapseg" role="group" aria-label="Settings section">' + tabs.map(function (x) { return '<button data-settab="' + x[0] + '" aria-pressed="' + (st.setTab === x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>' +
+        '<div class="set-body">' + body + '</div></div>';
     }
 
     function toastHtml() {
       if (!st.toast) return '';
-      return '<div class="toast" role="status">' + ICON.bell + '<div><b>Nieuw gesprek van ' + esc(st.toast.name) + '</b><span>' + esc(st.toast.topic) + (st.sound ? ' · geluidsmelding afgespeeld' : '') + '</span></div><button data-act="opentoast">Bekijken</button></div>';
+      if (st.toast.flash) return '<div class="toast" role="status">' + ICON.check + '<div><b>' + esc(st.toast.title) + '</b><span>' + esc(st.toast.body) + '</span></div></div>';
+      return '<div class="toast" role="status">' + ICON.bell + '<div><b>New conversation from ' + esc(st.toast.name) + '</b><span>' + esc(st.toast.topic) + (st.sound ? ' · sound alert played' : '') + '</span></div><button data-act="opentoast">View</button></div>';
+    }
+    function flash(title, body) {
+      st.toast = { flash: true, title: title, body: body }; render();
+      setTimeout(function () { if (st.toast && st.toast.title === title) { st.toast = null; var el = root.querySelector('.toast'); if (el) el.remove(); } }, 3500);
     }
 
+    var lastView = '';
     function render(focusReply) {
-      var main = st.page === 'inbox' ? inbox() : st.page === 'archive' ? archivePane() : statsPane();
-      var qFocused = document.activeElement && document.activeElement.id === 'arc-q';
-      var caret = qFocused ? document.activeElement.selectionStart : null;
+      if (st.signedOut) {
+        root.innerHTML = signedOutHtml();
+        var sb = root.querySelector('#signin-btn'); if (sb) sb.focus();
+        return;
+      }
+      var main = st.page === 'inbox' ? inbox() : st.page === 'archive' ? archivePane() : st.page === 'stats' ? statsPane() : st.page === 'usage' ? usagePane() : settingsPane();
+      var act = document.activeElement, keep = act && root.contains(act) && act.id && act.hasAttribute('data-bind') && !act.closest('.pv-card') ? act.id : null;
+      var caret = keep ? act.selectionStart : null;
+      var oldPane = root.querySelector('.pane'), vk = st.page + ':' + st.setTab;
+      var paneTop = oldPane && vk === lastView ? oldPane.scrollTop : 0;
+      lastView = vk;
       root.innerHTML = side() + '<div class="main">' + main + '</div>' + toastHtml();
+      var pane = root.querySelector('.pane'); if (pane) pane.scrollTop = paneTop;
       var sc = root.querySelector('[data-scroll]');
       if (sc) sc.scrollTop = sc.scrollHeight;
+      var slot = root.querySelector('#pv-slot'); if (slot) { slot.appendChild(previewMount); preview.render(); }
       if (focusReply) { var t = root.querySelector('[data-bind="draft"]'); if (t) t.focus(); }
-      if (qFocused) { var q = document.getElementById('arc-q'); if (q) { q.focus(); try { q.setSelectionRange(caret, caret); } catch (e) {} } }
+      if (keep) { var k = document.getElementById(keep); if (k) { k.focus(); try { k.setSelectionRange(caret, caret); } catch (e) {} } }
       var w = convs.filter(function (c) { return c.status === 'waiting'; }).length;
-      document.title = (view === 'beheer' && w ? '(' + w + ') ' : '') + 'Tabakstop Chat Prototype';
+      document.title = (view === 'beheer' && w ? '(' + w + ') ' : '') + baseTitle;
     }
 
     var audioCtx = null;
@@ -1225,54 +1843,154 @@ html, body { margin: 0; }
     ];
     var vIdx = 0;
 
+    function setPath(prefix, path, v) {
+      var o = prefix === 'app' ? APP : prefix === 'chat' ? CHAT : PRIV, p = path.split('.');
+      for (var i = 0; i < p.length - 1; i++) o = o[p[i]];
+      o[p[p.length - 1]] = v;
+    }
+    function applyChange() { refreshChats(); render(); }
+    function avatarFile(f) {
+      if (!f) return;
+      if (!/^image\/(png|jpeg|svg\+xml|webp)$/.test(f.type) && !/\.(png|jpe?g|svg|webp)$/i.test(f.name)) { st.avErr = f.name + ': use a PNG, JPG, SVG or WebP image.'; render(); return; }
+      if (f.size > 1048576) { st.avErr = f.name + ': larger than 1 MB.'; render(); return; }
+      var rd = new FileReader();
+      rd.onload = function () { st.avErr = ''; APP.avatarImg = String(rd.result); applyChange(); };
+      rd.onerror = function () { st.avErr = 'Could not read the file.'; render(); };
+      rd.readAsDataURL(f);
+    }
+    function onBind(k, v) {
+      if (k === 'uPeriod') { st.uPeriod = v; render(); }
+      else if (k === 'domains') { st.domains = v; render(); }
+      else if (k === 'app:hex') {
+        st.hexDraft = v;
+        var h = hexNorm(v);
+        if (h) APP.color = h; else if (!v.trim()) APP.color = '';
+        applyChange();
+      } else if (k.indexOf(':') > 0) {
+        if (k.indexOf('app:label') === 0) v = v.slice(0, 30);
+        var pr = k.split(':'); setPath(pr[0], pr[1], v); applyChange();
+      }
+    }
+    function closeMenus(focusId) {
+      st.userMenu = false; st.siteMenu = false; render();
+      var f = focusId && root.querySelector('#' + focusId); if (f) f.focus();
+    }
+
     root.addEventListener('click', function (e) {
-      var t;
-      if ((t = e.target.closest('[data-page]'))) { st.page = t.getAttribute('data-page'); st.menu = false; render(); return; }
-      if ((t = e.target.closest('[data-status]'))) { st.status = t.getAttribute('data-status'); render(); return; }
-      if ((t = e.target.closest('[data-conv]'))) { st.sel = +t.getAttribute('data-conv'); st.menu = false; render(conv(st.sel).status === 'mine'); return; }
-      if ((t = e.target.closest('[data-transfer]'))) {
-        var c = conv(st.sel), to = t.getAttribute('data-transfer');
-        c.status = 'theirs'; c.operator = to; c.msgs.push({ from: 'sys', text: 'Doorgegeven aan ' + to });
+      if (e.target.closest('.pv-card')) return;
+      var t, v, c0 = e.target;
+      function pick(attr) { t = c0.closest('[' + attr + ']'); return t ? t.getAttribute(attr) : null; }
+      if ((v = pick('data-page')) !== null) { st.page = v; st.menu = false; st.userMenu = false; st.siteMenu = false; render(); return; }
+      if ((v = pick('data-status')) !== null) { st.status = v; render(); return; }
+      if ((v = pick('data-conv')) !== null) { st.sel = +v; st.menu = false; render(conv(st.sel).status === 'mine'); return; }
+      if ((v = pick('data-transfer')) !== null) {
+        var c = conv(st.sel);
+        c.status = 'theirs'; c.operator = v; c.msgs.push({ from: 'sys', text: 'Transferred to ' + v });
         st.menu = false; render(); return;
       }
-      if ((t = e.target.closest('[data-filter]'))) { st.filter = t.getAttribute('data-filter'); render(); return; }
-      if ((t = e.target.closest('[data-arc]'))) { st.arcSel = +t.getAttribute('data-arc'); render(); return; }
-      if ((t = e.target.closest('[data-period]'))) { st.period = +t.getAttribute('data-period'); render(); return; }
-      if (!(t = e.target.closest('[data-act]'))) { if (st.menu && !e.target.closest('.menu')) { st.menu = false; render(); } return; }
-      var act = t.getAttribute('data-act'), cur = conv(st.sel);
-      if (act === 'sound') { st.sound = !st.sound; if (st.sound) chime(); render(); }
-      else if (act === 'menu') { st.menu = !st.menu; render(); }
-      else if (act === 'take' && cur) {
+      if ((v = pick('data-filter')) !== null) { st.filter = v; render(); return; }
+      if ((v = pick('data-arc')) !== null) { st.arcSel = +v; st.delArc = null; render(); return; }
+      if ((v = pick('data-period')) !== null) { st.period = +v; render(); return; }
+      if ((v = pick('data-settab')) !== null) { st.setTab = v; render(); return; }
+      if ((v = pick('data-radius')) !== null) { APP.radius = v; applyChange(); return; }
+      if ((v = pick('data-pos')) !== null) { APP.pos = v; applyChange(); return; }
+      if ((v = pick('data-icon')) !== null) { APP.icon = v; applyChange(); return; }
+      if ((v = pick('data-swatch')) !== null) { APP.color = v; st.hexDraft = null; applyChange(); return; }
+      if ((v = pick('data-emailmode')) !== null) { CHAT.email = v; applyChange(); return; }
+      if ((v = pick('data-snip')) !== null) { st.snip = v; render(); return; }
+      if ((v = pick('data-stack')) !== null) { st.uStack = v; render(); return; }
+      if ((v = pick('data-applang')) !== null) { setLang(v); return; }
+      if ((v = pick('data-copy')) !== null) {
+        copyText(snippet(v), function () { st.copied = v; render(); setTimeout(function () { if (st.copied === v) { st.copied = null; if (st.page === 'settings') render(); } }, 2000); });
+        return;
+      }
+      if (pick('data-sitepick') !== null) { closeMenus('sp-btn'); return; }
+      if (!(t = c0.closest('[data-act]'))) {
+        if ((st.menu && !c0.closest('.menu')) || ((st.userMenu || st.siteMenu) && !c0.closest('.sp-menu, .usr-menu'))) { st.menu = false; st.userMenu = false; st.siteMenu = false; render(); }
+        return;
+      }
+      var a = t.getAttribute('data-act'), cur = conv(st.sel);
+      if (a === 'sound') { st.sound = !st.sound; if (st.sound) chime(); render(); }
+      else if (a === 'menu') { st.menu = !st.menu; render(); }
+      else if (a === 'usermenu') {
+        st.userMenu = !st.userMenu; st.siteMenu = false; render();
+        var mi = root.querySelector(st.userMenu ? '.usr-menu [data-act="signout"]' : '#usr-btn'); if (mi) mi.focus();
+      } else if (a === 'sitemenu') {
+        st.siteMenu = !st.siteMenu; st.userMenu = false; render();
+        var sm = root.querySelector(st.siteMenu ? '.sp-it[aria-checked="true"]' : '#sp-btn'); if (sm) sm.focus();
+      } else if (a === 'signout') { st.userMenu = false; st.signedOut = true; render(); }
+      else if (a === 'signin') { st.signedOut = false; render(); var ub = root.querySelector('#usr-btn'); if (ub) ub.focus(); }
+      else if (a === 'take' && cur) {
         cur.status = 'mine'; cur.operator = ME; cur.taken = Date.now();
-        cur.msgs.push({ from: 'sys', text: ME + ' heeft het gesprek aangenomen' });
+        cur.msgs.push({ from: 'sys', text: ME + ' took the conversation' });
         render(true);
-      } else if (act === 'close' && cur) {
+      } else if (a === 'close' && cur) {
         var m = Math.max(1, Math.round((Date.now() - cur.started) / 60000));
-        archive.unshift({ id: ++seq + 1000, date: 'Vandaag, net', name: cur.name, topic: cur.topic, op: ME, dur: m + ' min', rating: null, lang: cur.lang, outcome: 'ok', comment: '',
-          msgs: cur.msgs.map(function (x) { return [x.from === 'op' ? 'op' : x.from, x.text]; }).concat([['sys', 'Afgesloten door ' + ME + ' · wacht op tevredenheidsscore']]) });
-        convs = convs.filter(function (c) { return c.id !== cur.id; });
-        var next = convs.filter(function (c) { return c.status === 'mine'; })[0] || convs.filter(function (c) { return c.status === 'waiting'; })[0] || convs[0];
+        archive.unshift({ id: ++seq + 1000, date: 'Today, just now', name: cur.name, topic: cur.topic, op: ME, dur: m + ' min', rating: null, lang: cur.lang, outcome: 'ok', comment: '', email: cur.email,
+          msgs: cur.msgs.map(function (x) { return [x.from, x.text]; }).concat([['sys', 'Closed by ' + ME + ' · waiting for satisfaction score']]) });
+        convs = convs.filter(function (x) { return x.id !== cur.id; });
+        var next = convs.filter(function (x) { return x.status === 'mine'; })[0] || convs.filter(function (x) { return x.status === 'waiting'; })[0] || convs[0];
         st.sel = next ? next.id : null; st.menu = false;
         render();
-      } else if (act === 'opentoast' && st.toast) {
+      } else if (a === 'opentoast' && st.toast) {
         st.page = 'inbox'; st.sel = st.toast.id; st.toast = null; render();
+      } else if (a === 'arcexport') { var ea = archiveSel(); if (ea) exportTxt(ea); }
+      else if (a === 'arcdelask') { st.delArc = st.arcSel; render(); }
+      else if (a === 'arcdelno') { st.delArc = null; render(); }
+      else if (a === 'arcdelyes') {
+        var da = archiveSel();
+        if (da) { archive.splice(archive.indexOf(da), 1); st.delArc = null; st.arcSel = archive.length ? archive[0].id : 0; flash('Conversation deleted', 'The conversation is no longer in the archive.'); }
       }
+      else if (a === 'usagecsv') usageCsv(dailySeries(st.uPeriod));
+      else if (a === 'avremove') { APP.avatarImg = ''; st.avErr = ''; applyChange(); }
+      else if (a === 'resetapp') { APP = defApp(); st.hexDraft = null; st.avErr = ''; applyChange(); }
+      else if (a === 'masktoggle') { PRIV.mask = !PRIV.mask; render(); }
+      else if (a === 'nametoggle') { CHAT.nameReq = !CHAT.nameReq; applyChange(); }
+      else if (a === 'topictoggle') { CHAT.topic = !CHAT.topic; applyChange(); }
+      else if (a === 'surveytoggle') { CHAT.survey = !CHAT.survey; applyChange(); }
     });
+    function archiveSel() { for (var i = 0; i < archive.length; i++) if (archive[i].id === st.arcSel) return archive[i]; return null; }
+
     root.addEventListener('input', function (e) {
+      if (e.target.closest('.pv-card')) return;
       var k = e.target.getAttribute('data-bind');
-      if (k === 'draft') st.drafts[st.sel] = e.target.value;
-      else if (k === 'note') st.notes[st.sel] = e.target.value;
-      else if (k === 'q') { st.q = e.target.value; render(); }
+      if (!k) return;
+      var v = e.target.value;
+      if (k === 'draft') st.drafts[st.sel] = v;
+      else if (k === 'note') st.notes[st.sel] = v;
+      else if (k === 'q') { st.q = v; render(); }
+      else onBind(k, v);
     });
+    root.addEventListener('change', function (e) {
+      if (e.target.closest('.pv-card')) return;
+      var t = e.target;
+      if (t.hasAttribute('data-avfile')) avatarFile(t.files && t.files[0]);
+      else if (t.tagName === 'SELECT' && t.hasAttribute('data-bind')) onBind(t.getAttribute('data-bind'), t.value);
+    });
+    root.addEventListener('dragover', function (e) { if (e.target.closest('.avdrop')) { e.preventDefault(); e.target.closest('.avdrop').classList.add('over'); } });
+    root.addEventListener('dragleave', function (e) { var d = e.target.closest('.avdrop'); if (d) d.classList.remove('over'); });
+    root.addEventListener('drop', function (e) { if (e.target.closest('.avdrop')) { e.preventDefault(); avatarFile(e.dataTransfer.files[0]); } });
     root.addEventListener('keydown', function (e) {
+      if (e.target.closest('.pv-card')) return;
       if (e.target.getAttribute('data-bind') === 'draft' && e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         var f = e.target.form; f.requestSubmit ? f.requestSubmit() : f.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
       }
-      if (e.key === 'Enter' && e.target.hasAttribute('data-arc')) { st.arcSel = +e.target.getAttribute('data-arc'); render(); }
-      if (e.key === 'Escape' && st.menu) { st.menu = false; render(); }
+      if (e.key === 'Enter' && e.target.hasAttribute('data-arc')) { st.arcSel = +e.target.getAttribute('data-arc'); st.delArc = null; render(); }
+      if (e.key === 'Escape' && (st.userMenu || st.siteMenu)) {
+        var wasSite = st.siteMenu; closeMenus(wasSite ? 'sp-btn' : 'usr-btn');
+      } else if (e.key === 'Escape' && st.menu) { st.menu = false; render(); }
+      else if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && e.target.closest('.sp-menu, .usr-menu')) {
+        e.preventDefault();
+        var its = [].slice.call(root.querySelectorAll('.sp-menu .sp-it, .usr-menu .usr-it:not(:disabled)')), ix = its.indexOf(e.target.closest('.sp-it, .usr-it'));
+        if (its.length) its[(ix + (e.key === 'ArrowDown' ? 1 : -1) + its.length) % its.length].focus();
+      } else if (e.key === 'ArrowDown' && e.target.id === 'sp-btn' && !st.siteMenu) {
+        e.preventDefault(); st.siteMenu = true; st.userMenu = false; render();
+        var f3 = root.querySelector('.sp-it[aria-checked="true"]'); if (f3) f3.focus();
+      }
     });
     root.addEventListener('submit', function (e) {
+      if (e.target.closest('.pv-card')) return;
       e.preventDefault();
       var c = conv(st.sel), text = (st.drafts[st.sel] || '').trim();
       if (!c || !text) return;
@@ -1290,16 +2008,17 @@ html, body { margin: 0; }
     });
 
     setInterval(function () {
-      if (view !== 'beheer') return;
+      if (view !== 'beheer' || st.signedOut) return;
       [].forEach.call(root.querySelectorAll('[data-wait]'), function (el) {
         var c = conv(+el.getAttribute('data-wait')); if (c) el.textContent = waitLong(c.started);
       });
     }, 1000);
     setInterval(function () {
-      if (view === 'beheer' && st.page === 'inbox' && !root.contains(document.activeElement)) render();
+      if (view === 'beheer' && !st.signedOut && st.page === 'inbox' && !root.contains(document.activeElement)) render();
     }, 30000);
 
     return {
+      refresh: function () { if (st.started) render(); },
       start: function () {
         render();
         if (st.started) return;
@@ -1308,6 +2027,7 @@ html, body { margin: 0; }
           var c = { id: 5, name: 'Tom', topic: 'Iets anders', lang: 'NL', email: '', page: '/info/brochures', started: Date.now(), status: 'waiting',
             msgs: [{ from: 'visitor', text: 'Hoi, kan ik ook brochures voor mijn huisartsenpraktijk bestellen?' }] };
           convs.splice(2, 0, c);
+          if (st.signedOut) return;
           if (st.status === 'online') { st.toast = { id: 5, name: c.name, topic: c.topic }; chime(); }
           if (view === 'beheer' && !(document.activeElement && root.contains(document.activeElement) && document.activeElement.tagName === 'TEXTAREA')) render();
           else if (view === 'beheer') { var tmp = document.createElement('div'); tmp.innerHTML = toastHtml(); root.appendChild(tmp.firstChild); var n = root.querySelector('.side nav [data-page="inbox"] .badge'); if (n) n.textContent = convs.filter(function (x) { return x.status === 'waiting'; }).length; }
@@ -1317,6 +2037,7 @@ html, body { margin: 0; }
     };
   })();
 
+  applyChrome();
   var initial = (location.hash || '').replace('#', '');
   show(['widget', 'embed', 'beheer'].indexOf(initial) !== -1 ? initial : 'embed');
 })();
