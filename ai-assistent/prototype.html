@@ -1951,10 +1951,9 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     }
 
     /* Usage */
-    var UM = { kanker: [5100, 5600, 6000, 6420, 6980, 10460, 7420], tabakstop: [4100, 4500, 5000, 5230, 5900, 6900, 8310] };
+    var UM = { kanker: [128, 140, 152, 170, 186, 238, 212], tabakstop: [92, 104, 115, 122, 141, 166, 141] };
     var UP = { 'this': { idx: [6], prev: [5], days: 23, end: [2025, 8, 23], label: 'This month', pages: 12 }, last: { idx: [5], prev: [4], days: 31, end: [2025, 7, 31], label: 'Last month', pages: 30 }, last3: { idx: [4, 5, 6], prev: [1, 2, 3], days: 85, end: [2025, 8, 23], label: 'Last 3 months', pages: 74 } };
-    var TOK_IN = 1850, TOK_OUT = 270;
-    var LIMITS = { msgs: 10000, pages: 500, mb: 500 };
+    var LIMITS = { convs: 250, pages: 500, mb: 500 };
     var PDF_MB = { kanker: 38, tabakstop: 12 };
     function num(n) { return Math.round(n).toLocaleString('en-US'); }
     function delta(cur, prev) {
@@ -1965,11 +1964,11 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     function usageFor(k, p) {
       var P = UP[p], m = UM[k], cur = sum(P.idx.map(function (i) { return m[i]; })), prev = sum(P.prev.map(function (i) { return m[i]; }));
       if (p === 'this') prev = Math.round(prev * P.days / 30);
-      return { msgs: cur, prev: prev, convs: Math.round(cur / 3.4), convsPrev: Math.round(prev / 3.4) };
+      return { convs: cur, prev: prev };
     }
     function pagesOf(list) { var n = 0; list.forEach(function (x) { if (x.status !== 'failed') n += x.pages; }); return n; }
     function dailySeries(k, p) {
-      var P = UP[p], total = usageFor(k, p).msgs, n = P.days, r = seeded(n, 7 + k.length * 3 + n), end = new Date(P.end[0], P.end[1], P.end[2]);
+      var P = UP[p], total = usageFor(k, p).convs, n = P.days, r = seeded(n, 7 + k.length * 3 + n), end = new Date(P.end[0], P.end[1], P.end[2]);
       var w = [], labels = [], dates = [], i;
       for (i = 0; i < n; i++) {
         var d = new Date(end.getTime() - (n - 1 - i) * 86400000), we = d.getDay() === 0 || d.getDay() === 6;
@@ -2010,7 +2009,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
         '<div class="mfoot"><span class="mstate">' + mark + txt + '</span><span>' + Math.round(pct) + '%</span></div></div>';
     }
     function usageCsv(d) {
-      var rows = ['site,date,nl_messages,fr_messages,total_messages'];
+      var rows = ['site,date,nl_conversations,fr_conversations,total_conversations'];
       d.dates.forEach(function (dt, i) { rows.push([cur, dt, d.nl[i], d.fr[i], d.total[i]].join(',')); });
       var blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8' }), url = URL.createObjectURL(blob), el = document.createElement('a');
       el.href = url; el.download = 'usage-' + cur + '-' + st.uPeriod + '.csv'; document.body.appendChild(el); el.click(); document.body.removeChild(el);
@@ -2021,40 +2020,38 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       var c = srcCounts();
       var every = d.total.length <= 10 ? 1 : d.total.length <= 31 ? 3 : 12;
       var sel = '<label class="sr-only" for="u-period">Period</label><select id="u-period" data-bind="uPeriod">' + ['this', 'last', 'last3'].map(function (k) { return '<option value="' + k + '"' + (p === k ? ' selected' : '') + '>' + UP[k].label + '</option>'; }).join('') + '</select>';
-      var mM = UM[cur][6];
-      var meterMsgs = p === 'last' ? UM[cur][5] : mM;
+      var meterConvs = p === 'last' ? UM[cur][5] : UM[cur][6], left = Math.max(0, LIMITS.convs - meterConvs);
       var kpis = '<div class="kpis">' +
-        '<div class="kpi"><span class="k">AI messages</span><span class="v">' + num(u.msgs) + '</span><span class="s">assistant replies · ' + delta(u.msgs, u.prev) + '</span></div>' +
-        '<div class="kpi"><span class="k">Conversations</span><span class="v">' + num(u.convs) + '</span><span class="s">' + delta(u.convs, u.convsPrev) + '</span></div>' +
-        '<div class="kpi"><span class="k">Pages indexed</span><span class="v">' + num(c.pages) + '</span><span class="s">web + PDF pages · ▲ +' + P.pages + ' in this period</span></div>' +
-        '</div>';
+        '<div class="kpi"><span class="k">Conversations</span><span class="v">' + num(u.convs) + '</span><span class="s">' + delta(u.convs, u.prev) + '</span></div>' +
+        '<div class="kpi"><span class="k">Included conversations left</span><span class="v">' + num(left) + '</span><span class="s">of ' + num(LIMITS.convs) + ' per month</span></div>' +
+        '<div class="kpi"><span class="k">Pages indexed</span><span class="v">' + num(c.pages) + '</span><span class="s">web + PDF pages · ▲ +' + P.pages + ' in this period</span></div></div>';
       var meters = '<div class="card"><div class="pane-head"><h3 style="margin-right:auto">Plan limits (example)</h3><span class="fine">Resets on 1 Oct</span></div>' +
-        '<div class="meters">' + meter('AI messages used', meterMsgs, LIMITS.msgs, num(meterMsgs), num(LIMITS.msgs)) + meter('Pages indexed', c.pages, LIMITS.pages, num(c.pages), num(LIMITS.pages)) + meter('PDF storage', PDF_MB[cur], LIMITS.mb, PDF_MB[cur] + ' MB', LIMITS.mb + ' MB') + '</div>' +
-        '<p class="fine">The messages meter follows the selected month' + (p === 'last3' ? ' (for Last 3 months it shows the current month)' : '') + '. The warning starts at 80%.</p></div>';
+        '<div class="meters">' + meter('Conversations used', meterConvs, LIMITS.convs, num(meterConvs), num(LIMITS.convs)) + meter('Pages indexed', c.pages, LIMITS.pages, num(c.pages), num(LIMITS.pages)) + meter('PDF storage', PDF_MB[cur], LIMITS.mb, PDF_MB[cur] + ' MB', LIMITS.mb + ' MB') + '</div>' +
+        '<p class="fine">The plan includes 250 conversations per month. The conversations meter follows the selected month' + (p === 'last3' ? ' (for Last 3 months it shows the current month)' : '') + '. The warning starts at 80%.</p></div>';
       var legend = USEG.map(function (sg) { return '<span><i style="background:' + sg[1] + '"></i>' + sg[2] + '</span>'; }).join('');
       var tbl = '<details class="dtable"><summary>Show as table</summary><div class="dt-scroll"><table class="utable"><thead><tr><th>Date</th><th class="num">NL</th><th class="num">FR</th><th class="num">Total</th></tr></thead><tbody>' +
         d.dates.map(function (dt, i) { return '<tr><td>' + dt + '</td><td class="num">' + d.nl[i] + '</td><td class="num">' + d.fr[i] + '</td><td class="num">' + d.total[i] + '</td></tr>'; }).join('') + '</tbody></table></div></details>';
-      var chart = '<div class="card chart"><div class="pane-head"><h3 style="margin-right:auto">AI messages per day</h3><button class="btn ghost small" data-act="usagecsv">Export CSV</button></div><div class="legend">' + legend + '</div>' + barChart(d, every, USEG, 'AI messages per day, by language') + tbl + '</div>';
-      var models = '<tr><td>' + esc(prov.n) + ' <span class="stag sitemap">In use</span></td><td class="num">' + num(u.msgs) + '</td><td class="num">' + num(u.msgs * TOK_IN) + '</td><td class="num">' + num(u.msgs * TOK_OUT) + '</td></tr>';
+      var chart = '<div class="card chart"><div class="pane-head"><h3 style="margin-right:auto">Conversations per day</h3><button class="btn ghost small" data-act="usagecsv">Export CSV</button></div><div class="legend">' + legend + '</div>' + barChart(d, every, USEG, 'Conversations per day, by language') + tbl + '</div>';
+      var models = '<tr><td>' + esc(prov.n) + ' <span class="stag sitemap">In use</span></td><td class="num">' + num(u.convs) + '</td></tr>';
       var web = srcs.filter(function (x) { return x.kind === 'web'; }), pdf = srcs.filter(function (x) { return x.kind === 'pdf'; });
       function lastIdx(l) { var m = null; l.forEach(function (x) { if ((x.status === 'ok' || x.status === 'changed') && (m === null || x.age < m)) m = x.age; }); return m === null ? '—' : ago(m); }
       var types = '<tr><td>Web pages</td><td class="num">' + web.length + '</td><td class="num">' + num(pagesOf(web)) + '</td><td>' + lastIdx(web) + '</td></tr><tr><td>PDFs</td><td class="num">' + pdf.length + '</td><td class="num">' + num(pagesOf(pdf)) + '</td><td>' + lastIdx(pdf) + '</td></tr>';
       var pick = [srcs[0], srcs[1], srcs[2], pdf[0], srcs[4]].filter(Boolean), base = [412, 318, 266, 190, 144];
-      var tmax = Math.round(base[0] * u.msgs / 7420);
-      var top5 = pick.map(function (x, i) { var v = Math.round(base[i] * u.msgs / 7420); return '<div class="row"><b title="' + esc(x.title) + '">' + esc(x.title) + '</b><div class="track"><div class="fill" style="width:' + (v / tmax * 100).toFixed(1) + '%"></div></div><span>' + num(v) + '</span></div>'; }).join('');
+      var tmax = Math.round(base[0] * u.convs / 212);
+      var top5 = pick.map(function (x, i) { var v = Math.round(base[i] * u.convs / 212); return '<div class="row"><b title="' + esc(x.title) + '">' + esc(x.title) + '</b><div class="track"><div class="fill" style="width:' + (v / tmax * 100).toFixed(1) + '%"></div></div><span>' + num(v) + '</span></div>'; }).join('');
       var all = ['kanker', 'tabakstop'].map(function (k) {
         var uu = usageFor(k, p), pg = pagesOf(DATA[k].srcs);
-        return { k: k, msgs: uu.msgs, pages: pg };
+        return { k: k, convs: uu.convs, pages: pg };
       });
-      var allRows = all.map(function (a) { return '<tr><td>' + esc(CFG[a.k].name) + (a.k === cur ? ' <span class="stag sitemap">Current</span>' : '') + '</td><td class="num">' + num(a.msgs) + '</td><td class="num">' + num(a.pages) + '</td></tr>'; }).join('') +
-        '<tr class="tot"><td>All sites</td><td class="num">' + num(sum(all.map(function (a) { return a.msgs; }))) + '</td><td class="num">' + num(sum(all.map(function (a) { return a.pages; }))) + '</td></tr>';
+      var allRows = all.map(function (a) { return '<tr><td>' + esc(CFG[a.k].name) + (a.k === cur ? ' <span class="stag sitemap">Current</span>' : '') + '</td><td class="num">' + num(a.convs) + '</td><td class="num">' + num(a.pages) + '</td></tr>'; }).join('') +
+        '<tr class="tot"><td>All sites</td><td class="num">' + num(sum(all.map(function (a) { return a.convs; }))) + '</td><td class="num">' + num(sum(all.map(function (a) { return a.pages; }))) + '</td></tr>';
       return '<div class="pane"><div class="pane-head"><h2>Usage</h2><span class="sample">Sample data</span>' + sel + '</div>' +
         '<p class="kb-note">Consumption for ' + esc(CFG[cur].name) + ' · ' + P.label.toLowerCase() + '.</p>' +
         kpis + meters + chart +
-        '<div class="charts"><div class="card"><h3>By language model</h3><div class="table-wrap"><table class="utable"><thead><tr><th>Provider</th><th class="num">Messages</th><th class="num">Input tokens</th><th class="num">Output tokens</th></tr></thead><tbody>' + models + '</tbody></table></div><p class="fine">The model in use is set under Settings.</p></div>' +
+        '<div class="charts"><div class="card"><h3>By language model</h3><div class="table-wrap"><table class="utable"><thead><tr><th>Provider</th><th class="num">Conversations</th></tr></thead><tbody>' + models + '</tbody></table></div><p class="fine">The model in use is set under Settings.</p></div>' +
         '<div class="card"><h3>By source type</h3><div class="table-wrap"><table class="utable"><thead><tr><th>Type</th><th class="num">Sources</th><th class="num">Pages</th><th>Last indexed</th></tr></thead><tbody>' + types + '</tbody></table></div></div></div>' +
         '<div class="charts"><div class="card"><h3>Top 5 most-used sources</h3><p class="sub">Times cited in answers</p><div class="dist topics">' + top5 + '</div></div>' +
-        '<div class="card"><h3>All sites</h3><div class="table-wrap"><table class="utable"><thead><tr><th>Site</th><th class="num">AI messages</th><th class="num">Pages</th></tr></thead><tbody>' + allRows + '</tbody></table></div></div></div></div>';
+        '<div class="card"><h3>All sites</h3><div class="table-wrap"><table class="utable"><thead><tr><th>Site</th><th class="num">Conversations</th><th class="num">Pages</th></tr></thead><tbody>' + allRows + '</tbody></table></div></div></div></div>';
     }
 
     /* Settings */
