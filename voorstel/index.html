@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Kanker.be AI-assistent met livechat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Figtree:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --ground: #F4F7FA;
+  --surface: #FFFFFF;
+  --ink: #16293D;
+  --muted: #53687D;
+  --line: #DAE3EC;
+  --brand: #B85A00;
+  --brand-solid: #F78F1E;
+  --on-brand: #16293D;
+  --brand-soft: #FDEBD3;
+  --sun: #16293D;
+  --sun-soft: #E6EAF0;
+  --sun-ink: #16293D;
+  --bubble-them: #EEF3F8;
+  --shadow: 0 1px 2px rgba(22, 41, 61, .06), 0 8px 24px rgba(22, 41, 61, .08);
+  --display: "Outfit", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  padding: 0 20px;
+  -webkit-font-smoothing: antialiased;
+}
+.page {
+  max-width: 780px;
+  margin: 0 auto;
+  padding-block: 56px 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+h1, h2, h3 {
+  font-family: var(--display);
+  line-height: 1.15;
+  text-wrap: balance;
+  margin: 0;
+}
+h1 { font-size: clamp(32px, 6vw, 44px); font-weight: 700; letter-spacing: -.01em; }
+h2 { font-size: 26px; font-weight: 700; }
+h3 { font-size: 18px; font-weight: 600; }
+p { margin: 0; max-width: 64ch; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+.eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+.muted { color: var(--muted); }
+
+/* Header */
+header { display: flex; flex-direction: column; gap: 18px; }
+.lede { font-size: 20px; line-height: 1.55; color: var(--muted); }
+.lede strong { color: var(--ink); font-weight: 600; }
+.byline { font-size: 14px; color: var(--muted); }
+
+section { display: flex; flex-direction: column; gap: 22px; }
+.section-head { display: flex; flex-direction: column; gap: 8px; }
+
+/* Pain points */
+.pains { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.pains li {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 12px;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.pains .x {
+  width: 22px; height: 22px; margin-top: 3px;
+  border-radius: 50%;
+  background: var(--sun-soft);
+  color: var(--sun-ink);
+  font: 700 13px/22px var(--display);
+  text-align: center;
+}
+
+/* Benefits */
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 36px;
+}
+.benefits > div { display: flex; flex-direction: column; gap: 14px; }
+.when {
+  display: inline-flex; align-self: flex-start;
+  font: 600 13px/1 var(--body);
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 7px 11px; border-radius: 999px;
+}
+.when.now { background: var(--brand-soft); color: var(--brand); }
+.when.later { background: var(--sun-soft); color: var(--sun-ink); }
+.ticks { display: flex; flex-direction: column; gap: 12px; }
+.ticks li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; }
+.ticks li::before {
+  content: ""; width: 8px; height: 8px; margin-top: 10px; margin-left: 4px;
+  border-radius: 50%; background: var(--brand);
+}
+.benefits .later-col .ticks li::before { background: var(--sun); }
+.new { font-size: 12px; font-weight: 600; color: var(--brand); margin-left: 6px; letter-spacing: .03em; }
+
+/* Flow mockups */
+.flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+.step { display: flex; flex-direction: column; gap: 12px; }
+.step-label { display: flex; align-items: baseline; gap: 8px; }
+.step-no {
+  font: 700 14px/1 var(--display);
+  color: var(--brand);
+}
+.step-cap { font-size: 15px; color: var(--muted); }
+.widget {
+  background: var(--surface);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  font-size: 13.5px;
+  line-height: 1.45;
+  display: flex; flex-direction: column;
+  min-height: 300px;
+}
+.w-head {
+  background: var(--brand-solid);
+  color: var(--on-brand);
+  padding: 12px 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.w-head b { font-family: var(--display); font-weight: 600; font-size: 15px; }
+.w-head .dot { width: 8px; height: 8px; border-radius: 50%; background: #2E9E5B; flex: none; }
+.w-head .sub { font-size: 12px; opacity: .85; margin-left: auto; }
+.w-body { padding: 14px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field span { font-size: 12px; font-weight: 600; color: var(--muted); }
+.field i {
+  display: block; font-style: normal;
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: 7px 9px; color: var(--ink);
+  background: var(--ground);
+}
+.field i.empty { color: var(--muted); }
+.w-btn {
+  margin-top: auto;
+  background: var(--brand-solid); color: var(--on-brand);
+  border-radius: 8px; padding: 9px 12px;
+  font-weight: 600; text-align: center;
+}
+.w-btn.ghost {
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--line); font-weight: 500;
+}
+.msg { max-width: 88%; padding: 8px 11px; border-radius: 12px; }
+.msg.them { background: var(--bubble-them); border-bottom-left-radius: 4px; }
+.msg.me { background: var(--brand-solid); color: var(--on-brand); align-self: flex-end; border-bottom-right-radius: 4px; }
+.msg small { display: block; font-size: 11px; opacity: .7; margin-bottom: 2px; }
+.typing { font-size: 12px; color: var(--muted); font-style: italic; }
+.rate-q { font-weight: 600; font-size: 14.5px; }
+.scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.scale span {
+  aspect-ratio: 1; max-width: 100%;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: grid; place-items: center;
+  font: 600 14px/1 var(--display);
+  color: var(--muted);
+}
+.scale span.on { background: var(--brand-solid); border-color: var(--brand-solid); color: var(--on-brand); }
+.scale-ends { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+.w-note { font-size: 12px; color: var(--muted); }
+.sketch-note { font-size: 14px; color: var(--muted); font-style: italic; }
+
+/* Scope */
+.scope {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px;
+}
+.scope > div { display: flex; flex-direction: column; gap: 12px; }
+.scope h3 { padding-bottom: 10px; border-bottom: 2px solid var(--brand); }
+.scope ul { display: flex; flex-direction: column; gap: 9px; font-size: 16px; }
+.scope li { padding-left: 16px; position: relative; }
+.scope li::before { content: "–"; position: absolute; left: 0; color: var(--muted); }
+.out {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.out h3 { font-size: 16px; }
+.out ul { display: flex; flex-direction: column; gap: 6px; font-size: 16px; color: var(--muted); }
+.out li b { color: var(--ink); font-weight: 600; }
+
+
+footer { font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 20px; }
+
+@media print {
+  @page { size: A4; margin: 16mm 14mm; }
+  html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  :root { --ground: #FFFFFF; --bubble-them: #EEF3F8; --shadow: none; }
+  body { font-size: 14px; padding: 0; background: #FFFFFF; }
+  .page { padding-block: 0; gap: 34px; max-width: none; }
+  .lede { font-size: 17px; }
+  .flow { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .widget { min-height: 0; border: 1px solid var(--line); font-size: 12px; }
+  .field i { background: #F4F7FA; }
+  .scope { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .scope ul, .out ul { font-size: 14px; }
+  .step, .widget, .scope > div, .out, .pains li, .ticks li, .section-head { break-inside: avoid; }
+  h2 { break-after: avoid; }
+}
+
+@media (max-width: 520px) {
+  body { font-size: 16px; padding: 0 16px; }
+  .page { padding-block: 36px 56px; gap: 52px; }
+  .lede { font-size: 18px; }
+}
+
+html, body { margin: 0; }
+[hidden] { display: none !important; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.cta a { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 600; font-size: 15px; border-radius: 10px; padding: 11px 16px; }
+.cta .cta-main { background: var(--brand-solid); color: var(--on-brand); }
+.cta .cta-main:hover { filter: brightness(.92); }
+.cta .cta-alt { color: var(--brand); border: 1px solid var(--line); background: var(--surface); }
+.cta .cta-alt:hover { border-color: var(--brand); }
+.try { font-size: 15px; font-weight: 600; color: var(--brand); text-decoration: none; }
+.try:hover { text-decoration: underline; }
+@media print { .cta, .try { display: none !important; } }
+
+/* v2 additions */
+.flow { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.scope { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.w-head .avatar { width: 30px; height: 30px; border-radius: 50%; background: #FFFFFF; color: var(--brand); display: grid; place-items: center; font: 700 12px/1 var(--display); flex: none; }
+.w-head .avatar.ai { background: var(--sun); color: #FFFFFF; }
+.w-head .who { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+.w-head .who small { font-size: 11px; opacity: .85; }
+.msg.bot { background: var(--brand-soft); border-bottom-left-radius: 4px; }
+.src { display: inline-flex; align-items: center; gap: 5px; margin-top: 6px; font-size: 11px; font-weight: 600; color: var(--brand); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 2px 7px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips span { border: 1px solid var(--brand); color: var(--brand); border-radius: 999px; padding: 3px 9px; font-size: 11.5px; font-weight: 600; }
+.w-sys { align-self: center; font-size: 11px; color: var(--muted); text-align: center; }
+.w-divider { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); }
+.w-divider::before, .w-divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.w-tiny { font-size: 11.5px; color: var(--muted); text-align: center; }
+
+.safety { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px 28px; }
+.safety li { display: grid; grid-template-columns: 30px 1fr; gap: 12px; }
+.safety .mk { width: 30px; height: 30px; border-radius: 9px; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; }
+.safety .mk svg { width: 17px; height: 17px; }
+.safety b { display: block; font-weight: 600; margin-bottom: 2px; }
+.safety span.t { color: var(--muted); font-size: 16px; }
+
+.phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; align-items: start; }
+.phase { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+.phase .when { align-self: flex-start; }
+.phase h3 { font-size: 19px; }
+.phase p { color: var(--muted); font-size: 16px; }
+.phase ul { display: flex; flex-direction: column; gap: 7px; font-size: 15.5px; }
+.phase li { padding-left: 16px; position: relative; }
+.phase li::before { content: "–"; position: absolute; left: 0; color: var(--muted); }
+
+@media print {
+  .flow { grid-template-columns: repeat(2, 1fr) !important; gap: 16px; }
+  .scope { grid-template-columns: repeat(2, 1fr) !important; }
+  .phases { grid-template-columns: repeat(2, 1fr); }
+  .safety { grid-template-columns: repeat(2, 1fr); }
+  .safety li, .phase { break-inside: avoid; }
+  .safety span.t, .phase p, .phase ul { font-size: 13.5px; }
+  .page { gap: 28px; }
+  section { gap: 16px; }
+  .scope ul { gap: 6px; }
+  .out { padding: 12px 16px; gap: 6px; }
+  body { line-height: 1.45; }
+  .phase { padding: 12px 16px; gap: 6px; }
+  .scope h3 { padding-bottom: 6px; }
+  .scope ul, .out ul { font-size: 13.5px; }
+  footer { display: none; }
+}
+
+/* standalone AI proposal */
+.pains .x { background: var(--sun-soft); color: var(--sun-ink); }
+.benefits .later-col .ticks li::before { background: var(--sun); }
+.cta .cta-main { color: var(--on-brand); }
+.providers { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; align-items: stretch; }
+.prov { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+.prov.pick { border: 2px solid var(--brand-solid); box-shadow: var(--shadow); }
+.prov h3 { font-size: 20px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.logo { width: 34px; height: 34px; flex: none; }
+.prov-name { display: flex; align-items: center; gap: 10px; }
+.badge { font: 600 12px/1 var(--body); letter-spacing: .05em; text-transform: uppercase; background: var(--brand-solid); color: var(--on-brand); border-radius: 999px; padding: 6px 10px; }
+.prov dl { margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 15.5px; }
+.prov dt { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.prov dd { margin: 2px 0 0; }
+.note { background: var(--brand-soft); border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
+.note h3 { font-size: 16px; }
+.note p { font-size: 16px; }
+.addon { border: 1px dashed var(--muted); border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+.addon h3 { font-size: 17px; }
+.addon p { font-size: 16px; color: var(--muted); }
+.ticks a, .lede a { color: var(--brand); }
+@media print {
+  .providers { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .prov { padding: 12px 14px; break-inside: avoid; }
+  .prov dl { font-size: 12.5px; gap: 7px; }
+  .addon, .note { break-inside: avoid; }
+}
+
+/* readability: deep orange + white for small text, navy header */
+:root { --btn: #C2570A; }
+.w-head { background: var(--ink); color: #FFFFFF; border-bottom: 3px solid var(--brand-solid); }
+.w-head .avatar.ai { background: var(--brand-solid); color: var(--ink); }
+.w-btn, .cta .cta-main, .badge { background: var(--btn); color: #FFFFFF; }
+.w-btn.ghost { background: transparent; color: var(--muted); }
+.msg.me { background: var(--brand-soft); color: var(--ink); }
+.scale span.on { background: var(--btn); border-color: var(--btn); color: #FFFFFF; }
+
+.providers { align-items: stretch; margin-top: 30px; }
+.prov.podium { margin-top: -30px; padding-top: 30px; }
+.logo-av { background: #FFFFFF !important; padding: 3px; }
+.logo-av img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.w-head .avatar.logo-av { overflow: hidden; }
+@media (max-width: 700px) { .providers { margin-top: 0; } .prov.podium { margin-top: 0; order: -1; padding-top: 18px; } }
+.lang { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; align-self: flex-start; }
+.lang button { border: 0; background: var(--surface); padding: 6px 12px; font: 600 13px/1 var(--body); color: var(--muted); cursor: pointer; }
+.lang button + button { border-left: 1px solid var(--line); }
+.lang button[aria-pressed="true"] { background: var(--btn); color: #FFFFFF; }
+@media print { .lang { display: none; } .providers { margin-top: 22px; } .prov.podium { margin-top: -22px; padding-top: 22px; } }
+.eu { height: 20px; width: auto; border-radius: 3px; box-shadow: 0 0 0 1px rgba(22,41,61,.15); }
+
+/* combined brief */
+.tabs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.tab { text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; font: inherit; color: var(--ink); }
+.tab:hover { border-color: var(--brand-solid); }
+.tab[aria-selected="true"] { border: 2px solid var(--brand-solid); box-shadow: var(--shadow); padding: 15px 17px; }
+.tab .tag { align-self: flex-start; font: 600 12px/1 var(--body); letter-spacing: .06em; text-transform: uppercase; border-radius: 999px; padding: 6px 10px; background: var(--btn); color: #FFFFFF; }
+.tab .tag.opt { background: var(--sun-soft); color: var(--sun-ink); }
+.tab b { font: 700 19px/1.2 var(--display); }
+.tab b::first-letter { text-transform: uppercase; }
+.tab span.d { color: var(--muted); font-size: 15.5px; }
+.panel { display: flex; flex-direction: column; gap: 64px; }
+.panel[hidden] { display: none; }
+.cmp { width: 100%; border-collapse: collapse; font-size: 15.5px; }
+.cmp th, .cmp td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.cmp thead th { font: 700 13px/1.2 var(--body); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.cmp tbody th { font-weight: 600; width: 28%; }
+.cmp td.plus { background: var(--brand-soft); }
+.cmp-wrap { border: 1px solid var(--line); border-radius: 12px; overflow-x: auto; background: var(--surface); }
+.msg.them { background: var(--bubble-them); border-bottom-left-radius: 4px; }
+.sumbox { background: var(--surface); border: 1px dashed var(--muted); border-radius: 8px; padding: 6px 9px; font-size: 12px; color: var(--muted); }
+@media print {
+  .tabs { display: none; }
+  .panel[hidden] { display: flex; }
+  #livechat { break-before: page; }
+  .cmp { font-size: 12.5px; }
+  .cmp th, .cmp td { padding: 7px 9px; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header>
+    <div class="lang" role="group" aria-label="Taal / Langue"><button type="button" data-l="nl" aria-pressed="true">NL</button><button type="button" data-l="fr" aria-pressed="false">FR</button></div>
+    <span class="eyebrow">Voorstel · AI-assistent met optionele livechat</span>
+    <h1>Een assistent die bezoekers van kanker.be dag en nacht op weg helpt, met livechat als optie</h1>
+    <p class="lede"><strong>De AI-assistent</strong> is de basis: hij beantwoordt vragen op basis van de eigen pagina's en brochures, met de bron erbij. Wie liever een mens spreekt, kan een bericht achterlaten. Met de <strong>livechat-module</strong> erbij neemt een medewerker het gesprek live over, in hetzelfde venster en met een samenvatting van wat al besproken is.</p>
+    <span class="byline">Oktober 2026</span>
+    <div class="cta"><a class="cta-main" id="cta-proto" href="prototype.html" data-module="off">Bekijk het klikbare prototype &rarr;</a><a class="cta-alt" href="voorstel-ai-assistent-met-livechat.pdf" download>Download als PDF</a></div>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Onderdelen van het voorstel">
+    <button class="tab" role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-tab="ai"><span class="tag">Basis</span><b>AI-assistent</b><span class="d">Antwoordt dag en nacht met de eigen informatie, met bronvermelding. Bericht achterlaten als een mens nodig is.</span></button>
+    <button class="tab" role="tab" id="tab-livechat" aria-controls="livechat" aria-selected="false" data-tab="livechat"><span class="tag opt">Optionele module</span><b>Livechat</b><span class="d">Een medewerker neemt het gesprek live over, met een eigen beheerscherm voor de chatmedewerkers.</span></button>
+  </div>
+
+  <div class="panel" id="ai" role="tabpanel" aria-labelledby="tab-ai">
+  <section>
+    <div class="section-head">
+      <h2>Waar bezoekers nu op wachten</h2>
+    </div>
+    <ul class="pains">
+      <li><span class="x">!</span><span>Veel vragen komen steeds terug, bijvoorbeeld over risicofactoren, bevolkingsonderzoek en behandelingen. Het antwoord staat al op de site of in een brochure.</span></li>
+      <li><span class="x">!</span><span>Mensen zoeken vaak 's avonds of in het weekend naar informatie. Een vraag blijft dan liggen tot de volgende werkdag.</span></li>
+      <li><span class="x">!</span><span>Kanker.be is groot. Bezoekers vinden de juiste pagina of brochure niet altijd.</span></li>
+      <li><span class="x">!</span><span>Er is weinig zicht op wat bezoekers eigenlijk willen weten.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Wat de assistent oplevert</h2>
+    </div>
+    <div class="benefits">
+      <div>
+        <span class="when now">Meteen</span>
+        <ul class="ticks">
+          <li><span>Antwoord op veelgestelde vragen, ook 's avonds en in het weekend.</span></li>
+          <li><span>Elk antwoord komt uit de eigen informatie, met de bron erbij.</span></li>
+          <li><span>Volledig tweetalig: Nederlands op kanker.be en Frans op cancer.be.</span></li>
+          <li><span>Een tevredenheidsvraag na elk gesprek.</span></li>
+          <li><span>Inzicht in de vragen van bezoekers, en in de vragen waarop de assistent geen antwoord had.</span></li>
+          <li><span>Bronnen beheren medewerkers zelf, via webpagina's, sitemaps en PDF's. De assistent leert niet vanzelf bij.</span></li>
+          <li><span>Jullie kiezen de AI-aanbieder. Met een Europese aanbieder blijven de gesprekken in de EU.</span></li>
+        </ul>
+      </div>
+      <div class="later-col">
+        <span class="when later">Later</span>
+        <ul class="ticks">
+          <li><span>Dezelfde assistent op andere sites inzetten, zoals tabakstop.be.</span></li>
+          <li><span>Een livechat met medewerkers erbij, in hetzelfde venster. Zie het tabblad <a href="#livechat" data-tab="livechat">Livechat-module</a>.</span></li>
+          <li><span>De kennis uitbreiden met goedgekeurde antwoorden uit geanonimiseerde gesprekken.</span></li>
+          <li><span>Gespreksgegevens ontsluiten via een API of MCP (zie onderaan).</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Het gesprek, van begin tot einde</h2>
+      <p class="muted">Zo ziet een gesprek eruit voor de bezoeker.</p>
+    </div>
+    <div class="flow">
+
+      <div class="step">
+        <div class="step-label"><span class="step-no">1</span><h3>De assistent antwoordt</h3></div>
+        <div class="widget" aria-label="Schets: de assistent beantwoordt een vraag">
+          <div class="w-head"><span class="avatar logo-av"><img src="img/stk.png" alt="" width="30" height="30"></span><span class="who"><b>Kanker.be-assistent</b><small>Antwoordt met info van kanker.be</small></span></div>
+          <div class="w-body">
+            <div class="msg me">Wat zijn risicofactoren voor borstkanker?</div>
+            <div class="msg bot">Onder meer leeftijd, erfelijke aanleg, alcohol en overgewicht. Een bevolkingsonderzoek kan borstkanker vroeg opsporen.<br><span class="src"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>Pagina Borstkanker</span></div>
+            <div class="chips"><span>Hoe verloopt een screening?</span></div>
+            <p class="w-tiny">Antwoorden worden gegenereerd door AI</p>
+          </div>
+        </div>
+        <p class="step-cap">Meteen een antwoord, altijd met de bron erbij.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-label"><span class="step-no">2</span><h3>Doorverwijzen</h3></div>
+        <div class="widget" aria-label="Schets: een medische vraag wordt doorverwezen">
+          <div class="w-head"><span class="avatar logo-av"><img src="img/stk.png" alt="" width="30" height="30"></span><span class="who"><b>Kanker.be-assistent</b><small>Antwoordt met info van kanker.be</small></span></div>
+          <div class="w-body">
+            <div class="msg me">Ik voel een knobbeltje in mijn borst. Is dat kanker?</div>
+            <div class="msg bot">Ik kan geen diagnose stellen. Praat hierover met je huisarts. Een medewerker van Kankerinfo kan je ook verder helpen.</div>
+            <div class="w-btn">Laat een bericht achter</div>
+            <p class="w-tiny">Je gesprek gaat mee, je hoeft niets te herhalen.</p>
+          </div>
+        </div>
+        <p class="step-cap">Medische vragen gaan altijd naar een mens.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-label"><span class="step-no">3</span><h3>Na het gesprek</h3></div>
+        <div class="widget" aria-label="Schets van de tevredenheidsvraag na de chat">
+          <div class="w-head"><span class="dot"></span><b>Bedankt</b></div>
+          <div class="w-body">
+            <p class="rate-q">Hoe tevreden ben je over dit gesprek?</p>
+            <div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span class="on">5</span></div>
+            <div class="scale-ends"><span>Helemaal niet</span><span>Heel tevreden</span></div>
+            <div class="field"><span>Wil je nog iets kwijt? (optioneel)</span><i class="empty">Je opmerking…</i></div>
+            <div class="w-btn">Versturen</div>
+          </div>
+        </div>
+        <p class="step-cap">Eén vraag, meteen na afloop.</p>
+      </div>
+
+    </div>
+    <p class="sketch-note">Mockup: schetsen ter illustratie, nog niet definitief. Details kunnen nog veranderen.</p>
+    <a class="try" href="prototype.html">Probeer het zelf in het klikbare prototype &rarr;</a>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Veilig bij gezondheidsvragen</h2>
+      <p class="muted">Gesprekken over kanker gaan over gezondheid en vaak over moeilijke momenten. Daarom werkt de assistent binnen duidelijke grenzen.</p>
+    </div>
+    <ul class="safety">
+      <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><span><b>Enkel de eigen informatie</b><span class="t">De assistent antwoordt alleen met wat op kanker.be en in de brochures staat, en toont altijd de bron. Staat het er niet in, dan zegt hij dat.</span></span></li>
+      <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10Z"/></svg></span><span><b>Geen medisch advies</b><span class="t">Vragen over een diagnose, symptomen, uitslagen of behandeling worden doorverwezen naar de huisarts of een medewerker.</span></span></li>
+      <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span><b>Hulp bij moeilijke momenten</b><span class="t">Bij tekenen van een crisis verwijst de assistent door. Op wens toont hij een hulplijn die jullie zelf kiezen.</span></span></li>
+      <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h9M8.5 3v2M6 5c0 4 3 7 7 8M11 5c-.5 4-3 7-7 8"/><path d="m13 21 4-10 4 10M14.5 17.5h5"/></svg></span><span><b>In de taal van de bezoeker</b><span class="t">Nederlandstalige bezoekers krijgen antwoord uit de Nederlandse informatie, Franstalige uit de Franse.</span></span></li>
+      <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><span><b>Medewerkers beslissen wat de assistent weet</b><span class="t">De assistent leert niet vanzelf bij uit gesprekken. Bij elk antwoord staat duidelijk dat het door AI gegenereerd is.</span></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Kies de AI-aanbieder</h2>
+      <p class="muted">De assistent is gebouwd zodat de aanbieder later kan wisselen, zonder dat de rest verandert. Er zijn drie opties.</p>
+    </div>
+    <div class="providers">
+      <div class="prov">
+        <h3><span class="prov-name"><img class="logo" src="img/openai.svg" alt="" width="34" height="34">OpenAI</span></h3>
+        <dl>
+          <div><dt>Herkomst</dt><dd>Amerikaans bedrijf (ChatGPT).</dd></div>
+          <div><dt>Gegevens</dt><dd>Verwerking in Europa is mogelijk voor zakelijke gebruikers, maar het bedrijf valt onder Amerikaanse wetgeving.</dd></div>
+          <div><dt>Waarom</dt><dd>Zeer bekend en breed getest. Een goede keuze als privacy minder zwaar weegt.</dd></div>
+        </dl>
+      </div>
+      <div class="prov pick podium">
+        <h3><span class="prov-name"><img class="logo" src="img/mistral.svg" alt="" width="34" height="34">Mistral AI</span> <span class="badge">Aanbevolen</span><img class="eu" src="img/eu-flag.svg" alt="Europese Unie" width="30" height="20"></h3>
+        <dl>
+          <div><dt>Herkomst</dt><dd>Frans bedrijf, gevestigd in Parijs.</dd></div>
+          <div><dt>Gegevens</dt><dd>Verwerkt in de EU, onder Europese privacywetgeving (AVG).</dd></div>
+          <div><dt>Waarom</dt><dd>Gesprekken over kanker bevatten vaak gezondheidsinformatie. Met een Europese aanbieder blijft die in de EU, en is er geen Amerikaanse partij bij betrokken.</dd></div>
+        </dl>
+      </div>
+      <div class="prov">
+        <h3><span class="prov-name"><img class="logo" src="img/gemini.svg" alt="" width="34" height="34">Google Gemini</span></h3>
+        <dl>
+          <div><dt>Herkomst</dt><dd>Amerikaans bedrijf (Google).</dd></div>
+          <div><dt>Gegevens</dt><dd>Via Google Cloud kan een Europese regio gekozen worden, maar het bedrijf valt onder Amerikaanse wetgeving.</dd></div>
+          <div><dt>Waarom</dt><dd>Handig als jullie al met Google Cloud of Workspace werken.</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="note">
+      <h3>Onze aanbeveling: Mistral AI</h3>
+      <p>Voor een gezondheidsonderwerp met Belgische bezoekers is Europese gegevensverwerking het sterkste argument. Wat we bij elke aanbieder vastleggen: gesprekken worden niet gebruikt om modellen te trainen, er is een verwerkersovereenkomst, en we testen de gekozen aanbieder met dezelfde vragen voor de assistent live gaat. De exacte voorwaarden controleren we bij de start.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Wat de eerste versie bevat</h2>
+    </div>
+    <div class="scope">
+      <div>
+        <h3>Voor bezoekers</h3>
+        <ul>
+          <li>Chat op kanker.be en cancer.be, in NL en FR</li>
+          <li>Een assistent die dag en nacht antwoordt, met bronvermelding</li>
+          <li>Bericht achterlaten voor een medewerker van Kankerinfo</li>
+          <li>Tevredenheidsvraag na het gesprek</li>
+          <li>Duidelijke vermelding dat antwoorden door AI gegenereerd zijn</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Voor medewerkers</h3>
+        <ul>
+          <li>Een eenvoudig beheerscherm in de browser</li>
+          <li>Gesprekken filteren op onopgeloste vragen</li>
+          <li>Achtergelaten berichten als lijst, met het gesprek erbij</li>
+          <li>Doorzoekbaar archief van alle gesprekken</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Kennisbank</h3>
+        <ul>
+          <li>Bronnen toevoegen via URL's, sitemap en PDF's</li>
+          <li>Kent de pagina's en brochures van kanker.be en cancer.be</li>
+          <li>Wekelijks gecontroleerd via de sitemap (met de wijzigingsdatum). Alleen gewijzigde pagina's worden opnieuw ingelezen</li>
+          <li>Getest met een vijftigtal echte vragen, elk antwoord nagekeken</li>
+          <li>Eerst op één pagina, daarna op de hele site</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Rapportage</h3>
+        <ul>
+          <li>Aantal gesprekken per dag</li>
+          <li>Opgelost door de assistent of bericht achtergelaten</li>
+          <li>Meest gestelde onderwerpen</li>
+          <li>Tevredenheid van bezoekers</li>
+          <li>Gebruik per maand: gesprekken (250 inbegrepen) en pagina's</li>
+        </ul>
+      </div>
+    </div>
+    <div class="out">
+      <h3>Bewust niet in de eerste versie</h3>
+      <ul>
+        <li><b>Livechat met medewerkers.</b> Beschikbaar als optionele module, zie het tabblad Livechat-module.</li>
+        <li><b>Bestanden of afbeeldingen versturen.</b> Kan later nog.</li>
+        <li><b>Afspraken maken of diagnoses stellen.</b> Dat blijft bij de arts.</li>
+      </ul>
+    </div>
+    <div class="addon">
+      <h3>Mogelijke uitbreiding: API of MCP</h3>
+      <p>Later kan een API of een MCP-server worden toegevoegd, zodat gespreksgegevens (op wens geanonimiseerd) opgehaald en gebruikt kunnen worden in andere systemen, bijvoorbeeld een rapportagetool of een eigen AI-toepassing. Dit zit niet in de eerste versie.</p>
+    </div>
+  </section>
+  </div>
+
+  <div class="panel" id="livechat" role="tabpanel" aria-labelledby="tab-livechat" hidden>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Optionele module</span>
+      <h2>Livechat: een medewerker neemt over wanneer het nodig is</h2>
+      <p class="muted">De module bouwt voort op de AI-assistent. Zonder de module laat een bezoeker een bericht achter. Met de module kan hij tijdens de chaturen meteen met een medewerker praten, in hetzelfde venster.</p>
+    </div>
+    <div class="cta"><a class="cta-main" id="cta-proto-live" href="prototype.html" data-module="live">Bekijk het prototype met livechat &rarr;</a></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Waar Tawk.to tekortschiet</h2>
+      <p class="muted">Voor wie nu een standaardoplossing gebruikt.</p>
+    </div>
+    <ul class="pains">
+      <li><span class="x">!</span><span>De interface voor chatmedewerkers is druk en onoverzichtelijk. Veel functies worden niet gebruikt, en niets kan worden aangepast.</span></li>
+      <li><span class="x">!</span><span>Er is weinig controle over het formulier vóór de chat, en een formulier na afloop van het gesprek is niet mogelijk.</span></li>
+      <li><span class="x">!</span><span>Rapportage en statistieken zijn zeer beperkt.</span></li>
+      <li><span class="x">!</span><span>De vertaling naar Nederlands en Frans is onvolledig.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Met en zonder de module</h2>
+    </div>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <thead><tr><th></th><th>AI-assistent (basis)</th><th>Met livechat-module</th></tr></thead>
+      <tbody>
+        <tr><th>Vraag die een mens nodig heeft</th><td>De bezoeker laat een bericht achter. Een medewerker antwoordt per e-mail.</td><td class="plus">De bezoeker kan meteen met een medewerker chatten tijdens de chaturen. Buiten de uren blijft het bericht achterlaten.</td></tr>
+        <tr><th>Overdracht</th><td>Het gesprek met de assistent wordt bij het bericht gevoegd.</td><td class="plus">De medewerker krijgt een samenvatting en leest het hele gesprek mee. De bezoeker hoeft niets te herhalen.</td></tr>
+        <tr><th>Voor medewerkers</th><td>Gesprekken en berichten bekijken in het beheerscherm van de assistent.</td><td class="plus">Een aparte inbox voor meerdere medewerkers tegelijk: aannemen, doorgeven, status en geluidsmelding.</td></tr>
+        <tr><th>Beheerschermen</th><td>Eén beheerscherm: bronnen, gesprekken, instellingen, gebruik.</td><td class="plus">Twee aparte beheerschermen: dat van de assistent en dat van de livechat.</td></tr>
+        <tr><th>Na het gesprek</th><td>Tevredenheidsvraag.</td><td class="plus">Tevredenheidsvraag, apart bij te houden voor assistent en medewerker.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Wat de module oplevert</h2>
+    </div>
+    <div class="benefits">
+      <div>
+        <span class="when now">Meteen</span>
+        <ul class="ticks">
+          <li><span>Medewerkers krijgen enkel de vragen die echt een mens nodig hebben, met een samenvatting van wat al besproken is.</span></li>
+          <li><span>Een simpelere interface, met enkel de functies die nodig en gewenst zijn.</span></li>
+          <li><span>Volledige controle over het formulier vóór de chat, plus een tevredenheidsvraag na het gesprek.</span></li>
+          <li><span>De bezoeker kan het gesprek zelf beëindigen.</span></li>
+          <li><span>Volledig tweetalig, afgestemd op de rest van de site.</span></li>
+          <li><span>Jullie bepalen zelf waar gesprekken bewaard worden en hoe lang.</span></li>
+        </ul>
+      </div>
+      <div class="later-col">
+        <span class="when later">Later</span>
+        <ul class="ticks">
+          <li><span>Dezelfde chat ook op andere sites inzetten.</span></li>
+          <li><span>Rapportage en statistieken op maat ontwerpen en uitbreiden.</span></li>
+          <li><span>De kennis van de assistent uitbreiden met goedgekeurde antwoorden uit geanonimiseerde gesprekken.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Het gesprek met een medewerker</h2>
+      <p class="muted">Zo ziet een doorverbinding eruit voor de bezoeker.</p>
+    </div>
+    <div class="flow">
+
+      <div class="step">
+        <div class="step-label"><span class="step-no">1</span><h3>De assistent verwijst door</h3></div>
+        <div class="widget" aria-label="Schets: de assistent biedt een medewerker aan">
+          <div class="w-head"><span class="avatar logo-av"><img src="img/stk.png" alt="" width="30" height="30"></span><span class="who"><b>Kanker.be-assistent</b><small>Antwoordt met info van kanker.be</small></span></div>
+          <div class="w-body">
+            <div class="msg me">Ik voel een knobbeltje in mijn borst. Is dat kanker?</div>
+            <div class="msg bot">Ik kan geen diagnose stellen. Een medewerker van Kankerinfo kan je verder helpen.</div>
+            <div class="w-btn">Praat met een medewerker</div>
+            <div class="w-btn ghost">Laat een bericht achter</div>
+          </div>
+        </div>
+        <p class="step-cap">Tijdens de chaturen kiest de bezoeker voor live.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-label"><span class="step-no">2</span><h3>De medewerker neemt over</h3></div>
+        <div class="widget" aria-label="Schets: een medewerker neemt het gesprek over">
+          <div class="w-head"><span class="avatar logo-av"><img src="img/stk.png" alt="" width="30" height="30"></span><span class="who"><b>Lies</b><small>Medewerker Kankerinfo</small></span></div>
+          <div class="w-body">
+            <div class="w-divider">Lies heeft het gesprek overgenomen</div>
+            <div class="msg them"><small>Lies</small>Hallo Sarah, ik heb je vraag gelezen. Wil je me vertellen sinds wanneer je het voelt?</div>
+            <div class="msg me">Sinds een week.</div>
+            <span class="typing">Lies is aan het typen…</span>
+            <div class="w-btn ghost">Gesprek beëindigen</div>
+          </div>
+        </div>
+        <p class="step-cap">In hetzelfde venster, met het hele gesprek erbij.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-label"><span class="step-no">3</span><h3>Na het gesprek</h3></div>
+        <div class="widget" aria-label="Schets van de tevredenheidsvraag na de chat">
+          <div class="w-head"><span class="dot"></span><b>Bedankt, Sarah</b></div>
+          <div class="w-body">
+            <p class="rate-q">Hoe tevreden ben je over dit gesprek?</p>
+            <div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span class="on">5</span></div>
+            <div class="scale-ends"><span>Helemaal niet</span><span>Heel tevreden</span></div>
+            <div class="w-btn">Versturen</div>
+          </div>
+        </div>
+        <p class="step-cap">Eén vraag, meteen na afloop.</p>
+      </div>
+
+    </div>
+    <p class="sketch-note">Mockup: schetsen ter illustratie, nog niet definitief. Details kunnen nog veranderen.</p>
+    <a class="try" id="try-live" href="prototype.html" data-module="live">Probeer het zelf, met livechat aan &rarr;</a>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Wat de module bevat</h2>
+    </div>
+    <div class="scope">
+      <div>
+        <h3>Voor bezoekers</h3>
+        <ul>
+          <li>Doorverbinden met een medewerker, in hetzelfde venster</li>
+          <li>Formulier vóór het gesprek</li>
+          <li>Tevredenheidsvraag na het gesprek</li>
+          <li>Het gesprek zelf beëindigen</li>
+          <li>Niemand beschikbaar? Dan een berichtformulier dat per e-mail binnenkomt</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Voor chatmedewerkers</h3>
+        <ul>
+          <li>Een eenvoudige inbox in de browser, voor meerdere medewerkers tegelijk</li>
+          <li>Bij elke overdracht een samenvatting van de assistent</li>
+          <li>Gesprekken aannemen of doorgeven aan een collega</li>
+          <li>Status: beschikbaar of afwezig</li>
+          <li>Melding met geluid bij een nieuw gesprek</li>
+          <li>Doorzoekbaar archief van alle gesprekken</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Instellingen</h3>
+        <ul>
+          <li>Eigen uiterlijk: kleur, logo, knop en welkomsttekst instelbaar</li>
+          <li>Installatiecode om de chat op de site te plaatsen</li>
+          <li>Privacy-instellingen: bewaartermijn, persoonsgegevens verbergen, gesprek exporteren of verwijderen</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Rapportage</h3>
+        <ul>
+          <li>Aantal gesprekken per dag</li>
+          <li>Gemiddelde wachttijd</li>
+          <li>Gemiste gesprekken</li>
+          <li>Gemiddelde tevredenheid</li>
+        </ul>
+      </div>
+    </div>
+    <div class="out">
+      <h3>Bewust niet in de eerste versie</h3>
+      <ul>
+        <li><b>Bestanden of afbeeldingen versturen.</b> Kan later nog.</li>
+        <li><b>Een kopie van het gesprek per e-mail voor de bezoeker.</b> Makkelijk toe te voegen wanneer gewenst.</li>
+        <li><b>Een mobiele app voor medewerkers.</b> Niet nodig: er wordt gechat vanaf de computer.</li>
+      </ul>
+    </div>
+  </section>
+
+  </div>
+
+  <footer>Voorstel voor Stichting tegen Kanker · oktober 2026</footer>
+
+</main>
+
+<script>
+(function () {
+  var FR = {"De AI-assistent":"L'assistant IA","Tabakstop Livechat": "Tabacstop Chat en direct", "Voorstel · livechat tabakstop.be": "Proposition · chat en direct tabakstop.be", "Een eigen livechat, zonder overbodige toeters en bellen": "Un chat en direct à vous, sans fonctions superflues", "Tawk.to werkt, maar is gebouwd voor iedereen tegelijk. Dit voorstel beschrijft een eenvoudige livechat": "Tawk.to fonctionne, mais il est conçu pour tout le monde à la fois. Cette proposition décrit un chat en direct simple", "op maat van Tabakstop": "sur mesure pour Tabacstop", ": enkel wat de chatmedewerkers echt gebruiken, een formulier vóór én na het gesprek, en rapportage die mee kan groeien.": " : uniquement ce que les collaborateurs du chat utilisent vraiment, un formulaire avant et après la conversation, et des rapports qui peuvent évoluer.", "September 2026": "Septembre 2026", "Bekijk het klikbare prototype →": "Voir le prototype interactif →", "Download als PDF": "Télécharger en PDF", "Waar Tawk.to tekortschiet": "Là où Tawk.to est insuffisant", "De interface voor chatmedewerkers is druk en onoverzichtelijk. Veel functies worden niet gebruikt, en niets kan worden aangepast.": "L'interface pour les collaborateurs du chat est chargée et peu claire. De nombreuses fonctions ne sont pas utilisées et rien ne peut être adapté.", "Er is weinig controle over het formulier vóór de chat, en een formulier na afloop van het gesprek is niet mogelijk.": "Le contrôle du formulaire avant le chat est limité, et un formulaire après la conversation n'est pas possible.", "Rapportage en statistieken zijn zeer beperkt.": "Les rapports et statistiques sont très limités.", "De vertaling naar Nederlands en Frans is onvolledig.": "La traduction en néerlandais et en français est incomplète.", "Wat een eigen oplossing oplevert": "Ce qu'apporte une solution sur mesure", "Meteen": "Tout de suite", "Een simpelere interface, met enkel de functies die nodig en gewenst zijn.": "Une interface plus simple, avec uniquement les fonctions nécessaires et souhaitées.", "Volledige controle over het formulier vóór de chat, plus een tevredenheidsvraag na het gesprek. Dat laatste kan in Tawk.to helemaal niet.": "Un contrôle total du formulaire avant le chat, plus une question de satisfaction après la conversation. Ce dernier point est impossible dans Tawk.to.", "De bezoeker kan het gesprek zelf beëindigen.": "Le visiteur peut mettre fin lui-même à la conversation.", "Volledig tweetalig, afgestemd op de rest van de site.": "Entièrement bilingue, en accord avec le reste du site.", "Jullie bepalen zelf waar gesprekken bewaard worden en hoe lang. Gesprekken over stoppen met roken bevatten vaak gezondheidsinformatie, en die kan zo in de EU blijven.": "Vous décidez vous-mêmes où les conversations sont conservées et pour combien de temps. Les conversations sur l'arrêt du tabac contiennent souvent des informations de santé, qui peuvent ainsi rester dans l'UE.", "Later": "Plus tard", "Dezelfde chat ook op andere sites inzetten.": "Utiliser le même chat sur d'autres sites.", "Rapportage en statistieken op maat ontwerpen en uitbreiden.": "Concevoir et étendre des rapports et statistiques sur mesure.", "Een AI-chatbot zoals DocsBot in dezelfde oplossing integreren, en trainen op geanonimiseerde gesprekken.": "Intégrer un chatbot IA comme DocsBot dans la même solution, et l'entraîner sur des conversations anonymisées.", "Gegevens later met AI bevragen.": "Interroger plus tard les données avec l'IA.", "Het gesprek, van begin tot einde": "La conversation, du début à la fin", "Zo ziet een gesprek eruit voor de bezoeker.": "Voici à quoi ressemble une conversation pour le visiteur.", "Vóór het gesprek": "Avant la conversation", "Chat met Tabakstop": "Chat avec Tabacstop", "Een tabakoloog staat klaar om je te helpen.": "Un tabacologue est prêt à vous aider.", "Voornaam": "Prénom", "Sarah": "Sarah", "Waarover wil je praten?": "De quoi voulez-vous parler ?", "Ik wil stoppen met roken": "Je veux arrêter de fumer", "E-mailadres (optioneel)": "Adresse e-mail (facultatif)", "naam@voorbeeld.be": "nom@exemple.be", "Start gesprek": "Démarrer la conversation", "Een kort formulier. Jullie kiezen zelf de velden.": "Un court formulaire. Vous choisissez vous-mêmes les champs.", "Tijdens het gesprek": "Pendant la conversation", "Lies": "Lies", "Tabakoloog": "Tabacologue", "Hallo Sarah, ik ben Lies. Waarmee kan ik je helpen?": "Bonjour Sarah, je suis Lies. Comment puis-je vous aider ?", "Ik wil stoppen, maar ik weet niet goed waar ik moet beginnen.": "Je veux arrêter, mais je ne sais pas trop par où commencer.", "Goed dat je de stap zet. Rook je al lang?": "C'est bien de franchir le pas. Fumez-vous depuis longtemps ?", "Lies is aan het typen…": "Lies est en train d'écrire…", "Gesprek beëindigen": "Terminer la conversation", "Live met een medewerker. De bezoeker kan zelf afsluiten.": "En direct avec un collaborateur. Le visiteur peut terminer lui-même.", "Na het gesprek": "Après la conversation", "Bedankt, Sarah": "Merci, Sarah", "Hoe tevreden ben je over dit gesprek?": "Quel est votre degré de satisfaction pour cette conversation ?", "Helemaal niet": "Pas du tout", "Heel tevreden": "Très satisfait", "Wil je nog iets kwijt? (optioneel)": "Un commentaire ? (facultatif)", "Je opmerking…": "Votre remarque…", "Versturen": "Envoyer", "Eén vraag, meteen na afloop.": "Une seule question, juste après.", "Mockup: schetsen ter illustratie, nog niet definitief. Details kunnen nog veranderen.": "Maquette : esquisses à titre d'illustration, pas encore définitives. Des détails peuvent encore changer.", "Probeer het zelf in het klikbare prototype →": "Essayez-le dans le prototype interactif →", "Wat de eerste versie bevat": "Ce que contient la première version", "Voor bezoekers": "Pour les visiteurs", "Chatknop en chatvenster op tabakstop.be, in NL en FR": "Bouton et fenêtre de chat sur tabakstop.be, en NL et FR", "Formulier vóór het gesprek": "Formulaire avant la conversation", "Tevredenheidsvraag na het gesprek": "Question de satisfaction après la conversation", "Het gesprek zelf beëindigen": "Terminer soi-même la conversation", "Niemand beschikbaar? Dan een berichtformulier dat per e-mail binnenkomt": "Personne de disponible ? Alors un formulaire de message qui arrive par e-mail", "Voor chatmedewerkers": "Pour les collaborateurs du chat", "Een eenvoudige inbox in de browser, voor meerdere medewerkers tegelijk": "Une boîte de réception simple dans le navigateur, pour plusieurs collaborateurs à la fois", "Gesprekken aannemen of doorgeven aan een collega": "Accepter des conversations ou les transmettre à un collègue", "Status: beschikbaar of afwezig": "Statut : disponible ou absent", "Melding met geluid bij een nieuw gesprek": "Notification sonore à chaque nouvelle conversation", "Doorzoekbaar archief van alle gesprekken": "Archive consultable de toutes les conversations", "Eigen uiterlijk: kleur, logo, knop en welkomsttekst instelbaar": "Apparence personnalisée : couleur, logo, bouton et texte d'accueil réglables", "Installatiecode om de chat op de site te plaatsen": "Code d'installation pour placer le chat sur le site", "Privacy-instellingen: bewaartermijn, persoonsgegevens verbergen, gesprek exporteren of verwijderen": "Paramètres de confidentialité : durée de conservation, masquage des données personnelles, export ou suppression d'une conversation", "Rapportage": "Rapports", "Aantal gesprekken per dag": "Nombre de conversations par jour", "Gemiddelde wachttijd": "Temps d'attente moyen", "Gemiste gesprekken": "Conversations manquées", "Gemiddelde tevredenheid": "Satisfaction moyenne", "Gebruik per maand: gesprekken (250 inbegrepen)": "Utilisation par mois : conversations (250 incluses)", "Bewust niet in de eerste versie": "Volontairement exclu de la première version", "Bestanden of afbeeldingen versturen.": "Envoyer des fichiers ou des images.", "Kan later nog.": "Possible plus tard.", "Een kopie van het gesprek per e-mail voor de bezoeker.": "Une copie de la conversation par e-mail pour le visiteur.", "Makkelijk toe te voegen wanneer gewenst.": "Facile à ajouter si souhaité.", "Een mobiele app voor medewerkers.": "Une application mobile pour les collaborateurs.", "Niet nodig: er wordt gechat vanaf de computer.": "Inutile : on chatte depuis l'ordinateur.", "Voorstel voor Tabakstop · september 2026": "Proposition pour Tabacstop · septembre 2026", "Schets van het formulier vóór de chat": "Esquisse du formulaire avant le chat", "Schets van een lopend chatgesprek": "Esquisse d'une conversation en cours", "Schets van de tevredenheidsvraag na de chat": "Esquisse de la question de satisfaction après le chat", "Europese Unie": "Union européenne", "Gebruik per maand: gesprekken (250 inbegrepen) en pagina's": "Utilisation par mois : conversations (250 incluses) et pages", "Kanker.be AI-assistent": "Assistant IA Cancer.be", "Voorstel · AI-assistent kanker.be": "Proposition · assistant IA cancer.be", "Een assistent die bezoekers van kanker.be dag en nacht op weg helpt": "Un assistant qui aide les visiteurs de cancer.be jour et nuit", "Een": "Un", "AI-assistent": "assistant IA", "op kanker.be beantwoordt vragen over kanker, op basis van de eigen pagina's en brochures van Stichting tegen Kanker. Elk antwoord toont de bron. Vragen over een diagnose, symptomen of behandeling krijgen geen antwoord, maar een doorverwijzing. Een bezoeker kan altijd een bericht achterlaten voor een medewerker.": "sur cancer.be répond aux questions sur le cancer, à partir des pages et des brochures de la Fondation contre le Cancer. Chaque réponse cite sa source. Les questions sur un diagnostic, des symptômes ou un traitement ne reçoivent pas de réponse, mais une orientation. Un visiteur peut toujours laisser un message à un collaborateur.", "Oktober 2026": "Octobre 2026", "Waar bezoekers nu op wachten": "Ce que les visiteurs attendent aujourd'hui", "Veel vragen komen steeds terug, bijvoorbeeld over risicofactoren, bevolkingsonderzoek en behandelingen. Het antwoord staat al op de site of in een brochure.": "Beaucoup de questions reviennent sans cesse, par exemple sur les facteurs de risque, le dépistage et les traitements. La réponse figure déjà sur le site ou dans une brochure.", "Mensen zoeken vaak 's avonds of in het weekend naar informatie. Een vraag blijft dan liggen tot de volgende werkdag.": "Les gens cherchent souvent des informations le soir ou le week-end. Une question reste alors sans réponse jusqu'au jour ouvrable suivant.", "Kanker.be is groot. Bezoekers vinden de juiste pagina of brochure niet altijd.": "Le site est vaste. Les visiteurs ne trouvent pas toujours la bonne page ou la bonne brochure.", "Er is weinig zicht op wat bezoekers eigenlijk willen weten.": "On sait peu de choses sur ce que les visiteurs veulent réellement savoir.", "Wat de assistent oplevert": "Ce qu'apporte l'assistant", "Antwoord op veelgestelde vragen, ook 's avonds en in het weekend.": "Réponse aux questions fréquentes, aussi le soir et le week-end.", "Elk antwoord komt uit de eigen informatie, met de bron erbij.": "Chaque réponse provient de vos propres informations, avec la source.", "Volledig tweetalig: Nederlands op kanker.be en Frans op cancer.be.": "Entièrement bilingue : néerlandais sur kanker.be et français sur cancer.be.", "Een tevredenheidsvraag na elk gesprek.": "Une question de satisfaction après chaque conversation.", "Inzicht in de vragen van bezoekers, en in de vragen waarop de assistent geen antwoord had.": "Un aperçu des questions des visiteurs, et de celles auxquelles l'assistant n'a pas pu répondre.", "Bronnen beheren medewerkers zelf, via webpagina's, sitemaps en PDF's. De assistent leert niet vanzelf bij.": "Les collaborateurs gèrent eux-mêmes les sources : pages web, sitemaps et PDF. L'assistant n'apprend pas tout seul.", "Jullie kiezen de AI-aanbieder. Met een Europese aanbieder blijven de gesprekken in de EU.": "Vous choisissez le fournisseur d'IA. Avec un fournisseur européen, les conversations restent dans l'UE.", "Dezelfde assistent op andere sites inzetten, zoals tabakstop.be.": "Utiliser le même assistant sur d'autres sites, comme tabakstop.be.", "Een livechat met medewerkers erbij, in hetzelfde venster. Daarvoor bestaat een": "Un chat en direct avec des collaborateurs, dans la même fenêtre. Il existe pour cela une", "apart voorstel": "proposition distincte", "(voor Tabakstop).": "(pour Tabakstop).", "De kennis uitbreiden met goedgekeurde antwoorden uit geanonimiseerde gesprekken.": "Enrichir les connaissances avec des réponses validées issues de conversations anonymisées.", "Gespreksgegevens ontsluiten via een API of MCP (zie onderaan).": "Rendre les données de conversation accessibles via une API ou MCP (voir en bas).", "De assistent antwoordt": "L'assistant répond", "Kanker.be-assistent": "Assistant Cancer.be", "Antwoordt met info van kanker.be": "Répond avec les infos de cancer.be", "Wat zijn risicofactoren voor borstkanker?": "Quels sont les facteurs de risque du cancer du sein ?", "Onder meer leeftijd, erfelijke aanleg, alcohol en overgewicht. Een bevolkingsonderzoek kan borstkanker vroeg opsporen.": "Entre autres l'âge, les prédispositions héréditaires, l'alcool et le surpoids. Un dépistage peut détecter tôt le cancer du sein.", "Pagina Borstkanker": "Page Cancer du sein", "Hoe verloopt een screening?": "Comment se déroule un dépistage ?", "Antwoorden worden gegenereerd door AI": "Les réponses sont générées par l'IA", "Meteen een antwoord, altijd met de bron erbij.": "Une réponse immédiate, toujours avec la source.", "Doorverwijzen": "Orientation", "Ik voel een knobbeltje in mijn borst. Is dat kanker?": "Je sens une boule dans mon sein. Est-ce un cancer ?", "Ik kan geen diagnose stellen. Praat hierover met je huisarts. Een medewerker van Kankerinfo kan je ook verder helpen.": "Je ne peux pas poser de diagnostic. Parlez-en à votre médecin généraliste. Un collaborateur de Cancerinfo peut aussi vous aider.", "Laat een bericht achter": "Laisser un message", "Je gesprek gaat mee, je hoeft niets te herhalen.": "Votre conversation est jointe, vous n'avez rien à répéter.", "Medische vragen gaan altijd naar een mens.": "Les questions médicales vont toujours vers un humain.", "Bedankt": "Merci", "Veilig bij gezondheidsvragen": "Sûr pour les questions de santé", "Gesprekken over kanker gaan over gezondheid en vaak over moeilijke momenten. Daarom werkt de assistent binnen duidelijke grenzen.": "Les conversations sur le cancer touchent à la santé et souvent à des moments difficiles. C'est pourquoi l'assistant travaille dans des limites claires.", "Enkel de eigen informatie": "Uniquement vos propres informations", "De assistent antwoordt alleen met wat op kanker.be en in de brochures staat, en toont altijd de bron. Staat het er niet in, dan zegt hij dat.": "L'assistant répond uniquement avec ce qui figure sur cancer.be et dans les brochures, et cite toujours la source. Si l'information n'y est pas, il le dit.", "Geen medisch advies": "Pas de conseil médical", "Vragen over een diagnose, symptomen, uitslagen of behandeling worden doorverwezen naar de huisarts of een medewerker.": "Les questions sur un diagnostic, des symptômes, des résultats ou un traitement sont orientées vers le médecin généraliste ou un collaborateur.", "Hulp bij moeilijke momenten": "Une aide dans les moments difficiles", "Bij tekenen van een crisis verwijst de assistent door. Op wens toont hij een hulplijn die jullie zelf kiezen.": "En cas de signes de crise, l'assistant oriente la personne. Si vous le souhaitez, il affiche une ligne d'aide que vous choisissez.", "In de taal van de bezoeker": "Dans la langue du visiteur", "Nederlandstalige bezoekers krijgen antwoord uit de Nederlandse informatie, Franstalige uit de Franse.": "Les visiteurs néerlandophones reçoivent une réponse tirée des informations en néerlandais, les francophones de celles en français.", "Medewerkers beslissen wat de assistent weet": "Les collaborateurs décident de ce que l'assistant connaît", "De assistent leert niet vanzelf bij uit gesprekken. Bij elk antwoord staat duidelijk dat het door AI gegenereerd is.": "L'assistant n'apprend pas seul à partir des conversations. Chaque réponse indique clairement qu'elle est générée par l'IA.", "Kies de AI-aanbieder": "Choisir le fournisseur d'IA", "De assistent is gebouwd zodat de aanbieder later kan wisselen, zonder dat de rest verandert. Er zijn drie opties.": "L'assistant est conçu pour que le fournisseur puisse changer plus tard, sans que le reste change. Il y a trois options.", "Herkomst": "Origine", "Amerikaans bedrijf (ChatGPT).": "Entreprise américaine (ChatGPT).", "Gegevens": "Données", "Verwerking in Europa is mogelijk voor zakelijke gebruikers, maar het bedrijf valt onder Amerikaanse wetgeving.": "Un traitement en Europe est possible pour les clients professionnels, mais l'entreprise est soumise à la législation américaine.", "Waarom": "Pourquoi", "Zeer bekend en breed getest. Een goede keuze als privacy minder zwaar weegt.": "Très connu et largement testé. Un bon choix si la vie privée pèse moins.", "Aanbevolen": "Recommandé", "Frans bedrijf, gevestigd in Parijs.": "Entreprise française, basée à Paris.", "Verwerkt in de EU, onder Europese privacywetgeving (AVG).": "Traité dans l'UE, selon la législation européenne sur la vie privée (RGPD).", "Gesprekken over kanker bevatten vaak gezondheidsinformatie. Met een Europese aanbieder blijft die in de EU, en is er geen Amerikaanse partij bij betrokken.": "Les conversations sur le cancer contiennent souvent des informations de santé. Avec un fournisseur européen, elles restent dans l'UE, et aucune partie américaine n'est impliquée.", "Amerikaans bedrijf (Google).": "Entreprise américaine (Google).", "Via Google Cloud kan een Europese regio gekozen worden, maar het bedrijf valt onder Amerikaanse wetgeving.": "Via Google Cloud, une région européenne peut être choisie, mais l'entreprise est soumise à la législation américaine.", "Handig als jullie al met Google Cloud of Workspace werken.": "Pratique si vous travaillez déjà avec Google Cloud ou Workspace.", "Onze aanbeveling: Mistral AI": "Notre recommandation : Mistral AI", "Voor een gezondheidsonderwerp met Belgische bezoekers is Europese gegevensverwerking het sterkste argument. Wat we bij elke aanbieder vastleggen: gesprekken worden niet gebruikt om modellen te trainen, er is een verwerkersovereenkomst, en we testen de gekozen aanbieder met dezelfde vragen voor de assistent live gaat. De exacte voorwaarden controleren we bij de start.": "Pour un sujet de santé et des visiteurs belges, le traitement européen des données est l'argument le plus fort. Avec chaque fournisseur, nous prévoyons : les conversations ne servent pas à entraîner des modèles, un contrat de sous-traitance est conclu, et nous testons le fournisseur choisi avec les mêmes questions avant la mise en ligne. Nous vérifions les conditions exactes au démarrage.", "Chat op kanker.be en cancer.be, in NL en FR": "Chat sur kanker.be et cancer.be, en NL et FR", "Een assistent die dag en nacht antwoordt, met bronvermelding": "Un assistant qui répond jour et nuit, avec la source", "Bericht achterlaten voor een medewerker van Kankerinfo": "Laisser un message à un collaborateur de Cancerinfo", "Duidelijke vermelding dat antwoorden door AI gegenereerd zijn": "Mention claire que les réponses sont générées par l'IA", "Voor medewerkers": "Pour les collaborateurs", "Een eenvoudig beheerscherm in de browser": "Un écran de gestion simple dans le navigateur", "Gesprekken filteren op onopgeloste vragen": "Filtrer les conversations sur les questions non résolues", "Achtergelaten berichten als lijst, met het gesprek erbij": "Les messages laissés sous forme de liste, avec la conversation", "Kennisbank": "Base de connaissances", "Bronnen toevoegen via URL's, sitemap en PDF's": "Ajouter des sources via URL, sitemap et PDF", "Kent de pagina's en brochures van kanker.be en cancer.be": "Connaît les pages et brochures de kanker.be et cancer.be", "Wekelijks gecontroleerd via de sitemap (met de wijzigingsdatum). Alleen gewijzigde pagina's worden opnieuw ingelezen": "Vérification hebdomadaire via le sitemap (avec la date de modification). Seules les pages modifiées sont relues", "Getest met een vijftigtal echte vragen, elk antwoord nagekeken": "Testé avec une cinquantaine de vraies questions, chaque réponse relue", "Eerst op één pagina, daarna op de hele site": "D'abord sur une page, puis sur tout le site", "Opgelost door de assistent of bericht achtergelaten": "Résolues par l'assistant ou message laissé", "Meest gestelde onderwerpen": "Sujets les plus fréquents", "Tevredenheid van bezoekers": "Satisfaction des visiteurs", "Livechat met medewerkers.": "Chat en direct avec des collaborateurs.", "Daar is een apart voorstel voor, dat hierop aansluit.": "Une proposition distincte existe, elle s'y raccorde.", "Afspraken maken of diagnoses stellen.": "Prendre des rendez-vous ou poser des diagnostics.", "Dat blijft bij de arts.": "Cela reste du ressort du médecin.", "Mogelijke uitbreiding: API of MCP": "Extension possible : API ou MCP", "Later kan een API of een MCP-server worden toegevoegd, zodat gespreksgegevens (op wens geanonimiseerd) opgehaald en gebruikt kunnen worden in andere systemen, bijvoorbeeld een rapportagetool of een eigen AI-toepassing. Dit zit niet in de eerste versie.": "Plus tard, une API ou un serveur MCP peut être ajouté, afin que les données de conversation (anonymisées si souhaité) puissent être récupérées et utilisées dans d'autres systèmes, par exemple un outil de rapport ou une application d'IA propre. Cela ne fait pas partie de la première version.", "Voorstel voor Stichting tegen Kanker · oktober 2026": "Proposition pour la Fondation contre le Cancer · octobre 2026", "Schets: de assistent beantwoordt een vraag": "Esquisse : l'assistant répond à une question", "Schets: een medische vraag wordt doorverwezen": "Esquisse : une question médicale est orientée", "Kanker.be AI-assistent met livechat": "Assistant IA Cancer.be avec chat en direct", "Voorstel · AI-assistent met optionele livechat": "Proposition · assistant IA avec chat en direct en option", "Een assistent die bezoekers van kanker.be dag en nacht op weg helpt, met livechat als optie": "Un assistant qui aide les visiteurs de cancer.be jour et nuit, avec le chat en direct en option", "De": "L'", "is de basis: hij beantwoordt vragen op basis van de eigen pagina's en brochures, met de bron erbij. Wie liever een mens spreekt, kan een bericht achterlaten. Met de": "est la base : il répond aux questions à partir des pages et brochures propres, avec la source. Qui préfère parler à un humain peut laisser un message. Avec le", "livechat-module": "module de chat en direct", "erbij neemt een medewerker het gesprek live over, in hetzelfde venster en met een samenvatting van wat al besproken is.": "en plus, un collaborateur reprend la conversation en direct, dans la même fenêtre et avec un résumé de ce qui a déjà été dit.", "Basis": "Base", "Antwoordt dag en nacht met de eigen informatie, met bronvermelding. Bericht achterlaten als een mens nodig is.": "Répond jour et nuit avec vos propres informations, en citant la source. Laisser un message si un humain est nécessaire.", "Optionele module": "Module optionnel", "Livechat": "Chat en direct", "Een medewerker neemt het gesprek live over, met een eigen beheerscherm voor de chatmedewerkers.": "Un collaborateur reprend la conversation en direct, avec un écran de gestion propre pour les collaborateurs du chat.", "Een livechat met medewerkers erbij, in hetzelfde venster. Zie het tabblad": "Un chat en direct avec des collaborateurs, dans la même fenêtre. Voir l'onglet", "Livechat-module": "Module chat en direct", ".": ".", "Beschikbaar als optionele module, zie het tabblad Livechat-module.": "Disponible comme module optionnel, voir l'onglet Module chat en direct.", "Livechat: een medewerker neemt over wanneer het nodig is": "Chat en direct : un collaborateur prend le relais quand c'est nécessaire", "De module bouwt voort op de AI-assistent. Zonder de module laat een bezoeker een bericht achter. Met de module kan hij tijdens de chaturen meteen met een medewerker praten, in hetzelfde venster.": "Le module complète l'assistant IA. Sans le module, un visiteur laisse un message. Avec le module, il peut parler tout de suite à un collaborateur pendant les heures de chat, dans la même fenêtre.", "Bekijk het prototype met livechat →": "Voir le prototype avec chat en direct →", "Voor wie nu een standaardoplossing gebruikt.": "Pour ceux qui utilisent aujourd'hui une solution standard.", "Met en zonder de module": "Avec et sans le module", "AI-assistent (basis)": "Assistant IA (base)", "Met livechat-module": "Avec le module de chat en direct", "Vraag die een mens nodig heeft": "Question qui demande un humain", "De bezoeker laat een bericht achter. Een medewerker antwoordt per e-mail.": "Le visiteur laisse un message. Un collaborateur répond par e-mail.", "De bezoeker kan meteen met een medewerker chatten tijdens de chaturen. Buiten de uren blijft het bericht achterlaten.": "Le visiteur peut chatter tout de suite avec un collaborateur pendant les heures de chat. En dehors des heures, il laisse un message.", "Overdracht": "Transfert", "Het gesprek met de assistent wordt bij het bericht gevoegd.": "La conversation avec l'assistant est jointe au message.", "De medewerker krijgt een samenvatting en leest het hele gesprek mee. De bezoeker hoeft niets te herhalen.": "Le collaborateur reçoit un résumé et lit toute la conversation. Le visiteur n'a rien à répéter.", "Gesprekken en berichten bekijken in het beheerscherm van de assistent.": "Consulter les conversations et messages dans l'écran de gestion de l'assistant.", "Een aparte inbox voor meerdere medewerkers tegelijk: aannemen, doorgeven, status en geluidsmelding.": "Une boîte de réception distincte pour plusieurs collaborateurs à la fois : accepter, transmettre, statut et alerte sonore.", "Beheerschermen": "Écrans de gestion", "Eén beheerscherm: bronnen, gesprekken, instellingen, gebruik.": "Un seul écran de gestion : sources, conversations, paramètres, utilisation.", "Twee aparte beheerschermen: dat van de assistent en dat van de livechat.": "Deux écrans de gestion distincts : celui de l'assistant et celui du chat en direct.", "Tevredenheidsvraag.": "Question de satisfaction.", "Tevredenheidsvraag, apart bij te houden voor assistent en medewerker.": "Question de satisfaction, suivie séparément pour l'assistant et le collaborateur.", "Wat de module oplevert": "Ce qu'apporte le module", "Medewerkers krijgen enkel de vragen die echt een mens nodig hebben, met een samenvatting van wat al besproken is.": "Les collaborateurs ne reçoivent que les questions qui demandent vraiment un humain, avec un résumé de ce qui a déjà été dit.", "Volledige controle over het formulier vóór de chat, plus een tevredenheidsvraag na het gesprek.": "Un contrôle total du formulaire avant le chat, plus une question de satisfaction après la conversation.", "Jullie bepalen zelf waar gesprekken bewaard worden en hoe lang.": "Vous décidez vous-mêmes où les conversations sont conservées et pour combien de temps.", "De kennis van de assistent uitbreiden met goedgekeurde antwoorden uit geanonimiseerde gesprekken.": "Enrichir les connaissances de l'assistant avec des réponses validées issues de conversations anonymisées.", "Het gesprek met een medewerker": "La conversation avec un collaborateur", "Zo ziet een doorverbinding eruit voor de bezoeker.": "Voici à quoi ressemble une mise en relation pour le visiteur.", "De assistent verwijst door": "L'assistant oriente", "Ik kan geen diagnose stellen. Een medewerker van Kankerinfo kan je verder helpen.": "Je ne peux pas poser de diagnostic. Un collaborateur de Cancerinfo peut vous aider.", "Praat met een medewerker": "Parler à un collaborateur", "Tijdens de chaturen kiest de bezoeker voor live.": "Pendant les heures de chat, le visiteur choisit le direct.", "De medewerker neemt over": "Le collaborateur prend le relais", "Medewerker Kankerinfo": "Collaborateur Cancerinfo", "Lies heeft het gesprek overgenomen": "Lies a repris la conversation", "Hallo Sarah, ik heb je vraag gelezen. Wil je me vertellen sinds wanneer je het voelt?": "Bonjour Sarah, j'ai lu votre question. Pouvez-vous me dire depuis quand vous le sentez ?", "Sinds een week.": "Depuis une semaine.", "In hetzelfde venster, met het hele gesprek erbij.": "Dans la même fenêtre, avec toute la conversation.", "Probeer het zelf, met livechat aan →": "Essayez-le vous-même, avec le chat en direct →", "Wat de module bevat": "Ce que contient le module", "Doorverbinden met een medewerker, in hetzelfde venster": "Mise en relation avec un collaborateur, dans la même fenêtre", "Bij elke overdracht een samenvatting van de assistent": "Un résumé de l'assistant à chaque transfert", "Instellingen": "Paramètres", "Onderdelen van het voorstel": "Parties de la proposition", "Schets: de assistent biedt een medewerker aan": "Esquisse : l'assistant propose un collaborateur", "Schets: een medewerker neemt het gesprek over": "Esquisse : un collaborateur reprend la conversation"};
+  var LS = 'stk-lang', lang = 'nl';
+  function norm(t) { return t.replace(/\s+/g, ' ').trim(); }
+  var nodes = [], attrs = [];
+  var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: function (n) {
+    var p = n.parentNode.nodeName; if (p === 'SCRIPT' || p === 'STYLE') return NodeFilter.FILTER_REJECT;
+    return norm(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; } });
+  while (w.nextNode()) nodes.push({ n: w.currentNode, nl: w.currentNode.nodeValue });
+  [].forEach.call(document.querySelectorAll('[aria-label],[title],[alt]'), function (el) {
+    ['aria-label', 'title', 'alt'].forEach(function (a) { if (el.hasAttribute(a) && el.getAttribute(a)) attrs.push({ el: el, a: a, nl: el.getAttribute(a) }); });
+  });
+  var titleNl = document.title;
+  function tr(t) { return FR[norm(t)]; }
+  function apply(l) {
+    lang = l;
+    nodes.forEach(function (o) {
+      var f = l === 'fr' ? tr(o.nl) : null;
+      o.n.nodeValue = f ? o.nl.match(/^\s*/)[0] + f + o.nl.match(/\s*$/)[0] : o.nl;
+    });
+    attrs.forEach(function (o) { var f = l === 'fr' ? tr(o.nl) : null; o.el.setAttribute(o.a, f || o.nl); });
+    document.title = (l === 'fr' && FR[titleNl]) || titleNl;
+    document.documentElement.lang = l;
+    [].forEach.call(document.querySelectorAll('.lang button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-l') === l)); });
+    [].forEach.call(document.querySelectorAll('a[data-module]'), function (a) { a.setAttribute('href', 'prototype.html?module=' + a.getAttribute('data-module') + '&lang=' + l); });
+    [].forEach.call(document.querySelectorAll('a[href^="voorstel-ai-assistent-met-livechat"]'), function (a) { a.setAttribute('href', 'voorstel-ai-assistent-met-livechat' + (l === 'fr' ? '-fr' : '') + '.pdf'); });
+  }
+  function save(l) { try { localStorage.setItem(LS, l); } catch (e) {} }
+  var q = /[?&]lang=(nl|fr)/.exec(location.search), init = q ? q[1] : null;
+  if (!init) { try { init = localStorage.getItem(LS); } catch (e) {} }
+
+  function showTab(t, push) {
+    [].forEach.call(document.querySelectorAll('.tab'), function (b) { b.setAttribute('aria-selected', String(b.getAttribute('data-tab') === t)); });
+    [].forEach.call(document.querySelectorAll('.panel'), function (p) { p.hidden = p.id !== t; });
+    if (push) { try { history.replaceState(null, '', '#' + (t === 'ai' ? '' : t)); } catch (e) {} }
+  }
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-tab]'); if (!el) return;
+    e.preventDefault(); showTab(el.getAttribute('data-tab'), true);
+    if (el.tagName === 'A') window.scrollTo({ top: document.querySelector('.tabs').offsetTop - 12, behavior: 'smooth' });
+  });
+  showTab(location.hash === '#livechat' ? 'livechat' : 'ai', false);
+  apply(init === 'fr' ? 'fr' : 'nl');
+  document.querySelector('.lang').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return; save(b.getAttribute('data-l')); apply(b.getAttribute('data-l'));
+  });
+})();
+</script>
+</body>
+</html>

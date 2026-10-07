@@ -531,9 +531,17 @@ p.warn { color: #7A3500; background: #FFF3E0; border: 1px solid #E8B77A; border-
 @media (max-width: 760px) {
   .search { max-width: none; }
 }
+
+/* Embedded admin (used inside the combined proposal prototype) */
+html.embed-admin body { padding: 0; }
+html.embed-admin .shell { max-width: none; padding: 0; gap: 0; }
+html.embed-admin .topbar, html.embed-admin .controls, html.embed-admin .mockup-note, html.embed-admin #view-embed, html.embed-admin #view-widget, html.embed-admin .bar { display: none !important; }
+html.embed-admin .browser { border: 0; border-radius: 0; box-shadow: none; }
+html.embed-admin .admin { height: 100vh; min-height: 680px; }
 </style>
 </head>
 <body>
+<script>if (/[?&]embed=admin\b/.test(location.search)) document.documentElement.classList.add('embed-admin');</script>
 <div class="shell">
   <div class="topbar">
     <div class="proto-label">
@@ -2039,7 +2047,7 @@ p.warn { color: #7A3500; background: #FFF3E0; border: 1px solid #E8B77A; border-
 
   applyChrome();
   var initial = (location.hash || '').replace('#', '');
-  show(['widget', 'embed', 'beheer'].indexOf(initial) !== -1 ? initial : 'embed');
+  show(document.documentElement.classList.contains('embed-admin') ? 'beheer' : ['widget', 'embed', 'beheer'].indexOf(initial) !== -1 ? initial : 'embed');
 })();
 </script>
 </body>
