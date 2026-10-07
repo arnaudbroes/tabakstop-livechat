@@ -1951,9 +1951,9 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
     }
 
     /* Usage */
-    var UM = { kanker: [128, 140, 152, 170, 186, 238, 212], tabakstop: [92, 104, 115, 122, 141, 166, 141] };
+    var UM = { kanker: [256, 280, 304, 340, 372, 476, 424], tabakstop: [184, 208, 230, 244, 282, 332, 282] };
     var UP = { 'this': { idx: [6], prev: [5], days: 23, end: [2025, 8, 23], label: 'This month', pages: 12 }, last: { idx: [5], prev: [4], days: 31, end: [2025, 7, 31], label: 'Last month', pages: 30 }, last3: { idx: [4, 5, 6], prev: [1, 2, 3], days: 85, end: [2025, 8, 23], label: 'Last 3 months', pages: 74 } };
-    var LIMITS = { convs: 250, pages: 500, mb: 500 };
+    var LIMITS = { convs: 500, pages: 500, mb: 500 };
     var PDF_MB = { kanker: 38, tabakstop: 12 };
     function num(n) { return Math.round(n).toLocaleString('en-US'); }
     function delta(cur, prev) {
@@ -2027,7 +2027,7 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
         '<div class="kpi"><span class="k">Pages indexed</span><span class="v">' + num(c.pages) + '</span><span class="s">web + PDF pages · ▲ +' + P.pages + ' in this period</span></div></div>';
       var meters = '<div class="card"><div class="pane-head"><h3 style="margin-right:auto">Plan limits (example)</h3><span class="fine">Resets on 1 Oct</span></div>' +
         '<div class="meters">' + meter('Conversations used', meterConvs, LIMITS.convs, num(meterConvs), num(LIMITS.convs)) + meter('Pages indexed', c.pages, LIMITS.pages, num(c.pages), num(LIMITS.pages)) + meter('PDF storage', PDF_MB[cur], LIMITS.mb, PDF_MB[cur] + ' MB', LIMITS.mb + ' MB') + '</div>' +
-        '<p class="fine">The plan includes 250 conversations per month. The conversations meter follows the selected month' + (p === 'last3' ? ' (for Last 3 months it shows the current month)' : '') + '. The warning starts at 80%.</p></div>';
+        '<p class="fine">The plan includes 500 conversations per month. The conversations meter follows the selected month' + (p === 'last3' ? ' (for Last 3 months it shows the current month)' : '') + '. The warning starts at 80%.</p></div>';
       var legend = USEG.map(function (sg) { return '<span><i style="background:' + sg[1] + '"></i>' + sg[2] + '</span>'; }).join('');
       var tbl = '<details class="dtable"><summary>Show as table</summary><div class="dt-scroll"><table class="utable"><thead><tr><th>Date</th><th class="num">NL</th><th class="num">FR</th><th class="num">Total</th></tr></thead><tbody>' +
         d.dates.map(function (dt, i) { return '<tr><td>' + dt + '</td><td class="num">' + d.nl[i] + '</td><td class="num">' + d.fr[i] + '</td><td class="num">' + d.total[i] + '</td></tr>'; }).join('') + '</tbody></table></div></details>';
@@ -2037,8 +2037,8 @@ table.arc td:nth-child(n+5) { white-space: nowrap; }
       function lastIdx(l) { var m = null; l.forEach(function (x) { if ((x.status === 'ok' || x.status === 'changed') && (m === null || x.age < m)) m = x.age; }); return m === null ? '—' : ago(m); }
       var types = '<tr><td>Web pages</td><td class="num">' + web.length + '</td><td class="num">' + num(pagesOf(web)) + '</td><td>' + lastIdx(web) + '</td></tr><tr><td>PDFs</td><td class="num">' + pdf.length + '</td><td class="num">' + num(pagesOf(pdf)) + '</td><td>' + lastIdx(pdf) + '</td></tr>';
       var pick = [srcs[0], srcs[1], srcs[2], pdf[0], srcs[4]].filter(Boolean), base = [412, 318, 266, 190, 144];
-      var tmax = Math.round(base[0] * u.convs / 212);
-      var top5 = pick.map(function (x, i) { var v = Math.round(base[i] * u.convs / 212); return '<div class="row"><b title="' + esc(x.title) + '">' + esc(x.title) + '</b><div class="track"><div class="fill" style="width:' + (v / tmax * 100).toFixed(1) + '%"></div></div><span>' + num(v) + '</span></div>'; }).join('');
+      var tmax = Math.round(base[0] * u.convs / 424);
+      var top5 = pick.map(function (x, i) { var v = Math.round(base[i] * u.convs / 424); return '<div class="row"><b title="' + esc(x.title) + '">' + esc(x.title) + '</b><div class="track"><div class="fill" style="width:' + (v / tmax * 100).toFixed(1) + '%"></div></div><span>' + num(v) + '</span></div>'; }).join('');
       var all = ['kanker', 'tabakstop'].map(function (k) {
         var uu = usageFor(k, p), pg = pagesOf(DATA[k].srcs);
         return { k: k, convs: uu.convs, pages: pg };
