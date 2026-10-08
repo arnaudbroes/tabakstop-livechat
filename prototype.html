@@ -584,6 +584,9 @@ p.warn { color: #7A3500; background: #FFF3E0; border: 1px solid #E8B77A; border-
 .msg.me:hover .edit-btn, .edit-btn:focus-visible { opacity: 1; }
 .msg.me.editing { outline: 2px solid var(--sun); outline-offset: 2px; }
 .edited { display: block; font-size: 11px; opacity: .75; margin-top: 2px; }
+.fw { border: 0; background: rgba(22, 41, 61, .1); color: inherit; font: inherit; border-radius: 4px; padding: 0 3px; cursor: pointer; }
+.fw.open { background: var(--sun-soft); color: var(--sun-ink); text-decoration: underline dotted; }
+.fw-allow { border: 0; background: none; color: var(--brand); font: 600 11.5px/1 var(--body); padding: 0 4px; cursor: pointer; text-decoration: underline; }
 .to-lbl { font-size: 11.5px; font-weight: 700; color: var(--muted); }
 .edit-bar { font-size: 12px; font-weight: 600; color: var(--sun-ink); background: var(--sun-soft); border-radius: 6px; padding: 3px 8px; }
 .btn.danger { color: var(--bad); border-color: var(--bad); }
@@ -1005,7 +1008,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
 
   /* Word filter: sample lists. Allowed words (such as kanker, which is also a Dutch swear word) are never filtered. */
   var BADWORDS = { nl: ['kanker', 'klote', 'kut', 'tering', 'godverdomme', 'lul', 'kutwijf'], fr: ['merde', 'putain', 'connard', 'salaud', 'enculé'], en: ['fuck', 'shit', 'bitch', 'asshole', 'bastard'] };
-  function filterWords(t, on) {
+  function filterWords(t, on, mark) {
     var f = CHAT.filter; if (!on) return t;
     var allow = f.allow.toLowerCase().split(',').map(function (w) { return w.trim(); }).filter(Boolean);
     var words = [];
@@ -1013,7 +1016,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
     words = words.concat(f.extra.toLowerCase().split(',').map(function (w) { return w.trim(); }).filter(Boolean));
     words = words.filter(function (w) { return allow.indexOf(w) === -1; }).map(function (w) { return w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); });
     if (!words.length) return t;
-    return String(t).replace(new RegExp('(^|[^\\p{L}])(' + words.join('|') + ')(?![\\p{L}])', 'giu'), function (m, pre) { return pre + '••••'; });
+    return String(t).replace(new RegExp('(^|[^\\p{L}])(' + words.join('|') + ')(?![\\p{L}])', 'giu'), function (m, pre, w) { return pre + (mark ? mark(w) : '••••'); });
   }
   var BRAND = '#2B6490';
 
@@ -1355,7 +1358,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
           { from: 'sys', text: ME + ' took the conversation' },
           { from: 'op', text: 'Hallo Jan, drie weken is al een mooie prestatie. Wat maakt het vandaag moeilijk?' },
           { from: 'visitor', text: 'Stress op het werk. Vroeger nam ik dan altijd een sigaret in de pauze.' },
-          { from: 'op', text: 'Dat is heel herkenbaar. Die pauze is een gewoonte geworden. Heb je al iets anders geprobeerd om die momenten op te vangen?' },
+          { from: 'op', text: 'Dat is heel herkenbaar. Die pauze is een gewoonte geworden. Heb je al iets anders geprobeerd om die momenten op te vangen?', at: Date.now() - 40000 },
           { from: 'visitor', text: 'Nog niet echt. Ik ga meestal gewoon naar buiten. Die stress is echt klote.' }
         ],
         team: [
@@ -1401,7 +1404,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       userMenu: false, siteMenu: false, signedOut: false, delArc: null,
       setTab: 'look', hexDraft: null, avErr: '', snip: 'widget', copied: null, domains: 'tabakstop.be, tabacstop.be',
       uPeriod: 'this', uStack: 'outcome',
-      unread: {}, teamDrafts: {}, dm: 'everyone', dmDraft: '', dmPick: false, dmQ: '', edit: null, ban: null
+      unread: {}, teamDrafts: {}, dm: 'everyone', dmDraft: '', dmPick: false, dmQ: '', edit: null, ban: null, revealed: {}
     };
     var DMS = [
       { id: 'everyone', name: 'Everyone', channel: true, unread: 1, msgs: [
@@ -1428,6 +1431,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
     function mins(t) { var m = Math.max(0, Math.round((Date.now() - t) / 60000)); return m < 1 ? '<1 min' : m + ' min'; }
     function waitLong(t) { var sec = Math.max(0, Math.round((Date.now() - t) / 1000)); return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0'); }
     function conv(id) { for (var i = 0; i < convs.length; i++) if (convs[i].id === id) return convs[i]; return null; }
+    convs.forEach(function (c) { (c.msgs || []).forEach(function (m) { if (m && m.at) editExpiry(m); }); });
     function chip(l) { return '<span class="chip' + (l === 'FR' ? ' fr' : '') + '">' + l + '</span>'; }
     function mask(t) {
       if (!PRIV.mask) return t;
@@ -1503,12 +1507,27 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       }).join('') + '</div>';
     }
 
+    /* Operators see •••• but can click it to read the word; admins can allow it from there. */
+    function fwHtml(text, on, key) {
+      var words = [], n = 0, out = esc(filterWords(text, on, function (w) { words.push(w); return '\u0000' + (words.length - 1) + '\u0000'; }));
+      return out.replace(/\u0000(\d+)\u0000/g, function (m, i) {
+        var w = words[+i], k = key + ':' + (n++), open = !!st.revealed[k];
+        return '<button type="button" class="fw' + (open ? ' open' : '') + '" data-fw="' + k + '" aria-pressed="' + open + '" title="' + (open ? 'Hide the word' : 'Filtered word. Click to see it') + '">' + (open ? esc(w) : '••••') + '</button>' +
+          (open ? '<button type="button" class="fw-allow" data-fwallow="' + esc(w.toLowerCase()) + '">Allow this word</button>' : '');
+      });
+    }
+    var EDIT_MS = 120000;
+    function canEdit(m) { return m.from === 'op' && m.at && Date.now() - m.at < EDIT_MS; }
+    function editExpiry(m) {
+      setTimeout(function () { if (view === 'beheer' && st.page === 'inbox' && !(st.edit && conv(st.edit.conv).msgs[st.edit.idx] === m)) render(); }, Math.max(0, EDIT_MS - (Date.now() - m.at)) + 50);
+    }
     function msgHtml(m, c) {
       if (m.from === 'sys') return '<div class="sys">' + esc(m.text) + '</div>';
-      if (m.from === 'visitor') return '<div class="msg them"><small>' + esc(c.name) + '</small>' + esc(filterWords(m.text, CHAT.filter.visitor)) + '</div>';
-      var i = c.msgs.indexOf(m), editing = st.edit && st.edit.conv === c.id && st.edit.idx === i;
-      var tools = c.status === 'mine' && !editing ? '<button class="edit-btn" data-edit="' + i + '" aria-label="Edit this message">Edit</button>' : '';
-      return '<div class="msg me' + (editing ? ' editing' : '') + '">' + tools + esc(filterWords(m.text, CHAT.filter.op)) + (m.edited ? '<span class="edited">edited</span>' : '') + '</div>';
+      var i = c.msgs.indexOf(m), key = c.id + '-' + i;
+      if (m.from === 'visitor') return '<div class="msg them"><small>' + esc(c.name) + '</small>' + fwHtml(m.text, CHAT.filter.visitor, key) + '</div>';
+      var editing = st.edit && st.edit.conv === c.id && st.edit.idx === i;
+      var tools = c.status === 'mine' && !editing && canEdit(m) ? '<button class="edit-btn" data-edit="' + i + '" aria-label="Edit this message" title="You can edit a message for 2 minutes after sending">Edit</button>' : '';
+      return '<div class="msg me' + (editing ? ' editing' : '') + '">' + tools + fwHtml(m.text, CHAT.filter.op, key) + (m.edited ? '<span class="edited">edited</span>' : '') + '</div>';
     }
 
     function convPane() {
@@ -1535,7 +1554,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
           (st.typing[c.id] ? '<div class="typing" aria-label="Typing"><i></i><i></i><i></i></div>' : '') + '</div>';
         foot = c.status === 'mine'
           ? '<form class="composer" data-form="reply"><div style="flex:1;display:flex;flex-direction:column;gap:4px">' +
-            (st.edit && st.edit.conv === c.id ? '<span class="edit-bar">Editing your message · ' + esc(c.name) + ' will see "edited" <button type="button" class="toggle-link" data-act="editcancel">Cancel</button></span>' : '<span class="to-lbl">Reply to ' + esc(c.name) + ' (the visitor sees this)</span>') +
+            (st.edit && st.edit.conv === c.id ? '<span class="edit-bar">Editing your message · ' + esc(c.name) + ' will see "edited" · within 2 minutes of sending <button type="button" class="toggle-link" data-act="editcancel">Cancel</button></span>' : '<span class="to-lbl">Reply to ' + esc(c.name) + ' (the visitor sees this)</span>') +
             '<textarea id="reply-' + c.id + '" rows="2" data-bind="draft" placeholder="Type your reply to ' + esc(c.name) + '…" aria-label="Reply to the visitor">' + esc(st.drafts[c.id] || '') + '</textarea><span class="hint">Enter to send · Shift+Enter for a new line</span></div><button class="send" type="submit" aria-label="' + (st.edit && st.edit.conv === c.id ? 'Save' : 'Send') + '">' + (st.edit && st.edit.conv === c.id ? ICON.check : ICON.send) + '</button></form>'
           : '<div class="readonly">This conversation is handled by ' + esc(c.operator) + '. You can read along.</div>';
       }
@@ -1949,7 +1968,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
         '<div class="card"><h3>Opening hours</h3>' +
         langPair('ch-hrs', 'chat:hours', 'Opening hours text', CHAT.hours, { nl: T.nl.hours, fr: T.fr.hours }) +
         '<span class="fine">Shown to visitors in the offline message. Display text only, the chat does not follow a schedule in this prototype.</span></div>' +
-        '<div class="card"><h3>Word filter</h3><p class="sub">Swear words and insults are replaced by •••• in the chat, the archive and exports. Built-in lists for Dutch, French and English.</p>' +
+        '<div class="card"><h3>Word filter</h3><p class="sub">Swear words and insults are replaced by •••• in the chat, the archive and exports. Built-in lists for Dutch, French and English. Operators can click •••• to read the word, and admins can allow it from there.</p>' +
         switchHtml(f.visitor, 'fvis', 'Filter visitor messages') + switchHtml(f.op, 'fop', 'Filter operator messages') +
         '<div class="f"><span class="lbl">Languages</span><div class="seg" role="group" aria-label="Filter languages">' + [['nl', 'Dutch'], ['fr', 'French'], ['en', 'English']].map(function (l) { return '<button data-flang="' + l[0] + '" aria-pressed="' + f.langs[l[0]] + '">' + l[1] + '</button>'; }).join('') + '</div></div>' +
         fld('fw-extra', 'Extra words for this site', '<input id="fw-extra" data-bind="chat:filter.extra" value="' + esc(f.extra) + '" placeholder="Separate with commas">') +
@@ -2147,6 +2166,12 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
         if (!dmOf(v)) DMS.push({ id: v, name: v, unread: 0, msgs: [] });
         st.page = 'dm'; st.dm = v; st.dmPick = false; st.dmQ = ''; render(); var d2 = root.querySelector('#dm-draft'); if (d2) d2.focus(); return;
       }
+      if ((v = pick('data-fw')) !== null) { st.revealed[v] = !st.revealed[v]; render(); return; }
+      if ((v = pick('data-fwallow')) !== null) {
+        var al = CHAT.filter.allow.split(',').map(function (w) { return w.trim(); }).filter(Boolean);
+        if (al.indexOf(v) === -1) al.push(v); CHAT.filter.allow = al.join(', ');
+        render(); flash('"' + v + '" is no longer filtered', 'Added to "Never filter" in Settings > Chat > Word filter.'); return;
+      }
       if ((v = pick('data-edit')) !== null) { var ec = conv(st.sel); st.edit = { conv: ec.id, idx: +v }; st.drafts[ec.id] = ec.msgs[+v].text; render(true); return; }
       if ((v = pick('data-mention')) !== null) {
         st.teamDrafts[st.sel] = (st.teamDrafts[st.sel] || '').replace(/@\w*$/, '@' + v.split(' ')[0] + ' ');
@@ -2305,9 +2330,11 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       var c = conv(st.sel), text = (st.drafts[st.sel] || '').trim();
       if (!c || !text) return;
       if (st.edit && st.edit.conv === c.id) {
-        var em = c.msgs[st.edit.idx]; em.text = text; em.edited = true; st.edit = null; st.drafts[c.id] = ''; render(true); return;
+        var em = c.msgs[st.edit.idx]; st.edit = null;
+        if (!canEdit(em)) { st.drafts[c.id] = ''; render(true); flash('Too late to edit', 'A message can only be edited for 2 minutes after sending.'); return; }
+        em.text = text; em.edited = true; st.drafts[c.id] = ''; render(true); return;
       }
-      c.msgs.push({ from: 'op', text: text }); st.drafts[c.id] = '';
+      var nm = { from: 'op', text: text, at: Date.now() }; c.msgs.push(nm); editExpiry(nm); st.drafts[c.id] = '';
       render(true);
       if (vIdx < visitorReplies.length) {
         var id = c.id, reply = visitorReplies[vIdx++];
