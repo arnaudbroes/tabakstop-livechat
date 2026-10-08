@@ -1973,7 +1973,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
         '<div class="f"><span class="lbl">Languages</span><div class="seg" role="group" aria-label="Filter languages">' + [['nl', 'Dutch'], ['fr', 'French'], ['en', 'English']].map(function (l) { return '<button data-flang="' + l[0] + '" aria-pressed="' + f.langs[l[0]] + '">' + l[1] + '</button>'; }).join('') + '</div></div>' +
         fld('fw-extra', 'Extra words for this site', '<input id="fw-extra" data-bind="chat:filter.extra" value="' + esc(f.extra) + '" placeholder="Separate with commas">') +
         fld('fw-allow', 'Never filter', '<input id="fw-allow" data-bind="chat:filter.allow" value="' + esc(f.allow) + '">', '"Kanker" is also a Dutch swear word, so it is on this list for Stichting tegen Kanker. Remove it and see Nadia\'s chat in the Inbox.') +
-        '<div class="f"><span class="lbl">When a visitor keeps swearing</span>' + segHtml('faction', f.action, [['none', 'Do nothing'], ['warn', 'Warn the operator after 3'], ['ban', 'Ban for 24 hours after 5']]) + '</div></div>' +
+        '<div class="f"><span class="lbl">When a visitor keeps swearing</span>' + segHtml('faction', f.action, [['none', 'Do nothing'], ['warn', 'Warn the operator after 3']]) + '</div></div>' +
         '<div class="card"><h3>Ban message</h3><p class="sub">What a banned visitor sees when they open the chat. See it in the visitor views, step "Geblokkeerd".</p>' +
         langPair('ch-ban', 'chat:banText', 'Ban message', CHAT.banText, { nl: T.nl.banBody, fr: T.fr.banBody }, 'area') +
         switchHtml(CHAT.banEnd, 'banend', 'Show when the ban ends') + '</div>' +
