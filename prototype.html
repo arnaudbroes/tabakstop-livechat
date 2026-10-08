@@ -532,6 +532,104 @@ p.warn { color: #7A3500; background: #FFF3E0; border: 1px solid #E8B77A; border-
   .search { max-width: none; }
 }
 
+/* Sidebar: my chats and direct chats */
+.side .sn { display: flex; flex-direction: column; gap: 1px; }
+.side .sn-h { display: flex; align-items: center; justify-content: space-between; padding: 0 10px 4px; font-size: 11px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: #9FB3C6; }
+.side .sn-plus { border: 0; background: rgba(255, 255, 255, .1); color: #FFFFFF; width: 22px; height: 22px; border-radius: 6px; font-size: 15px; font-weight: 700; line-height: 1; display: grid; place-items: center; }
+.side .sn-plus:hover { background: rgba(255, 255, 255, .2); }
+.side .sn-it { display: flex; align-items: center; gap: 8px; border: 0; background: transparent; color: #C3D1DE; padding: 6px 10px; border-radius: 8px; text-align: left; font-size: 13.5px; }
+.side .sn-it:hover { background: rgba(255, 255, 255, .06); color: #FFFFFF; }
+.side .sn-it[aria-current="page"] { background: rgba(255, 255, 255, .1); color: #FFFFFF; font-weight: 600; }
+.side .sn-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.side .sn-it .chip { background: rgba(255, 255, 255, .12); color: #D6E1EB; }
+.side .sn-it .badge { margin-left: auto; background: var(--sun); color: #3A2A00; font-size: 11px; font-weight: 700; min-width: 19px; height: 19px; padding: 0 5px; border-radius: 10px; display: grid; place-items: center; }
+.side .sn-it .badge.at { background: #FFFFFF; color: #8A5A00; }
+.side .hash { width: 8px; text-align: center; font-weight: 700; color: #9FB3C6; }
+.side .sn-empty { margin: 0; padding: 2px 10px 4px; font-size: 12.5px; color: #8FA6BC; }
+.side .dm-pick { background: #FFFFFF; color: var(--ink); border-radius: 9px; padding: 6px; display: flex; flex-direction: column; gap: 2px; margin: 0 2px 6px; }
+.side .dm-pick input { border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; background: #FFFFFF; color: var(--ink); }
+.side .dm-pick .sn-empty { color: var(--muted); }
+.dm-opt { display: flex; align-items: center; gap: 8px; border: 0; background: transparent; padding: 6px; border-radius: 6px; font-size: 13px; text-align: left; color: var(--ink); }
+.dm-opt:hover, .dm-opt:focus-visible { background: var(--brand-soft); }
+
+/* Team thread next to a visitor chat: its own amber box, never the visitor's */
+.team-th { display: flex; flex-direction: column; gap: 8px; background: #FFF6DF; border: 1px solid #F1D58C; border-radius: 12px; padding: 10px; min-height: 300px; flex: 1 1 auto; }
+.details { gap: 12px; padding: 12px; }
+.details .kv { gap: 4px; }
+.details .kv div { flex-direction: row; justify-content: space-between; align-items: baseline; gap: 10px; }
+.details .kv dt { flex: none; }
+.details .kv dd { font-size: 12.5px; text-align: right; min-width: 0; }
+.th-head { display: flex; flex-direction: column; gap: 1px; }
+.th-head h4 { color: #8A5A00 !important; }
+.th-head span { font-size: 12px; color: #6E5000; }
+.th-msgs { display: flex; flex-direction: column; gap: 9px; flex: 1 1 0; min-height: 80px; overflow-y: auto; }
+.tm { display: flex; flex-direction: column; gap: 1px; font-size: 13px; }
+.tm b { font-size: 12px; }
+.tm b span { font-weight: 400; color: var(--faint); margin-left: 4px; }
+.tm .at { color: #8A5A00; font-weight: 700; }
+.tsys { margin: 0; font-size: 12px; color: #6E5000; font-style: italic; }
+.th-comp { display: flex; flex-direction: column; gap: 6px; position: relative; }
+.th-comp label { font-size: 12px; font-weight: 700; color: #8A5A00; }
+.th-comp textarea { resize: none; border: 1px dashed #B07A00; border-radius: 9px; padding: 7px 9px; background: #FFFFFF; font-size: 13px; }
+.team-send { background: #8A5A00; align-self: flex-start; }
+.team-send:hover { background: #6E4700; }
+.th-sug { position: absolute; left: 0; right: 0; bottom: calc(100% + 4px); background: var(--surface); border: 1px solid var(--line); border-radius: 9px; box-shadow: var(--shadow-lg); padding: 4px; display: flex; flex-direction: column; z-index: 4; }
+.th-sug button { display: flex; align-items: center; gap: 8px; border: 0; background: transparent; padding: 6px; border-radius: 6px; font-size: 13px; text-align: left; }
+.th-sug button:first-child, .th-sug button:hover { background: var(--brand-soft); }
+.th-sug em { font-style: normal; margin-left: auto; font-size: 11.5px; color: var(--muted); }
+
+/* Editing own messages */
+.conv-body .msg.me { position: relative; }
+.edit-btn { position: absolute; right: calc(100% + 6px); top: 4px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 6px; font-size: 11.5px; font-weight: 600; padding: 1px 7px; opacity: 0; }
+.msg.me:hover .edit-btn, .edit-btn:focus-visible { opacity: 1; }
+.msg.me.editing { outline: 2px solid var(--sun); outline-offset: 2px; }
+.edited { display: block; font-size: 11px; opacity: .75; margin-top: 2px; }
+.to-lbl { font-size: 11.5px; font-weight: 700; color: var(--muted); }
+.edit-bar { font-size: 12px; font-weight: 600; color: var(--sun-ink); background: var(--sun-soft); border-radius: 6px; padding: 3px 8px; }
+.btn.danger { color: var(--bad); border-color: var(--bad); }
+.btn.danger-fill { background: var(--bad); }
+.btn.danger-fill:hover { background: #963A23; }
+
+/* Ban dialog, options */
+.ban-ov { z-index: 20; }
+.ban-dlg { max-width: 440px; gap: 14px; max-height: calc(100% - 20px); overflow-y: auto; }
+.opt { display: flex; gap: 10px; align-items: flex-start; text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 9px; padding: 9px 11px; width: 100%; }
+.opt[aria-pressed="true"] { border-color: var(--brand); background: var(--brand-soft); }
+.opt i { flex: none; width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--faint); margin-top: 2px; }
+.opt[aria-pressed="true"] i { border: 5px solid var(--brand); }
+.opt span { display: flex; flex-direction: column; }
+.opt small { color: var(--muted); font-size: 12.5px; }
+.card .opt + .opt { margin-top: -4px; }
+.ban-acts { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+.done.ban b { font-size: 17px; }
+
+/* Direct chat view */
+.dmv { display: flex; flex-direction: column; flex: 1; min-height: 0; background: var(--surface); }
+.dm-head { padding: 14px 20px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
+.dm-head h2 { font-size: 18px; }
+.dm-head span { font-size: 13px; color: var(--muted); }
+.dm-msgs { flex: 1; overflow-y: auto; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+.dm-msgs .tm { font-size: 14px; }
+
+/* My account */
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.tones { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.tone { border: 1px solid var(--line); border-radius: 9px; padding: 4px 10px 4px 4px; display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+.tone.on { border-color: var(--brand); background: var(--brand-soft); }
+.tone-pick { border: 0; background: transparent; padding: 6px; font-weight: 600; text-align: left; flex: 1; }
+.vol { display: flex; align-items: center; gap: 10px; }
+.vol input { flex: 1; accent-color: var(--brand); padding: 0; background: transparent; border: 0; }
+.vol span { font-variant-numeric: tabular-nums; min-width: 40px; }
+.alias-pv { background: var(--sunken); border: 1px solid var(--line); border-radius: 10px; padding: 2px 8px; color: var(--ink); }
+@media (max-width: 1180px) {
+  .details { max-height: 340px; }
+  .details .team-th { flex: 1 1 100%; }
+}
+@media (max-width: 760px) {
+  .two { grid-template-columns: 1fr; }
+  .edit-btn { position: static; opacity: 1; display: block; margin-bottom: 4px; }
+}
+
 /* Embedded admin (used inside the combined proposal prototype) */
 html.embed-admin body { padding: 0; }
 html.embed-admin .shell { max-width: none; padding: 0; gap: 0; }
@@ -570,6 +668,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
         <button data-state="chat" aria-pressed="false">Gesprek</button>
         <button data-state="rate" aria-pressed="false">Tevredenheid</button>
         <button data-state="offline" aria-pressed="false">Niemand beschikbaar</button>
+        <button data-state="banned" aria-pressed="false">Geblokkeerd</button>
       </div>
     </div>
     <span class="hint" id="controls-hint"></span>
@@ -686,14 +785,14 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       back: 'Terug naar het voorstel', title: 'Livechat voor Tabakstop',
       sub: 'Klikbaar prototype · alle gesprekken en cijfers zijn voorbeelden',
       tabsLabel: 'Onderdeel', tabEmbed: 'Ingesloten op een pagina', tabWidget: 'Chatknop op de site', tabAdmin: 'Beheer voor medewerkers',
-      langLabel: 'Taal', lblStep: 'Stap', stForm: 'Formulier', stChat: 'Gesprek', stRate: 'Tevredenheid', stOff: 'Niemand beschikbaar',
+      langLabel: 'Taal', lblStep: 'Stap', stForm: 'Formulier', stChat: 'Gesprek', stRate: 'Tevredenheid', stOff: 'Niemand beschikbaar', stBan: 'Geblokkeerd',
       note: '<b>Mockup.</b> Dit is een ontwerp ter illustratie en nog niet definitief. Details kunnen nog veranderen.'
     },
     fr: {
       back: 'Retour à la proposition', title: 'Chat en direct pour Tabacstop',
       sub: 'Prototype cliquable · toutes les conversations et tous les chiffres sont des exemples',
       tabsLabel: 'Section', tabEmbed: 'Intégré dans une page', tabWidget: 'Bouton de chat sur le site', tabAdmin: 'Administration pour les collaborateurs',
-      langLabel: 'Langue', lblStep: 'Étape', stForm: 'Formulaire', stChat: 'Conversation', stRate: 'Satisfaction', stOff: 'Personne de disponible',
+      langLabel: 'Langue', lblStep: 'Étape', stForm: 'Formulaire', stChat: 'Conversation', stRate: 'Satisfaction', stOff: 'Personne de disponible', stBan: 'Bloqué',
       note: '<b>Maquette.</b> Ceci est une conception à titre d’illustration et n’est pas encore définitive. Des détails peuvent encore changer.'
     }
   };
@@ -791,14 +890,19 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       sample: [
         { from: 'op', text: 'Hallo Sarah, ik ben Anna, tabakoloog bij Tabakstop. Waarmee kan ik je helpen?' },
         { from: 'me', text: 'Ik wil stoppen, maar ik weet niet goed waar ik moet beginnen.' },
-        { from: 'op', text: 'Goed dat je de stap zet. Rook je al lang?' }
+        { from: 'op', text: 'Goed dat je de stap zet. Rook je al lang, en ongeveer hoeveel per dag?', edited: true }
       ],
       hints: {
         form: 'Vul het formulier in en start een gesprek. De medewerker antwoordt automatisch.',
         chat: 'Stuur een bericht, of klik op Beëindigen om het gesprek zelf af te sluiten.',
         rate: 'Dit ziet de bezoeker meteen na het gesprek.',
-        offline: 'Buiten de chaturen wordt de chat een berichtformulier dat per e-mail binnenkomt.'
-      }
+        offline: 'Buiten de chaturen wordt de chat een berichtformulier dat per e-mail binnenkomt.',
+        banned: 'Wat een geblokkeerde bezoeker ziet. De tekst stel je in onder Beheer, Settings, Chat.'
+      },
+      banTitle: 'Je kunt deze chat niet meer gebruiken',
+      banBody: 'Heb je hulp nodig? Bel de Tabakstoplijn gratis op 0800 111 00.',
+      banUntil: 'Je kunt opnieuw chatten vanaf 9 oktober.',
+      edited: 'bewerkt'
     },
     fr: {
       launcher: 'Chattez avec nous',
@@ -863,14 +967,19 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       sample: [
         { from: 'op', text: 'Bonjour Sarah, je suis Sophie, tabacologue chez Tabacstop. Comment puis-je vous aider ?' },
         { from: 'me', text: "Je veux arrêter, mais je ne sais pas par où commencer." },
-        { from: 'op', text: "C'est une belle décision. Vous fumez depuis longtemps ?" }
+        { from: 'op', text: "C'est une belle décision. Vous fumez depuis longtemps, et combien par jour ?", edited: true }
       ],
       hints: {
         form: 'Remplissez le formulaire et démarrez une conversation. La réponse arrive automatiquement.',
         chat: 'Envoyez un message, ou cliquez sur Terminer pour clôturer vous-même.',
         rate: 'Ce que le visiteur voit juste après la conversation.',
-        offline: 'En dehors des heures, le chat devient un formulaire envoyé par e-mail.'
-      }
+        offline: 'En dehors des heures, le chat devient un formulaire envoyé par e-mail.',
+        banned: 'Ce que voit un visiteur bloqué par un collaborateur. Le texte se règle dans l’administration, Settings, Chat.'
+      },
+      banTitle: 'Vous ne pouvez plus utiliser ce chat',
+      banBody: 'Besoin d’aide ? Appelez gratuitement la ligne Tabacstop au 0800 111 00.',
+      banUntil: 'Vous pourrez à nouveau chatter à partir du 9 octobre.',
+      edited: 'modifié'
     }
   };
   function L() { return T[lang]; }
@@ -885,10 +994,27 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
     return { color: '', radius: 'mid', pos: 'right', icon: 'chat', label: { nl: T.nl.launcher, fr: T.fr.launcher }, welcome: { nl: '', fr: '' }, avatarImg: '' };
   }
   function defChat() {
-    return { nameReq: true, email: 'optional', topic: true, survey: true, mailTo: 'info@tabakstop.be', offText: { nl: '', fr: '' }, hours: { nl: '', fr: '' } };
+    return { nameReq: true, email: 'optional', topic: true, survey: true, mailTo: 'info@tabakstop.be', offText: { nl: '', fr: '' }, hours: { nl: '', fr: '' },
+      filter: { visitor: true, op: true, langs: { nl: true, fr: true, en: true }, extra: '', allow: 'kanker', action: 'warn' },
+      banText: { nl: '', fr: '' }, banEnd: true, idleWarn: '5', idleClose: '15', transcript: false };
   }
-  function defPriv() { return { retention: '90', mask: true, policy: '', notice: { nl: '', fr: '' } }; }
+  function defPriv() { return { retention: '90', mask: true, policy: '', notice: { nl: '', fr: '' }, returning: 'new' }; }
   var APP = defApp(), CHAT = defChat(), PRIV = defPriv();
+  var ACCT = { name: 'Anna Peeters', alias: 'Anna', tone: 'ring', repeat: 'until', volume: 60, msgTone: 'chime' };
+  function opName() { return lang === 'nl' ? (ACCT.alias.trim() || ACCT.name.split(' ')[0]) : L().operator; }
+
+  /* Word filter: sample lists. Allowed words (such as kanker, which is also a Dutch swear word) are never filtered. */
+  var BADWORDS = { nl: ['kanker', 'klote', 'kut', 'tering', 'godverdomme', 'lul', 'kutwijf'], fr: ['merde', 'putain', 'connard', 'salaud', 'enculé'], en: ['fuck', 'shit', 'bitch', 'asshole', 'bastard'] };
+  function filterWords(t, on) {
+    var f = CHAT.filter; if (!on) return t;
+    var allow = f.allow.toLowerCase().split(',').map(function (w) { return w.trim(); }).filter(Boolean);
+    var words = [];
+    ['nl', 'fr', 'en'].forEach(function (l) { if (f.langs[l]) words = words.concat(BADWORDS[l]); });
+    words = words.concat(f.extra.toLowerCase().split(',').map(function (w) { return w.trim(); }).filter(Boolean));
+    words = words.filter(function (w) { return allow.indexOf(w) === -1; }).map(function (w) { return w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); });
+    if (!words.length) return t;
+    return String(t).replace(new RegExp('(^|[^\\p{L}])(' + words.join('|') + ')(?![\\p{L}])', 'giu'), function (m, pre) { return pre + '••••'; });
+  }
   var BRAND = '#2B6490';
 
   function hexNorm(h) {
@@ -941,9 +1067,9 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
     function head() {
       var l = L();
       var isChat = s.state === 'chat';
-      var off = s.state === 'offline' || s.state === 'offsent';
+      var off = s.state === 'offline' || s.state === 'offsent' || s.state === 'banned';
       var who = isChat
-        ? '<div class="who"><b>' + esc(l.operator) + '</b><span>' + esc(l.role) + '</span></div>'
+        ? '<div class="who"><b>' + esc(opName()) + '</b><span>' + esc(l.role) + '</span></div>'
         : '<div class="who"><b>' + esc(l.title) + '</b><span><i class="' + (off ? 'off' : '') + '"></i>' + esc(off ? l.offline : l.online) + '</span></div>';
       var endBtn = isChat ? '<button class="hbtn" data-act="end">' + esc(l.end) + '</button>' : '';
       var minBtn = mode === 'widget' ? '<button class="icon-btn" data-act="min" aria-label="' + esc(l.minimize) + '">' + ICON.minus + '</button>' : '';
@@ -975,8 +1101,8 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       if (s.state === 'chat') {
         var h = s.msgs.map(function (m) {
           if (m.from === 'sys') return '<div class="sys">' + esc(m.text) + '</div>';
-          if (m.from === 'op') return '<div class="msg them"><small>' + esc(L().operator) + '</small>' + esc(m.text) + '</div>';
-          return '<div class="msg me">' + esc(m.text) + '</div>';
+          if (m.from === 'op') return '<div class="msg them"><small>' + esc(opName()) + '</small>' + esc(filterWords(m.text, CHAT.filter.op)) + (m.edited ? '<span class="edited">' + esc(l.edited) + '</span>' : '') + '</div>';
+          return '<div class="msg me">' + esc(filterWords(m.text, CHAT.filter.visitor)) + '</div>';
         }).join('');
         if (s.typing) h += '<div class="typing" aria-label="' + esc(l.typingAria) + '"><i></i><i></i><i></i></div>';
         return '<div class="c-body" data-scroll>' + h + '</div>' +
@@ -1007,6 +1133,9 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
           (s.err ? '<p class="err" role="alert">' + esc(s.err) + '</p>' : '') +
           '<button class="btn" type="submit">' + esc(l.sendMsg) + '</button>' +
           '</form></div>';
+      }
+      if (s.state === 'banned') {
+        return '<div class="c-body"><div class="done ban"><b>' + esc(l.banTitle) + '</b><p>' + esc((CHAT.banText[lang] || '').trim() || l.banBody) + '</p>' + (CHAT.banEnd ? '<p>' + esc(l.banUntil) + '</p>' : '') + '</div></div>';
       }
       return '<div class="c-body"><div class="done"><div class="ring">' + ICON.check + '</div><b>' + esc(l.sentTitle) + '</b><p>' + esc(l.sentBody) + '</p></div></div>';
     }
@@ -1051,7 +1180,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       var l = L();
       s.state = 'chat'; s.err = ''; s.msgs = [];
       render(true);
-      later(function () { s.msgs.push({ from: 'sys', text: L().joined(L().operator) }); render(true); }, 600);
+      later(function () { s.msgs.push({ from: 'sys', text: L().joined(opName()) }); render(true); }, 600);
       later(function () { s.typing = true; render(true); }, 1200);
       later(function () { s.typing = false; s.msgs.push({ from: 'op', text: L().greet(s.name.trim()) }); render(true); }, 2600);
     }
@@ -1122,7 +1251,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
         if (st === 'rate' && !CHAT.survey) st = 'thanks';
         if (st === 'chat') {
           if (!s.name.trim()) s.name = 'Sarah';
-          s.msgs = L().sample.map(function (m) { return { from: m.from, text: m.text }; });
+          s.msgs = L().sample.map(function (m) { return { from: m.from, text: m.text, edited: m.edited }; });
         }
         if (st === 'rate') s.rating = 0;
         s.state = st;
@@ -1173,6 +1302,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
     seg.querySelector('[data-state="chat"]').textContent = c.stChat;
     seg.querySelector('[data-state="rate"]').textContent = c.stRate;
     seg.querySelector('[data-state="offline"]').textContent = c.stOff;
+    seg.querySelector('[data-state="banned"]').textContent = c.stBan;
     el('mockup-note').innerHTML = c.note;
     [].forEach.call(document.querySelectorAll('[data-h]'), function (n) { n.innerHTML = h[n.getAttribute('data-h')]; });
     el('hours-table').setAttribute('aria-label', lang === 'fr' ? 'Heures d’ouverture du chat' : 'Openingsuren van de chat');
@@ -1226,14 +1356,21 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
           { from: 'op', text: 'Hallo Jan, drie weken is al een mooie prestatie. Wat maakt het vandaag moeilijk?' },
           { from: 'visitor', text: 'Stress op het werk. Vroeger nam ik dan altijd een sigaret in de pauze.' },
           { from: 'op', text: 'Dat is heel herkenbaar. Die pauze is een gewoonte geworden. Heb je al iets anders geprobeerd om die momenten op te vangen?' },
-          { from: 'visitor', text: 'Nog niet echt. Ik ga meestal gewoon naar buiten.' }
+          { from: 'visitor', text: 'Nog niet echt. Ik ga meestal gewoon naar buiten. Die stress is echt klote.' }
+        ],
+        team: [
+          { who: ME, t: '10:41', text: '@Karim he struggles with stress at work. Besides breathing exercises, what do we usually suggest?' },
+          { sys: 'Karim Haddad was asked to join · can read along' },
+          { who: 'Karim Haddad', t: '10:43', text: 'The 4 D\'s: delay, deep breaths, drink water, do something else. And point him to the coaching page.' }
         ] },
       { id: 4, name: 'Nadia', topic: 'Ik wil iemand helpen stoppen', lang: 'NL', email: '', page: '/pagina/iemand-helpen', started: ago(6), taken: ago(5), status: 'theirs', operator: 'An Claes',
         msgs: [
           { from: 'visitor', text: 'Mijn vader wil stoppen. Hoe kan ik hem het best steunen?' },
           { from: 'sys', text: 'An Claes took the conversation' },
-          { from: 'op', text: 'Mooi dat je hem wilt steunen, Nadia. Weet hij al hoe hij het wil aanpakken?' }
-        ] }
+          { from: 'op', text: 'Mooi dat je hem wilt steunen, Nadia. Weet hij al hoe hij het wil aanpakken?' },
+          { from: 'visitor', text: 'Nog niet. Hij is bang voor kanker, zijn broer had longkanker.' }
+        ],
+        team: [{ who: 'An Claes', t: '10:46', text: '@Anna her father is scared after his brother\'s lung cancer. Do we have a brochure for family members?' }], mention: true }
     ];
 
     var archive = [
@@ -1263,8 +1400,30 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       page: 'inbox', sel: 3, drafts: {}, status: 'online', sound: true, menu: false, q: '', filter: 'all', arcSel: 101, period: 7, toast: null, typing: {}, started: false, notes: {},
       userMenu: false, siteMenu: false, signedOut: false, delArc: null,
       setTab: 'look', hexDraft: null, avErr: '', snip: 'widget', copied: null, domains: 'tabakstop.be, tabacstop.be',
-      uPeriod: 'this', uStack: 'outcome'
+      uPeriod: 'this', uStack: 'outcome',
+      unread: {}, teamDrafts: {}, dm: 'everyone', dmDraft: '', dmPick: false, dmQ: '', edit: null, ban: null
     };
+    var DMS = [
+      { id: 'everyone', name: 'Everyone', channel: true, unread: 1, msgs: [
+        { who: 'Sophie Lambert', t: '09:02', text: 'Je prends les chats en français ce matin.' },
+        { who: 'Karim Haddad', t: '10:50', text: 'Lunch from 12:00 to 12:30, I\'m set to away.' }] },
+      { id: 'An Claes', name: 'An Claes', unread: 1, msgs: [
+        { who: 'An Claes', t: '10:52', text: 'Can you take the next French chat? I\'m still with Nadia.' }] },
+      { id: 'Karim Haddad', name: 'Karim Haddad', unread: 0, msgs: [] }
+    ];
+    var TEAM_REPLY = {
+      'An Claes': 'Thanks! I\'ll check the brochure page and send it to her.',
+      'Karim Haddad': 'Sure, I\'ll have a look in a minute.',
+      'Sophie Lambert': 'D\'accord, je regarde ça.'
+    };
+    function dmOf(id) { for (var i = 0; i < DMS.length; i++) if (DMS[i].id === id) return DMS[i]; return null; }
+    function member(n) { for (var i = 0; i < TEAM.length; i++) if (TEAM[i].n === n) return TEAM[i]; return null; }
+    function hhmm() { var d = new Date(); return d.getHours() + ':' + ('0' + d.getMinutes()).slice(-2); }
+    function mentionIn(text) {
+      var out = [];
+      TEAM.forEach(function (m) { if (new RegExp('@' + m.n.split(' ')[0] + '\\b', 'i').test(text)) out.push(m.n); });
+      return out;
+    }
 
     function mins(t) { var m = Math.max(0, Math.round((Date.now() - t) / 60000)); return m < 1 ? '<1 min' : m + ' min'; }
     function waitLong(t) { var sec = Math.max(0, Math.round((Date.now() - t) / 1000)); return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0'); }
@@ -1289,7 +1448,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       return '<div class="sp">' + btn + menu + '</div>';
     }
     function userBlock() {
-      var menu = st.userMenu ? '<div class="usr-menu" role="menu" aria-label="Account"><button class="usr-it" role="menuitem" disabled title="Not in this prototype">Account settings</button><button class="usr-it" role="menuitem" data-act="signout">Sign out</button></div>' : '';
+      var menu = st.userMenu ? '<div class="usr-menu" role="menu" aria-label="Account"><button class="usr-it" role="menuitem" data-page="account">My account</button><button class="usr-it" role="menuitem" data-act="signout">Sign out</button></div>' : '';
       return '<div class="usr">' + menu + '<button class="usr-btn" id="usr-btn" data-act="usermenu" aria-haspopup="menu" aria-expanded="' + st.userMenu + '"><span class="usr-av" aria-hidden="true">AP</span><span class="usr-txt"><b>' + ME + '</b><span class="usr-role">Administrator</span><span class="usr-mail">anna.peeters@tabakstop.be</span></span></button></div>';
     }
     function side() {
@@ -1297,12 +1456,22 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       function nav(k, label, icon, badge) {
         return '<button data-page="' + k + '"' + (st.page === k ? ' aria-current="page"' : '') + '>' + icon + '<span>' + label + '</span>' + (badge ? '<span class="badge">' + badge + '</span>' : '') + '</button>';
       }
-      var team = TEAM.map(function (m) {
-        return '<div><span class="dot ' + dotCls(m.s) + '"></span>' + esc(m.n) + '</div>';
+      var mine = convs.filter(function (c) { return c.status === 'mine' || c.mention; }).map(function (c) {
+        var cur = st.page === 'inbox' && st.sel === c.id, badge = c.mention ? '<span class="badge at">@</span>' : st.unread[c.id] ? '<span class="badge">' + st.unread[c.id] + '</span>' : '';
+        return '<button class="sn-it" data-conv="' + c.id + '"' + (cur ? ' aria-current="page"' : '') + '><span class="sn-name">' + esc(c.name) + '</span>' + chip(c.lang) + badge + '</button>';
+      }).join('') || '<p class="sn-empty">No open chats</p>';
+      var pickList = st.dmPick ? TEAM.filter(function (m) { return !st.dmQ || m.n.toLowerCase().indexOf(st.dmQ.toLowerCase()) !== -1; }).map(function (m) {
+        return '<button class="dm-opt" data-dmstart="' + esc(m.n) + '"><span class="dot ' + dotCls(m.s) + '"></span>' + esc(m.n) + '</button>';
+      }).join('') : '';
+      var picker = st.dmPick ? '<div class="dm-pick"><label class="sr-only" for="dm-q">Find a colleague</label><input id="dm-q" data-bind="dmQ" value="' + esc(st.dmQ) + '" placeholder="Find a colleague" autocomplete="off">' + (pickList || '<p class="sn-empty">Nobody found</p>') + '</div>' : '';
+      var dms = DMS.map(function (d) {
+        var m = member(d.name), cur = st.page === 'dm' && st.dm === d.id;
+        return '<button class="sn-it" data-dm="' + esc(d.id) + '"' + (cur ? ' aria-current="page"' : '') + '>' + (d.channel ? '<span class="hash" aria-hidden="true">#</span>' : '<span class="dot ' + dotCls(m ? m.s : 'off') + '"></span>') + '<span class="sn-name">' + esc(d.name) + '</span>' + (d.unread ? '<span class="badge">' + d.unread + '</span>' : '') + '</button>';
       }).join('');
       return '<aside class="side">' + sitePicker() +
         '<nav aria-label="Admin">' + nav('inbox', 'Inbox', ICON.inbox, waiting) + nav('archive', 'Archive', ICON.archive) + nav('stats', 'Statistics', ICON.stats) + nav('usage', 'Usage', ICON.usage) + nav('settings', 'Settings', ICON.sliders) + '</nav>' +
-        '<div class="team"><span class="lbl">Colleagues</span>' + team + '</div>' +
+        '<div class="sn"><span class="sn-h">My chats</span>' + mine + '</div>' +
+        '<div class="sn"><span class="sn-h">Direct chats<button class="sn-plus" data-act="dmnew" aria-label="Start a direct chat" aria-expanded="' + st.dmPick + '">+</button></span>' + picker + dms + '</div>' +
         '<div class="me"><small>' + (st.status === 'online' ? 'You get new conversations' : 'You get no new conversations') + '</small>' +
         '<div class="status-toggle" role="group" aria-label="Your status"><button data-status="online" aria-pressed="' + (st.status === 'online') + '"><span class="dot"></span>Available</button><button data-status="away" aria-pressed="' + (st.status === 'away') + '"><span class="dot away"></span>Away</button></div>' +
         '<div class="sound"><span id="sound-lbl">Sound for new conversation</span><button class="switch" role="switch" aria-labelledby="sound-lbl" aria-checked="' + st.sound + '" data-act="sound"></button></div>' +
@@ -1322,7 +1491,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       return '<button class="' + cls + '" data-conv="' + c.id + '" aria-current="' + (st.sel === c.id) + '">' +
         '<span class="r1"><b>' + esc(c.name) + '</b>' + chip(c.lang) + '<span class="t">' + right + '</span></span>' +
         '<span class="r2">' + esc(c.topic) + '</span>' +
-        '<span class="r2">' + (last ? (last.from === 'op' ? 'You: ' : '') + esc(last.text) : '') + '</span></button>';
+        '<span class="r2">' + (last ? (last.from === 'op' ? 'You: ' : '') + esc(filterWords(last.text, last.from === 'op' ? CHAT.filter.op : CHAT.filter.visitor)) : '') + '</span></button>';
     }
 
     function listPane() {
@@ -1336,8 +1505,10 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
 
     function msgHtml(m, c) {
       if (m.from === 'sys') return '<div class="sys">' + esc(m.text) + '</div>';
-      if (m.from === 'visitor') return '<div class="msg them"><small>' + esc(c.name) + '</small>' + esc(m.text) + '</div>';
-      return '<div class="msg me">' + esc(m.text) + '</div>';
+      if (m.from === 'visitor') return '<div class="msg them"><small>' + esc(c.name) + '</small>' + esc(filterWords(m.text, CHAT.filter.visitor)) + '</div>';
+      var i = c.msgs.indexOf(m), editing = st.edit && st.edit.conv === c.id && st.edit.idx === i;
+      var tools = c.status === 'mine' && !editing ? '<button class="edit-btn" data-edit="' + i + '" aria-label="Edit this message">Edit</button>' : '';
+      return '<div class="msg me' + (editing ? ' editing' : '') + '">' + tools + esc(filterWords(m.text, CHAT.filter.op)) + (m.edited ? '<span class="edited">edited</span>' : '') + '</div>';
     }
 
     function convPane() {
@@ -1348,9 +1519,9 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
         var menu = st.menu ? '<div class="menu" role="menu"><span class="lbl">Transfer to</span>' + TEAM.map(function (m) {
           return '<button role="menuitem" data-transfer="' + esc(m.n) + '"' + (m.s === 'off' ? ' disabled' : '') + '><span class="dot ' + dotCls(m.s) + '"></span>' + esc(m.n) + (m.s === 'off' ? ' · offline' : m.s === 'away' ? ' · away' : '') + '</button>';
         }).join('') + '</div>' : '';
-        headActions = '<div class="conv-actions"><button class="btn ghost small" data-act="menu" aria-expanded="' + st.menu + '">Transfer</button><button class="btn small" data-act="close">Close</button>' + menu + '</div>';
+        headActions = '<div class="conv-actions"><button class="btn ghost small" data-act="menu" aria-expanded="' + st.menu + '">Transfer</button><button class="btn ghost small danger" data-act="banask">Ban</button><button class="btn small" data-act="close">Close</button>' + menu + '</div>';
       }
-      var sub = c.status === 'waiting' ? 'Waiting for an operator' : c.status === 'theirs' ? 'With ' + esc(c.operator) : 'With you · started ' + mins(c.started) + ' ago';
+      var sub = c.status === 'waiting' ? 'Waiting for an operator' : c.status === 'theirs' ? 'With ' + esc(c.operator) : 'With you · visitors see you as ' + esc(ACCT.alias.trim() || ACCT.name.split(' ')[0]) + ' · started ' + mins(c.started) + ' ago';
       var head = '<div class="conv-head"><div class="who"><b>' + esc(c.name) + ' ' + chip(c.lang) + '</b><span>' + sub + '</span></div>' + headActions + '</div>';
 
       var bodyHtml, foot;
@@ -1363,7 +1534,9 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
         bodyHtml = '<div class="conv-body" data-scroll>' + c.msgs.map(function (m) { return msgHtml(m, c); }).join('') +
           (st.typing[c.id] ? '<div class="typing" aria-label="Typing"><i></i><i></i><i></i></div>' : '') + '</div>';
         foot = c.status === 'mine'
-          ? '<form class="composer" data-form="reply"><div style="flex:1;display:flex;flex-direction:column;gap:4px"><textarea id="reply-' + c.id + '" rows="2" data-bind="draft" placeholder="Type your reply to ' + esc(c.name) + '…" aria-label="Reply">' + esc(st.drafts[c.id] || '') + '</textarea><span class="hint">Enter to send · Shift+Enter for a new line</span></div><button class="send" type="submit" aria-label="Send">' + ICON.send + '</button></form>'
+          ? '<form class="composer" data-form="reply"><div style="flex:1;display:flex;flex-direction:column;gap:4px">' +
+            (st.edit && st.edit.conv === c.id ? '<span class="edit-bar">Editing your message · ' + esc(c.name) + ' will see "edited" <button type="button" class="toggle-link" data-act="editcancel">Cancel</button></span>' : '<span class="to-lbl">Reply to ' + esc(c.name) + ' (the visitor sees this)</span>') +
+            '<textarea id="reply-' + c.id + '" rows="2" data-bind="draft" placeholder="Type your reply to ' + esc(c.name) + '…" aria-label="Reply to the visitor">' + esc(st.drafts[c.id] || '') + '</textarea><span class="hint">Enter to send · Shift+Enter for a new line</span></div><button class="send" type="submit" aria-label="' + (st.edit && st.edit.conv === c.id ? 'Save' : 'Send') + '">' + (st.edit && st.edit.conv === c.id ? ICON.check : ICON.send) + '</button></form>'
           : '<div class="readonly">This conversation is handled by ' + esc(c.operator) + '. You can read along.</div>';
       }
       return '<div class="conv">' + head + bodyHtml + foot + '</div>';
@@ -1375,12 +1548,61 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       function kv(k, v) { return '<div><dt>' + k + '</dt><dd' + (v ? '' : ' class="none"') + '>' + (v ? esc(v) : 'Not filled in') + '</dd></div>'; }
       return '<div class="details">' +
         '<section class="stack"><h4>Pre-chat form</h4><dl class="kv">' + kv('First name', c.name) + kv('Topic', c.topic) + kv('E-mail address', c.email) + '</dl></section>' +
-        '<section class="stack"><h4>Session</h4><dl class="kv">' + kv('Language', c.lang === 'FR' ? 'French' : 'Dutch') + kv('Started from', c.page) + kv('Wait time', c.taken ? Math.max(1, Math.round((c.taken - c.started) / 60000)) + ' min' : 'Still waiting') + '</dl></section>' +
-        '<section class="stack"><h4>Internal note</h4><label for="note-' + c.id + '" style="font-size:12px;color:var(--muted)">Only visible to operators</label><textarea class="note-area" id="note-' + c.id + '" data-bind="note" placeholder="For example: referred to a tobacco counsellor in Ghent">' + esc(st.notes[c.id] || '') + '</textarea></section>' +
-        '</div>';
+        '<section class="stack"><h4>Session</h4><dl class="kv">' + kv('Language', c.lang === 'FR' ? 'French' : 'Dutch') + kv('Started from', c.page) + kv('Wait time', c.taken ? Math.max(1, Math.round((c.taken - c.started) / 60000)) + ' min' : 'Still waiting') + kv('Earlier chats', PRIV.returning === 'link' ? (c.id === 3 ? '2, see Archive' : 'None') : 'Not linked: every chat is separate') + '</dl></section>' +
+        teamHtml(c) + '</div>';
+    }
+    function teamHtml(c) {
+      var d = st.teamDrafts[c.id] || '', m = /@(\w*)$/.exec(d);
+      var sug = m ? TEAM.filter(function (x) { return x.n.toLowerCase().indexOf(m[1].toLowerCase()) === 0 || x.n.split(' ')[1].toLowerCase().indexOf(m[1].toLowerCase()) === 0; }) : [];
+      var list = (c.team || []).map(function (t) {
+        if (t.sys) return '<div class="tsys">' + esc(t.sys) + '</div>';
+        return '<div class="tm"><b>' + esc(t.who === ME ? 'You' : t.who) + ' <span>' + esc(t.t) + '</span></b><div>' + esc(t.text).replace(/@(\w+)/g, '<span class="at">@$1</span>') + '</div></div>';
+      }).join('') || '<p class="tsys">Ask a colleague for help with @name. The visitor never sees this.</p>';
+      return '<section class="team-th" aria-label="Team thread"><div class="th-head"><h4>Team thread</h4><span>Only your team sees this</span></div><div class="th-msgs" data-tscroll>' + list + '</div>' +
+        '<form class="th-comp" data-form="team">' + (sug.length ? '<div class="th-sug" role="listbox" aria-label="Colleagues">' + sug.map(function (x) { return '<button type="button" role="option" data-mention="' + esc(x.n) + '"><span class="dot ' + dotCls(x.s) + '"></span>' + esc(x.n) + '<em>' + (x.s === 'online' ? 'available' : x.s === 'away' ? 'away' : 'offline') + '</em></button>'; }).join('') + '</div>' : '') +
+        '<label for="team-' + c.id + '">Message your team (not the visitor)</label><textarea id="team-' + c.id + '" rows="2" data-bind="teamdraft" placeholder="Type @ to ask a colleague">' + esc(d) + '</textarea><button class="btn small team-send" type="submit">Send to team</button></form></section>';
     }
 
     function inbox() { return '<div class="inbox">' + listPane() + convPane() + detailsPane() + '</div>'; }
+
+    /* Direct chats */
+    function dmPane() {
+      var d = dmOf(st.dm) || DMS[0], m = member(d.name);
+      var list = d.msgs.map(function (t) { return '<div class="tm"><b>' + esc(t.who === ME ? 'You' : t.who) + ' <span>' + esc(t.t) + '</span></b><div>' + esc(t.text) + '</div></div>'; }).join('') || '<p class="tsys">No messages yet. Say hi to ' + esc(d.name.split(' ')[0]) + '.</p>';
+      if (m && m.s === 'off' && d.msgs.length) list += '<p class="tsys">' + esc(d.name.split(' ')[0]) + ' is offline and sees your message on the next sign-in.</p>';
+      var sub = d.channel ? 'Everyone on the Tabakstop team · ' + (TEAM.length + 1) + ' people' : 'Direct chat · only the two of you see this' + (m ? ' · ' + (m.s === 'online' ? 'available' : m.s === 'away' ? 'away' : 'offline') : '');
+      return '<div class="dmv"><div class="dm-head"><h2>' + (d.channel ? '# ' : '') + esc(d.name) + '</h2><span>' + esc(sub) + '</span></div><div class="dm-msgs" data-scroll>' + list + '</div>' +
+        '<form class="composer" data-form="dm"><div style="flex:1;display:flex;flex-direction:column;gap:4px"><textarea id="dm-draft" rows="2" data-bind="dmDraft" placeholder="Message ' + esc(d.channel ? 'everyone' : d.name.split(' ')[0]) + '…" aria-label="Message">' + esc(st.dmDraft) + '</textarea><span class="hint">Enter to send</span></div><button class="send" type="submit" aria-label="Send">' + ICON.send + '</button></form></div>';
+    }
+
+    /* My account */
+    var TONES = [['ring', 'Phone ring'], ['chime', 'Soft chime'], ['beep', 'Double beep'], ['bell', 'Bell']];
+    function accountPane() {
+      var a = ACCT, shown = a.alias.trim() || a.name.split(' ')[0];
+      var tones = TONES.map(function (t) { return '<div class="tone' + (a.tone === t[0] ? ' on' : '') + '"><button class="tone-pick" data-tone="' + t[0] + '" aria-pressed="' + (a.tone === t[0]) + '">' + t[1] + '</button><button class="toggle-link" data-play="' + t[0] + '" aria-label="Play ' + t[1] + '">Play</button></div>'; }).join('');
+      return '<div class="pane"><div class="pane-head"><h2>My account</h2><span class="sample">Sample, changes are not saved</span></div>' +
+        '<div class="card"><h3>Name</h3><div class="two">' +
+        fld('ac-name', 'Full name (your team sees this)', '<input id="ac-name" data-bind="acct:name" value="' + esc(a.name) + '">') +
+        fld('ac-alias', 'Name shown to visitors', '<input id="ac-alias" data-bind="acct:alias" value="' + esc(a.alias) + '" maxlength="30">', 'Leave empty to use your first name.') + '</div>' +
+        '<p class="fine">Visitors see: <span class="alias-pv"><b>' + esc(shown) + '</b> joined the conversation</span>. The admin and the archive show your full name. Check it in the Embedded and Chat button views (Dutch).</p></div>' +
+        '<div class="card"><h3>Sound</h3><p class="sub">Only for your account. These are your own settings, other operators choose their own.</p>' +
+        '<div class="f"><span class="lbl">New chat</span><div class="tones">' + tones + '</div></div>' +
+        '<div class="f"><span class="lbl">Repeat</span>' + segHtml('repeat', a.repeat, [['until', 'Until someone takes it'], ['once', 'Once']]) + '</div>' +
+        '<div class="f"><label for="ac-vol">Volume</label><div class="vol"><input id="ac-vol" type="range" min="0" max="100" step="5" value="' + a.volume + '" data-vol><span id="ac-vol-v">' + a.volume + '%</span></div></div>' +
+        '<div class="f"><span class="lbl">New message in one of my chats</span>' + segHtml('msgtone', a.msgTone, [['off', 'Off'], ['chime', 'Soft chime'], ['beep', 'Double beep']]) + '</div></div></div>';
+    }
+
+    /* Ban dialog */
+    function banHtml() {
+      var b = st.ban, c = conv(st.sel); if (!b || !c) return '';
+      function opt(k, t, d) { return '<button class="opt" data-banwhat="' + k + '" aria-pressed="' + (b.what === k) + '"><i aria-hidden="true"></i><span><b>' + t + '</b><small>' + d + '</small></span></button>'; }
+      return '<div class="overlay ban-ov"><div class="dialog ban-dlg" role="dialog" aria-modal="true" aria-labelledby="ban-t"><b id="ban-t">Ban ' + esc(c.name) + '</b>' +
+        '<div class="f"><span class="lbl">What to ban</span>' + opt('browser', 'This browser', 'Recommended. Stops this visitor, even if their IP address changes.') + opt('ip', 'This IP address', 'Also blocks other people on the same network, such as a school, an office or a mobile provider.') + opt('both', 'Both', 'Hardest to get around. Same network warning.') + '</div>' +
+        '<div class="f"><span class="lbl">For how long</span>' + segHtml('bandur', b.dur, [['1h', '1 hour'], ['24h', '24 hours'], ['7d', '7 days'], ['30d', '30 days'], ['perm', 'Permanent']]) + '</div>' +
+        fld('ban-reason', 'Reason (only your team sees this)', '<input id="ban-reason" data-bind="banReason" value="' + esc(b.reason) + '" placeholder="For example: abusive language">') +
+        '<p class="fine">The visitor sees the ban message from Settings, Chat. A ban can be lifted at any time.</p>' +
+        '<div class="ban-acts"><button class="btn ghost" data-act="banno">Cancel</button><button class="btn danger-fill" data-act="banyes">Ban and end chat</button></div></div></div>';
+    }
 
     /* Archive */
     function scoreHtml(r) {
@@ -1713,7 +1935,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
 
     function mailsOf(v) { return v.split(',').map(function (m) { return m.trim(); }).filter(Boolean); }
     function chatTab() {
-      var mails = mailsOf(CHAT.mailTo), bad = mails.filter(function (m) { return !validEmail(m); }), mailBad = !mails.length || bad.length;
+      var f = CHAT.filter, mails = mailsOf(CHAT.mailTo), bad = mails.filter(function (m) { return !validEmail(m); }), mailBad = !mails.length || bad.length;
       return '<div class="card"><h3>Pre-chat form</h3><p class="sub">The fields visitors fill in before a conversation starts.</p>' +
         switchHtml(CHAT.nameReq, 'nametoggle', 'First name or nickname is required') +
         '<div class="f"><span class="lbl">E-mail address</span>' + segHtml('emailmode', CHAT.email, [['optional', 'Optional'], ['required', 'Required']]) + '</div>' +
@@ -1727,6 +1949,20 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
         '<div class="card"><h3>Opening hours</h3>' +
         langPair('ch-hrs', 'chat:hours', 'Opening hours text', CHAT.hours, { nl: T.nl.hours, fr: T.fr.hours }) +
         '<span class="fine">Shown to visitors in the offline message. Display text only, the chat does not follow a schedule in this prototype.</span></div>' +
+        '<div class="card"><h3>Word filter</h3><p class="sub">Swear words and insults are replaced by •••• in the chat, the archive and exports. Built-in lists for Dutch, French and English.</p>' +
+        switchHtml(f.visitor, 'fvis', 'Filter visitor messages') + switchHtml(f.op, 'fop', 'Filter operator messages') +
+        '<div class="f"><span class="lbl">Languages</span><div class="seg" role="group" aria-label="Filter languages">' + [['nl', 'Dutch'], ['fr', 'French'], ['en', 'English']].map(function (l) { return '<button data-flang="' + l[0] + '" aria-pressed="' + f.langs[l[0]] + '">' + l[1] + '</button>'; }).join('') + '</div></div>' +
+        fld('fw-extra', 'Extra words for this site', '<input id="fw-extra" data-bind="chat:filter.extra" value="' + esc(f.extra) + '" placeholder="Separate with commas">') +
+        fld('fw-allow', 'Never filter', '<input id="fw-allow" data-bind="chat:filter.allow" value="' + esc(f.allow) + '">', '"Kanker" is also a Dutch swear word, so it is on this list for Stichting tegen Kanker. Remove it and see Nadia\'s chat in the Inbox.') +
+        '<div class="f"><span class="lbl">When a visitor keeps swearing</span>' + segHtml('faction', f.action, [['none', 'Do nothing'], ['warn', 'Warn the operator after 3'], ['ban', 'Ban for 24 hours after 5']]) + '</div></div>' +
+        '<div class="card"><h3>Ban message</h3><p class="sub">What a banned visitor sees when they open the chat. See it in the visitor views, step "Geblokkeerd".</p>' +
+        langPair('ch-ban', 'chat:banText', 'Ban message', CHAT.banText, { nl: T.nl.banBody, fr: T.fr.banBody }, 'area') +
+        switchHtml(CHAT.banEnd, 'banend', 'Show when the ban ends') + '</div>' +
+        '<div class="card"><h3>Inactivity</h3><p class="sub">When the visitor stops replying, the operator gets a warning, and later the chat closes by itself.</p><div class="two">' +
+        fld('ch-iw', 'Warn after (minutes)', '<input id="ch-iw" data-bind="chat:idleWarn" value="' + esc(CHAT.idleWarn) + '" inputmode="numeric">') +
+        fld('ch-ic', 'Close after (minutes)', '<input id="ch-ic" data-bind="chat:idleClose" value="' + esc(CHAT.idleClose) + '" inputmode="numeric">') + '</div>' +
+        '<p class="fine">A chat that nobody takes ends as missed.</p></div>' +
+        '<div class="card"><h3>Transcripts</h3>' + switchHtml(CHAT.transcript, 'transcripttoggle', 'Let visitors ask for a copy of the conversation by e-mail') + '<p class="fine">Off by default.</p></div>' +
         '<p class="fine">Sample, changes are not saved. Changes show immediately in the Embedded and Chat button views.</p>';
     }
 
@@ -1775,6 +2011,10 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       var ret = { '30': '30 days', '90': '90 days', '365': '1 year', never: 'never' };
       return '<div class="card"><h3>Retention</h3>' + fld('pr-ret', 'Keep conversations', '<select id="pr-ret" data-bind="priv:retention">' + [['30', '30 days'], ['90', '90 days'], ['365', '1 year'], ['never', 'Never delete']].map(function (o) { return '<option value="' + o[0] + '"' + (p.retention === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select>') +
         '<p class="fine">' + (p.retention === 'never' ? 'Conversations are kept until you delete them yourself.' : 'Conversations are deleted automatically after ' + ret[p.retention] + '.') + ' Sample: nothing is actually deleted.</p></div>' +
+        '<div class="card"><h3>Returning visitors</h3>' +
+        '<button class="opt" data-returning="new" aria-pressed="' + (p.returning === 'new') + '"><i aria-hidden="true"></i><span><b>Treat every chat as a new visitor</b><small>Recommended for an anonymous help line. A visitor who comes back a day later starts a new chat that is not linked to the earlier one.</small></span></button>' +
+        '<button class="opt" data-returning="link" aria-pressed="' + (p.returning === 'link') + '"><i aria-hidden="true"></i><span><b>Link chats from the same browser</b><small>Operators see how many times someone chatted before.</small></span></button>' +
+        '<p class="fine">' + (p.returning === 'new' ? 'A browser or IP ban still works during the chat and up to 1 hour after it ends. After that, nothing in the archive points to the visitor\'s browser or IP address.' : 'See "Earlier chats" in the Inbox details.') + '</p></div>' +
         '<div class="card"><h3>Personal data</h3>' + switchHtml(p.mask, 'masktoggle', 'Hide personal data in stored conversations') +
         '<p class="fine">E-mail addresses and phone numbers are masked in the archive and in exports. See the result under <button class="toggle-link" data-page="archive">Archive</button> (for example the conversation with Els).</p></div>' +
         '<div class="card"><h3>Privacy policy and footer notice</h3>' +
@@ -1810,13 +2050,14 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
         var sb = root.querySelector('#signin-btn'); if (sb) sb.focus();
         return;
       }
-      var main = st.page === 'inbox' ? inbox() : st.page === 'archive' ? archivePane() : st.page === 'stats' ? statsPane() : st.page === 'usage' ? usagePane() : settingsPane();
+      var main = st.page === 'inbox' ? inbox() : st.page === 'archive' ? archivePane() : st.page === 'stats' ? statsPane() : st.page === 'usage' ? usagePane() : st.page === 'dm' ? dmPane() : st.page === 'account' ? accountPane() : settingsPane();
       var act = document.activeElement, keep = act && root.contains(act) && act.id && act.hasAttribute('data-bind') && !act.closest('.pv-card') ? act.id : null;
       var caret = keep ? act.selectionStart : null;
       var oldPane = root.querySelector('.pane'), vk = st.page + ':' + st.setTab;
       var paneTop = oldPane && vk === lastView ? oldPane.scrollTop : 0;
       lastView = vk;
-      root.innerHTML = side() + '<div class="main">' + main + '</div>' + toastHtml();
+      root.innerHTML = side() + '<div class="main">' + main + '</div>' + toastHtml() + banHtml();
+      var ts = root.querySelector('[data-tscroll]'); if (ts) ts.scrollTop = ts.scrollHeight;
       var pane = root.querySelector('.pane'); if (pane) pane.scrollTop = paneTop;
       var sc = root.querySelector('[data-scroll]');
       if (sc) sc.scrollTop = sc.scrollHeight;
@@ -1828,21 +2069,30 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
     }
 
     var audioCtx = null;
-    function chime() {
-      if (!st.sound) return;
+    var TONE_NOTES = {
+      ring: [[0, 440, 1.1, 'sine'], [0, 480, 1.1, 'sine']],
+      chime: [[0, 784, 0.35, 'sine'], [0.16, 988, 0.35, 'sine']],
+      beep: [[0, 880, 0.12, 'square'], [0.2, 880, 0.12, 'square']],
+      bell: [[0, 660, 1.4, 'triangle'], [0, 1320, 0.8, 'sine']]
+    };
+    function playTone(name) {
+      var vol = ACCT.volume / 100 * 0.2;
+      if (!vol || name === 'off') return;
       try {
         audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-        [0, 0.16].forEach(function (d, i) {
+        var t0 = audioCtx.currentTime;
+        (TONE_NOTES[name] || TONE_NOTES.chime).forEach(function (n) {
           var o = audioCtx.createOscillator(), g = audioCtx.createGain();
-          o.type = 'sine'; o.frequency.value = i ? 988 : 784;
-          g.gain.setValueAtTime(0.0001, audioCtx.currentTime + d);
-          g.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + d + 0.02);
-          g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + d + 0.35);
+          o.type = n[3]; o.frequency.value = n[1];
+          g.gain.setValueAtTime(0.0001, t0 + n[0]);
+          g.gain.exponentialRampToValueAtTime(n[3] === 'square' ? vol / 3 : vol, t0 + n[0] + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.0001, t0 + n[0] + n[2]);
           o.connect(g); g.connect(audioCtx.destination);
-          o.start(audioCtx.currentTime + d); o.stop(audioCtx.currentTime + d + 0.4);
+          o.start(t0 + n[0]); o.stop(t0 + n[0] + n[2] + 0.05);
         });
       } catch (e) {}
     }
+    function chime() { if (st.sound) playTone(ACCT.tone); }
 
     var visitorReplies = [
       'Oké, dat ga ik proberen. Wat raad je aan voor de pauzes?',
@@ -1852,7 +2102,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
     var vIdx = 0;
 
     function setPath(prefix, path, v) {
-      var o = prefix === 'app' ? APP : prefix === 'chat' ? CHAT : PRIV, p = path.split('.');
+      var o = prefix === 'app' ? APP : prefix === 'chat' ? CHAT : prefix === 'acct' ? ACCT : PRIV, p = path.split('.');
       for (var i = 0; i < p.length - 1; i++) o = o[p[i]];
       o[p[p.length - 1]] = v;
     }
@@ -1868,6 +2118,7 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
     }
     function onBind(k, v) {
       if (k === 'uPeriod') { st.uPeriod = v; render(); }
+      else if (k === 'dmQ') { st.dmQ = v; render(); }
       else if (k === 'domains') { st.domains = v; render(); }
       else if (k === 'app:hex') {
         st.hexDraft = v;
@@ -1888,9 +2139,28 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       if (e.target.closest('.pv-card')) return;
       var t, v, c0 = e.target;
       function pick(attr) { t = c0.closest('[' + attr + ']'); return t ? t.getAttribute(attr) : null; }
-      if ((v = pick('data-page')) !== null) { st.page = v; st.menu = false; st.userMenu = false; st.siteMenu = false; render(); return; }
+      if ((v = pick('data-page')) !== null) { st.page = v; st.menu = false; st.userMenu = false; st.siteMenu = false; st.dmPick = false; render(); return; }
       if ((v = pick('data-status')) !== null) { st.status = v; render(); return; }
-      if ((v = pick('data-conv')) !== null) { st.sel = +v; st.menu = false; render(conv(st.sel).status === 'mine'); return; }
+      if ((v = pick('data-conv')) !== null) { st.page = 'inbox'; st.sel = +v; st.menu = false; st.edit = null; st.unread[st.sel] = 0; conv(st.sel).mention = false; render(conv(st.sel).status === 'mine'); return; }
+      if ((v = pick('data-dm')) !== null) { st.page = 'dm'; st.dm = v; st.dmPick = false; dmOf(v).unread = 0; render(); var dd = root.querySelector('#dm-draft'); if (dd) dd.focus(); return; }
+      if ((v = pick('data-dmstart')) !== null) {
+        if (!dmOf(v)) DMS.push({ id: v, name: v, unread: 0, msgs: [] });
+        st.page = 'dm'; st.dm = v; st.dmPick = false; st.dmQ = ''; render(); var d2 = root.querySelector('#dm-draft'); if (d2) d2.focus(); return;
+      }
+      if ((v = pick('data-edit')) !== null) { var ec = conv(st.sel); st.edit = { conv: ec.id, idx: +v }; st.drafts[ec.id] = ec.msgs[+v].text; render(true); return; }
+      if ((v = pick('data-mention')) !== null) {
+        st.teamDrafts[st.sel] = (st.teamDrafts[st.sel] || '').replace(/@\w*$/, '@' + v.split(' ')[0] + ' ');
+        render(); var tt = root.querySelector('[data-bind="teamdraft"]'); if (tt) { tt.focus(); tt.setSelectionRange(tt.value.length, tt.value.length); } return;
+      }
+      if ((v = pick('data-banwhat')) !== null) { st.ban.what = v; render(); return; }
+      if ((v = pick('data-bandur')) !== null) { st.ban.dur = v; render(); return; }
+      if ((v = pick('data-tone')) !== null) { ACCT.tone = v; playTone(v); render(); return; }
+      if ((v = pick('data-play')) !== null) { playTone(v); return; }
+      if ((v = pick('data-repeat')) !== null) { ACCT.repeat = v; render(); return; }
+      if ((v = pick('data-msgtone')) !== null) { ACCT.msgTone = v; playTone(v); render(); return; }
+      if ((v = pick('data-flang')) !== null) { CHAT.filter.langs[v] = !CHAT.filter.langs[v]; applyChange(); return; }
+      if ((v = pick('data-faction')) !== null) { CHAT.filter.action = v; render(); return; }
+      if ((v = pick('data-returning')) !== null) { PRIV.returning = v; render(); return; }
       if ((v = pick('data-transfer')) !== null) {
         var c = conv(st.sel);
         c.status = 'theirs'; c.operator = v; c.msgs.push({ from: 'sys', text: 'Transferred to ' + v });
@@ -1953,6 +2223,24 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       else if (a === 'avremove') { APP.avatarImg = ''; st.avErr = ''; applyChange(); }
       else if (a === 'resetapp') { APP = defApp(); st.hexDraft = null; st.avErr = ''; applyChange(); }
       else if (a === 'masktoggle') { PRIV.mask = !PRIV.mask; render(); }
+      else if (a === 'dmnew') { st.dmPick = !st.dmPick; st.dmQ = ''; render(); var q = root.querySelector('#dm-q'); if (q) q.focus(); }
+      else if (a === 'editcancel') { st.edit = null; st.drafts[st.sel] = ''; render(true); }
+      else if (a === 'banask' && cur) { st.ban = { what: 'browser', dur: '24h', reason: '' }; st.menu = false; render(); var bo = root.querySelector('.ban-dlg [aria-pressed="true"]'); if (bo) bo.focus(); }
+      else if (a === 'banno') { st.ban = null; render(); }
+      else if (a === 'banyes' && cur) {
+        var DUR = { '1h': '1 hour', '24h': '24 hours', '7d': '7 days', '30d': '30 days', perm: 'permanently' }, WHAT = { browser: 'browser', ip: 'IP address', both: 'browser and IP address' };
+        var bm = Math.max(1, Math.round((Date.now() - cur.started) / 60000));
+        archive.unshift({ id: ++seq + 1000, date: 'Today, just now', name: cur.name, topic: cur.topic, op: ME, dur: bm + ' min', rating: null, lang: cur.lang, outcome: 'ok', comment: '', email: cur.email,
+          msgs: cur.msgs.map(function (x) { return [x.from, x.text]; }).concat([['sys', 'Banned by ' + ME + ' · ' + WHAT[st.ban.what] + ' · ' + DUR[st.ban.dur] + (st.ban.reason.trim() ? ' · ' + st.ban.reason.trim() : '')]]) });
+        var bn = cur.name; convs = convs.filter(function (x) { return x.id !== cur.id; });
+        var nx = convs.filter(function (x) { return x.status === 'mine'; })[0] || convs[0];
+        st.sel = nx ? nx.id : null; st.ban = null; st.edit = null;
+        flash(bn + ' is banned', 'The chat has ended. The visitor sees the ban message.');
+      }
+      else if (a === 'fvis') { CHAT.filter.visitor = !CHAT.filter.visitor; applyChange(); }
+      else if (a === 'fop') { CHAT.filter.op = !CHAT.filter.op; applyChange(); }
+      else if (a === 'banend') { CHAT.banEnd = !CHAT.banEnd; applyChange(); }
+      else if (a === 'transcripttoggle') { CHAT.transcript = !CHAT.transcript; render(); }
       else if (a === 'nametoggle') { CHAT.nameReq = !CHAT.nameReq; applyChange(); }
       else if (a === 'topictoggle') { CHAT.topic = !CHAT.topic; applyChange(); }
       else if (a === 'surveytoggle') { CHAT.survey = !CHAT.survey; applyChange(); }
@@ -1966,10 +2254,18 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
       var v = e.target.value;
       if (k === 'draft') st.drafts[st.sel] = v;
       else if (k === 'note') st.notes[st.sel] = v;
+      else if (k === 'teamdraft') { var had = /@\w*$/.test(st.teamDrafts[st.sel] || ''); st.teamDrafts[st.sel] = v; if (had || /@\w*$/.test(v)) render(); }
+      else if (k === 'dmDraft') st.dmDraft = v;
+      else if (k === 'banReason') st.ban.reason = v;
       else if (k === 'q') { st.q = v; render(); }
       else onBind(k, v);
     });
+    root.addEventListener('input', function (e) {
+      if (!e.target.hasAttribute('data-vol')) return;
+      ACCT.volume = +e.target.value; var vv = root.querySelector('#ac-vol-v'); if (vv) vv.textContent = ACCT.volume + '%';
+    });
     root.addEventListener('change', function (e) {
+      if (e.target.hasAttribute('data-vol')) { playTone(ACCT.tone); return; }
       if (e.target.closest('.pv-card')) return;
       var t = e.target;
       if (t.hasAttribute('data-avfile')) avatarFile(t.files && t.files[0]);
@@ -1980,11 +2276,14 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
     root.addEventListener('drop', function (e) { if (e.target.closest('.avdrop')) { e.preventDefault(); avatarFile(e.dataTransfer.files[0]); } });
     root.addEventListener('keydown', function (e) {
       if (e.target.closest('.pv-card')) return;
-      if (e.target.getAttribute('data-bind') === 'draft' && e.key === 'Enter' && !e.shiftKey) {
+      var kb = e.target.getAttribute('data-bind');
+      if ((kb === 'draft' || kb === 'dmDraft' || kb === 'teamdraft') && e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         var f = e.target.form; f.requestSubmit ? f.requestSubmit() : f.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
       }
       if (e.key === 'Enter' && e.target.hasAttribute('data-arc')) { st.arcSel = +e.target.getAttribute('data-arc'); st.delArc = null; render(); }
+      if (e.key === 'Escape' && st.ban) { st.ban = null; render(); return; }
+      if (e.key === 'Escape' && st.dmPick) { st.dmPick = false; render(); return; }
       if (e.key === 'Escape' && (st.userMenu || st.siteMenu)) {
         var wasSite = st.siteMenu; closeMenus(wasSite ? 'sp-btn' : 'usr-btn');
       } else if (e.key === 'Escape' && st.menu) { st.menu = false; render(); }
@@ -2000,8 +2299,14 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
     root.addEventListener('submit', function (e) {
       if (e.target.closest('.pv-card')) return;
       e.preventDefault();
+      var form = e.target.getAttribute('data-form');
+      if (form === 'dm') { sendDm(); return; }
+      if (form === 'team') { sendTeam(); return; }
       var c = conv(st.sel), text = (st.drafts[st.sel] || '').trim();
       if (!c || !text) return;
+      if (st.edit && st.edit.conv === c.id) {
+        var em = c.msgs[st.edit.idx]; em.text = text; em.edited = true; st.edit = null; st.drafts[c.id] = ''; render(true); return;
+      }
       c.msgs.push({ from: 'op', text: text }); st.drafts[c.id] = '';
       render(true);
       if (vIdx < visitorReplies.length) {
@@ -2010,10 +2315,44 @@ html.embed-admin .admin { height: 100vh; min-height: 680px; }
         setTimeout(function () {
           st.typing[id] = false;
           var cc = conv(id); if (cc) cc.msgs.push({ from: 'visitor', text: reply });
-          if (st.page === 'inbox' && st.sel === id) render(true); else if (view === 'beheer') render();
+          if (st.page === 'inbox' && st.sel === id) render(true);
+          else { st.unread[id] = (st.unread[id] || 0) + 1; if (ACCT.msgTone !== 'off') playTone(ACCT.msgTone); if (view === 'beheer') render(); }
         }, 2600);
       }
     });
+
+    function sendDm() {
+      var d = dmOf(st.dm), text = st.dmDraft.trim();
+      if (!d || !text) return;
+      d.msgs.push({ who: ME, t: hhmm(), text: text }); st.dmDraft = ''; render(); var dd = root.querySelector('#dm-draft'); if (dd) dd.focus();
+      var from = d.channel ? 'An Claes' : d.name, id = d.id;
+      var fm = member(from); if (fm && fm.s === 'off') return;
+      setTimeout(function () {
+        var dm = dmOf(id); if (!dm) return;
+        dm.msgs.push({ who: from, t: hhmm(), text: TEAM_REPLY[from] || 'Okay!' });
+        if (!(st.page === 'dm' && st.dm === id)) { dm.unread++; if (ACCT.msgTone !== 'off') playTone(ACCT.msgTone); }
+        if (view === 'beheer' && !(document.activeElement && root.contains(document.activeElement) && document.activeElement.tagName === 'TEXTAREA' && !(st.page === 'dm' && st.dm === id))) render();
+        if (st.page === 'dm' && st.dm === id) { var d3 = root.querySelector('#dm-draft'); if (d3) d3.focus(); }
+      }, 2200);
+    }
+    function sendTeam() {
+      var c = conv(st.sel), text = (st.teamDrafts[st.sel] || '').trim();
+      if (!c || !text) return;
+      c.team = c.team || [];
+      c.team.push({ who: ME, t: hhmm(), text: text }); st.teamDrafts[c.id] = '';
+      var asked = mentionIn(text).filter(function (n) { return n !== ME; });
+      asked.forEach(function (n) { c.team.push({ sys: n + ' was asked to join · can read along' }); });
+      render(); var tt = root.querySelector('[data-bind="teamdraft"]'); if (tt) tt.focus();
+      if (asked.length) {
+        var who = asked[0], cid = c.id;
+        setTimeout(function () {
+          var cc = conv(cid); if (!cc) return;
+          cc.team.push({ who: who, t: hhmm(), text: TEAM_REPLY[who] || 'On it.' });
+          if (view === 'beheer' && st.page === 'inbox' && st.sel === cid) { render(); var t2 = root.querySelector('[data-bind="teamdraft"]'); if (t2) t2.focus(); }
+          else { st.unread[cid] = (st.unread[cid] || 0) + 1; if (view === 'beheer') render(); }
+        }, 2400);
+      }
+    }
 
     setInterval(function () {
       if (view !== 'beheer' || st.signedOut) return;
